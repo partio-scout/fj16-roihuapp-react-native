@@ -11,23 +11,26 @@ import React, {
 import {styles} from './styles.js';
 
 export class Main extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      view: "calendar"
+    };
+  }
+
   render() {
     return (
         <View style={styles.main}>
             <View style={styles.content}>
-                <Text>1</Text>
-                <Text>2</Text>
-                <Text>3</Text>
-                <Text>4</Text>
-                <Text>5</Text>
+                {this.renderView()}
             </View>
             <View style={styles.buttonBar}>
                 <TouchableOpacity style={styles.button}
-                                  onPress={this._handlePress}>
+                                  onPress={(() => this.changeView("calendar"))}>
                     <Image source={require('./icons/calendar.png')}/>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button}
-                                  onPress={this._handlePress}>
+                                  onPress={(() => this.changeView("map"))}>
                     <Image source={require('./icons/pin.png')}/>
                 </TouchableOpacity>
             </View>
@@ -35,7 +38,39 @@ export class Main extends Component {
     );
   }
 
-  _handlePress(event) {
-    console.log('Pressed!');
+  changeView(view) {
+    this.setState({
+      view: view
+    });
+  }
+
+  renderView() {
+    switch (this.state.view) {
+    case "calendar":
+      return (<Calendar/>);
+      break;
+    case "map":
+      return (<Map/>);
+      break;
+    default:
+      return (<Calendar/>);
+    }
+  }
+
+};
+
+class Calendar extends Component {
+  render() {
+    return (
+        <Text>Kalenteri</Text>
+    );
+  }
+}
+
+class Map extends Component {
+  render() {
+    return (
+        <Text>Kartta</Text>
+    );
   }
 }
