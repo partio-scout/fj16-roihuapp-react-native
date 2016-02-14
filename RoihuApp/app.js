@@ -8,46 +8,62 @@ import React, {
   TouchableOpacity
 } from 'react-native';
 
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { connect } from 'react-redux';
+import thunk from 'redux-thunk';
+
 import {styles} from './styles.js';
 import {Map} from './components/map.js';
 import {Calendar} from './components/calendar.js';
 
-export class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      view: "calendar"
-    };
-  }
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
+const currentView = (
+  state = {view: "map"},
+  action) => {
+    switch (action.type) {
+    case "SET_VIEW":
+      return {view: action.view};
+    }
+    return state;
+  };
+
+const store = createStoreWithMiddleware(currentView);
+
+class MainView extends Component {
   render() {
     return (
-        <View style={styles.main}>
-            <View style={styles.content}>
-                {this.renderView()}
-            </View>
-            <View style={styles.buttonBar}>
-                <TouchableOpacity style={styles.button}
-                                  onPress={(() => this.changeView("calendar"))}>
-                    <Image source={require('./icons/calendar.png')}/>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button}
-                                  onPress={(() => this.changeView("map"))}>
-                    <Image source={require('./icons/pin.png')}/>
-                </TouchableOpacity>
-            </View>
+      <View style={styles.main}>
+        <View style={styles.content}>
+          {this.renderView(store.getState().view)}
         </View>
+        <View style={styles.buttonBar}>
+          <TouchableOpacity style={styles.button}
+                            onPress={() => store.dispatch({type: "SET_VIEW", view: "calendar"})}>
+            <Image source={require('./icons/calendar.png')}/>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}
+                            onPress={() => store.dispatch({type: "SET_VIEW", view: "map"})}>
+            <Image source={require('./icons/pin.png')}/>
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   }
 
-  changeView(view) {
-    this.setState({
-      view: view
-    });
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() =>
+      this.forceUpdate()
+    );
   }
 
-  renderView() {
-    switch (this.state.view) {
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  renderView(view) {
+    switch (view) {
     case "calendar":
       return (<Calendar/>);
       break;
@@ -59,4 +75,14 @@ export class Main extends Component {
     }
   }
 
+}
+
+export class Main extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <MainView/>
+      </Provider>
+    );
+  }
 };
