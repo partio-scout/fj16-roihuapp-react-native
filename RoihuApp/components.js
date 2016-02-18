@@ -9,6 +9,8 @@ import React, {
 } from 'react-native';
 
 import {styles} from './styles.js';
+import {Map} from './components/map.js';
+import {Calendar} from './components/calendar.js';
 
 export class Main extends Component {
   constructor(props) {
@@ -58,19 +60,3 @@ export class Main extends Component {
   }
 
 };
-
-class Calendar extends Component {
-  render() {
-    return (
-        <Text>Kalenteri</Text>
-    );
-  }
-}
-
-class Map extends Component {
-  render() {
-    return (
-        <Text>Kartta</Text>
-    );
-  }
-}
