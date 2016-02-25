@@ -4,7 +4,7 @@ import React, {
   Text
 } from 'react-native';
 
-class Map extends Component {
+export class Map extends Component {
   render() {
     return (
         <Text>Kartta</Text>
