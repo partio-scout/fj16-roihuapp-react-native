@@ -13,33 +13,18 @@ import { createStore, applyMiddleware, combineReducers, bindActionCreators } fro
 import { connect } from 'react-redux';
 import thunk from 'redux-thunk';
 
-import {styles} from './styles.js';
-import {Map} from './components/map.js';
-import {Calendar} from './components/calendar.js';
+import {styles} from '../../styles.js';
+import {Map} from '../map.js';
+import {Calendar} from '../calendar.js';
+import {currentView} from './reducers.js';
+import * as appActions from './actions.js';
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-
-const initialView = {view: "map"};
-
-const currentView = (
-  state = initialView,
-  action) => {
-    switch (action.type) {
-    case "SET_VIEW":
-      return {
-          ...state,
-        view: action.view};
-    }
-    return state;
-  };
-
-const store = createStoreWithMiddleware(currentView);
+const store = applyMiddleware(thunk)(createStore)(currentView);
 
 class MainView extends Component {
 
   render() {
-    const { view, actions } = this.props;
-    const { setView } = actions;
+    const { view, actions: {setView} } = this.props;
     return (
       <View style={styles.main}>
         <View style={styles.content}>
@@ -48,11 +33,11 @@ class MainView extends Component {
         <View style={styles.buttonBar}>
           <TouchableOpacity style={styles.button}
                             onPress={() => setView("calendar")}>
-            <Image source={require('./icons/calendar.png')}/>
+            <Image source={require('../../icons/calendar.png')}/>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
                             onPress={() => setView("map")}>
-            <Image source={require('./icons/pin.png')}/>
+            <Image source={require('../../icons/pin.png')}/>
           </TouchableOpacity>
         </View>
       </View>
@@ -77,10 +62,7 @@ class MainView extends Component {
 const ConnectedMainView = connect(state => ({
   view: state.view
 }), (dispatch) => ({
-  actions: bindActionCreators({
-    setView: (view) => ({
-      type: "SET_VIEW",
-      view: view})}, dispatch)
+  actions: bindActionCreators(appActions, dispatch)
 }))(MainView);
 
 export class App extends Component {

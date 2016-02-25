@@ -4,7 +4,7 @@ import React, {
   Component
 } from 'react-native';
 
-import {App} from './app.js';
+import {App} from './components/app/index.js';
 
 class RoihuApp extends Component {
   render() {
