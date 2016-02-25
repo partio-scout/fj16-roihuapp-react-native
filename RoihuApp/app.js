@@ -9,7 +9,7 @@ import React, {
 } from 'react-native';
 
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware, combineReducers, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import thunk from 'redux-thunk';
 
@@ -19,12 +19,16 @@ import {Calendar} from './components/calendar.js';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
+const initialView = {view: "map"};
+
 const currentView = (
-  state = {view: "map"},
+  state = initialView,
   action) => {
     switch (action.type) {
     case "SET_VIEW":
-      return {view: action.view};
+      return {
+          ...state,
+        view: action.view};
     }
     return state;
   };
@@ -32,34 +36,27 @@ const currentView = (
 const store = createStoreWithMiddleware(currentView);
 
 class MainView extends Component {
+
   render() {
+    const { view, actions } = this.props;
+    const { setView } = actions;
     return (
       <View style={styles.main}>
         <View style={styles.content}>
-          {this.renderView(store.getState().view)}
+          {this.renderView(view)}
         </View>
         <View style={styles.buttonBar}>
           <TouchableOpacity style={styles.button}
-                            onPress={() => store.dispatch({type: "SET_VIEW", view: "calendar"})}>
+                            onPress={() => setView("calendar")}>
             <Image source={require('./icons/calendar.png')}/>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
-                            onPress={() => store.dispatch({type: "SET_VIEW", view: "map"})}>
+                            onPress={() => setView("map")}>
             <Image source={require('./icons/pin.png')}/>
           </TouchableOpacity>
         </View>
       </View>
     );
-  }
-
-  componentDidMount() {
-    this.unsubscribe = store.subscribe(() =>
-      this.forceUpdate()
-    );
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
   }
 
   renderView(view) {
@@ -77,11 +74,20 @@ class MainView extends Component {
 
 }
 
-export class Main extends Component {
+const ConnectedMainView = connect(state => ({
+  view: state.view
+}), (dispatch) => ({
+  actions: bindActionCreators({
+    setView: (view) => ({
+      type: "SET_VIEW",
+      view: view})}, dispatch)
+}))(MainView);
+
+export class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <MainView/>
+        <ConnectedMainView/>
       </Provider>
     );
   }
