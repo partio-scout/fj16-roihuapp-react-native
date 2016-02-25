@@ -21,11 +21,21 @@ import {Input} from '../input/index.js';
 import {reducer} from './reducers.js';
 import * as actions from './actions.js';
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-const store = createStoreWithMiddleware(reducer);
+import * as storage from 'redux-storage';
+import createEngine from 'redux-storage-engine-reactnativeasyncstorage';
+
+const engine = createEngine('roihu');
+const middleware = storage.createMiddleware(engine);
+
+const createStoreWithMiddleware = applyMiddleware(middleware)(createStore);
+const store = createStoreWithMiddleware(storage.reducer(reducer));
 store.subscribe(() => {
   console.log(store.getState());
 });
+const load = storage.createLoader(engine);
+load(store)
+  .then((newState) => console.log('Loaded state:', newState))
+  .catch(() => console.log('Failed to load previous state'));
 
 class MainView extends Component {
 
