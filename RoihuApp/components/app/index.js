@@ -16,10 +16,16 @@ import thunk from 'redux-thunk';
 import {styles} from '../../styles.js';
 import {Map} from '../map.js';
 import {Calendar} from '../calendar.js';
-import {currentView} from './reducers.js';
-import * as appActions from './actions.js';
+import {Input} from '../input/index.js';
 
-const store = applyMiddleware(thunk)(createStore)(currentView);
+import {reducer} from './reducers.js';
+import * as actions from './actions.js';
+
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const store = createStoreWithMiddleware(reducer);
+store.subscribe(() => {
+  console.log(store.getState());
+});
 
 class MainView extends Component {
 
@@ -39,6 +45,10 @@ class MainView extends Component {
                             onPress={() => setView("map")}>
             <Image source={require('../../icons/pin.png')}/>
           </TouchableOpacity>
+          <TouchableOpacity style={styles.button}
+                            onPress={() => setView("input")}>
+            <Text>input</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -52,6 +62,9 @@ class MainView extends Component {
     case "map":
       return (<Map/>);
       break;
+    case "input":
+      return (<Input/>);
+      break;
     default:
       return (<Calendar/>);
     }
@@ -62,7 +75,7 @@ class MainView extends Component {
 const ConnectedMainView = connect(state => ({
   view: state.view
 }), (dispatch) => ({
-  actions: bindActionCreators(appActions, dispatch)
+  actions: bindActionCreators(actions, dispatch)
 }))(MainView);
 
 export class App extends Component {

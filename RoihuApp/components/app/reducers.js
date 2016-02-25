@@ -1,13 +1,19 @@
-const initialView = {view: "map"};
+import {text} from '../input/reducers.js';
+import { combineReducers } from 'redux';
 
-export const currentView = (
+const initialView = "input";
+
+const view = (
   state = initialView,
   action) => {
     switch (action.type) {
     case "SET_VIEW":
-      return {
-          ...state,
-        view: action.view};
+      return action.view;
     }
     return state;
   };
+
+export const reducer = combineReducers({
+  view,
+  text
+});
