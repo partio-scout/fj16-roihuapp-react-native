@@ -1,7 +1,6 @@
-import {text} from '../input/reducers.js';
 import { combineReducers } from 'redux';
 
-const initialView = "input";
+const initialView = "map";
 
 const view = (
   state = initialView,
@@ -14,6 +13,5 @@ const view = (
   };
 
 export const reducer = combineReducers({
-  view,
-  text
+  view
 });

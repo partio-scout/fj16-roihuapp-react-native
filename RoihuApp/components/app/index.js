@@ -16,7 +16,6 @@ import thunk from 'redux-thunk';
 import {styles} from '../../styles.js';
 import {Map} from '../map.js';
 import {Calendar} from '../calendar.js';
-import {Input} from '../input/index.js';
 
 import {reducer} from './reducers.js';
 import * as actions from './actions.js';
@@ -55,10 +54,6 @@ class MainView extends Component {
                             onPress={() => setView("map")}>
             <Image source={require('../../icons/pin.png')}/>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}
-                            onPress={() => setView("input")}>
-            <Text>input</Text>
-          </TouchableOpacity>
         </View>
       </View>
     );
@@ -71,9 +66,6 @@ class MainView extends Component {
       break;
     case "map":
       return (<Map/>);
-      break;
-    case "input":
-      return (<Input/>);
       break;
     default:
       return (<Calendar/>);
