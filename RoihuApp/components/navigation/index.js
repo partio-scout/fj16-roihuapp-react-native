@@ -14,7 +14,7 @@ import {Map} from '../map.js';
 import {Calendar} from '../calendar.js';
 import * as actions from './actions.js';
 
-class NavigationImpl extends Component {
+class Navigation extends Component {
 
   render() {
     const { view, actions: {setView} } = this.props;
@@ -52,8 +52,8 @@ class NavigationImpl extends Component {
 
 }
 
-export const Navigation = connect(state => ({
+export default connect(state => ({
   view: state.view
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
-}))(NavigationImpl);
+}))(Navigation);

@@ -12,7 +12,7 @@ import { createStore, applyMiddleware } from 'redux';
 import * as storage from 'redux-storage';
 import createEngine from 'redux-storage-engine-reactnativeasyncstorage';
 import {reducer} from './reducers.js';
-import {Navigation} from '../navigation/index.js';
+import Navigation from '../navigation/index.js';
 
 const engine = createEngine('roihu');
 const middleware = storage.createMiddleware(engine);
