@@ -2,7 +2,7 @@ machine:
   node:
     version: 4.3.1
   environment:
-    GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx512m -XX:+HeapDumpOnOutOfMemoryError"'
+    GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
 
 dependencies:
   override:
@@ -16,7 +16,7 @@ test:
     - ./gradlew assembleDebug -PdisablePreDex:
         pwd:
           RoihuApp/android
-        timeout: 360
+        timeout: 600
 
 general:
   artifacts:
