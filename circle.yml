@@ -1,3 +1,11 @@
+dependencies:
+  override:
+    - npm install:
+        pwd:
+          RoihuApp
+    - npm install -g react-native-cli
+    - react-native bundle
+
 test:
   override:
     - ./gradlew assembleDebug:
