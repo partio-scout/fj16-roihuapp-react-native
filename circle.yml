@@ -8,9 +8,6 @@ dependencies:
         pwd:
           RoihuApp
     - npm install -g react-native-cli
-    - react-native bundle:
-        pwd:
-          RoihuApp
 
 test:
   override:
