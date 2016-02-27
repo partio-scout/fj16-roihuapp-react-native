@@ -3,3 +3,7 @@ test:
     - ./gradlew assembleDebug:
         pwd:
           RoihuApp/android
+
+general:
+  artifacts:
+    - ./RoihuApp/android/app/build/outputs/apk
