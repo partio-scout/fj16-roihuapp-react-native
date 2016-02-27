@@ -11,12 +11,14 @@ dependencies:
           RoihuApp
     - npm install -g react-native-cli
 
-test:
-  pre:
-    - ./gradlew assembleDebug -PdisablePreDex:
-        pwd:
-          RoihuApp/android
-        timeout: 360
+deployment:
+  production:
+    branch: master
+    commands:
+      - ./gradlew assembleDebug -PdisablePreDex:
+          pwd:
+            RoihuApp/android
+          timeout: 360
 
 general:
   artifacts:
