@@ -13,7 +13,7 @@ dependencies:
 
 test:
   pre:
-    - ./gradlew assembleDebug:
+    - ./gradlew assembleDebug -PdisablePreDex:
         pwd:
           RoihuApp/android
         timeout: 360
