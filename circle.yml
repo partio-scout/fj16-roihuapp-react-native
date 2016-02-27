@@ -1,0 +1,9 @@
+machine:
+  xcode:
+    version: 7.3
+
+test:
+  override:
+    - ./gradlew assembleDebug:
+        pwd:
+          RoihuApp/android
