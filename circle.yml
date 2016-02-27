@@ -2,7 +2,7 @@ machine:
   node:
     version: 4.3.1
   environment:
-    GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
+    GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx512m -XX:+HeapDumpOnOutOfMemoryError"'
 
 dependencies:
   override:
@@ -12,10 +12,11 @@ dependencies:
     - npm install -g react-native-cli
 
 test:
-  override:
+  pre:
     - ./gradlew assembleDebug:
         pwd:
           RoihuApp/android
+        timeout: 360
 
 general:
   artifacts:
