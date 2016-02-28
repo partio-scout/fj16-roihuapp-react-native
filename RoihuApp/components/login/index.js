@@ -13,18 +13,18 @@ import * as actions from './actions.js';
 class Login extends Component {
 
   render() {
-    const { token } = this.props;
+    const { token, uri } = this.props;
     return (
       <View style={{flex: 1}}>
-        {this.renderLogin(token)}
+        {this.renderLogin(token, uri)}
       </View>
     );
   }
 
-  renderLogin(token) {
+  renderLogin(token, uri) {
     if (token === "") {
       return (
-        <WebView source={{uri:"https://peaceful-plateau-58782.herokuapp.com"}}
+        <WebView source={{uri: uri}}
                  style={{width: Dimensions.get("window").width}}
                  onNavigationStateChange={(navState) => this.onNavigationStateChange(navState)}/>
       );

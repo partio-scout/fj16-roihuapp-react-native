@@ -17,7 +17,7 @@ class Auth extends Component {
   renderChildren(token) {
     if (token === "") {
       return (
-        <Login/>
+        <Login uri="https://peaceful-plateau-58782.herokuapp.com"/>
       );
     } else {
       return (
