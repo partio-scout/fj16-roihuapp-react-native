@@ -35,11 +35,17 @@ class Login extends Component {
     }
   }
 
+  parseToken(url) {
+    const match = /.*token=(.*$)/.exec(url);
+    if (match)
+      return match[1];
+    return null;
+  }
+
   onNavigationStateChange(navState) {
-    var match = /.*token=(.*$)/.exec(navState.url);
-    if (match) {
-      const { actions: {setToken} } = this.props;
-      setToken(match[1]);
+    const token = this.parseToken(navState.url);
+    if (token) {
+      this.props.actions.setToken(token);
     }
   }
 }
