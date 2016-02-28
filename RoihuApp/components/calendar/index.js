@@ -4,10 +4,10 @@ import React, {
   Text
 } from 'react-native';
 
-export class Map extends Component {
+export default class Calendar extends Component {
   render() {
     return (
-        <Text>Kartta</Text>
+      <Text>Kalenteri</Text>
     );
   }
 }

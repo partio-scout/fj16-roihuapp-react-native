@@ -10,8 +10,8 @@ import React, {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {styles} from '../../styles.js';
-import {Map} from '../map.js';
-import {Calendar} from '../calendar.js';
+import Map from '../map/index.js';
+import Calendar from '../calendar/index.js';
 import * as actions from './actions.js';
 
 class Navigation extends Component {
