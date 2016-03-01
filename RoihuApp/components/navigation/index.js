@@ -12,6 +12,8 @@ import { bindActionCreators } from 'redux';
 import {styles} from '../../styles.js';
 import Map from '../map/index.js';
 import Calendar from '../calendar/index.js';
+import Auth from '../auth/index.js';
+import Info from '../info/index.js';
 import * as actions from './actions.js';
 
 class Navigation extends Component {
@@ -32,6 +34,10 @@ class Navigation extends Component {
                             onPress={() => setView("map")}>
             <Image source={require('../../icons/pin.png')}/>
           </TouchableOpacity>
+          <TouchableOpacity style={styles.button}
+                            onPress={() => setView("info")}>
+            <Image source={require('../../icons/info.png')}/>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -41,10 +47,14 @@ class Navigation extends Component {
     switch (view) {
     case "calendar":
       return (<Calendar/>);
-      break;
     case "map":
       return (<Map/>);
-      break;
+    case "info":
+      return (
+        <Auth>
+          <Info/>
+        </Auth>
+      );
     default:
       return (<Calendar/>);
     }

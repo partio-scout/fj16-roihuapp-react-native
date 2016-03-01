@@ -19,7 +19,7 @@ const middleware = storage.createMiddleware(engine);
 const createStoreWithMiddleware = applyMiddleware(middleware)(createStore);
 const store = createStoreWithMiddleware(storage.reducer(reducer));
 store.subscribe(() => {
-  console.log(store.getState());
+  console.log("state:", store.getState());
 });
 const load = storage.createLoader(engine);
 load(store)
