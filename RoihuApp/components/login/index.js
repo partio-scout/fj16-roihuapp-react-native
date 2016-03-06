@@ -26,6 +26,7 @@ class Login extends Component {
       return (
         <WebView source={{uri: uri}}
                  style={{width: Dimensions.get("window").width}}
+                 javaScriptEnabled={true}
                  onNavigationStateChange={(navState) => this.onNavigationStateChange(navState)}/>
       );
     } else {
@@ -35,15 +36,15 @@ class Login extends Component {
     }
   }
 
-  parseToken(url) {
-    const match = /.*token=(.*$)/.exec(url);
+  parseUserToken(url) {
+    const match = /roihu:\/\/([^\/]*)\/([^\/]*)/.exec(url);
     if (match)
-      return match[1];
-    return null;
+      return match.slice(1);
+    return [];
   }
 
   onNavigationStateChange(navState) {
-    const token = this.parseToken(navState.url);
+    const [, token] = this.parseUserToken(navState.url);
     if (token) {
       this.props.actions.setToken(token);
     }
