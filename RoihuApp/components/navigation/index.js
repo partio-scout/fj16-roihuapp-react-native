@@ -16,6 +16,7 @@ import Auth from '../auth/index.js';
 import Info from '../info/index.js';
 import Instructions from '../instructions/index.js';
 import * as actions from './actions.js';
+var Icon = require('react-native-vector-icons/MaterialIcons');
 
 class Navigation extends Component {
 
@@ -29,19 +30,19 @@ class Navigation extends Component {
         <View style={styles.buttonBar}>
           <TouchableOpacity style={styles.button}
                             onPress={() => setView("calendar")}>
-            <Image source={require('../../icons/calendar.png')}/>
+            <Icon name="date-range" size={30} color="#000000"/>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
                             onPress={() => setView("map")}>
-            <Image source={require('../../icons/pin.png')}/>
+            <Icon name="place" size={30} color="#000000"/>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
                             onPress={() => setView("info")}>
-            <Image source={require('../../icons/info.png')}/>
+            <Icon name="info-outline" size={30} color="#000000"/>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
                             onPress={() => setView("instructions")}>
-            <Text>Ohjeet</Text>
+            <Icon name="search" size={30} color="#000000"/>
           </TouchableOpacity>
         </View>
       </View>
