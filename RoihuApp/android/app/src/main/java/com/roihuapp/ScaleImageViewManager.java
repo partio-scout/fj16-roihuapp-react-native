@@ -1,5 +1,6 @@
 package com.roihuapp;
 
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -31,6 +32,6 @@ public class ScaleImageViewManager extends SimpleViewManager<SubsamplingScaleIma
     @ReactProp(name = "src")
     public void setSrc(SubsamplingScaleImageView view, @Nullable String src) {
         Log.i("ScaleImageViewManager", "setSrc: " + src);
-        view.setImage(ImageSource.uri("/sdcard/map.png"));
+        view.setImage(ImageSource.uri(Uri.parse(src)));
     }
 }

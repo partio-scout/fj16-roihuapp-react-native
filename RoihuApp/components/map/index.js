@@ -18,7 +18,6 @@ var iface = {
 };
 
 const RCTScaleImageView = requireNativeComponent('RCTScaleImageView', iface);
-const map = require('../../images/map.png');
 
 export default class Map extends Component {
   constructor(props) {
@@ -28,8 +27,8 @@ export default class Map extends Component {
   render() {
     return (
       <RCTScaleImageView
-         style={{flex: 1, width: 220, height: 400}}
-         src={"@drawable/map.png"} />
+         style={{flex: 1, width: Dimensions.get("window").width}}
+         src={"android.resource://com.roihuapp/drawable/map"} />
     );
   }
 
