@@ -48,7 +48,8 @@ function eventView(event) {
 
 function pageView(events) {
   return (
-    <View key={events[0].start_time.dayOfYear().toString()}>
+    <View key={events[0].start_time.dayOfYear().toString()}
+          style={styles.pageStyle}>
       {R.map(eventView, events)}
     </View>
   );
