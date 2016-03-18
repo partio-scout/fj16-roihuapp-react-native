@@ -37,7 +37,7 @@ const events = [
 ];
 
 function eventsByDay(events) {
-  return R.groupBy((event) => event.start_time.dayOfYear().toString(), events);
+  return R.groupBy((event) => Math.floor(event.start_time.unix() / 86400).toString(), events);
 }
 
 function eventView(event) {
@@ -59,7 +59,7 @@ export default class Calendar extends Component {
     const viewsByKey = R.sortBy(([key, view]) => parseInt(key),
                                 R.toPairs(R.map(pageView, eventsByDay(events))));
     const today = moment("2016-07-23T18:00:00+0300");
-    const todayIndex = R.findIndex(([key, view]) => key === today.dayOfYear().toString(), viewsByKey);
+    const todayIndex = R.findIndex(([key, view]) => key === Math.floor(today.unix() / 86400).toString(), viewsByKey);
     const views = R.map(([key, view]) => view, viewsByKey);
     return (
       <ViewPagerAndroid style={[styles.viewPager, {width: Dimensions.get('window').width}]}
