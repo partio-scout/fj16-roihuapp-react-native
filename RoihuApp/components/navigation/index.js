@@ -14,6 +14,7 @@ import Map from '../map/index.js';
 import Calendar from '../calendar/index.js';
 import Auth from '../auth/index.js';
 import Info from '../info/index.js';
+import Instructions from '../instructions/index.js';
 import * as actions from './actions.js';
 
 class Navigation extends Component {
@@ -38,6 +39,10 @@ class Navigation extends Component {
                             onPress={() => setView("info")}>
             <Image source={require('../../icons/info.png')}/>
           </TouchableOpacity>
+          <TouchableOpacity style={styles.button}
+                            onPress={() => setView("instructions")}>
+            <Text>Ohjeet</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -49,6 +54,8 @@ class Navigation extends Component {
       return (<Calendar/>);
     case "map":
       return (<Map/>);
+    case "instructions":
+      return (<Instructions/>);
     case "info":
       return (
         <Auth>
