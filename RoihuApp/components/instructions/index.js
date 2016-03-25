@@ -9,6 +9,7 @@ import React, {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { config } from '../../config.js';
 
 class Instructions extends Component {
   render() {
@@ -21,13 +22,13 @@ class Instructions extends Component {
           <TouchableOpacity onPress={() => this.fetchInstructions() }>
             <Text>Päivitä</Text>
           </TouchableOpacity>
-          <Text>{instructions.length} ohjetta</Text>
+          <Text>{instructions.categories.length} ohje kategoriaa</Text>
         </View>);
     }
   }
 
   fetchInstructions() {
-    fetch("http://roihuapp-demo.herokuapp.com/api/Instructions/Translations?lang=FI")
+    fetch(config.baseUrl + "/InstructionCategories/Translations?lang=FI")
       .then((response) => response.json())
       .then((instructions) => {
         this.props.actions.setInstructions(instructions);

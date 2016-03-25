@@ -1,5 +1,5 @@
 export const instructions = (
-  state = {instructions: [],
+  state = {instructions: {categories: []},
            error: null},
   action) => {
     switch (action.type) {
