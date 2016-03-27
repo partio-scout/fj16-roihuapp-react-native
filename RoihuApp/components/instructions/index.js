@@ -6,16 +6,24 @@ import React, {
   Text,
   ViewPagerAndroid,
   TouchableOpacity,
-  ListView
+  ListView,
+  StyleSheet
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config.js';
 
+const styles = StyleSheet.create({
+  backButton: {padding: 5},
+  listItem: {padding: 10},
+  section: {flex: 1, flexDirection: 'column'},
+  article: {padding: 10}
+});
+
 class Instructions extends Component {
   renderCategory(category) {
     return (
-      <View key={"category-" + category.id} style={{padding: 10}}>
+      <View key={"category-" + category.id} style={styles.listItem}>
         <TouchableOpacity onPress={() => this.props.actions.selectCategory(category.articles[0])}>
           <Text>{category.title}</Text>
         </TouchableOpacity>
@@ -25,7 +33,7 @@ class Instructions extends Component {
 
   renderArticle(article) {
     return (
-      <View key={"article-" + article.id} style={{padding: 10}}>
+      <View key={"article-" + article.id} style={styles.listItem}>
         <TouchableOpacity onPress={() => this.props.actions.selectArticle(article.bodytext)}>
           <Text>{article.title}</Text>
         </TouchableOpacity>
@@ -42,8 +50,9 @@ class Instructions extends Component {
       switch(view) {
       case "categories":
         return (
-          <View style={{flex: 1, flexDirection: 'column'}}>
-            <TouchableOpacity onPress={() => this.props.actions.setView("root")}>
+          <View style={styles.section}>
+            <TouchableOpacity style={styles.backButton}
+                              onPress={() => this.props.actions.setView("root")}>
               <Text>Takaisin</Text>
             </TouchableOpacity>
             <ListView key={"categories"}
@@ -54,16 +63,19 @@ class Instructions extends Component {
         );
       case "article":
         return (
-          <View style={{flex: 1, flexDirection: 'column', width: Dimensions.get("window").width}}>
-            <TouchableOpacity onPress={() => this.props.actions.setView("categories")}>
+          <View style={[styles.section, {width: Dimensions.get("window").width}]}>
+            <TouchableOpacity style={styles.backButton}
+                              onPress={() => this.props.actions.setView("categories")}>
               <Text>Takaisin</Text>
             </TouchableOpacity>
-            {article.split('\\n').map((paragraph, index) => (<Text key={"paragraph-" + index}>{paragraph}</Text>))}
+            <View style={styles.article}>
+              {article.split('\\n').map((paragraph, index) => (<Text key={"paragraph-" + index}>{paragraph}</Text>))}
+            </View>
           </View>
         );
       }
       return (
-        <View style={{flex: 1, flexDirection: 'column'}}>
+        <View style={styles.section}>
           <TouchableOpacity onPress={() => this.fetchInstructions()}>
             <Text>Päivitä</Text>
           </TouchableOpacity>
