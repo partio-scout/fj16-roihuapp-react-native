@@ -58,7 +58,7 @@ class Instructions extends Component {
             <TouchableOpacity onPress={() => this.props.actions.setView("categories")}>
               <Text>Takaisin</Text>
             </TouchableOpacity>
-            <Text>{article}</Text>
+            {article.split('\\n').map((paragraph, index) => (<Text key={"paragraph-" + index}>{paragraph}</Text>))}
           </View>
         );
       }
