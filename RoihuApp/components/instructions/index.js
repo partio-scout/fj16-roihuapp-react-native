@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 });
 
 class Instructions extends Component {
-  renderCategory(category) {
+  renderCategoryItem(category) {
     return (
       <View key={"category-" + category.id} style={styles.listItem}>
         <TouchableOpacity onPress={() => this.props.actions.selectCategory(category.articles[0])}>
@@ -31,13 +31,19 @@ class Instructions extends Component {
     );
   }
 
-  renderArticle(article) {
+  renderArticleItem(article) {
     return (
       <View key={"article-" + article.id} style={styles.listItem}>
         <TouchableOpacity onPress={() => this.props.actions.selectArticle(article.bodytext)}>
           <Text>{article.title}</Text>
         </TouchableOpacity>
       </View>
+    );
+  }
+
+  renderArticleBody(body) {
+    return (
+      body.split('\\n').map((paragraph, index) => (<Text key={"paragraph-" + index}>{paragraph}</Text>))
     );
   }
 
@@ -57,7 +63,7 @@ class Instructions extends Component {
             </TouchableOpacity>
             <ListView key={"categories"}
                       dataSource={categoryDataSource}
-                      renderRow={(article) => this.renderArticle(article) }
+                      renderRow={(article) => this.renderArticleItem(article) }
               style={{width: Dimensions.get("window").width}}/>
           </View>
         );
@@ -69,7 +75,7 @@ class Instructions extends Component {
               <Text>Takaisin</Text>
             </TouchableOpacity>
             <View style={styles.article}>
-              {article.split('\\n').map((paragraph, index) => (<Text key={"paragraph-" + index}>{paragraph}</Text>))}
+               {this.renderArticleBody(article)}
             </View>
           </View>
         );
@@ -81,7 +87,7 @@ class Instructions extends Component {
           </TouchableOpacity>
           <ListView key={"root"}
                     dataSource={rootDataSource}
-                    renderRow={(category) => this.renderCategory(category) }
+                    renderRow={(category) => this.renderCategoryItem(category) }
             style={{width: Dimensions.get("window").width}}/>
         </View>
       );
