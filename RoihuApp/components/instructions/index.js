@@ -4,7 +4,7 @@ import React, {
   View,
   Dimensions,
   Text,
-  ViewPagerAndroid,
+  Navigator,
   TouchableOpacity,
   ListView,
   StyleSheet
@@ -21,20 +21,26 @@ const styles = StyleSheet.create({
 });
 
 class Instructions extends Component {
-  renderCategoryItem(category) {
+  renderCategoryItem(category, navigator) {
     return (
       <View key={"category-" + category.id} style={styles.listItem}>
-        <TouchableOpacity onPress={() => this.props.actions.selectCategory(category.articles[0])}>
+        <TouchableOpacity onPress={() => {
+            this.props.actions.selectCategory(category.articles[0]);
+            navigator.push({name: "categories", index: 1});
+          }}>
           <Text>{category.title}</Text>
         </TouchableOpacity>
       </View>
     );
   }
 
-  renderArticleItem(article) {
+  renderArticleItem(article, navigator) {
     return (
       <View key={"article-" + article.id} style={styles.listItem}>
-        <TouchableOpacity onPress={() => this.props.actions.selectArticle(article.bodytext)}>
+        <TouchableOpacity onPress={() => {
+            this.props.actions.selectArticle(article.bodytext);
+            navigator.push({name: "article", index: 2});
+          }}>
           <Text>{article.title}</Text>
         </TouchableOpacity>
       </View>
@@ -47,48 +53,56 @@ class Instructions extends Component {
     );
   }
 
-  render() {
-    const { error, view, rootDataSource, categoryDataSource, article } = this.props;
-    console.log("article", article);
-    if (error !== null) {
-      return (<Text>Ei voitu hakea ohjeita</Text>);
-    } else {
-      switch(view) {
-      case "categories":
-        return (
-          <View style={styles.section}>
-            <TouchableOpacity style={styles.backButton}
-                              onPress={() => this.props.actions.setView("root")}>
-              <Text>Takaisin</Text>
-            </TouchableOpacity>
-            <ListView key={"categories"}
-                      dataSource={categoryDataSource}
-                      renderRow={(article) => this.renderArticleItem(article) }
-              style={{width: Dimensions.get("window").width}}/>
-          </View>
-        );
-      case "article":
-        return (
-          <View style={[styles.section, {width: Dimensions.get("window").width}]}>
-            <TouchableOpacity style={styles.backButton}
-                              onPress={() => this.props.actions.setView("categories")}>
-              <Text>Takaisin</Text>
-            </TouchableOpacity>
-            <View style={styles.article}>
-               {this.renderArticleBody(article)}
-            </View>
-          </View>
-        );
-      }
+  renderScene(route, navigator) {
+    const { rootDataSource, categoryDataSource, article } = this.props;
+    switch(route.name) {
+    case "categories":
       return (
         <View style={styles.section}>
-          <TouchableOpacity onPress={() => this.fetchInstructions()}>
-            <Text>Päivitä</Text>
+          <TouchableOpacity style={styles.backButton}
+                            onPress={() => navigator.pop()}>
+            <Text>Takaisin</Text>
           </TouchableOpacity>
-          <ListView key={"root"}
-                    dataSource={rootDataSource}
-                    renderRow={(category) => this.renderCategoryItem(category) }
+          <ListView key={"categories"}
+                    dataSource={categoryDataSource}
+                    renderRow={(article) => this.renderArticleItem(article, navigator) }
             style={{width: Dimensions.get("window").width}}/>
+        </View>
+      );
+    case "article":
+      return (
+        <View style={[styles.section, {width: Dimensions.get("window").width}]}>
+          <TouchableOpacity style={styles.backButton}
+                            onPress={() => navigator.pop()}>
+            <Text>Takaisin</Text>
+          </TouchableOpacity>
+          <View style={styles.article}>
+            {this.renderArticleBody(article)}
+          </View>
+        </View>
+      );
+    }
+    return (
+      <View style={styles.section}>
+        <TouchableOpacity onPress={() => this.fetchInstructions()}>
+          <Text>Päivitä</Text>
+        </TouchableOpacity>
+        <ListView key={"root"}
+                  dataSource={rootDataSource}
+                  renderRow={(category) => this.renderCategoryItem(category, navigator) }
+          style={{width: Dimensions.get("window").width}}/>
+      </View>
+    );
+  }
+
+  render() {
+    if (this.props.error !== null) {
+      return (<Text>Ei voitu hakea ohjeita</Text>);
+    } else {
+      return (
+        <View style={{flex: 1, width: Dimensions.get("window").width}}>
+          <Navigator initialRoute={{name: "root", index: 0}}
+                     renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
         </View>
       );
     }
@@ -129,10 +143,6 @@ const actions = {
   selectArticle: (article) => ({
     type: "SELECT_ARTICLE",
     article: article
-  }),
-  setView: (view) => ({
-    type: "SET_INSTRUCTION_VIEW",
-    view: view
   })
 };
 
@@ -141,7 +151,6 @@ export const instructions = (
            error: null,
            rootDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id}),
            categoryDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id}),
-           view: "root",
            article: ""},
   action) => {
     switch (action.type) {
@@ -149,17 +158,11 @@ export const instructions = (
       return Object.assign({}, state, {error: action.error});
     case "SET_INSTRUCTIONS":
       return Object.assign({}, state, {instructions: action.instructions,
-                                       rootDataSource: state.rootDataSource.cloneWithRows(action.instructions.categories),
-                                       view: "root"});
+                                       rootDataSource: state.rootDataSource.cloneWithRows(action.instructions.categories)});
     case "SELECT_CATEGORY":
-      return Object.assign({}, state, {categoryDataSource: state.categoryDataSource.cloneWithRows(action.articles),
-                                       view: "categories"});
+      return Object.assign({}, state, {categoryDataSource: state.categoryDataSource.cloneWithRows(action.articles)});
     case "SELECT_ARTICLE":
-      console.log("article selected", action.article);
-      return Object.assign({}, state, {article: action.article,
-                                       view: "article"});
-    case "SET_INSTRUCTION_VIEW":
-      return Object.assign({}, state, {view: action.view});
+      return Object.assign({}, state, {article: action.article});
     }
     return state;
   };
@@ -168,7 +171,6 @@ export default connect(state => ({
   instructions: state.instructions.instructions,
   rootDataSource: state.instructions.rootDataSource,
   categoryDataSource: state.instructions.categoryDataSource,
-  view: state.instructions.view,
   article: state.instructions.article,
   error: state.instructions.error
 }), (dispatch) => ({
