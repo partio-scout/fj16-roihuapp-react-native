@@ -9,6 +9,7 @@ import React, {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from './actions.js';
+import { parseCredentials } from '../auth/utils.js';
 
 class Login extends Component {
 
@@ -36,15 +37,8 @@ class Login extends Component {
     }
   }
 
-  parseCredentials(url) {
-    const match = /roihu:\/\/([^\/]*)\/([^\/]*)/.exec(url);
-    if (match)
-      return match.slice(1);
-    return [];
-  }
-
   onNavigationStateChange(navState) {
-    const [userId, token] = this.parseCredentials(navState.url);
+    const [userId, token] = parseCredentials(navState.url);
     if (userId && token) {
       this.props.actions.setCredentials({token: token, userId: userId});
     }

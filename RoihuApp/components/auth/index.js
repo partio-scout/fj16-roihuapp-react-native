@@ -1,11 +1,15 @@
 'use strict';
 import React, {
   Component,
-  View
+  View,
+  Linking
 } from 'react-native';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '../login/actions.js';
 import Login from '../login/index.js';
 import { config } from '../../config.js';
+import { parseCredentials } from '../auth/utils.js';
 
 class Auth extends Component {
   render() {
@@ -26,9 +30,22 @@ class Auth extends Component {
       );
     }
   }
+
+  componentDidMount() {
+    Linking.getInitialURL().then((url) => {
+      if (url) {
+        const [userId, token] = parseCredentials(url);
+        if (userId && token) {
+          this.props.actions.setCredentials({token: token, userId: userId});
+        }
+      }
+    });
+  }
 }
 
 export default connect(state => ({
   credentials: state.credentials,
   userId: state.userId
+}), (dispatch) => ({
+  actions: bindActionCreators(actions, dispatch)
 }))(Auth);
