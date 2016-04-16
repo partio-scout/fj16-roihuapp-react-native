@@ -14,10 +14,11 @@ import { bindActionCreators } from 'redux';
 import { config } from '../../config.js';
 
 const styles = StyleSheet.create({
-  backButton: {padding: 5},
+  backButton: {padding: 10},
   listItem: {padding: 10},
   section: {flex: 1, flexDirection: 'column'},
-  article: {padding: 10}
+  article: {padding: 10},
+  refreshButton: {padding: 10}
 });
 
 class Instructions extends Component {
@@ -84,7 +85,8 @@ class Instructions extends Component {
     }
     return (
       <View style={styles.section}>
-        <TouchableOpacity onPress={() => this.fetchInstructions()}>
+        <TouchableOpacity style={styles.refreshButton}
+                          onPress={() => this.fetchInstructions()}>
           <Text>Päivitä</Text>
         </TouchableOpacity>
         <ListView key={"root"}
