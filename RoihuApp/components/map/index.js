@@ -23,7 +23,7 @@ const RCTScaleImageView = requireNativeComponent('RCTScaleImageView', iface);
 // using 'android.resource://' URI as reference.
 // Packager translates /images/map.jpg to 'res/drawable-mdpi-v4/images_map.jpg'.
 // Resulting resource URI is 'android.resource://com.roihuapp/drawable/images_map'
-const map = require('../../images/map.jpg');
+const map = require('../../images/mapv7000.png');
 
 export default class Map extends Component {
   constructor(props) {
@@ -34,7 +34,7 @@ export default class Map extends Component {
     return (
       <RCTScaleImageView
          style={{flex: 1, width: Dimensions.get("window").width}}
-         src={"android.resource://com.roihuapp/drawable/images_map"} />
+         src={"android.resource://com.roihuapp/drawable/images_mapv5000"} />
     );
   }
 
