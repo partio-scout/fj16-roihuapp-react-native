@@ -8,10 +8,11 @@ import React, {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { config } from '../../config.js';
 
 class Info extends Component {
   render() {
-    const { token, data, error } = this.props;
+    const { credentials, data, error } = this.props;
     console.log("props", this.props);
     if (!isEmpty(data)) {
       return (
@@ -29,9 +30,9 @@ class Info extends Component {
   }
 
   componentDidMount() {
-    const { token } = this.props;
-    if (token !== "") {
-      fetch("https://peaceful-plateau-58782.herokuapp.com/me?token=" + token)
+    const { credentials } = this.props;
+    if (credentials !== null) {
+      fetch(config.apiUrl + "/RoihuUsers/" + credentials.userId + "?access_token=" + credentials.token)
         .then((response) => response.json())
         .then((info) => {
           this.props.actions.setInfo(info);
@@ -63,7 +64,7 @@ const actions = {
 };
 
 export default connect(state => ({
-  token: state.token,
+  credentials: state.credentials,
   data: state.info.data,
   error: state.info.error
 }), (dispatch) => ({

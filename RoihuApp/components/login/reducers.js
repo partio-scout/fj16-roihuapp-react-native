@@ -1,9 +1,9 @@
-export const token = (
-  state = "",
+export const credentials = (
+  state = null,
   action) => {
     switch (action.type) {
-        case "SET_TOKEN":
-      return action.token;
-        }
+    case "SET_CREDENTIALS":
+      return Object.assign({}, state, action.credentials);
+    }
     return state;
   };

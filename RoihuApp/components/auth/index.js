@@ -5,19 +5,20 @@ import React, {
 } from 'react-native';
 import { connect } from 'react-redux';
 import Login from '../login/index.js';
+import { config } from '../../config.js';
 
 class Auth extends Component {
   render() {
-    const { token } = this.props;
+    const { credentials } = this.props;
     return (
-      <View style={{flex: 1}}>{this.renderChildren(token)}</View>
+      <View style={{flex: 1}}>{this.renderChildren(credentials)}</View>
     );
   }
 
-  renderChildren(token) {
-    if (token === "") {
+  renderChildren(credentials) {
+    if (credentials === null) {
       return (
-        <Login uri="http://roihuapp-demo.herokuapp.com/saml/login"/>
+        <Login uri={config.loginUrl}/>
       );
     } else {
       return (
@@ -28,5 +29,6 @@ class Auth extends Component {
 }
 
 export default connect(state => ({
-  token: state.token
+  credentials: state.credentials,
+  userId: state.userId
 }))(Auth);

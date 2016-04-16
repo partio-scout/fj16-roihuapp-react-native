@@ -112,7 +112,7 @@ class Instructions extends Component {
 
   fetchInstructions() {
     console.log("Fetching instructions");
-    fetch(config.baseUrl + "/InstructionCategories/Translations?lang=FI")
+    fetch(config.apiUrl + "/InstructionCategories/Translations?lang=FI")
       .then((response) => response.json())
       .then((instructions) => {
         this.props.actions.setInstructions(instructions);

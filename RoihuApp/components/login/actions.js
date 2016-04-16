@@ -1,4 +1,4 @@
-export const setToken = (token) => ({
-  type: "SET_TOKEN",
-  token: token
+export const setCredentials = (credentials) => ({
+  type: "SET_CREDENTIALS",
+  credentials: credentials
 });

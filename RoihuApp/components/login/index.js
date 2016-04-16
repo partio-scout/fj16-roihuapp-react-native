@@ -13,16 +13,16 @@ import * as actions from './actions.js';
 class Login extends Component {
 
   render() {
-    const { token, uri } = this.props;
+    const { credentials, uri } = this.props;
     return (
       <View style={{flex: 1}}>
-        {this.renderLogin(token, uri)}
+        {this.renderLogin(credentials, uri)}
       </View>
     );
   }
 
-  renderLogin(token, uri) {
-    if (token === "") {
+  renderLogin(credentials, uri) {
+    if (credentials === null) {
       return (
         <WebView source={{uri: uri}}
                  style={{width: Dimensions.get("window").width}}
@@ -36,7 +36,7 @@ class Login extends Component {
     }
   }
 
-  parseUserToken(url) {
+  parseCredentials(url) {
     const match = /roihu:\/\/([^\/]*)\/([^\/]*)/.exec(url);
     if (match)
       return match.slice(1);
@@ -44,15 +44,15 @@ class Login extends Component {
   }
 
   onNavigationStateChange(navState) {
-    const [, token] = this.parseUserToken(navState.url);
-    if (token) {
-      this.props.actions.setToken(token);
+    const [userId, token] = this.parseCredentials(navState.url);
+    if (userId && token) {
+      this.props.actions.setCredentials({token: token, userId: userId});
     }
   }
 }
 
 export default connect(state => ({
-  token: state.token
+  credentials: state.credentials
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 }))(Login);

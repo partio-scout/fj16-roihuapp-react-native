@@ -1,3 +1,4 @@
 export const config = {
-  baseUrl: "https://roihuapp-demo.herokuapp.com/api"
+  apiUrl: "https://roihuapp-demo.herokuapp.com/api",
+  loginUrl: "https://roihuapp-demo.herokuapp.com/saml/login"
 };
