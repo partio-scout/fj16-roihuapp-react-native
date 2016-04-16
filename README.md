@@ -24,3 +24,9 @@ Start an emulator
 Compile and run the app
 
     react-native run-android
+
+Alternatively, if the Android application is already installed, start it on the device and run (in ```RoihuApp``` directory)
+
+    npm start
+
+, which starts React Native Packager, after which changes are visible in the app (enable ```Live Reload``` for fast feedback).
