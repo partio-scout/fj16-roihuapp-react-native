@@ -46,6 +46,7 @@ class EmailLogin extends Component {
           <TextInput value={this.state.text}
                      autoCapitalize={'none'}
                      autoCorrect={false}
+                     onSubmitEditing={() => this.props.send(this.state.text)}
                      onChangeText={(text) => this.setState({text})}/>
         </View>
         <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
