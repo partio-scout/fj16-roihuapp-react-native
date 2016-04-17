@@ -23,3 +23,7 @@ export const styles = StyleSheet.create({
     marginBottom: 5
   }
 });
+
+export const navigationStyles = StyleSheet.create({
+  backButton: {margin: 10}
+});

@@ -12,9 +12,9 @@ import React, {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config.js';
+import { navigationStyles } from '../../styles.js';
 
 const styles = StyleSheet.create({
-  backButton: {padding: 10},
   listItem: {padding: 10},
   section: {flex: 1, flexDirection: 'column'},
   article: {padding: 10},
@@ -60,7 +60,7 @@ class Instructions extends Component {
     case "categories":
       return (
         <View style={styles.section}>
-          <TouchableOpacity style={styles.backButton}
+          <TouchableOpacity style={navigationStyles.backButton}
                             onPress={() => navigator.pop()}>
             <Text>Takaisin</Text>
           </TouchableOpacity>
@@ -73,7 +73,7 @@ class Instructions extends Component {
     case "article":
       return (
         <View style={[styles.section, {width: Dimensions.get("window").width}]}>
-          <TouchableOpacity style={styles.backButton}
+          <TouchableOpacity style={navigationStyles.backButton}
                             onPress={() => navigator.pop()}>
             <Text>Takaisin</Text>
           </TouchableOpacity>

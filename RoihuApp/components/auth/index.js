@@ -17,6 +17,7 @@ import { setCredentials } from '../login/actions.js';
 import Login from '../login/index.js';
 import { config } from '../../config.js';
 import { parseCredentials } from '../auth/utils.js';
+import { navigationStyles } from '../../styles.js';
 
 const styles = StyleSheet.create({
   sendButton: {
@@ -126,7 +127,7 @@ class Auth extends Component {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
         <TouchableOpacity onPress={() => navigator.pop()}>
-          <Text>
+          <Text style={navigationStyles.backButton}>
             Takaisin
           </Text>
         </TouchableOpacity>
@@ -174,7 +175,7 @@ class Auth extends Component {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
         <TouchableOpacity onPress={() => navigator.pop()}>
-          <Text>
+          <Text style={navigationStyles.backButton}>
             Lähetä uudelleen
           </Text>
         </TouchableOpacity>
@@ -192,7 +193,7 @@ class Auth extends Component {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
         <TouchableOpacity onPress={() => navigator.pop()}>
-          <Text>
+          <Text style={navigationStyles.backButton}>
             Takaisin
           </Text>
         </TouchableOpacity>
