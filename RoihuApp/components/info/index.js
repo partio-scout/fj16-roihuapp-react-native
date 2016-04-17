@@ -3,8 +3,7 @@ import React, {
   Component,
   StyleSheet,
   Text,
-  View,
-  Image
+  View
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

@@ -4,7 +4,6 @@ import React, {
   StyleSheet,
   Text,
   View,
-  Image,
   TouchableOpacity
 } from 'react-native';
 import { Provider } from 'react-redux';
