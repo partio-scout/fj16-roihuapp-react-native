@@ -202,7 +202,6 @@ class Auth extends Component {
   }
 
   renderScene(route, navigator) {
-    console.log("route", route);
     switch(route.name) {
     case "email":
       return this.renderEmailScene(navigator);
