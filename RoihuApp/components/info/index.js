@@ -6,12 +6,17 @@ import React, {
   View,
   TouchableOpacity,
   Dimensions,
-  Image
+  Image,
+  CameraRoll,
+  Navigator
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config.js';
 import { removeCredentials } from '../login/actions.js';
+import { navigationStyles } from '../../styles.js';
+const Icon = require('react-native-vector-icons/MaterialIcons');
+const CameraRollView = require('./CameraRollView');
 
 const styles = StyleSheet.create({
   key: {
@@ -51,8 +56,55 @@ class Info extends Component {
     ));
   }
 
-  renderInfo() {
-    const { data } = this.props;
+  chooseImage(asset, navigator, setImage) {
+    setImage(asset.node.image);
+    console.log("asset", asset);
+    console.log(setImage);
+    navigator.pop();
+  }
+
+  renderImage(asset, onSelection) {
+    return (
+      <TouchableOpacity key={asset} onPress={() => onSelection(asset)}>
+        <Image source={asset.node.image}
+               style={{width: 150, height: 150, margin: 5}}/>
+      </TouchableOpacity>
+    );
+  }
+
+  listImages(navigator, setImage) {
+    return (
+      <View>
+        <TouchableOpacity style={navigationStyles.backButton}
+                          onPress={() => navigator.pop()}>
+          <Text>Takaisin</Text>
+        </TouchableOpacity>
+        <CameraRollView
+          batchSize={20}
+           groupTypes={"All"}
+           renderImage={(asset) => this.renderImage(asset, (asset) => this.chooseImage(asset, navigator, setImage))}
+          />
+      </View>
+    );
+  }
+
+
+  renderImageSelection(navigator, image) {
+    if (image === null) {
+      return (
+        <TouchableOpacity style={{margin: 10}} onPress={() => navigator.push({name: "list-image"})}>
+          <Icon name="add-a-photo" size={100} color="#000000"/>
+        </TouchableOpacity>
+      );
+    } else {
+      return (
+        <Image source={image}
+               style={{width: 150, height: 150, margin: 5}}/>
+      );
+    }
+  }
+
+  renderInfo(data, image, navigator) {
     return (
       <View style={{flex: 1, flexDirection: 'column', width: Dimensions.get('window').width}}>
         <View style={{flexDirection: 'row'}}>
@@ -77,7 +129,9 @@ class Info extends Component {
           </TouchableOpacity>
         </View>
         <View style={{flexDirection: 'row'}}>
-          <Image source={require('../../images/saku.png')}/>
+          <TouchableOpacity style={{margin: 10}} onPress={() => navigator.push({name: "list-image"})}>
+            {this.renderImageSelection(navigator, image)}
+          </TouchableOpacity>
           <View style={{marginLeft: 10}}>
             <Text style={styles.nickname}>
               {data.nickname}
@@ -95,9 +149,25 @@ class Info extends Component {
     );
   }
 
+  renderScene(route, navigator) {
+    switch(route.name) {
+    case "list-image":
+      return this.listImages(navigator, this.props.actions.setImage);
+    case "root":
+    default:
+      return this.renderInfo(this.props.data, this.props.image, navigator);
+    }
+  }
+
   render() {
     const { data, error } = this.props;
     if (!isEmpty(data)) {
+      return (
+        <View style={{flex: 1, width: Dimensions.get("window").width}}>
+          <Navigator initialRoute={{name: "root"}}
+                     renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
+        </View>
+      );
       return this.renderInfo();
     } else if (error !== null) {
       return (
@@ -147,10 +217,16 @@ const setError = (error) => ({
   error: error
 });
 
+const setImage = (image) => ({
+  type: "SET_IMAGE",
+  image: image
+})
+
 export default connect(state => ({
   credentials: state.credentials,
   data: state.info.data,
-  error: state.info.error
+  error: state.info.error,
+  image: state.info.image
 }), (dispatch) => ({
-  actions: bindActionCreators({setInfo, setError, removeCredentials}, dispatch)
+  actions: bindActionCreators({setInfo, setError, removeCredentials, setImage}, dispatch)
 }))(Info);

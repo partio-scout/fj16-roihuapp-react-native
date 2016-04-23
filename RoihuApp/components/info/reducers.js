@@ -1,8 +1,11 @@
 export const info = (
   state = {data: {},
-           error: null},
+           error: null,
+           image: null},
   action) => {
     switch (action.type) {
+    case "SET_IMAGE":
+      return Object.assign({}, state, {image: action.image});
     case "SET_INFO":
       return Object.assign({}, state, {data: action.data});
     case "SET_ERROR":
