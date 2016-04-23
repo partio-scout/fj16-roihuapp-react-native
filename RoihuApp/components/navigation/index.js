@@ -15,6 +15,7 @@ import Auth from '../auth/index.js';
 import User from '../user/index.js';
 import Info from '../info/index.js';
 import SettingsWrapper from '../settings/wrapper.js';
+import Achievements from '../achi/index.js';
 import * as actions from './actions.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
@@ -28,6 +29,13 @@ class Navigation extends Component {
           {this.renderView(view)}
         </View>
         <View style={styles.buttonBar}>
+        <TouchableOpacity style={styles.button}
+                          onPress={() => setView("achievements")}>
+            <View style={{alignItems: 'center'}}>
+              <Icon name="assessment" size={30} color="#000000"/>
+              <Text>Saavutukset</Text>
+            </View>
+        </TouchableOpacity>
           <TouchableOpacity style={styles.button}
                             onPress={() => setView("map")}>
             <View style={{alignItems: 'center'}}>
@@ -58,6 +66,8 @@ class Navigation extends Component {
     switch (view) {
     case "info":
       return (<Info/>);
+    case "achievements":
+      return (<Achievements/>);
     case "user":
       return (
         <SettingsWrapper>
