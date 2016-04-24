@@ -93,20 +93,22 @@ class Auth extends Component {
               flexDirection: 'column',
               alignItems: 'center'}
             }>
-        <Image source={require('../../images/logo.png')}
+        <Image source={require('../../images/logo_white.png')}
                style={{margin: 20}}/>
         <Text style={{
                 padding: 15,
                 textAlign: 'center'
               }}>
-          Kirjautuminen vaaditaan
+          Kirjautuminen vaaditaan omien tietojen näkemiseksi
         </Text>
         <TouchableOpacity onPress={() => navigator.push({name: "partioid"}) }>
           <Text style={{
                   padding: 15,
-                  textAlign: 'center'
+                  textAlign: 'center',
+                  fontSize: 20,
+                  color: 'blue'
                 }}>
-            Minulla on PartioID
+            Kirjaudu PartioID:llä
           </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => {
@@ -114,9 +116,11 @@ class Auth extends Component {
           }}>
           <View style={{flex: 1, flexDirection: 'column'}}>
             <Text style={{textAlign: 'center'}}>
-              Mikä PartioID?
+              Jos et ole Suomen Partiolaisten jäsen, kirjaudu
             </Text>
-            <Text style={{textAlign: 'center'}}>Kirjaudu sähköpostilla</Text>
+            <Text style={{textAlign: 'center', fontSize: 20, color: 'blue'}}>
+              Sähköpostiosoitteella
+            </Text>
           </View>
         </TouchableOpacity>
       </View>
