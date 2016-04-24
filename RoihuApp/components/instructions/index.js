@@ -39,7 +39,7 @@ class Instructions extends Component {
     return (
       <View key={"article-" + article.id} style={styles.listItem}>
         <TouchableOpacity onPress={() => {
-            this.props.actions.selectArticle(article.bodytext);
+            this.props.actions.selectArticle(article);
             navigator.push({name: "article", index: 2});
           }}>
           <Text>{article.title}</Text>
@@ -48,9 +48,20 @@ class Instructions extends Component {
     );
   }
 
-  renderArticleBody(body) {
+  renderBody(body) {
     return (
       body.split('\\n').map((paragraph, index) => (<Text key={"paragraph-" + index}>{paragraph}</Text>))
+    );
+  }
+
+  renderArticle(article) {
+    return (
+      <View>
+        <Text style={{textAlign: 'center', marginBottom: 20}}>
+          {article.title}
+        </Text>
+        {this.renderBody(article.bodytext)}
+      </View>
     );
   }
 
@@ -78,7 +89,7 @@ class Instructions extends Component {
             <Text>Takaisin</Text>
           </TouchableOpacity>
           <View style={styles.article}>
-            {this.renderArticleBody(article)}
+            {this.renderArticle(article)}
           </View>
         </View>
       );
