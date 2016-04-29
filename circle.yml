@@ -4,6 +4,8 @@ machine:
     _JAVA_OPTIONS: "-Xmx1024m"
 
 dependencies:
+  pre:
+    - brew install node
   override:
     - npm install:
         pwd:
