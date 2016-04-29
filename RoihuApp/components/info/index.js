@@ -85,6 +85,7 @@ class Info extends Component {
     return (
       <TouchableOpacity key={asset} onPress={() => onSelection(asset)}>
         <Image source={asset.node.image}
+               resizeMode={'contain'}
                style={{width: 150, height: 150, margin: 5}}/>
       </TouchableOpacity>
     );
