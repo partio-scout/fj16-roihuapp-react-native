@@ -1,13 +1,15 @@
 'use strict';
 import React, {
-  StyleSheet
+  StyleSheet,
+  Platform
 } from 'react-native';
 
 export const styles = StyleSheet.create({
   main: {
     flexDirection: 'column',
     flex: 1,
-    backgroundColor: '#F5FCFF'
+    backgroundColor: '#F5FCFF',
+    paddingTop: Platform.OS === 'ios' ? 10: 0
   },
   content: {
     flex: 1,
