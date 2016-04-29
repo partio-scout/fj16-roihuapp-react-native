@@ -8,13 +8,16 @@ import React, {
   Dimensions,
   Image,
   CameraRoll,
-  Navigator
+  Navigator,
+  BackAndroid,
+  Platform
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config.js';
 import { removeCredentials } from '../login/actions.js';
 import { navigationStyles } from '../../styles.js';
+import { renderBackButton } from '../../utils.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 const CameraRollView = require('./CameraRollView');
 
@@ -35,6 +38,21 @@ const styles = StyleSheet.create({
     fontSize: 50
   }
 });
+
+var _navigator;
+
+if (Platform.OS === 'android') {
+  BackAndroid.addEventListener('hardwareBackPress', () => {
+    if (!_navigator) {
+      return false;
+    }
+    if (_navigator.getCurrentRoutes().length === 1  ) {
+      return false;
+    }
+    _navigator.pop();
+    return true;
+  });
+}
 
 class Info extends Component {
 
@@ -75,12 +93,9 @@ class Info extends Component {
   listImages(navigator, setImage) {
     return (
       <View>
-        <TouchableOpacity style={navigationStyles.backButton}
-                          onPress={() => navigator.pop()}>
-          <Text>Takaisin</Text>
-        </TouchableOpacity>
+        {Platform.OS !== 'android' ? this.renderBackButton(navigator) : null }
         <CameraRollView
-          batchSize={20}
+           batchSize={20}
            groupTypes={"All"}
            renderImage={(asset) => this.renderImage(asset, (asset) => this.chooseImage(asset, navigator, setImage))}
           />
@@ -150,6 +165,7 @@ class Info extends Component {
   }
 
   renderScene(route, navigator) {
+    _navigator = navigator;
     switch(route.name) {
     case "list-image":
       return this.listImages(navigator, this.props.actions.setImage);

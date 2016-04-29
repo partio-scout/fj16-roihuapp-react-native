@@ -7,12 +7,15 @@ import React, {
   Navigator,
   TouchableOpacity,
   ListView,
-  StyleSheet
+  StyleSheet,
+  BackAndroid,
+  Platform
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config.js';
 import { navigationStyles } from '../../styles.js';
+import { renderBackButton } from '../../utils.js';
 
 const styles = StyleSheet.create({
   listItem: {padding: 10},
@@ -20,6 +23,21 @@ const styles = StyleSheet.create({
   article: {padding: 10},
   refreshButton: {padding: 10}
 });
+
+var _navigator;
+
+if (Platform.OS === 'android') {
+  BackAndroid.addEventListener('hardwareBackPress', () => {
+    if (!_navigator) {
+      return false;
+    }
+    if (_navigator.getCurrentRoutes().length === 1  ) {
+      return false;
+    }
+    _navigator.pop();
+    return true;
+  });
+}
 
 class Instructions extends Component {
   renderCategoryItem(category, navigator) {
@@ -66,15 +84,13 @@ class Instructions extends Component {
   }
 
   renderScene(route, navigator) {
+    _navigator = navigator;
     const { rootDataSource, categoryDataSource, article } = this.props;
     switch(route.name) {
     case "categories":
       return (
         <View style={styles.section}>
-          <TouchableOpacity style={navigationStyles.backButton}
-                            onPress={() => navigator.pop()}>
-            <Text>Takaisin</Text>
-          </TouchableOpacity>
+          {Platform.OS !== 'android' ? this.renderBackButton(navigator) : null }
           <ListView key={"categories"}
                     dataSource={categoryDataSource}
                     renderRow={(article) => this.renderArticleItem(article, navigator) }
@@ -84,10 +100,7 @@ class Instructions extends Component {
     case "article":
       return (
         <View style={[styles.section, {width: Dimensions.get("window").width}]}>
-          <TouchableOpacity style={navigationStyles.backButton}
-                            onPress={() => navigator.pop()}>
-            <Text>Takaisin</Text>
-          </TouchableOpacity>
+          {Platform.OS !== 'android' ? this.renderBackButton(navigator) : null }
           <View style={styles.article}>
             {this.renderArticle(article)}
           </View>
