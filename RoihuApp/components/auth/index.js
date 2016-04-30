@@ -39,7 +39,7 @@ class EmailLogin extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{flex: 1}}>
         <View style={{paddingTop: 60}}>
           <Text style={{textAlign: 'center'}}>
             Antamalla sähköpostiosoitteesi saat kirjautumislinkin
