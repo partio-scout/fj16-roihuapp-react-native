@@ -35,9 +35,10 @@ public class MainActivity extends ReactActivity {
     @Override
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
-            new MainReactPackage(),
-            new ScaleImageViewPackage(),
-            new VectorIconsPackage()
+                new MainReactPackage(),
+                new ScaleImageViewPackage(),
+                new VectorIconsPackage(),
+                new CacheClearableWebViewPackage()
         );
     }
 

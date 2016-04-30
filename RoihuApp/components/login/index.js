@@ -4,12 +4,24 @@ import React, {
   View,
   Dimensions,
   WebView,
-  Text
+  Text,
+  requireNativeComponent,
+  PropTypes
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from './actions.js';
 import { parseCredentials } from '../auth/utils.js';
+
+var iface = {
+  name: 'CacheClearableWebView',
+  propTypes: {
+    ...WebView.propTypes,
+    clearCache: PropTypes.bool
+  }
+};
+
+const RCTCacheClearableWebView = requireNativeComponent('RCTCacheClearableWebView', iface);
 
 class Login extends Component {
 
@@ -25,10 +37,11 @@ class Login extends Component {
   renderLogin(credentials, uri) {
     if (credentials === null) {
       return (
-        <WebView source={{uri: uri}}
-                 style={{width: Dimensions.get("window").width}}
-                 javaScriptEnabled={true}
-                 onNavigationStateChange={(navState) => this.onNavigationStateChange(navState)}/>
+        <RCTCacheClearableWebView source={{uri: uri}}
+                                  style={{flex: 1}}
+                                  javaScriptEnabled={true}
+                                  clearCache={true}
+                                  onNavigationStateChange={(navState) => this.onNavigationStateChange(navState)}/>
       );
     } else {
       return (
