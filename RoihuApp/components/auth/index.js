@@ -9,7 +9,9 @@ import React, {
   Navigator,
   Dimensions,
   TextInput,
-  StyleSheet
+  StyleSheet,
+  Platform,
+  BackAndroid
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,6 +20,7 @@ import Login from '../login/index.js';
 import { config } from '../../config.js';
 import { parseCredentials } from '../auth/utils.js';
 import { navigationStyles } from '../../styles.js';
+import { renderBackButton } from '../../utils.js';
 
 const styles = StyleSheet.create({
   sendButton: {
@@ -28,6 +31,21 @@ const styles = StyleSheet.create({
     borderRadius: 10
   }
 });
+
+var _navigator;
+
+if (Platform.OS === 'android') {
+  BackAndroid.addEventListener('hardwareBackPress', () => {
+    if (!_navigator) {
+      return false;
+    }
+    if (_navigator.getCurrentRoutes().length === 1  ) {
+      return false;
+    }
+    _navigator.pop();
+    return true;
+  });
+}
 
 class EmailLogin extends Component {
   constructor(props) {
@@ -130,11 +148,7 @@ class Auth extends Component {
   renderEmailScene(navigator) {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
-        <TouchableOpacity onPress={() => navigator.pop()}>
-          <Text style={navigationStyles.backButton}>
-            Takaisin
-          </Text>
-        </TouchableOpacity>
+        {Platform.OS !== 'android' ? this.renderBackButton(navigator) : null }
         <EmailLogin email={this.props.email}
                     send={(text) => {
                       this.props.actions.setEmail(text);
@@ -196,17 +210,14 @@ class Auth extends Component {
   renderPartioIDLogin(navigator) {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
-        <TouchableOpacity onPress={() => navigator.pop()}>
-          <Text style={navigationStyles.backButton}>
-            Takaisin
-          </Text>
-        </TouchableOpacity>
+        {Platform.OS !== 'android' ? this.renderBackButton(navigator) : null }
         <Login uri={config.loginUrl}/>
       </View>
     );
   }
 
   renderScene(route, navigator) {
+    _navigator = navigator;
     switch(route.name) {
     case "email":
       return this.renderEmailScene(navigator);
