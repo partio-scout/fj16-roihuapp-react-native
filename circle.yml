@@ -6,7 +6,7 @@ machine:
 
 dependencies:
   pre:
-    - brew install node, android
+    - brew install node android
   override:
     - npm install:
         pwd:
