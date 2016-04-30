@@ -7,8 +7,9 @@ machine:
 dependencies:
   pre:
     - brew install node android
-    - echo y | android update sdk --no-ui --all --filter "tools"
-    - echo y | android update sdk --no-ui --all --filter "SDK Platform"
+    - echo y | android update sdk --no-ui --all --filter "platform-tools"
+    - echo y | android update sdk --no-ui --all --filter "build-tools-23.0.1"
+    - echo y | android update sdk --no-ui --all --filter "android-23"
   override:
     - npm install:
         pwd:
