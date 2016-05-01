@@ -3,6 +3,7 @@ import React, {
   Text,
   TouchableOpacity,
 } from 'react-native';
+import { navigationStyles } from './styles.js';
 
 export function renderBackButton(navigator) {
   return (
