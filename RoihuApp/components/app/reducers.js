@@ -8,7 +8,7 @@ import {loginMethod} from '../auth/index.js';
 import {info} from '../info/index.js';
 import {language} from '../../translations.js';
 import {settings} from '../settings/reducers.js';
-import {achievements} from '../achi/reducers.js';
+import {achievements} from '../achievements/reducers.js';
 
 export const reducer = combineReducers({
   view,

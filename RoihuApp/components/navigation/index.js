@@ -15,7 +15,7 @@ import Auth from '../auth/index.js';
 import User from '../user/index.js';
 import Info from '../info/index.js';
 import SettingsWrapper from '../settings/wrapper.js';
-import Achievements from '../achi/index.js';
+import Achievements from '../achievements/index.js';
 import * as actions from './actions.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
