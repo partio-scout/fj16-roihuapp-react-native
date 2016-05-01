@@ -29,18 +29,18 @@ class Navigation extends Component {
           {this.renderView(view)}
         </View>
         <View style={styles.buttonBar}>
-        <TouchableOpacity style={styles.button}
-                          onPress={() => setView("achievements")}>
-            <View style={{alignItems: 'center'}}>
-              <Icon name="assessment" size={30} color="#000000"/>
-              <Text>Saavutukset</Text>
-            </View>
-        </TouchableOpacity>
           <TouchableOpacity style={styles.button}
                             onPress={() => setView("map")}>
             <View style={{alignItems: 'center'}}>
               <Icon name="place" size={30} color="#000000"/>
               <Text>{t("Kartta", lang)}</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}
+                            onPress={() => setView("achievements")}>
+            <View style={{alignItems: 'center'}}>
+              <Icon name="assessment" size={30} color="#000000"/>
+              <Text>Saavutukset</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
