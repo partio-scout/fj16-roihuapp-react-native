@@ -132,7 +132,7 @@ class Auth extends Component {
         <TouchableOpacity onPress={() => {
             navigator.push({name: "email"});
           }}>
-          <View style={{flex: 1, flexDirection: 'column'}}>
+          <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
             <Text style={{textAlign: 'center'}}>
               Jos et ole Suomen Partiolaisten jäsen, kirjaudu
             </Text>
