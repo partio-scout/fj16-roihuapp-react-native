@@ -1,5 +1,6 @@
 export const achievements = (
-  state = { achievements: null},
+  state = { achievements: null,
+            error: null},
   action) => {
     switch (action.type) {
     case "SET_ACHIEVEMENTS":
