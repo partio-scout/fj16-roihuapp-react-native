@@ -94,7 +94,7 @@ class Info extends Component {
   listImages(navigator, setImage) {
     return (
       <View style={{flex: 1}}>
-        {Platform.OS !== 'android' ? this.renderBackButton(navigator) : null }
+        {Platform.OS !== 'android' ? renderBackButton(navigator) : null }
         <CameraRollView
            batchSize={20}
            groupTypes={"All"}
