@@ -5,7 +5,7 @@ export const achievements = (
     switch (action.type) {
     case "SET_ACHIEVEMENTS":
       return Object.assign({}, state, {achievements: action.achievements});
-    case "SET_ERROR":
+    case "SET_ACHIEVEMENTS_ERROR":
       return Object.assign({}, state, {error: action.error});;
     }
     return state;

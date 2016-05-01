@@ -61,7 +61,7 @@ const actions = {
     achievements: achievements
   }),
   setError: (error) => ({
-    type: "SET_ERROR",
+    type: "SET_ACHIEVEMENTS_ERROR",
     error: error
   })
 };
