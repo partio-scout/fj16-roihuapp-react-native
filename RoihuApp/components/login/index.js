@@ -12,16 +12,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from './actions.js';
 import { parseCredentials } from '../auth/utils.js';
-
-var iface = {
-  name: 'CacheClearableWebView',
-  propTypes: {
-    ...WebView.propTypes,
-    clearCache: PropTypes.bool
-  }
-};
-
-const RCTCacheClearableWebView = requireNativeComponent('RCTCacheClearableWebView', iface);
+const LoginWebView = require('./loginWebView');
 
 class Login extends Component {
 
@@ -37,11 +28,10 @@ class Login extends Component {
   renderLogin(credentials, uri) {
     if (credentials === null) {
       return (
-        <RCTCacheClearableWebView source={{uri: uri}}
-                                  style={{flex: 1}}
-                                  javaScriptEnabled={true}
-                                  clearCache={true}
-                                  onNavigationStateChange={(navState) => this.onNavigationStateChange(navState)}/>
+        <LoginWebView source={{uri: uri}}
+                      style={{flex: 1}}
+                      javaScriptEnabled={true}
+                      onNavigationStateChange={(navState) => this.onNavigationStateChange(navState)}/>
       );
     } else {
       return (
