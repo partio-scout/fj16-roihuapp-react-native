@@ -30,19 +30,31 @@ class Navigation extends Component {
         <View style={styles.buttonBar}>
           <TouchableOpacity style={styles.button}
                             onPress={() => setView("calendar")}>
-            <Icon name="date-range" size={30} color="#000000"/>
+            <View style={{alignItems: 'center'}}>
+              <Icon name="date-range" size={30} color="#000000"/>
+              <Text>Kalenteri</Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
                             onPress={() => setView("map")}>
-            <Icon name="place" size={30} color="#000000"/>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}
-                            onPress={() => setView("info")}>
-            <Icon name="info-outline" size={30} color="#000000"/>
+            <View style={{alignItems: 'center'}}>
+              <Icon name="place" size={30} color="#000000"/>
+              <Text>Kartta</Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
                             onPress={() => setView("instructions")}>
-            <Icon name="search" size={30} color="#000000"/>
+            <View style={{alignItems: 'center'}}>
+              <Icon name="search" size={30} color="#000000"/>
+              <Text>Info</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}
+                            onPress={() => setView("info")}>
+            <View style={{alignItems: 'center'}}>
+              <Icon name="info-outline" size={30} color="#000000"/>
+              <Text>Minä</Text>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
