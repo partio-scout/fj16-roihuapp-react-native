@@ -3,7 +3,7 @@ import React, {
   ListView
 } from 'react-native';
 
-const agelevelComparator = (a, b) => a.localeCompare(b);
+const agelevelComparator = (a, b) => a.title.localeCompare(b.title);
 
 export const achievements = (
   state = {
