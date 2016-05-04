@@ -1,4 +1,4 @@
-export const info = (
+export const user = (
   state = {data: {},
            error: null,
            image: null},
@@ -6,7 +6,7 @@ export const info = (
     switch (action.type) {
     case "SET_IMAGE":
       return Object.assign({}, state, {image: action.image});
-    case "SET_INFO":
+    case "SET_USER":
       return Object.assign({}, state, {data: action.data});
     case "SET_ERROR":
       return Object.assign({}, state, {error: action.error});;

@@ -54,7 +54,7 @@ if (Platform.OS === 'android') {
   });
 }
 
-class Info extends Component {
+class User extends Component {
 
   renderKeys(data) {
     const keys = [{name: "Telephone:", key: 'phone'},
@@ -120,7 +120,7 @@ class Info extends Component {
     }
   }
 
-  renderInfo(data, image, navigator) {
+  renderUser(data, image, navigator) {
     return (
       <View style={{flex: 1, flexDirection: 'column', width: Dimensions.get('window').width}}>
         <View style={{flexDirection: 'row'}}>
@@ -137,7 +137,7 @@ class Info extends Component {
              style={{flex: 1}}
              onPress={() => {
               this.props.actions.removeCredentials(null);
-              this.props.actions.setInfo({});
+              this.props.actions.setUser({});
             }}>
             <Text style={{textAlign: 'right', margin: 10}}>
               Kirjaudu ulos
@@ -172,7 +172,7 @@ class Info extends Component {
       return this.listImages(navigator, this.props.actions.setImage);
     case "root":
     default:
-      return this.renderInfo(this.props.data, this.props.image, navigator);
+      return this.renderUser(this.props.data, this.props.image, navigator);
     }
   }
 
@@ -185,14 +185,14 @@ class Info extends Component {
                      renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
         </View>
       );
-      return this.renderInfo();
+      return this.renderUser();
     } else if (error !== null) {
       return (
         <Text>error</Text>
       );
     } else {
       return (
-        <Text>No info</Text>
+        <Text>No user</Text>
       );
     }
   }
@@ -200,8 +200,8 @@ class Info extends Component {
   fetchUserInfo(credentials) {
     fetch(config.apiUrl + "/RoihuUsers/" + credentials.userId + "?access_token=" + credentials.token)
       .then((response) => response.json())
-      .then((info) => {
-        this.props.actions.setInfo(info);
+      .then((user) => {
+        this.props.actions.setUser(user);
       })
       .catch((error) => {
         this.props.actions.setError(error);
@@ -224,8 +224,8 @@ function isEmpty(obj) {
   return true;
 }
 
-const setInfo = (data) => ({
-  type: "SET_INFO",
+const setUser = (data) => ({
+  type: "SET_USER",
   data: data
 });
 
@@ -241,9 +241,9 @@ const setImage = (image) => ({
 
 export default connect(state => ({
   credentials: state.credentials,
-  data: state.info.data,
-  error: state.info.error,
-  image: state.info.image
+  data: state.user.data,
+  error: state.user.error,
+  image: state.user.image
 }), (dispatch) => ({
-  actions: bindActionCreators({setInfo, setError, removeCredentials, setImage}, dispatch)
-}))(Info);
+  actions: bindActionCreators({setUser, setError, removeCredentials, setImage}, dispatch)
+}))(User);

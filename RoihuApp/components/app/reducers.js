@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
 import {view} from '../navigation/reducers.js';
 import {credentials} from '../login/reducers.js';
-import {info} from '../info/reducers.js';
+import {user} from '../user/reducers.js';
 import {instructions} from '../instructions/index.js';
 import {loginMethod} from '../auth/index.js';
 
 export const reducer = combineReducers({
   view,
   credentials,
-  info,
+  user,
   instructions,
   loginMethod
 });

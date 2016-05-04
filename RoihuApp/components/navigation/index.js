@@ -13,7 +13,7 @@ import {styles} from '../../styles.js';
 import Map from '../map/index.js';
 import Calendar from '../calendar/index.js';
 import Auth from '../auth/index.js';
-import Info from '../info/index.js';
+import User from '../user/index.js';
 import Instructions from '../instructions/index.js';
 import * as actions from './actions.js';
 var Icon = require('react-native-vector-icons/MaterialIcons');
@@ -50,7 +50,7 @@ class Navigation extends Component {
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
-                            onPress={() => setView("info")}>
+                            onPress={() => setView("user")}>
             <View style={{alignItems: 'center'}}>
               <Icon name="info-outline" size={30} color="#000000"/>
               <Text>Minä</Text>
@@ -69,10 +69,10 @@ class Navigation extends Component {
       return (<Map/>);
     case "instructions":
       return (<Instructions/>);
-    case "info":
+    case "user":
       return (
         <Auth>
-          <Info/>
+          <User/>
         </Auth>
       );
     default:
