@@ -52,7 +52,7 @@ class Navigation extends Component {
           <TouchableOpacity style={styles.button}
                             onPress={() => setView("user")}>
             <View style={{alignItems: 'center'}}>
-              <Icon name="info-outline" size={30} color="#000000"/>
+              <Icon name="account-circle" size={30} color="#000000"/>
               <Text>Minä</Text>
             </View>
           </TouchableOpacity>
