@@ -16,7 +16,7 @@ import Auth from '../auth/index.js';
 import User from '../user/index.js';
 import Instructions from '../instructions/index.js';
 import * as actions from './actions.js';
-var Icon = require('react-native-vector-icons/MaterialIcons');
+const Icon = require('react-native-vector-icons/MaterialIcons');
 
 class Navigation extends Component {
 

@@ -94,7 +94,7 @@ class User extends Component {
   listImages(navigator, setImage) {
     return (
       <View style={{flex: 1}}>
-        {Platform.OS !== 'android' ? renderBackButton(navigator) : null }
+        {renderBackButton(navigator)}
         <CameraRollView
            batchSize={20}
            groupTypes={"All"}

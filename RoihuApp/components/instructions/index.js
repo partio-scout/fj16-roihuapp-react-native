@@ -90,7 +90,7 @@ class Instructions extends Component {
     case "categories":
       return (
         <View style={styles.section}>
-          {Platform.OS !== 'android' ? renderBackButton(navigator) : null }
+          {renderBackButton(navigator)}
           <ListView key={"categories"}
                     dataSource={categoryDataSource}
                     renderRow={(article) => this.renderArticleItem(article, navigator) }
@@ -100,7 +100,7 @@ class Instructions extends Component {
     case "article":
       return (
         <View style={[styles.section, {width: Dimensions.get("window").width}]}>
-          {Platform.OS !== 'android' ? renderBackButton(navigator) : null }
+          {renderBackButton(navigator)}
           <View style={styles.article}>
             {this.renderArticle(article)}
           </View>

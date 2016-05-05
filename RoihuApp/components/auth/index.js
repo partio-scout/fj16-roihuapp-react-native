@@ -148,7 +148,7 @@ class Auth extends Component {
   renderEmailScene(navigator) {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
-        {Platform.OS !== 'android' ? renderBackButton(navigator) : null }
+        {renderBackButton(navigator)}
         <EmailLogin email={this.props.email}
                     send={(text) => {
                       this.props.actions.setEmail(text);
@@ -210,7 +210,7 @@ class Auth extends Component {
   renderPartioIDLogin(navigator) {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
-        {Platform.OS !== 'android' ? renderBackButton(navigator) : null }
+        {renderBackButton(navigator)}
         <Login uri={config.loginUrl}/>
       </View>
     );
