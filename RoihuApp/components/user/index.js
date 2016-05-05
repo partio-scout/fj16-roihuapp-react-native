@@ -230,7 +230,7 @@ const setUser = (data) => ({
 });
 
 const setError = (error) => ({
-  type: "SET_ERROR",
+  type: "SET_USER_ERROR",
   error: error
 });
 

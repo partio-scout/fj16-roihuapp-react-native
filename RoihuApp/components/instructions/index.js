@@ -159,7 +159,7 @@ const actions = {
     instructions: instructions
   }),
   setError: (error) => ({
-    type: "SET_ERROR",
+    type: "SET_INSTRUCTIONS_ERROR",
     error: error
   }),
   selectCategory: (articles) => ({
@@ -180,7 +180,7 @@ export const instructions = (
            article: ""},
   action) => {
     switch (action.type) {
-    case "SET_ERROR":
+    case "SET_INSTRUCTIONS_ERROR":
       return Object.assign({}, state, {error: action.error});
     case "SET_INSTRUCTIONS":
       return Object.assign({}, state, {instructions: action.instructions,
