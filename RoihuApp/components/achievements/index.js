@@ -35,8 +35,25 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
-    padding: 15
+    padding: 15,
+    },
+  doThisAchievement:
+  {
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: 'red',
+    padding: 5,
+    width: 150
+  },
+  doThisAchievementText:
+  {
+    color: '#000',
+    textAlign: 'center',
+  },
+  renderSelectedAchievement:
+  {
   }
+  
 });
 
 class Achievements extends Component {
@@ -48,7 +65,7 @@ class Achievements extends Component {
             this.props.actions.selectAgelevel(agelevel);
             navigator.push({name: "achievements"});
           }}>
-          <Text>{agelevel.title}</Text>
+          <Text style={{fontWeight: 'bold'}}>{agelevel.title}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -75,24 +92,34 @@ class Achievements extends Component {
             this.props.actions.selectAchievement(achievement);
             navigator.push({name: "achievement"});
           }}>
-          <Text>{achievement.title}</Text>
+          <Text style={{fontWeight: 'bold'}}>{achievement.title}</Text>
         </TouchableOpacity>
       </View>
     );
   }
   renderSelectedAchievement(achievement, navigator) {
     return (
-      <View key={"achievement-" + achievement.title} style={styles.listItem}>
-          <Text style={{fontWeight: 'bold'}}>{achievement.title}</Text>
+      <View key={"achievement-" + achievement.title} style={styles.renderSelectedAchievement}>
+      {renderBackButton(navigator)}
+      <Text style={{fontWeight: 'bold', fontSize: 20}}>{achievement.title}</Text>
           <Text>{achievement.bodytext}</Text>
+          <TouchableOpacity onPress={() => {
+            }} style={styles.doThisAchievement}>
+            <Text style={styles.doThisAchievementText}>I have done this</Text>
+          </TouchableOpacity>
+
       </View>
     );
+  }
+  markAchievementDone(usrid, token, achievementid)
+  {
+    //Give user id, token, achieveent id
   }
 
   renderAchievements(navigator) {
     return (
       <View style={{flex: 1, borderRadius: 4,borderWidth: 0.5,
-    borderColor: '#000'}}>
+    borderColor: '#000',}}>
         {renderBackButton(navigator)}
         <ListView key={"achievements"}
                   enableEmptySections={true}
