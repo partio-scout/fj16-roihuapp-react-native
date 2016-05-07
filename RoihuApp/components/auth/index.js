@@ -21,6 +21,7 @@ import { config } from '../../config.js';
 import { parseCredentials } from '../auth/utils.js';
 import { navigationStyles } from '../../styles.js';
 import { renderBackButton } from '../../utils.js';
+const Icon = require('react-native-vector-icons/MaterialIcons');
 
 const styles = StyleSheet.create({
   sendButton: {
@@ -193,9 +194,10 @@ class Auth extends Component {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
         <TouchableOpacity onPress={() => navigator.pop()}>
-          <Text style={navigationStyles.backButton}>
-            Lähetä uudelleen
-          </Text>
+          <View style={[navigationStyles.backButton, {flexDirection: 'row', alignItems: 'center'}]}>
+            <Icon name="arrow-back" size={30} color="#000000"/>
+            <Text>Lähetä uudelleen</Text>
+          </View>
         </TouchableOpacity>
         <Text style={{
                 marginTop: 50,
