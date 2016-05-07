@@ -30,12 +30,20 @@ if (Platform.OS === 'android') {
     return true;
   });
 }
+const styles = StyleSheet.create({
+  listItem: {
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+    padding: 15
+  }
+});
 
 class Achievements extends Component {
 
   renderAgelevel(agelevel, navigator) {
     return (
-      <View key={"agelevel-" + agelevel.id} style={{padding: 10}}>
+      <View key={"agelevel-" + agelevel.id} style={styles.listItem}>
         <TouchableOpacity onPress={() => {
             this.props.actions.selectAgelevel(agelevel);
             navigator.push({name: "achievements"});
@@ -49,9 +57,9 @@ class Achievements extends Component {
   renderAgelevels(navigator) {
     return (
       <View style={{flex: 1}}>
-        <TouchableOpacity style={{padding: 10}}
+        <TouchableOpacity style={{padding: 15}}
                           onPress={() => this.fetchAchievements()}>
-          <Text>Päivitä</Text>
+          <Text style={{fontWeight: 'bold'}}>Päivitä</Text>
         </TouchableOpacity>
         <ListView key={"agelevels"}
                   dataSource={this.props.ageLevelDataSource}
@@ -62,21 +70,29 @@ class Achievements extends Component {
 
   renderAchievement(achievement, navigator) {
     return (
-      <View key={"achievement-" + achievement.title} style={{padding: 10}}>
+      <View key={"achievement-" + achievement.title} style={styles.listItem}>
         <TouchableOpacity onPress={() => {
             this.props.actions.selectAchievement(achievement);
             navigator.push({name: "achievement"});
           }}>
           <Text>{achievement.title}</Text>
-          <Text>{achievement.bodytext}</Text>
         </TouchableOpacity>
+      </View>
+    );
+  }
+  renderSelectedAchievement(achievement, navigator) {
+    return (
+      <View key={"achievement-" + achievement.title} style={styles.listItem}>
+          <Text style={{fontWeight: 'bold'}}>{achievement.title}</Text>
+          <Text>{achievement.bodytext}</Text>
       </View>
     );
   }
 
   renderAchievements(navigator) {
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, borderRadius: 4,borderWidth: 0.5,
+    borderColor: '#000'}}>
         {renderBackButton(navigator)}
         <ListView key={"achievements"}
                   enableEmptySections={true}
@@ -91,6 +107,8 @@ class Achievements extends Component {
     switch(route.name) {
     case "achievements":
       return this.renderAchievements(navigator);
+    case "achievement":
+      return this.renderSelectedAchievement(this.props.achievement, navigator);
     case "agelevels":
     default:
       return this.renderAgelevels(navigator);
