@@ -1,10 +1,6 @@
-# Tekijätilanne
-
-Käykää täyttämässä oma tilanteenne linkissä https://partio.sharepoint.com/sites/roihu/tiimit/elamys/_layouts/15/guestaccess.aspx?guestaccesstoken=933aZ6kKT4kEeed%2fU0WecAA%2ffX6Ky94kAFWK58cxGAA%3d&docid=1c256655ec5734066921e7d18553c2c3e
-
 # RoihuApp - React Native
 
-Mobile application for Roihu. Targets firstly Android, but may work on iOS too.
+Mobile application for Roihu Finnjamboree 2016. Targets firstly Android, but may work on iOS too.
 
 ## Development
 
