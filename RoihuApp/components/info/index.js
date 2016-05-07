@@ -10,6 +10,7 @@ import React, {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Instructions from '../instructions/index.js';
+const EventEmitter = require('EventEmitter');
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
 const styles = StyleSheet.create({
@@ -44,13 +45,22 @@ class Info extends Component {
     );
   }
 
+  renderTab(tab, emitter) {
+    switch(tab) {
+    case "locations":
+      return (<Text>Locations</Text>);
+    case "instructions":
+    default:
+      return (<Instructions emitter={emitter}/>);
+    }
+  }
+
   render() {
-    console.log(this.props);
     return (
       <View style={[styles.container, {width: Dimensions.get("window").width}]}>
         <View style={{alignItems: 'flex-end'}}>
           <TouchableOpacity style={{paddingRight: 10, paddingTop: 10}}
-                            onPress={() => {}}>
+                            onPress={() => this.eventEmitter.emit("refresh")}>
             <Icon name="refresh" size={30} color="#000000"/>
           </TouchableOpacity>
         </View>
@@ -62,20 +72,14 @@ class Info extends Component {
                       alignItems: 'center',
                       width: Dimensions.get("window").width
               }}>
-          {this.renderTab(this.props.tab)}
+          {this.renderTab(this.props.tab, this.eventEmitter)}
         </View>
       </View>
     );
   }
 
-  renderTab(tab) {
-    switch(tab) {
-    case "locations":
-      return (<Text>Locations</Text>);
-    case "instructions":
-    default:
-      return (<Instructions/>);
-    }
+  componentWillMount() {
+    this.eventEmitter = new EventEmitter();
   }
 }
 

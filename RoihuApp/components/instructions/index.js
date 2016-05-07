@@ -40,6 +40,7 @@ if (Platform.OS === 'android') {
 }
 
 class Instructions extends Component {
+
   renderCategoryItem(category, navigator) {
     return (
       <View key={"category-" + category.id} style={styles.listItem}>
@@ -109,10 +110,6 @@ class Instructions extends Component {
     }
     return (
       <View style={styles.section}>
-        <TouchableOpacity style={styles.refreshButton}
-                          onPress={() => this.fetchInstructions()}>
-          <Text>Päivitä</Text>
-        </TouchableOpacity>
         <ListView key={"root"}
                   dataSource={rootDataSource}
                   renderRow={(category) => this.renderCategoryItem(category, navigator) }
@@ -150,6 +147,7 @@ class Instructions extends Component {
     if (this.props.instructions.categories.length === 0) {
       this.fetchInstructions();
     }
+    this.props.emitter.addListener("refresh", () => this.fetchInstructions());
   }
 }
 
