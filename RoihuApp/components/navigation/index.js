@@ -14,7 +14,7 @@ import Map from '../map/index.js';
 import Calendar from '../calendar/index.js';
 import Auth from '../auth/index.js';
 import User from '../user/index.js';
-import Instructions from '../instructions/index.js';
+import Info from '../info/index.js';
 import * as actions from './actions.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
@@ -43,7 +43,7 @@ class Navigation extends Component {
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
-                            onPress={() => setView("instructions")}>
+                            onPress={() => setView("info")}>
             <View style={{alignItems: 'center'}}>
               <Icon name="search" size={30} color="#000000"/>
               <Text>Info</Text>
@@ -67,8 +67,8 @@ class Navigation extends Component {
       return (<Calendar/>);
     case "map":
       return (<Map/>);
-    case "instructions":
-      return (<Instructions/>);
+    case "info":
+      return (<Info/>);
     case "user":
       return (
         <Auth>
