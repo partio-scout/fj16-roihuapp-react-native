@@ -77,7 +77,7 @@ class Achievements extends Component {
   renderAchievements(navigator) {
     return (
       <View style={{flex: 1}}>
-        {Platform.OS !== 'android' ? renderBackButton(navigator) : null }
+        {renderBackButton(navigator)}
         <ListView key={"achievements"}
                   enableEmptySections={true}
                   dataSource={this.props.achievementsDataSource}
