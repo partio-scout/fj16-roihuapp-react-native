@@ -20,8 +20,7 @@ import { renderBackButton } from '../../utils.js';
 const styles = StyleSheet.create({
   listItem: {padding: 10},
   section: {flex: 1, flexDirection: 'column'},
-  article: {padding: 10},
-  refreshButton: {padding: 10}
+  article: {padding: 10}
 });
 
 var _navigator;
