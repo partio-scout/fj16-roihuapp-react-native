@@ -13,7 +13,6 @@ export function renderBackButton(navigator) {
                       onPress={() => navigator.pop()}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Icon name="arrow-back" size={30} color="#000000"/>
-        <Text>Takaisin</Text>
       </View>
     </TouchableOpacity>
   );
