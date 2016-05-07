@@ -28,7 +28,7 @@ class Login extends Component {
   renderLogin(credentials, uri) {
     if (credentials === null) {
       return (
-        <LoginWebView source={{uri: uri}}
+        <WebView source={{uri: uri}}
                       style={{flex: 1}}
                       javaScriptEnabled={true}
                       onNavigationStateChange={(navState) => this.onNavigationStateChange(navState)}/>
