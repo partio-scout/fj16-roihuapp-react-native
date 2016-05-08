@@ -45,7 +45,7 @@ class Instructions extends Component {
       <View key={"category-" + category.id} style={styles.listItem}>
         <TouchableOpacity onPress={() => {
             this.props.actions.selectCategory(category.articles[0]);
-            navigator.push({name: "categories", index: 1});
+            navigator.push({name: "categories"});
           }}>
           <Text>{category.title}</Text>
         </TouchableOpacity>
@@ -58,7 +58,7 @@ class Instructions extends Component {
       <View key={"article-" + article.id} style={styles.listItem}>
         <TouchableOpacity onPress={() => {
             this.props.actions.selectArticle(article);
-            navigator.push({name: "article", index: 2});
+            navigator.push({name: "article"});
           }}>
           <Text>{article.title}</Text>
         </TouchableOpacity>
@@ -123,7 +123,7 @@ class Instructions extends Component {
     } else {
       return (
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
-          <Navigator initialRoute={{name: "root", index: 0}}
+          <Navigator initialRoute={{name: "root"}}
                      renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
         </View>
       );
