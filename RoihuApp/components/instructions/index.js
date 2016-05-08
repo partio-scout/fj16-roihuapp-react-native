@@ -7,15 +7,12 @@ import React, {
   Navigator,
   TouchableOpacity,
   ListView,
-  StyleSheet,
-  BackAndroid,
-  Platform
+  StyleSheet
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config.js';
 import { navigationStyles } from '../../styles.js';
-import { renderBackButton } from '../../utils.js';
 
 const styles = StyleSheet.create({
   listItem: {padding: 10},
@@ -25,27 +22,15 @@ const styles = StyleSheet.create({
 
 var _navigator;
 
-if (Platform.OS === 'android') {
-  BackAndroid.addEventListener('hardwareBackPress', () => {
-    if (!_navigator) {
-      return false;
-    }
-    if (_navigator.getCurrentRoutes().length === 1  ) {
-      return false;
-    }
-    _navigator.pop();
-    return true;
-  });
-}
-
 class Instructions extends Component {
 
   renderCategoryItem(category, navigator) {
     return (
       <View key={"category-" + category.id} style={styles.listItem}>
         <TouchableOpacity onPress={() => {
-            this.props.actions.selectCategory(category.articles[0]);
-            navigator.push({name: "categories"});
+            const route = {name: "categories"};
+            this.props.actions.selectCategory(category.articles[0], route);
+            navigator.push(route);
           }}>
           <Text>{category.title}</Text>
         </TouchableOpacity>
@@ -57,8 +42,9 @@ class Instructions extends Component {
     return (
       <View key={"article-" + article.id} style={styles.listItem}>
         <TouchableOpacity onPress={() => {
-            this.props.actions.selectArticle(article);
-            navigator.push({name: "article"});
+            const route = {name: "article"};
+            this.props.actions.selectArticle(article, route);
+            navigator.push(route);
           }}>
           <Text>{article.title}</Text>
         </TouchableOpacity>
@@ -90,7 +76,6 @@ class Instructions extends Component {
     case "categories":
       return (
         <View style={styles.section}>
-          {renderBackButton(navigator)}
           <ListView key={"categories"}
                     dataSource={categoryDataSource}
                     renderRow={(article) => this.renderArticleItem(article, navigator) }
@@ -100,7 +85,6 @@ class Instructions extends Component {
     case "article":
       return (
         <View style={[styles.section, {width: Dimensions.get("window").width}]}>
-          {renderBackButton(navigator)}
           <View style={styles.article}>
             {this.renderArticle(article)}
           </View>
@@ -142,11 +126,19 @@ class Instructions extends Component {
       });
   }
 
+  onBack() {
+    if (_navigator) {
+      _navigator.pop();
+      this.props.actions.popNavigationRoute();
+    }
+  }
+
   componentDidMount() {
     if (this.props.instructions.categories.length === 0) {
       this.fetchInstructions();
     }
     this.props.emitter.addListener("refresh", () => this.fetchInstructions());
+    this.props.emitter.addListener("back", () => this.onBack());
   }
 }
 
@@ -159,13 +151,18 @@ const actions = {
     type: "SET_INSTRUCTIONS_ERROR",
     error: error
   }),
-  selectCategory: (articles) => ({
+  selectCategory: (articles, route) => ({
     type: "SELECT_CATEGORY",
-    articles: articles
+    articles: articles,
+    route: route
   }),
-  selectArticle: (article) => ({
+  selectArticle: (article, route) => ({
     type: "SELECT_ARTICLE",
-    article: article
+    article: article,
+    route: route
+  }),
+  popNavigationRoute: () => ({
+    type: "POP_INSTRUCTIONS_ROUTE"
   })
 };
 
@@ -174,7 +171,8 @@ export const instructions = (
            error: null,
            rootDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id}),
            categoryDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id}),
-           article: ""},
+           article: "",
+           navigationStack: [{name: "root"}]},
   action) => {
     switch (action.type) {
     case "SET_INSTRUCTIONS_ERROR":
@@ -183,9 +181,18 @@ export const instructions = (
       return Object.assign({}, state, {instructions: action.instructions,
                                        rootDataSource: state.rootDataSource.cloneWithRows(action.instructions.categories)});
     case "SELECT_CATEGORY":
-      return Object.assign({}, state, {categoryDataSource: state.categoryDataSource.cloneWithRows(action.articles)});
+      return Object.assign({}, state, {categoryDataSource: state.categoryDataSource.cloneWithRows(action.articles),
+                                       navigationStack: state.navigationStack.concat(action.route)});
     case "SELECT_ARTICLE":
-      return Object.assign({}, state, {article: action.article});
+      return Object.assign({},
+                           state,
+                           {article: action.article,
+                            navigationStack: state.navigationStack.concat(action.route)});
+    case "POP_INSTRUCTIONS_ROUTE":
+      const newStack = Object.assign([], state.navigationStack);
+      newStack.pop();
+      return Object.assign({},
+                           state, {navigationStack: newStack});
     }
     return state;
   };

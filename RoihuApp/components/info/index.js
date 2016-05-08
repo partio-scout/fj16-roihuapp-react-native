@@ -55,13 +55,29 @@ class Info extends Component {
     }
   }
 
+  renderBackButton() {
+    const routes = this.props.instructionsNavigationStack;
+    if (routes.length === 1) {
+      return null;
+    } else {
+      return (
+        <TouchableOpacity style={{paddingLeft: 10, paddingTop: 10}}
+                          onPress={() => this.eventEmitter.emit("back")}>
+          <Icon name="arrow-back" size={30} color="#000000"/>
+        </TouchableOpacity>
+      );
+    }
+  }
+
   render() {
     return (
       <View style={[styles.container, {width: Dimensions.get("window").width}]}>
-        <View style={{alignItems: 'flex-end'}}>
+        <View style={{flexDirection: 'row'}}>
+          {this.renderBackButton()}
+          <View style={{flex: 1}}></View>
           <TouchableOpacity style={{paddingRight: 10, paddingTop: 10}}
                             onPress={() => this.eventEmitter.emit("refresh")}>
-            <Icon name="refresh" size={30} color="#000000"/>
+            <Icon style={{textAlign: 'right'}} name="refresh" size={30} color="#000000"/>
           </TouchableOpacity>
         </View>
         <View style={styles.tabs}>
@@ -103,7 +119,8 @@ export const info = (
   };
 
 export default connect(state => ({
-  tab: state.info.tab
+  tab: state.info.tab,
+  instructionsNavigationStack: state.instructions.navigationStack
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 }))(Info);
