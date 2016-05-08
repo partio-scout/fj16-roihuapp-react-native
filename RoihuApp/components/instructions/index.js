@@ -137,8 +137,13 @@ class Instructions extends Component {
     if (this.props.instructions.categories.length === 0) {
       this.fetchInstructions();
     }
-    this.props.emitter.addListener("refresh", () => this.fetchInstructions());
-    this.props.emitter.addListener("back", () => this.onBack());
+    this.refreshListener = this.props.emitter.addListener("refresh", () => this.fetchInstructions());
+    this.backListener = this.props.emitter.addListener("back", () => this.onBack());
+  }
+
+  componentWillUnmount() {
+    this.refreshListener.remove();
+    this.backListener.remove();
   }
 }
 
