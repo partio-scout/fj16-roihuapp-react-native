@@ -107,7 +107,7 @@ class Instructions extends Component {
     } else {
       return (
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
-          <Navigator initialRoute={{name: "root"}}
+          <Navigator initialRouteStack={this.props.navigationStack}
                      renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
         </View>
       );
@@ -207,7 +207,8 @@ export default connect(state => ({
   rootDataSource: state.instructions.rootDataSource,
   categoryDataSource: state.instructions.categoryDataSource,
   article: state.instructions.article,
-  error: state.instructions.error
+  error: state.instructions.error,
+  navigationStack: state.instructions.navigationStack
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 }))(Instructions);
