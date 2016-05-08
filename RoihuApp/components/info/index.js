@@ -5,7 +5,8 @@ import React, {
   StyleSheet,
   TouchableOpacity,
   Text,
-  Dimensions
+  Dimensions,
+  BackAndroid
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -55,14 +56,18 @@ class Info extends Component {
     }
   }
 
+  getRouteStack() {
+    return this.props.tab === "instructions" ? this.props.instructionsRouteStack : [{}];
+  }
+
   renderBackButton() {
-    const routeStack = this.props.tab === "instructions" ? this.props.instructionsRouteStack : [{}];
+    const routeStack = this.getRouteStack();
     if (routeStack.length === 1) {
       return null;
     } else {
       return (
         <TouchableOpacity style={{paddingLeft: 10, paddingTop: 10}}
-                          onPress={() => this.eventEmitter.emit("back")}>
+                          onPress={() => this.onBack()}>
           <Icon name="arrow-back" size={30} color="#000000"/>
         </TouchableOpacity>
       );
@@ -96,6 +101,20 @@ class Info extends Component {
 
   componentWillMount() {
     this.eventEmitter = new EventEmitter();
+    this.onBack = () => {
+      const routeStack = this.getRouteStack();
+      if (routeStack.length === 1) {
+        return false;
+      } else {
+        this.eventEmitter.emit("back");
+        return true;
+      }
+    };
+    BackAndroid.addEventListener('hardwareBackPress', this.onBack);
+  }
+
+  componentWillUnmount() {
+    BackAndroid.removeEventListener('hardwareBackPress', this.onBack);
   }
 }
 
