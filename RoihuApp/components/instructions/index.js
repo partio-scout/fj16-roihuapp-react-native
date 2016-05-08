@@ -107,7 +107,7 @@ class Instructions extends Component {
     } else {
       return (
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
-          <Navigator initialRouteStack={this.props.navigationStack}
+          <Navigator initialRouteStack={this.props.routeStack}
                      renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
         </View>
       );
@@ -177,7 +177,7 @@ export const instructions = (
            rootDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id}),
            categoryDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id}),
            article: "",
-           navigationStack: [{name: "root"}]},
+           routeStack: [{name: "root"}]},
   action) => {
     switch (action.type) {
     case "SET_INSTRUCTIONS_ERROR":
@@ -187,17 +187,17 @@ export const instructions = (
                                        rootDataSource: state.rootDataSource.cloneWithRows(action.instructions.categories)});
     case "SELECT_CATEGORY":
       return Object.assign({}, state, {categoryDataSource: state.categoryDataSource.cloneWithRows(action.articles),
-                                       navigationStack: state.navigationStack.concat(action.route)});
+                                       routeStack: state.routeStack.concat(action.route)});
     case "SELECT_ARTICLE":
       return Object.assign({},
                            state,
                            {article: action.article,
-                            navigationStack: state.navigationStack.concat(action.route)});
+                            routeStack: state.routeStack.concat(action.route)});
     case "POP_INSTRUCTIONS_ROUTE":
-      const newStack = Object.assign([], state.navigationStack);
+      const newStack = Object.assign([], state.routeStack);
       newStack.pop();
       return Object.assign({},
-                           state, {navigationStack: newStack});
+                           state, {routeStack: newStack});
     }
     return state;
   };
@@ -208,7 +208,7 @@ export default connect(state => ({
   categoryDataSource: state.instructions.categoryDataSource,
   article: state.instructions.article,
   error: state.instructions.error,
-  navigationStack: state.instructions.navigationStack
+  routeStack: state.instructions.routeStack
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 }))(Instructions);

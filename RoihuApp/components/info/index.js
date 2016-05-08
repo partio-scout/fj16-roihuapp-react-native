@@ -56,8 +56,8 @@ class Info extends Component {
   }
 
   renderBackButton() {
-    const routes = this.props.tab === "instructions" ? this.props.instructionsNavigationStack : [{}];
-    if (routes.length === 1) {
+    const routeStack = this.props.tab === "instructions" ? this.props.instructionsRouteStack : [{}];
+    if (routeStack.length === 1) {
       return null;
     } else {
       return (
@@ -120,7 +120,7 @@ export const info = (
 
 export default connect(state => ({
   tab: state.info.tab,
-  instructionsNavigationStack: state.instructions.navigationStack
+  instructionsRouteStack: state.instructions.routeStack
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 }))(Info);
