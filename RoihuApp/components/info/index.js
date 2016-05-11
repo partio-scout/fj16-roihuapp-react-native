@@ -11,6 +11,7 @@ import React, {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Instructions from '../instructions/index.js';
+import Locations from '../locations/index.js';
 const EventEmitter = require('EventEmitter');
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
@@ -30,6 +31,12 @@ const styles = StyleSheet.create({
 
 class Info extends Component {
 
+  constructor(props) {
+    super(props);
+    this.instructionsEventEmitter = new EventEmitter();
+    this.locationsEventEmitter = new EventEmitter();
+  }
+
   renderSelectionHighlight() {
     return (<Text style={{height: 2, width: 100, backgroundColor: 'green'}}></Text>);
   }
@@ -46,18 +53,28 @@ class Info extends Component {
     );
   }
 
-  renderTab(tab, emitter) {
+  renderTab(tab) {
     switch(tab) {
     case "locations":
-      return (<Text>Locations</Text>);
+      return (<Locations emitter={this.getEventEmitter()}/>);
     case "instructions":
     default:
-      return (<Instructions emitter={emitter}/>);
+      return (<Instructions emitter={this.getEventEmitter()}/>);
     }
   }
 
   getRouteStack() {
-    return this.props.tab === "instructions" ? this.props.instructionsRouteStack : [{}];
+    return this.props.tab === "instructions" ? this.props.instructionsRouteStack : this.props.locationsRouteStack;
+  }
+
+  getEventEmitter() {
+    switch(this.props.tab) {
+    case "locations":
+      return this.locationsEventEmitter;
+    case "instructions":
+    default:
+      return this.instructionsEventEmitter;
+    }
   }
 
   renderBackButton() {
@@ -81,7 +98,7 @@ class Info extends Component {
           {this.renderBackButton()}
           <View style={{flex: 1}}></View>
           <TouchableOpacity style={{paddingRight: 10, paddingTop: 10}}
-                            onPress={() => this.eventEmitter.emit("refresh")}>
+                            onPress={() => this.getEventEmitter().emit("refresh")}>
             <Icon style={{textAlign: 'right'}} name="refresh" size={30} color="#000000"/>
           </TouchableOpacity>
         </View>
@@ -93,20 +110,19 @@ class Info extends Component {
                       alignItems: 'center',
                       width: Dimensions.get("window").width
               }}>
-          {this.renderTab(this.props.tab, this.eventEmitter)}
+          {this.renderTab(this.props.tab)}
         </View>
       </View>
     );
   }
 
   componentWillMount() {
-    this.eventEmitter = new EventEmitter();
     this.onBack = () => {
       const routeStack = this.getRouteStack();
       if (routeStack.length === 1) {
         return false;
       } else {
-        this.eventEmitter.emit("back");
+        this.getEventEmitter().emit("back");
         return true;
       }
     };
@@ -139,7 +155,8 @@ export const info = (
 
 export default connect(state => ({
   tab: state.info.tab,
-  instructionsRouteStack: state.instructions.routeStack
+  instructionsRouteStack: state.instructions.routeStack,
+  locationsRouteStack: state.locations.routeStack
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 }))(Info);

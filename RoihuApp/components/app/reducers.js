@@ -3,6 +3,7 @@ import {view} from '../navigation/reducers.js';
 import {credentials} from '../login/reducers.js';
 import {user} from '../user/reducers.js';
 import {instructions} from '../instructions/index.js';
+import {locations} from '../locations/index.js';
 import {loginMethod} from '../auth/index.js';
 import {info} from '../info/index.js';
 
@@ -11,6 +12,7 @@ export const reducer = combineReducers({
   credentials,
   user,
   instructions,
+  locations,
   loginMethod,
   info
 });

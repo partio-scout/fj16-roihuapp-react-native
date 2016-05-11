@@ -1,13 +1,13 @@
 'use strict';
 import React, {
   Component,
-  View,
-  Dimensions,
-  Text,
   Navigator,
-  TouchableOpacity,
+  Dimensions,
+  View,
+  Text,
+  StyleSheet,
   ListView,
-  StyleSheet
+  TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -15,13 +15,7 @@ import { config } from '../../config.js';
 import { categoryStyles } from '../../styles.js';
 import { renderCategories, renderArticles } from '../common/categories.js';
 
-class Instructions extends Component {
-
-  renderBody(body) {
-    return (
-      body.split('\\n').map((paragraph, index) => (<Text key={"paragraph-" + index}>{paragraph}</Text>))
-    );
-  }
+class Locations extends Component {
 
   renderSelectedArticle(article) {
     return (
@@ -29,7 +23,7 @@ class Instructions extends Component {
         <Text style={categoryStyles.articleTitle}>
           {article.title}
         </Text>
-        {this.renderBody(article.bodytext)}
+        <Text>{article.bodytext}</Text>
       </View>
     );
   }
@@ -48,24 +42,31 @@ class Instructions extends Component {
   }
 
   render() {
-    if (this.props.error !== null) {
-      return (<Text>Ei voitu hakea ohjeita</Text>);
-    } else {
+    const { locations, categoriesDataSource, error } = this.props;
+    if (locations !== null) {
       return (
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
           <Navigator initialRouteStack={this.props.routeStack}
                      renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
         </View>
       );
+    } else if (error !== null) {
+      return (
+        <Text>{error}</Text>
+      );
+    } else {
+      return (
+        <Text></Text>
+      );
     }
   }
 
-  fetchInstructions() {
-    console.log("Fetching instructions");
-    fetch(config.apiUrl + "/InstructionCategories/Translations?lang=FI")
+  fetchLocations() {
+    console.log("Fetching locations");
+    fetch(config.apiUrl + "/LocationCategories/Translations?lang=FI")
       .then((response) => response.json())
-      .then((instructions) => {
-        this.props.actions.setInstructions(instructions);
+      .then((locations) => {
+        this.props.actions.setLocations(locations);
       })
       .catch((error) => {
         this.props.actions.setError(error);
@@ -80,10 +81,10 @@ class Instructions extends Component {
   }
 
   componentDidMount() {
-    if (this.props.instructions.categories.length === 0) {
-      this.fetchInstructions();
+    if (this.props.locations === null) {
+      this.fetchLocations();
     }
-    this.refreshListener = this.props.emitter.addListener("refresh", () => this.fetchInstructions());
+    this.refreshListener = this.props.emitter.addListener("refresh", () => this.fetchLocations());
     this.backListener = this.props.emitter.addListener("back", () => this.onBack());
   }
 
@@ -94,67 +95,66 @@ class Instructions extends Component {
 }
 
 const actions = {
-  setInstructions: (instructions) => ({
-    type: "SET_INSTRUCTIONS",
-    instructions: instructions
+  setLocations: (locations) => ({
+    type: "SET_LOCATIONS",
+    locations: locations
   }),
   setError: (error) => ({
-    type: "SET_INSTRUCTIONS_ERROR",
+    type: "SET_LOCATIONS_ERROR",
     error: error
   }),
   selectCategory: (category, route) => ({
-    type: "SELECT_INSTRUCTIONS_CATEGORY",
+    type: "SELECT_LOCATIONS_CATEGORY",
     category: category,
     route: route
   }),
   selectArticle: (article, route) => ({
-    type: "SELECT_INSTRUCTIONS_ARTICLE",
+    type: "SELECT_LOCATIONS_ARTICLE",
     article: article,
     route: route
   }),
   popNavigationRoute: () => ({
-    type: "POP_INSTRUCTIONS_ROUTE"
+    type: "POP_LOCATIONS_ROUTE"
   })
 };
 
-export const instructions = (
-  state = {instructions: {categories: []},
+export const locations = (
+  state = {locations: null,
            error: null,
            categoriesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id}),
            articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id}),
-           article: "",
+           article: {},
            routeStack: [{name: "categories"}]},
   action) => {
     switch (action.type) {
-    case "SET_INSTRUCTIONS_ERROR":
+    case "SET_LOCATIONS_ERROR":
       return Object.assign({}, state, {error: action.error});
-    case "SET_INSTRUCTIONS":
-      return Object.assign({}, state, {instructions: action.instructions,
-                                       categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.instructions.categories)});
-    case "SELECT_INSTRUCTIONS_CATEGORY":
-      return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles[0]),
+    case "SET_LOCATIONS":
+      return Object.assign({}, state, {locations: action.locations,
+                                       categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.locations.categories)});
+    case "SELECT_LOCATIONS_CATEGORY":
+      return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles),
                                        routeStack: state.routeStack.concat(action.route)});
-    case "SELECT_INSTRUCTIONS_ARTICLE":
+    case "SELECT_LOCATIONS_ARTICLE":
       return Object.assign({},
                            state,
                            {article: action.article,
                             routeStack: state.routeStack.concat(action.route)});
-    case "POP_INSTRUCTIONS_ROUTE":
+    case "POP_LOCATIONS_ROUTE":
       const newStack = Object.assign([], state.routeStack);
       newStack.pop();
-      return Object.assign({},
-                           state, {routeStack: newStack});
+      return Object.assign({}, state, {routeStack: newStack});
     }
     return state;
   };
 
 export default connect(state => ({
-  instructions: state.instructions.instructions,
-  categoriesDataSource: state.instructions.categoriesDataSource,
-  articlesDataSource: state.instructions.articlesDataSource,
-  article: state.instructions.article,
-  error: state.instructions.error,
-  routeStack: state.instructions.routeStack
+  locations: state.locations.locations,
+  categoriesDataSource: state.locations.categoriesDataSource,
+  articlesDataSource: state.locations.articlesDataSource,
+  article: state.locations.article,
+  error: state.locations.error,
+  routeStack: state.locations.routeStack
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
-}))(Instructions);
+}))(Locations);

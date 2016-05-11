@@ -29,3 +29,22 @@ export const styles = StyleSheet.create({
 export const navigationStyles = StyleSheet.create({
   backButton: {margin: 10}
 });
+
+export const categoryStyles = StyleSheet.create({
+  listItem: {
+    padding: 10
+  },
+  section: {
+    flex: 1,
+    flexDirection: 'column'
+  },
+  article: {
+    padding: 10
+  },
+  articleTitle: {
+    textAlign: 'left',
+    marginBottom: 20,
+    fontWeight: 'bold',
+    fontSize: 20
+  }
+});
