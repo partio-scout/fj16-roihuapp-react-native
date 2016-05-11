@@ -34,7 +34,7 @@ export const categoryStyles = StyleSheet.create({
   listItem: {
     padding: 10
   },
-  section: {
+  list: {
     flex: 1,
     flexDirection: 'column'
   },
