@@ -1,19 +1,11 @@
 machine:
+  node:
+    version: 5.6.0
   environment:
     GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx512m -XX:+HeapDumpOnOutOfMemoryError"'
     _JAVA_OPTIONS: "-Xmx1024m"
-    ANDROID_HOME: /usr/local/opt/android-sdk
 
 dependencies:
-  pre:
-    - brew install node android
-    - echo y | android update sdk --no-ui --all --filter "tools"
-    - echo y | android update sdk --no-ui --all --filter "platform-tools"
-    - echo y | android update sdk --no-ui --all --filter "build-tools-23.0.1"
-    - echo y | android update sdk --no-ui --all --filter "android-23"
-    - echo y | android update sdk --no-ui --all --filter "extra-android-support"
-    - echo y | android update sdk --no-ui --all --filter "extra-google-m2repository"
-    - echo y | android update sdk --no-ui --all --filter "extra-android-m2repository"
   override:
     - npm install:
         pwd:
