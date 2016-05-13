@@ -10,7 +10,7 @@ import React, {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {styles} from '../../styles.js';
-import Map from '../map/index.js';
+const Map = require('../map');
 import Calendar from '../calendar/index.js';
 import Auth from '../auth/index.js';
 import User from '../user/index.js';
