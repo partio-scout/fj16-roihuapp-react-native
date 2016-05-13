@@ -7,19 +7,25 @@ import React, {
   Navigator,
   TouchableOpacity,
   ListView,
-  StyleSheet
+  StyleSheet,
+  ScrollView
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config.js';
 import { categoryStyles } from '../../styles.js';
 import { renderCategories, renderArticles } from '../common/categories.js';
+const Markdown = require('react-native-markdown');
 
 class Instructions extends Component {
 
   renderBody(body) {
     return (
-      body.split('\\n').map((paragraph, index) => (<Text key={"paragraph-" + index}>{paragraph}</Text>))
+      <ScrollView style={{flex: 1}}>
+        <Markdown>
+          {body}
+        </Markdown>
+      </ScrollView>
     );
   }
 

@@ -39,7 +39,8 @@ export const categoryStyles = StyleSheet.create({
     flexDirection: 'column'
   },
   article: {
-    padding: 10
+    padding: 10,
+    flex: 1
   },
   articleTitle: {
     textAlign: 'left',
