@@ -6,6 +6,7 @@ import {instructions} from '../instructions/index.js';
 import {locations} from '../locations/index.js';
 import {loginMethod} from '../auth/index.js';
 import {info} from '../info/index.js';
+import {language} from '../../translations.js';
 
 export const reducer = combineReducers({
   view,
@@ -14,5 +15,6 @@ export const reducer = combineReducers({
   instructions,
   locations,
   loginMethod,
-  info
+  info,
+  language
 });

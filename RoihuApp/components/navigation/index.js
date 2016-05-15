@@ -10,6 +10,7 @@ import React, {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {styles} from '../../styles.js';
+import { t } from '../../translations.js';
 const Map = require('../map');
 import Calendar from '../calendar/index.js';
 import Auth from '../auth/index.js';
@@ -21,7 +22,7 @@ const Icon = require('react-native-vector-icons/MaterialIcons');
 class Navigation extends Component {
 
   render() {
-    const { view, actions: {setView} } = this.props;
+    const { view, actions: {setView}, lang } = this.props;
     return (
       <View style={styles.main}>
         <View style={styles.content}>
@@ -32,7 +33,7 @@ class Navigation extends Component {
                             onPress={() => setView("calendar")}>
             <View style={{alignItems: 'center'}}>
               <Icon name="date-range" size={30} color="#000000"/>
-              <Text>Kalenteri</Text>
+              <Text>{t("Kalenteri", lang)}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
@@ -83,7 +84,8 @@ class Navigation extends Component {
 }
 
 export default connect(state => ({
-  view: state.view
+  view: state.view,
+  lang: state.language.lang
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 }))(Navigation);
