@@ -20,7 +20,6 @@ import Login from '../login/index.js';
 import { config } from '../../config.js';
 import { parseCredentials } from '../auth/utils.js';
 import { navigationStyles } from '../../styles.js';
-import { renderBackButton } from '../../utils.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
 const styles = StyleSheet.create({
@@ -32,21 +31,6 @@ const styles = StyleSheet.create({
     borderRadius: 10
   }
 });
-
-var _navigator;
-
-if (Platform.OS === 'android') {
-  BackAndroid.addEventListener('hardwareBackPress', () => {
-    if (!_navigator) {
-      return false;
-    }
-    if (_navigator.getCurrentRoutes().length === 1  ) {
-      return false;
-    }
-    _navigator.pop();
-    return true;
-  });
-}
 
 class EmailLogin extends Component {
   constructor(props) {
@@ -94,14 +78,15 @@ class Auth extends Component {
     if (credentials === null) {
       return (
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
-          <Navigator initialRoute={{name: "root"}}
+          <Navigator initialRouteStack={this.props.parentNavigator.getCurrentRoutes()}
+                     navigator={this.props.parentNavigator}
                      renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
         </View>
       );
     } else {
-      return (
-        this.props.children
-      );
+      return React.cloneElement(this.props.children,
+                                {parentNavigator: this.props.parentNavigator,
+                                 pushRoute: this.props.pushRoute});
     }
   }
 
@@ -120,7 +105,7 @@ class Auth extends Component {
               }}>
           Kirjautuminen vaaditaan omien tietojen näkemiseksi
         </Text>
-        <TouchableOpacity onPress={() => navigator.push({name: "partioid"}) }>
+        <TouchableOpacity onPress={() => this.props.pushRoute({name: "partioid"}) }>
           <Text style={{
                   padding: 15,
                   textAlign: 'center',
@@ -131,7 +116,7 @@ class Auth extends Component {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => {
-            navigator.push({name: "email"});
+            this.props.pushRoute({name: "email"});
           }}>
           <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
             <Text style={{textAlign: 'center'}}>
@@ -149,7 +134,6 @@ class Auth extends Component {
   renderEmailScene(navigator) {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
-        {renderBackButton(navigator)}
         <EmailLogin email={this.props.email}
                     send={(text) => {
                       this.props.actions.setEmail(text);
@@ -159,12 +143,12 @@ class Auth extends Component {
                         body: JSON.stringify({email: text})
                       }).then((response) => {
                         if (response.status == 200) {
-                          navigator.push({name: "email-send-success"});
+                          this.props.pushRoute({name: "email-send-success"});
                         } else {
-                          navigator.push({name: "email-send-error"});
+                          this.props.pushRoute({name: "email-send-error"});
                         }
                       }).catch((error) => {
-                        navigator.push({name: "email-send-error"});
+                        this.props.pushRoute({name: "email-send-error"});
                         console.log("error", error);
                       });
           }}/>
@@ -212,14 +196,12 @@ class Auth extends Component {
   renderPartioIDLogin(navigator) {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
-        {renderBackButton(navigator)}
         <Login uri={config.loginUrl}/>
       </View>
     );
   }
 
   renderScene(route, navigator) {
-    _navigator = navigator;
     switch(route.name) {
     case "email":
       return this.renderEmailScene(navigator);
