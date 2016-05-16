@@ -156,11 +156,11 @@ class Auth extends Component {
     );
   }
 
-  renderEmailSendSuccess(navigator) {
+  renderEmailSendSuccess() {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
-        <TouchableOpacity onPress={() => navigator.popToTop()}>
-          <Text>
+        <TouchableOpacity onPress={() => this.props.resetTo({name: "root"})}>
+          <Text style={{marginLeft: 10, marginTop: 10}}>
             Palaa kirjautumisruutuun
           </Text>
         </TouchableOpacity>
@@ -200,7 +200,7 @@ class Auth extends Component {
     case "email":
       return this.renderEmailScene();
     case "email-send-success":
-      return this.renderEmailSendSuccess(navigator);
+      return this.renderEmailSendSuccess();
     case "email-send-error":
       return this.renderEmailSendError();
     case "partioid":

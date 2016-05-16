@@ -25,7 +25,8 @@ class SettingsWrapper extends Component {
   renderChild(navigator) {
     return React.cloneElement(this.props.children,
                               {parentNavigator: navigator,
-                               pushRoute: (route) => this.pushRoute(route)});
+                               pushRoute: (route) => this.pushRoute(route),
+                               resetTo: (route) => this.pushRoute(route)});
   }
 
   renderScene(route, navigator) {
@@ -46,6 +47,11 @@ class SettingsWrapper extends Component {
   popRoute() {
     this.props.actions.popSettingsRoute();
     this._navigator.pop();
+  }
+
+  resetTo(route) {
+    this.props.actions.resetSettingsRoutesTo(route);
+    this._navigator.resetTo(route);
   }
 
   renderBackButton() {
@@ -116,10 +122,16 @@ const popSettingsRoute = () => ({
   type: "POP_SETTINGS_ROUTE"
 });
 
+const resetSettingsRoutesTo = (route) => ({
+  type: "RESET_SETTINGS_ROUTES",
+  route: route
+});
+
 export default connect(state => ({
   routeStack: state.settings.routeStack
 }), (dispatch) => ({
   actions: bindActionCreators({pushSettingsRoute,
-                               popSettingsRoute},
+                               popSettingsRoute,
+                               resetSettingsRoutesTo},
                               dispatch)
 }))(SettingsWrapper);

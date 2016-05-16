@@ -8,6 +8,8 @@ export const settings = (
       const newStack = Object.assign([], state.routeStack);
       newStack.pop();
       return Object.assign({}, state, {routeStack: newStack});
+    case "RESET_SETTINGS_ROUTES":
+      return Object.assign({}, state, {routeStack: [action.route]});
     }
     return state;
   };
