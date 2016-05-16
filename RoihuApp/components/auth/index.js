@@ -90,7 +90,7 @@ class Auth extends Component {
     }
   }
 
-  renderRootScene(navigator) {
+  renderRootScene() {
     return (
       <View style={{
               flex: 1,
@@ -131,7 +131,7 @@ class Auth extends Component {
     );
   }
 
-  renderEmailScene(navigator) {
+  renderEmailScene() {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
         <EmailLogin email={this.props.email}
@@ -193,7 +193,7 @@ class Auth extends Component {
     );
   }
 
-  renderPartioIDLogin(navigator) {
+  renderPartioIDLogin() {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
         <Login uri={config.loginUrl}/>
@@ -204,16 +204,16 @@ class Auth extends Component {
   renderScene(route, navigator) {
     switch(route.name) {
     case "email":
-      return this.renderEmailScene(navigator);
+      return this.renderEmailScene();
     case "email-send-success":
       return this.renderEmailSendSuccess(navigator);
     case "email-send-error":
       return this.renderEmailSendError(navigator);
     case "partioid":
-      return this.renderPartioIDLogin(navigator);
+      return this.renderPartioIDLogin();
     case "root":
     default:
-      return this.renderRootScene(navigator);
+      return this.renderRootScene();
     }
   }
 
