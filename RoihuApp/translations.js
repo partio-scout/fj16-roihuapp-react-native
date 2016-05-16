@@ -3,20 +3,10 @@ import React, {
   NativeModules
 } from 'react-native';
 const I18n = require('react-native-i18n');
+const translations = require('./strings.json');
 
 I18n.fallbacks = true;
-
-I18n.translations = {
-  en: {
-    "Kalenteri": "Calendar"
-  },
-  fi: {
-    "Kalenteri": "Kalenteri"
-  },
-  sv: {
-    "Kalenteri": "Kalendar"
-  }
-};
+I18n.translations = translations;
 
 export function t(key, locale) {
   I18n.locale = locale;
