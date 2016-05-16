@@ -174,15 +174,9 @@ class Auth extends Component {
     );
   }
 
-  renderEmailSendError(navigator) {
+  renderEmailSendError() {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
-        <TouchableOpacity onPress={() => navigator.pop()}>
-          <View style={[navigationStyles.backButton, {flexDirection: 'row', alignItems: 'center'}]}>
-            <Icon name="arrow-back" size={30} color="#000000"/>
-            <Text>Lähetä uudelleen</Text>
-          </View>
-        </TouchableOpacity>
         <Text style={{
                 marginTop: 50,
                 textAlign: 'center'
@@ -208,7 +202,7 @@ class Auth extends Component {
     case "email-send-success":
       return this.renderEmailSendSuccess(navigator);
     case "email-send-error":
-      return this.renderEmailSendError(navigator);
+      return this.renderEmailSendError();
     case "partioid":
       return this.renderPartioIDLogin();
     case "root":
