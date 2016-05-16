@@ -8,9 +8,9 @@ import React, {
 } from 'react-native';
 import { categoryStyles } from '../../styles.js';
 
-function renderCategory(category, navigator, selectCategory) {
+function renderCategory(category, navigator, selectCategory, rowID) {
   return (
-    <View key={"category-" + category.id} style={categoryStyles.listItem}>
+    <View key={"category-" + rowID} style={categoryStyles.listItem}>
       <TouchableOpacity onPress={() => {
           const route = {name: "articles"};
           selectCategory(category, route);
@@ -25,17 +25,16 @@ function renderCategory(category, navigator, selectCategory) {
 export function renderCategories(navigator, categoriesDataSource, selectCategory) {
   return (
     <View style={categoryStyles.list}>
-      <ListView key={"categories"}
-                dataSource={categoriesDataSource}
-                renderRow={(category) => renderCategory(category, navigator, selectCategory) }
+      <ListView dataSource={categoriesDataSource}
+                renderRow={(category, sectionID, rowID) => renderCategory(category, navigator, selectCategory, rowID) }
         style={{width: Dimensions.get("window").width}}/>
     </View>
   );
 }
 
-function renderArticle(article, navigator, selectArticle) {
+function renderArticle(article, navigator, selectArticle, rowID) {
   return (
-    <View key={"article-" + article.id} style={categoryStyles.listItem}>
+    <View key={"article-" + rowID} style={categoryStyles.listItem}>
       <TouchableOpacity onPress={() => {
           const route = {name: "article"};
           selectArticle(article, route);
@@ -50,9 +49,8 @@ function renderArticle(article, navigator, selectArticle) {
 export function renderArticles(navigator, articlesDataSource, selectArticle) {
   return (
     <View style={categoryStyles.list}>
-      <ListView key={"articles"}
-                dataSource={articlesDataSource}
-                renderRow={(article) => renderArticle(article, navigator, selectArticle) }
+      <ListView dataSource={articlesDataSource}
+                renderRow={(article, sectionID, rowID) => renderArticle(article, navigator, selectArticle, rowID) }
         style={{width: Dimensions.get("window").width}}/>
     </View>
   );

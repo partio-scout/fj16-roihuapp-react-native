@@ -63,7 +63,7 @@ class Locations extends Component {
 
   fetchLocations() {
     console.log("Fetching locations");
-    fetch(config.apiUrl + "/LocationCategories/Translations?lang=FI")
+    fetch(config.apiUrl + "/LocationCategories/Translations?lang=" + this.props.lang.toUpperCase())
       .then((response) => response.json())
       .then((locations) => {
         this.props.actions.setLocations(locations);
@@ -121,8 +121,8 @@ const actions = {
 export const locations = (
   state = {locations: null,
            error: null,
-           categoriesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id}),
-           articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id}),
+           categoriesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
+           articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            article: {},
            routeStack: [{name: "categories"}]},
   action) => {
@@ -154,7 +154,8 @@ export default connect(state => ({
   articlesDataSource: state.locations.articlesDataSource,
   article: state.locations.article,
   error: state.locations.error,
-  routeStack: state.locations.routeStack
+  routeStack: state.locations.routeStack,
+  lang: state.language.lang
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 }))(Locations);

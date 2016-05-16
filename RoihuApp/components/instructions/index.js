@@ -68,7 +68,7 @@ class Instructions extends Component {
 
   fetchInstructions() {
     console.log("Fetching instructions");
-    fetch(config.apiUrl + "/InstructionCategories/Translations?lang=FI")
+    fetch(config.apiUrl + "/InstructionCategories/Translations?lang=" + this.props.lang.toUpperCase())
       .then((response) => response.json())
       .then((instructions) => {
         this.props.actions.setInstructions(instructions);
@@ -126,8 +126,8 @@ const actions = {
 export const instructions = (
   state = {instructions: {categories: []},
            error: null,
-           categoriesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id}),
-           articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id}),
+           categoriesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
+           articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            article: "",
            routeStack: [{name: "categories"}]},
   action) => {
@@ -160,7 +160,8 @@ export default connect(state => ({
   articlesDataSource: state.instructions.articlesDataSource,
   article: state.instructions.article,
   error: state.instructions.error,
-  routeStack: state.instructions.routeStack
+  routeStack: state.instructions.routeStack,
+  lang: state.language.lang
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 }))(Instructions);
