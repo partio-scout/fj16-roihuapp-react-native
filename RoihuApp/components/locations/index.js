@@ -70,6 +70,7 @@ class Locations extends Component {
       })
       .catch((error) => {
         this.props.actions.setError(error);
+        console.log("Failed to fetch locations", error);
       });
   }
 
@@ -81,7 +82,8 @@ class Locations extends Component {
   }
 
   componentDidMount() {
-    if (this.props.locations === null) {
+    const { language  } = this.props.locations;
+    if (this.props.locations === null || language.toUpperCase() !== this.props.lang.toUpperCase()) {
       this.fetchLocations();
     }
     this.refreshListener = this.props.emitter.addListener("refresh", () => this.fetchLocations());
