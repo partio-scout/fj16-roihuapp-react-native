@@ -75,6 +75,7 @@ class Instructions extends Component {
       })
       .catch((error) => {
         this.props.actions.setError(error);
+        console.log(error);
       });
   }
 
@@ -86,7 +87,8 @@ class Instructions extends Component {
   }
 
   componentDidMount() {
-    if (this.props.instructions.categories.length === 0) {
+    const { categories, language  } = this.props.instructions;
+    if (categories.length === 0 || language.toUpperCase() !== this.props.lang.toUpperCase()) {
       this.fetchInstructions();
     }
     this.refreshListener = this.props.emitter.addListener("refresh", () => this.fetchInstructions());
