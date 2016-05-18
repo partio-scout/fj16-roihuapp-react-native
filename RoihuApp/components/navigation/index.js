@@ -56,8 +56,6 @@ class Navigation extends Component {
 
   renderView(view) {
     switch (view) {
-    case "map":
-      return (<Map/>);
     case "info":
       return (<Info/>);
     case "user":
@@ -68,8 +66,9 @@ class Navigation extends Component {
           </Auth>
         </SettingsWrapper>
       );
+    case "map":
     default:
-      return (<Calendar/>);
+      return (<Map/>);
     }
   }
 
