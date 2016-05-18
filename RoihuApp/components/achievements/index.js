@@ -30,30 +30,27 @@ if (Platform.OS === 'android') {
     return true;
   });
 }
+
 const styles = StyleSheet.create({
   listItem: {
     borderRadius: 4,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
-    padding: 15,
-    },
-  doThisAchievement:
-  {
+    margin: 15
+  },
+  doThisAchievement: {
     borderRadius: 5,
     borderWidth: 2,
     borderColor: 'red',
     padding: 5,
     width: 150
   },
-  doThisAchievementText:
-  {
+  doThisAchievementText: {
     color: '#000',
-    textAlign: 'center',
+    textAlign: 'center'
   },
-  renderSelectedAchievement:
-  {
+  renderSelectedAchievement: {
   }
-  
 });
 
 class Achievements extends Component {
@@ -97,6 +94,7 @@ class Achievements extends Component {
       </View>
     );
   }
+
   renderSelectedAchievement(achievement, navigator) {
     return (
       <View key={"achievement-" + achievement.title} style={styles.renderSelectedAchievement}>
@@ -107,10 +105,10 @@ class Achievements extends Component {
             }} style={styles.doThisAchievement}>
             <Text style={styles.doThisAchievementText}>I have done this</Text>
           </TouchableOpacity>
-
       </View>
     );
   }
+
   markAchievementDone(usrid, token, achievementid)
   {
     //Give user id, token, achieveent id
@@ -118,8 +116,7 @@ class Achievements extends Component {
 
   renderAchievements(navigator) {
     return (
-      <View style={{flex: 1, borderRadius: 4,borderWidth: 0.5,
-    borderColor: '#000',}}>
+      <View style={{flex: 1, borderRadius: 4,borderWidth: 0.5, borderColor: '#000'}}>
         {renderBackButton(navigator)}
         <ListView key={"achievements"}
                   enableEmptySections={true}
