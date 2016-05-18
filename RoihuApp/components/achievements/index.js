@@ -140,21 +140,15 @@ class Achievements extends Component {
   }
 
   render() {
-    const { achievements, ageLevelDataSource, error } = this.props;
-    if (achievements !== null) {
+    const { achievements, error } = this.props;
+    if (error !== null && achievements === null) {
+      return (<Text>Ei voitu hakea saavutuksia</Text>);
+    } else {
       return (
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
           <Navigator initialRoute={{name: "agelevels"}}
                      renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
         </View>
-      );
-    } else if (error !== null) {
-      return (
-        <Text>{error}</Text>
-      );
-    } else {
-      return (
-        <Text></Text>
       );
     }
   }
