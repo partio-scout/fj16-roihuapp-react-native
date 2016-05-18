@@ -40,7 +40,7 @@ class Navigation extends Component {
                             onPress={() => setView("achievements")}>
             <View style={{alignItems: 'center'}}>
               <Icon name="assessment" size={30} color="#000000"/>
-              <Text>Saavutukset</Text>
+              <Text>{t("Saavutukset", lang)}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}

@@ -3,18 +3,21 @@
     "Kalenteri": "Calendar",
     "Kartta": "Map",
     "Info": "Info",
-    "Minä": "Me"
+    "Minä": "Me",
+    "Saavutukset": "Achievements"
   },
   fi: {
     "Kalenteri": "Kalenteri",
     "Kartta": "Kartta",
     "Info": "Info",
-    "Minä": "Minä"
+    "Minä": "Minä",
+    "Saavutukset": "Saavutukset"
   },
   sv: {
     "Kalenteri": "Kalendar",
     "Kartta": "Karta",
     "Info": "Info",
-    "Minä": "Jag"
+    "Minä": "Jag",
+    "Saavutukset": "Meriter"
   }
 };
