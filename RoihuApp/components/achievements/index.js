@@ -8,28 +8,12 @@ import React, {
   Dimensions,
   Navigator,
   TouchableOpacity,
-  Platform,
   BackAndroid
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config.js';
 import { renderBackButton } from '../../utils.js';
-
-var _navigator;
-
-if (Platform.OS === 'android') {
-  BackAndroid.addEventListener('hardwareBackPress', () => {
-    if (!_navigator) {
-      return false;
-    }
-    if (_navigator.getCurrentRoutes().length === 1  ) {
-      return false;
-    }
-    _navigator.pop();
-    return true;
-  });
-}
 
 const styles = StyleSheet.create({
   listItem: {
@@ -127,7 +111,6 @@ class Achievements extends Component {
   }
 
   renderScene(route, navigator) {
-    _navigator = navigator;
     switch(route.name) {
     case "achievements":
       return this.renderAchievements(navigator);
@@ -146,7 +129,8 @@ class Achievements extends Component {
     } else {
       return (
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
-          <Navigator initialRoute={{name: "agelevels"}}
+          <Navigator ref={(component) => {this._navigator = component;}}
+                     initialRoute={{name: "agelevels"}}
                      renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
         </View>
       );
@@ -170,6 +154,22 @@ class Achievements extends Component {
       this.fetchAchievements();
     }
   }
+
+  componentWillMount() {
+    this._onBack = () => {
+      if (this._navigator.getCurrentRoutes().length === 1  ) {
+        return false;
+      }
+      this._navigator.pop();
+      return true;
+    };
+    BackAndroid.addEventListener('hardwareBackPress', this._onBack);
+  }
+
+  componentWillUnmount() {
+    BackAndroid.removeEventListener('hardwareBackPress', this._onBack);
+  }
+
 }
 
 const actions = {
