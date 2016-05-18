@@ -4,7 +4,6 @@ import React, {
   StyleSheet,
   Text,
   View,
-  Image,
   TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
