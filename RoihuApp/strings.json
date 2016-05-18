@@ -1,11 +1,20 @@
 {
   en: {
-    "Kalenteri": "Calendar"
+    "Kalenteri": "Calendar",
+    "Kartta": "Map",
+    "Info": "Info",
+    "Minä": "Me"
   },
   fi: {
-    "Kalenteri": "Kalenteri"
+    "Kalenteri": "Kalenteri",
+    "Kartta": "Kartta",
+    "Info": "Info",
+    "Minä": "Minä"
   },
   sv: {
-    "Kalenteri": "Kalendar"
+    "Kalenteri": "Kalendar",
+    "Kartta": "Karta",
+    "Info": "Info",
+    "Minä": "Jag"
   }
 };

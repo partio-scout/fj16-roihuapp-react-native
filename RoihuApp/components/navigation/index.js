@@ -41,21 +41,21 @@ class Navigation extends Component {
                             onPress={() => setView("map")}>
             <View style={{alignItems: 'center'}}>
               <Icon name="place" size={30} color="#000000"/>
-              <Text>Kartta</Text>
+              <Text>{t("Kartta", lang)}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
                             onPress={() => setView("info")}>
             <View style={{alignItems: 'center'}}>
               <Icon name="search" size={30} color="#000000"/>
-              <Text>Info</Text>
+              <Text>{t("Info", lang)}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
                             onPress={() => setView("user")}>
             <View style={{alignItems: 'center'}}>
               <Icon name="account-circle" size={30} color="#000000"/>
-              <Text>Minä</Text>
+              <Text>{t("Minä", lang)}</Text>
             </View>
           </TouchableOpacity>
         </View>
