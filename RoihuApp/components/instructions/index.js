@@ -8,7 +8,8 @@ import React, {
   TouchableOpacity,
   ListView,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  Alert
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -54,7 +55,7 @@ class Instructions extends Component {
   }
 
   render() {
-    if (this.props.error !== null) {
+    if (this.props.error !== null && this.props.instructions === null) {
       return (<Text>Ei voitu hakea ohjeita</Text>);
     } else {
       return (
@@ -76,6 +77,9 @@ class Instructions extends Component {
       .catch((error) => {
         this.props.actions.setError(error);
         console.log(error);
+        Alert.alert("Virhe nettiyhteydessä",
+                    "Ohjeiden haku epäonnistui",
+                    [{text: "Okei", onPress: () => {}}]);
       });
   }
 
@@ -87,8 +91,7 @@ class Instructions extends Component {
   }
 
   componentDidMount() {
-    const { categories, language  } = this.props.instructions;
-    if (categories.length === 0 || language.toUpperCase() !== this.props.lang.toUpperCase()) {
+    if (this.props.instructions === null || this.props.instructions.language.toUpperCase() !== this.props.lang.toUpperCase()) {
       this.fetchInstructions();
     }
     this.refreshListener = this.props.emitter.addListener("refresh", () => this.fetchInstructions());
@@ -126,7 +129,7 @@ const actions = {
 };
 
 export const instructions = (
-  state = {instructions: {categories: []},
+  state = {instructions: null,
            error: null,
            categoriesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),

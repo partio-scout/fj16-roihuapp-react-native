@@ -7,7 +7,8 @@ import React, {
   Text,
   StyleSheet,
   ListView,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -42,21 +43,14 @@ class Locations extends Component {
   }
 
   render() {
-    const { locations, categoriesDataSource, error } = this.props;
-    if (locations !== null) {
+    if (this.props.error !== null && this.props.locations === null) {
+      return (<Text>Ei voitu hakea paikkoja</Text>);
+    } else {
       return (
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
           <Navigator initialRouteStack={this.props.routeStack}
                      renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
         </View>
-      );
-    } else if (error !== null) {
-      return (
-        <Text>{error}</Text>
-      );
-    } else {
-      return (
-        <Text></Text>
       );
     }
   }
@@ -71,6 +65,9 @@ class Locations extends Component {
       .catch((error) => {
         this.props.actions.setError(error);
         console.log("Failed to fetch locations", error);
+        Alert.alert("Virhe nettiyhteydessä",
+                    "Paikkojen haku epäonnistui",
+                    [{text: "Okei", onPress: () => {}}]);
       });
   }
 
@@ -82,8 +79,7 @@ class Locations extends Component {
   }
 
   componentDidMount() {
-    const { language  } = this.props.locations;
-    if (this.props.locations === null || language.toUpperCase() !== this.props.lang.toUpperCase()) {
+    if (this.props.locations === null || this.props.locations.language.toUpperCase() !== this.props.lang.toUpperCase()) {
       this.fetchLocations();
     }
     this.refreshListener = this.props.emitter.addListener("refresh", () => this.fetchLocations());
