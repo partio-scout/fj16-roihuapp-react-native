@@ -12,7 +12,6 @@ import { bindActionCreators } from 'redux';
 import {styles} from '../../styles.js';
 import { t } from '../../translations.js';
 const Map = require('../map');
-import Calendar from '../calendar/index.js';
 import Auth from '../auth/index.js';
 import User from '../user/index.js';
 import Info from '../info/index.js';
@@ -30,13 +29,6 @@ class Navigation extends Component {
           {this.renderView(view)}
         </View>
         <View style={styles.buttonBar}>
-          <TouchableOpacity style={styles.button}
-                            onPress={() => setView("calendar")}>
-            <View style={{alignItems: 'center'}}>
-              <Icon name="date-range" size={30} color="#000000"/>
-              <Text>{t("Kalenteri", lang)}</Text>
-            </View>
-          </TouchableOpacity>
           <TouchableOpacity style={styles.button}
                             onPress={() => setView("map")}>
             <View style={{alignItems: 'center'}}>
@@ -65,8 +57,6 @@ class Navigation extends Component {
 
   renderView(view) {
     switch (view) {
-    case "calendar":
-      return (<Calendar/>);
     case "map":
       return (<Map/>);
     case "info":
