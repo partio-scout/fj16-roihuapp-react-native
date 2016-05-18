@@ -20,6 +20,9 @@ test:
     - ./gradlew assembleDebug -PdisablePreDex -Pjobs=1 -PpreDexEnable=false -Pcom.android.build.threadPoolSize=1 -Dorg.gradle.parallel=false:
         pwd:
           RoihuApp/android
+    - ./gradlew assembleRelease:
+        pwd:
+          RoihuApp/android
 
 general:
   artifacts:
