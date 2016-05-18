@@ -39,9 +39,9 @@ const styles = StyleSheet.create({
 
 class Achievements extends Component {
 
-  renderAgelevel(agelevel, navigator) {
+  renderAgelevel(agelevel, navigator, rowID) {
     return (
-      <View key={"agelevel-" + agelevel.id} style={styles.listItem}>
+      <View key={"agelevel-" + rowID} style={styles.listItem}>
         <TouchableOpacity onPress={() => {
             this.props.actions.selectAgelevel(agelevel);
             navigator.push({name: "achievements"});
@@ -61,14 +61,14 @@ class Achievements extends Component {
         </TouchableOpacity>
         <ListView key={"agelevels"}
                   dataSource={this.props.ageLevelDataSource}
-                  renderRow={(agelevel) => this.renderAgelevel(agelevel, navigator)}/>
+                  renderRow={(agelevel, sectionID, rowID) => this.renderAgelevel(agelevel, navigator, rowID)}/>
       </View>
     );
   }
 
-  renderAchievement(achievement, navigator) {
+  renderAchievement(achievement, navigator, rowID) {
     return (
-      <View key={"achievement-" + achievement.title} style={styles.listItem}>
+      <View key={"achievement-" + rowID} style={styles.listItem}>
         <TouchableOpacity onPress={() => {
             this.props.actions.selectAchievement(achievement);
             navigator.push({name: "achievement"});
@@ -105,7 +105,7 @@ class Achievements extends Component {
         <ListView key={"achievements"}
                   enableEmptySections={true}
                   dataSource={this.props.achievementsDataSource}
-                  renderRow={(achievement) => this.renderAchievement(achievement, navigator)}/>
+                  renderRow={(achievement, sectionID, rowID) => this.renderAchievement(achievement, navigator, rowID)}/>
       </View>
     );
   }
