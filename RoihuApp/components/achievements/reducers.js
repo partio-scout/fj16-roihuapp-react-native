@@ -9,8 +9,8 @@ export const achievements = (
   state = {
     achievements: null,
     error: null,
-    ageLevelDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id}),
-    achievementsDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.sort_no !== r2.sort_no})
+    ageLevelDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
+    achievementsDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title})
   },
   action) => {
     switch (action.type) {

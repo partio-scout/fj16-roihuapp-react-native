@@ -139,7 +139,7 @@ class Achievements extends Component {
 
   fetchAchievements() {
     console.log("Fetching achievements");
-    fetch(config.apiUrl + "/AchievementCategories/Translations?lang=FI")
+    fetch(config.apiUrl + "/AchievementCategories/Translations?lang=" + this.props.lang.toUpperCase())
       .then((response) => response.json())
       .then((achievements) => {
         this.props.actions.setAchievements(achievements);
@@ -150,7 +150,7 @@ class Achievements extends Component {
   }
 
   componentDidMount() {
-    if (this.props.achievements === null) {
+    if (this.props.achievements === null || this.props.achievements.language.toUpperCase() !== this.props.lang.toUpperCase()) {
       this.fetchAchievements();
     }
   }
@@ -196,7 +196,8 @@ export default connect(state => ({
   error: state.achievements.error,
   ageLevelDataSource: state.achievements.ageLevelDataSource,
   achievementsDataSource: state.achievements.achievementsDataSource,
-  achievement: state.achievements.achievement
+  achievement: state.achievements.achievement,
+  lang: state.language.lang
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 }))(Achievements);
