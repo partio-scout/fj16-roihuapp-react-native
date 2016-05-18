@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
-    margin: 15
+    padding: 15
   },
   doThisAchievement: {
     borderRadius: 5,
