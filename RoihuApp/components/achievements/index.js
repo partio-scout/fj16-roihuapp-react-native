@@ -43,8 +43,9 @@ class Achievements extends Component {
     return (
       <View key={"agelevel-" + rowID} style={styles.listItem}>
         <TouchableOpacity onPress={() => {
-            this.props.actions.selectAgelevel(agelevel);
-            navigator.push({name: "achievements"});
+            const route = {name: "achievements"};
+            this.props.actions.selectAgelevel(agelevel, route);
+            navigator.push(route);
           }}>
           <Text style={{fontWeight: 'bold'}}>{agelevel.title}</Text>
         </TouchableOpacity>
@@ -70,8 +71,9 @@ class Achievements extends Component {
     return (
       <View key={"achievement-" + rowID} style={styles.listItem}>
         <TouchableOpacity onPress={() => {
-            this.props.actions.selectAchievement(achievement);
-            navigator.push({name: "achievement"});
+            const route = {name: "achievement"};
+            this.props.actions.selectAchievement(achievement, route);
+            navigator.push(route);
           }}>
           <Text style={{fontWeight: 'bold'}}>{achievement.title}</Text>
         </TouchableOpacity>
@@ -130,7 +132,7 @@ class Achievements extends Component {
       return (
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
           <Navigator ref={(component) => {this._navigator = component;}}
-                     initialRoute={{name: "agelevels"}}
+                     initialRouteStack={this.props.routeStack}
                      renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
         </View>
       );
@@ -157,10 +159,11 @@ class Achievements extends Component {
 
   componentWillMount() {
     this._onBack = () => {
-      if (this._navigator.getCurrentRoutes().length === 1  ) {
+      if (this.props.routeStack.length === 1) {
         return false;
       }
       this._navigator.pop();
+      this.props.actions.popAchievementsRoute();
       return true;
     };
     BackAndroid.addEventListener('hardwareBackPress', this._onBack);
@@ -181,13 +184,18 @@ const actions = {
     type: "SET_ACHIEVEMENTS_ERROR",
     error: error
   }),
-  selectAgelevel: (agelevel) => ({
+  selectAgelevel: (agelevel, route) => ({
     type: "SELECT_AGELEVEL",
-    agelevel: agelevel
+    agelevel: agelevel,
+    route: route
   }),
-  selectAchievement: (achievement) => ({
+  selectAchievement: (achievement, route) => ({
     type: "SELECT_ACHIEVEMENT",
-    achievement: achievement
+    achievement: achievement,
+    route: route
+  }),
+  popAchievementsRoute: () => ({
+    type: "POP_ACHIEVEMENTS_ROUTE"
   })
 };
 
@@ -197,6 +205,7 @@ export default connect(state => ({
   ageLevelDataSource: state.achievements.ageLevelDataSource,
   achievementsDataSource: state.achievements.achievementsDataSource,
   achievement: state.achievements.achievement,
+  routeStack: state.achievements.routeStack,
   lang: state.language.lang
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
