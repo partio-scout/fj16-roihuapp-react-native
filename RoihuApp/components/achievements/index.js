@@ -96,7 +96,7 @@ class Achievements extends Component {
 
   renderAchievements(navigator) {
     return (
-      <View style={{flex: 1, borderRadius: 4,borderWidth: 0.5, borderColor: '#000'}}>
+      <View style={{flex: 1}}>
         <ListView key={"achievements"}
                   enableEmptySections={true}
                   dataSource={this.props.achievementsDataSource}
