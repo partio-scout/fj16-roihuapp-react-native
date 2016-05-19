@@ -13,7 +13,7 @@ import React, {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config.js';
-import { renderBackButton } from '../../utils.js';
+import { renderBackButton, renderRefreshButton } from '../../utils.js';
 
 const styles = StyleSheet.create({
   listItem: {
@@ -56,10 +56,6 @@ class Achievements extends Component {
   renderAgelevels(navigator) {
     return (
       <View style={{flex: 1}}>
-        <TouchableOpacity style={{padding: 15}}
-                          onPress={() => this.fetchAchievements()}>
-          <Text style={{fontWeight: 'bold'}}>Päivitä</Text>
-        </TouchableOpacity>
         <ListView key={"agelevels"}
                   dataSource={this.props.ageLevelDataSource}
                   renderRow={(agelevel, sectionID, rowID) => this.renderAgelevel(agelevel, navigator, rowID)}/>
@@ -84,13 +80,11 @@ class Achievements extends Component {
   renderSelectedAchievement(achievement, navigator) {
     return (
       <View key={"achievement-" + achievement.title} style={styles.renderSelectedAchievement}>
-      {renderBackButton(navigator)}
-      <Text style={{fontWeight: 'bold', fontSize: 20}}>{achievement.title}</Text>
-          <Text>{achievement.bodytext}</Text>
-          <TouchableOpacity onPress={() => {
-            }} style={styles.doThisAchievement}>
-            <Text style={styles.doThisAchievementText}>I have done this</Text>
-          </TouchableOpacity>
+        <Text style={{fontWeight: 'bold', fontSize: 20}}>{achievement.title}</Text>
+        <Text>{achievement.bodytext}</Text>
+        <TouchableOpacity onPress={() => {}}style={styles.doThisAchievement}>
+          <Text style={styles.doThisAchievementText}>I have done this</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -103,7 +97,6 @@ class Achievements extends Component {
   renderAchievements(navigator) {
     return (
       <View style={{flex: 1, borderRadius: 4,borderWidth: 0.5, borderColor: '#000'}}>
-        {renderBackButton(navigator)}
         <ListView key={"achievements"}
                   enableEmptySections={true}
                   dataSource={this.props.achievementsDataSource}
@@ -131,6 +124,11 @@ class Achievements extends Component {
     } else {
       return (
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
+          <View style={{flexDirection: 'row'}}>
+            {renderBackButton(this.props.routeStack, () => this.popRoute())}
+            <View style={{flex: 1}}></View>
+            {renderRefreshButton(() => this.fetchAchievements())}
+          </View>
           <Navigator ref={(component) => {this._navigator = component;}}
                      initialRouteStack={this.props.routeStack}
                      renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
@@ -157,13 +155,17 @@ class Achievements extends Component {
     }
   }
 
+  popRoute() {
+    this._navigator.pop();
+    this.props.actions.popAchievementsRoute();
+  }
+
   componentWillMount() {
     this._onBack = () => {
       if (this.props.routeStack.length === 1) {
         return false;
       }
-      this._navigator.pop();
-      this.props.actions.popAchievementsRoute();
+      this.popRoute();
       return true;
     };
     BackAndroid.addEventListener('hardwareBackPress', this._onBack);

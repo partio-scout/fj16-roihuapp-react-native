@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Instructions from '../instructions/index.js';
 import Locations from '../locations/index.js';
+import { renderRefreshButton, renderBackButton } from '../../utils.js';
 const EventEmitter = require('EventEmitter');
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
@@ -77,30 +78,13 @@ class Info extends Component {
     }
   }
 
-  renderBackButton() {
-    const routeStack = this.getRouteStack();
-    if (routeStack.length === 1) {
-      return null;
-    } else {
-      return (
-        <TouchableOpacity style={{paddingLeft: 10, paddingTop: 10}}
-                          onPress={() => this.onBack()}>
-          <Icon name="arrow-back" size={30} color="#000000"/>
-        </TouchableOpacity>
-      );
-    }
-  }
-
   render() {
     return (
       <View style={[styles.container, {width: Dimensions.get("window").width}]}>
         <View style={{flexDirection: 'row'}}>
-          {this.renderBackButton()}
+          {renderBackButton(this.getRouteStack(), () => this.onBack())}
           <View style={{flex: 1}}></View>
-          <TouchableOpacity style={{paddingRight: 10, paddingTop: 10}}
-                            onPress={() => this.getEventEmitter().emit("refresh")}>
-            <Icon style={{textAlign: 'right'}} name="refresh" size={30} color="#000000"/>
-          </TouchableOpacity>
+          {renderRefreshButton(() => this.getEventEmitter().emit("refresh"))}
         </View>
         <View style={styles.tabs}>
           {this.renderTabButton("instructions", "Ohjeet")}

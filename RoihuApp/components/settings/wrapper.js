@@ -12,6 +12,7 @@ import Settings from '../settings/index.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { last } from '../../utils.js';
+import { renderBackButton } from '../../utils.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
 class SettingsWrapper extends Component {
@@ -54,19 +55,6 @@ class SettingsWrapper extends Component {
     this._navigator.resetTo(route);
   }
 
-  renderBackButton() {
-    if (this.props.routeStack.length === 1) {
-      return null;
-    } else {
-      return (
-        <TouchableOpacity style={{paddingLeft: 10, paddingTop: 10}}
-                          onPress={() => this.popRoute()}>
-          <Icon name="arrow-back" size={30} color="#000000"/>
-        </TouchableOpacity>
-      );
-    }
-  }
-
   renderSettingsButton() {
     if (last(this.props.routeStack).name === "settings") {
       return null;
@@ -84,7 +72,7 @@ class SettingsWrapper extends Component {
     return (
       <View style={{flex: 1, width: Dimensions.get("window").width}}>
         <View style={{flexDirection: 'row'}}>
-          {this.renderBackButton()}
+          {renderBackButton(this.props.routeStack, () => this.popRoute())}
           <View style={{flex: 1}}></View>
           {this.renderSettingsButton()}
         </View>
