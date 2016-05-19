@@ -47,7 +47,8 @@ class EmailLogin extends Component {
           <Text style={{textAlign: 'center'}}>
             Antamalla sähköpostiosoitteesi saat kirjautumislinkin
           </Text>
-          <TextInput value={this.state.text}
+          <TextInput style={{borderColor: 'gray', borderWidth: 1, height: 40, margin: 10}}
+                     value={this.state.text}
                      autoCapitalize={'none'}
                      autoCorrect={false}
                      onSubmitEditing={() => this.props.send(this.state.text)}
