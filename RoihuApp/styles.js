@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     flex: 1,
     backgroundColor: '#F5FCFF',
-    paddingTop: Platform.OS === 'ios' ? 10: 0
+    paddingTop: Platform.OS === 'ios' ? 18 : 0
   },
   content: {
     flex: 1,
