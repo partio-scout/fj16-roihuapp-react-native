@@ -79,12 +79,9 @@ class Achievements extends Component {
 
   renderSelectedAchievement(achievement, navigator) {
     return (
-      <View key={"achievement-" + achievement.title} style={styles.renderSelectedAchievement}>
+      <View style={styles.renderSelectedAchievement}>
         <Text style={{fontWeight: 'bold', fontSize: 20}}>{achievement.title}</Text>
         <Text>{achievement.bodytext}</Text>
-        <TouchableOpacity onPress={() => {}}style={styles.doThisAchievement}>
-          <Text style={styles.doThisAchievementText}>I have done this</Text>
-        </TouchableOpacity>
       </View>
     );
   }
