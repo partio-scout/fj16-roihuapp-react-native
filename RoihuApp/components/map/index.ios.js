@@ -1,23 +1,16 @@
 'use strict';
 import React, {
   Component,
-  Image,
-  View,
-  ScrollView,
   Dimensions,
+  requireNativeComponent
 } from 'react-native';
+
+const RCTZoomableMapView = requireNativeComponent('RCTZoomableMapView', null);
 
 class Map extends Component {
   render() {
     return (
-      <View style={{flex: 1}}>
-        <ScrollView style={{flex: 1}}
-                    bouncesZoom={true}
-                    maximumZoomScale={5.0}
-                    minimumZoomScale={1.0}>
-          <Image source={require('../../android/app/src/main/res/drawable-nodpi/map.png')}/>
-        </ScrollView>
-      </View>
+      <RCTZoomableMapView style={{flex: 1, backgroundColor: 'white', width: Dimensions.get("window").width}}/>
     );
   }
 }
