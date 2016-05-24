@@ -8,7 +8,6 @@ import { navigationStyles, styles } from './styles.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
 export function renderBackButton(routeStack, popRoute) {
-  console.log(routeStack);
   if (routeStack.length === 1) {
     return (
       <TouchableOpacity style={{paddingLeft: 10, paddingTop: 10}}>

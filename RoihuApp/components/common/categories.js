@@ -50,8 +50,6 @@ function renderArticle(article, navigator, selectArticle, rowID) {
 }
 
 export function renderArticles(navigator, articlesDataSource, selectArticle) {
-  console.log('ARTICLES');
-  console.log(articlesDataSource);
   return (
     <View style={categoryStyles.list}>
       <ListView dataSource={articlesDataSource}

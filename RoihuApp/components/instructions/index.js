@@ -11,9 +11,11 @@ import React, {
   ScrollView,
   Alert
 } from 'react-native';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config.js';
+import { t } from '../../translations.js';
 import { categoryStyles } from '../../styles.js';
 import { renderCategories, renderArticles } from '../common/categories.js';
 const Markdown = require('react-native-markdown');
@@ -31,12 +33,14 @@ class Instructions extends Component {
   }
 
   renderSelectedArticle(article) {
+    const { view, actions: {setView}, lang } = this.props;
     return (
       <View style={categoryStyles.article}>
         <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>
           {article.title}
         </Text>
         {this.renderBody(article.bodytext)}
+        <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>{t("Viimeksi muokattu", lang)} {moment(article.last_modified).format('DD.MM. h:mm')}</Text>
       </View>
     );
   }

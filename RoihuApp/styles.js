@@ -78,5 +78,9 @@ export const categoryStyles = StyleSheet.create({
   },
   textColor: {
     color: '#000000',
-  }
+  },
+  smallText: {
+    fontSize: 10,
+    textAlign: 'right'
+  }  
 });
