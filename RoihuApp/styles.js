@@ -4,11 +4,16 @@ import React, {
   Platform
 } from 'react-native';
 
+const MAIN_COLOR = '#FFFFFF';
+const BAR_BACKGROUND_COLOR = '#18A771';
+const BORDER_COLOR = '#3EAADF';
+const TEXT_COLOR = '#000000';
+
 export const styles = StyleSheet.create({
   main: {
     flexDirection: 'column',
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: MAIN_COLOR,
     paddingTop: Platform.OS === 'ios' ? 18 : 0
   },
   content: {
@@ -18,7 +23,7 @@ export const styles = StyleSheet.create({
   buttonBar: {
     paddingTop: 5,
     flexDirection: 'row',
-    backgroundColor: '#18A771'
+    backgroundColor: BAR_BACKGROUND_COLOR
   },
   button: {
     flex: 1,
@@ -26,14 +31,14 @@ export const styles = StyleSheet.create({
     marginBottom: 5
   },
   buttonBarColor: {
-    color: '#FFFFFF'
+    color: MAIN_COLOR
   },
   buttonBarIcon: {
-    color: '#FFFFFF',
+    color: MAIN_COLOR,
     fontSize: 30
   },
   hiddenButtonBarIcon: {
-    color: '#18A771',
+    color: BAR_BACKGROUND_COLOR,
     fontSize: 30
   }  
 });
@@ -60,12 +65,12 @@ export const infoStyles = StyleSheet.create({
     marginBottom: 10
   },
   tabText: {
-    color: '#18A771',
+    color: BAR_BACKGROUND_COLOR,
     paddingBottom: 10
   },
   topNavigationBar: {
     flexDirection: 'row', 
-    backgroundColor: '#18A771', 
+    backgroundColor: BAR_BACKGROUND_COLOR, 
     paddingBottom: 10, 
     marginBottom: 10
   }
@@ -75,7 +80,7 @@ export const categoryStyles = StyleSheet.create({
   listItem: {
     padding: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#3EAADF'
+    borderBottomColor: BORDER_COLOR
   },
   listItemTouchArea: {
     flexDirection: 'row',
@@ -83,7 +88,7 @@ export const categoryStyles = StyleSheet.create({
   },
   listItemIcon: {
     textAlign: 'right',
-    color: '#3EAADF',
+    color: BORDER_COLOR,
     fontSize: 22
   },
   list: {
@@ -101,7 +106,7 @@ export const categoryStyles = StyleSheet.create({
     fontSize: 20
   },
   textColor: {
-    color: '#000000',
+    color: TEXT_COLOR,
   },
   smallText: {
     fontSize: 10,
