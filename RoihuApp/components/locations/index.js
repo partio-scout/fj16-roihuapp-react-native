@@ -31,7 +31,9 @@ class Locations extends Component {
         <ScrollView style={{flex: 1}}>
           <Text style={categoryStyles.textColor}>{article.bodytext}</Text>
         </ScrollView>
-        <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>{t("Viimeksi muokattu", lang)} {moment(article.last_modified).format('DD.MM. h:mm')}</Text>
+        <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
+          {t("Viimeksi muokattu", lang)} {moment(article.last_modified).format('DD.MM. h:mm')}
+        </Text>
       </View>
     );
   }
@@ -50,11 +52,15 @@ class Locations extends Component {
   }
 
   render() {
+    const { view, actions: {setView}, lang } = this.props;
     if (this.props.error !== null && this.props.locations === null) {
       return (<Text>Ei voitu hakea paikkoja</Text>);
     } else {
       return (
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
+          <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
+            {t("Tilanne", lang)} {moment(this.props.locations.timestamp).format('DD.MM. h:mm')}
+          </Text>
           <Navigator initialRouteStack={this.props.routeStack}
                      renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
         </View>

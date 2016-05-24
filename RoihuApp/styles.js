@@ -47,6 +47,30 @@ export const navigationStyles = StyleSheet.create({
   }
 });
 
+export const infoStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column'},
+  tabs: {
+    flexDirection: 'row'
+  },
+  button: {
+    flex: 1,
+    alignItems: 'center',
+    marginBottom: 10
+  },
+  tabText: {
+    color: '#18A771',
+    paddingBottom: 10
+  },
+  topNavigationBar: {
+    flexDirection: 'row', 
+    backgroundColor: '#18A771', 
+    paddingBottom: 10, 
+    marginBottom: 10
+  }
+});
+
 export const categoryStyles = StyleSheet.create({
   listItem: {
     padding: 10,

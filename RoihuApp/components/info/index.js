@@ -12,33 +12,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Instructions from '../instructions/index.js';
 import Locations from '../locations/index.js';
+import { infoStyles, categoryStyles } from '../../styles.js';
 import { renderRefreshButton, renderBackButton } from '../../utils.js';
 const EventEmitter = require('EventEmitter');
 const Icon = require('react-native-vector-icons/MaterialIcons');
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column'},
-  tabs: {
-    flexDirection: 'row'
-  },
-  button: {
-    flex: 1,
-    alignItems: 'center',
-    marginBottom: 10
-  },
-  tabText: {
-    color: '#18A771',
-    paddingBottom: 10
-  },
-  topNavigationBar: {
-    flexDirection: 'row', 
-    backgroundColor: '#18A771', 
-    paddingBottom: 10, 
-    marginBottom: 10
-  }
-});
 
 class Info extends Component {
 
@@ -54,10 +31,10 @@ class Info extends Component {
 
   renderTabButton(id, text) {
     return (
-      <TouchableOpacity style={styles.button}
+      <TouchableOpacity style={infoStyles.button}
                         onPress={() => this.props.actions.setTab(id)}>
         <View style={{alignItems: 'center'}}>
-          <Text style={styles.tabText}>{text.toUpperCase()}</Text>
+          <Text style={infoStyles.tabText}>{text.toUpperCase()}</Text>
           {this.props.tab === id ? this.renderSelectionHighlight() : null}
         </View>
       </TouchableOpacity>
@@ -89,16 +66,17 @@ class Info extends Component {
   }
 
   render() {
+    const { view, actions: {setView}, lang } = this.props;
     return (
-      <View style={[styles.container, {width: Dimensions.get("window").width}]}>
-        <View style={styles.topNavigationBar}>
+      <View style={[infoStyles.container, {width: Dimensions.get("window").width}]}>
+        <View style={infoStyles.topNavigationBar}>
           {renderBackButton(this.getRouteStack(), () => this.onBack())}
           <View style={{flex: 1}}>
             <Text style={{color: '#FFFFFF', fontSize: 24, textAlign: 'center', marginTop: 7}}>{/*TitleText*/}</Text>
           </View>
           {renderRefreshButton(() => this.getEventEmitter().emit("refresh"))}
         </View>
-        <View style={styles.tabs}>
+        <View style={infoStyles.tabs}>
           {this.renderTabButton("instructions", "Ohjeet")}
           {this.renderTabButton("locations", "Paikat")}
         </View>

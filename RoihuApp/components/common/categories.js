@@ -27,6 +27,7 @@ function renderCategory(category, navigator, selectCategory, rowID) {
 export function renderCategories(navigator, categoriesDataSource, selectCategory) {
   return (
     <View style={categoryStyles.list}>
+
       <ListView dataSource={categoriesDataSource}
                 renderRow={(category, sectionID, rowID) => renderCategory(category, navigator, selectCategory, rowID) }
         style={{width: Dimensions.get("window").width}}/>
