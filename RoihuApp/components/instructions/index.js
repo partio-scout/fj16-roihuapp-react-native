@@ -23,7 +23,7 @@ class Instructions extends Component {
   renderBody(body) {
     return (
       <ScrollView style={{flex: 1}}>
-        <Markdown>
+        <Markdown style={categoryStyles.textColor}>
           {body}
         </Markdown>
       </ScrollView>
@@ -33,7 +33,7 @@ class Instructions extends Component {
   renderSelectedArticle(article) {
     return (
       <View style={categoryStyles.article}>
-        <Text style={categoryStyles.articleTitle}>
+        <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>
           {article.title}
         </Text>
         {this.renderBody(article.bodytext)}

@@ -26,7 +26,17 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     alignItems: 'center',
-    marginBottom: 5
+    marginBottom: 10
+  },
+  tabText: {
+    color: '#18A771',
+    paddingBottom: 10
+  },
+  topNavigationBar: {
+    flexDirection: 'row', 
+    backgroundColor: '#18A771', 
+    paddingBottom: 10, 
+    marginBottom: 10
   }
 });
 
@@ -39,7 +49,7 @@ class Info extends Component {
   }
 
   renderSelectionHighlight() {
-    return (<Text style={{height: 2, width: 100, backgroundColor: 'green'}}></Text>);
+    return (<Text style={{height: 4, width: 100, backgroundColor: '#18A771'}}></Text>);
   }
 
   renderTabButton(id, text) {
@@ -47,7 +57,7 @@ class Info extends Component {
       <TouchableOpacity style={styles.button}
                         onPress={() => this.props.actions.setTab(id)}>
         <View style={{alignItems: 'center'}}>
-          <Text>{text}</Text>
+          <Text style={styles.tabText}>{text.toUpperCase()}</Text>
           {this.props.tab === id ? this.renderSelectionHighlight() : null}
         </View>
       </TouchableOpacity>
@@ -81,9 +91,11 @@ class Info extends Component {
   render() {
     return (
       <View style={[styles.container, {width: Dimensions.get("window").width}]}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={styles.topNavigationBar}>
           {renderBackButton(this.getRouteStack(), () => this.onBack())}
-          <View style={{flex: 1}}></View>
+          <View style={{flex: 1}}>
+            <Text style={{color: '#FFFFFF', fontSize: 24, textAlign: 'center', marginTop: 7}}>{/*TitleText*/}</Text>
+          </View>
           {renderRefreshButton(() => this.getEventEmitter().emit("refresh"))}
         </View>
         <View style={styles.tabs}>

@@ -21,10 +21,10 @@ class Locations extends Component {
   renderSelectedArticle(article) {
     return (
       <View style={categoryStyles.article}>
-        <Text style={categoryStyles.articleTitle}>
+        <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>
           {article.title}
         </Text>
-        <Text>{article.bodytext}</Text>
+        <Text style={categoryStyles.textColor}>{article.bodytext}</Text>
       </View>
     );
   }

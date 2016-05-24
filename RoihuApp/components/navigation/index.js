@@ -32,29 +32,29 @@ class Navigation extends Component {
           <TouchableOpacity style={styles.button}
                             onPress={() => setView("map")}>
             <View style={{alignItems: 'center'}}>
-              <Icon name="place" size={30} color="#000000"/>
-              <Text>{t("Kartta", lang)}</Text>
+              <Icon style={styles.buttonBarIcon} name="place" />
+              <Text style={styles.buttonBarColor}>{t("Kartta", lang)}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
                             onPress={() => setView("achievements")}>
             <View style={{alignItems: 'center'}}>
-              <Icon name="assessment" size={30} color="#000000"/>
-              <Text>{t("Saavutukset", lang)}</Text>
+              <Icon style={styles.buttonBarIcon} name="assessment" />
+              <Text style={styles.buttonBarColor}>{t("Saavutukset", lang)}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
                             onPress={() => setView("info")}>
             <View style={{alignItems: 'center'}}>
-              <Icon name="search" size={30} color="#000000"/>
-              <Text>{t("Info", lang)}</Text>
+              <Icon style={styles.buttonBarIcon} name="search" />
+              <Text style={styles.buttonBarColor}>{t("Info", lang)}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
                             onPress={() => setView("user")}>
             <View style={{alignItems: 'center'}}>
-              <Icon name="account-circle" size={30} color="#000000"/>
-              <Text>{t("Minä", lang)}</Text>
+              <Icon style={styles.buttonBarIcon} name="account-circle" />
+              <Text style={styles.buttonBarColor}>{t("Minä", lang)}</Text>
             </View>
           </TouchableOpacity>
         </View>

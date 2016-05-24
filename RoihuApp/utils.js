@@ -4,17 +4,22 @@ import React, {
   View,
   TouchableOpacity,
 } from 'react-native';
-import { navigationStyles } from './styles.js';
+import { navigationStyles, styles } from './styles.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
 export function renderBackButton(routeStack, popRoute) {
+  console.log(routeStack);
   if (routeStack.length === 1) {
-    return null;
+    return (
+      <TouchableOpacity style={{paddingLeft: 10, paddingTop: 10}}>
+        <Icon style={styles.hiddenButtonBarIcon} name="keyboard-arrow-left" />
+      </TouchableOpacity>
+    );
   } else {
     return (
       <TouchableOpacity style={{paddingLeft: 10, paddingTop: 10}}
                         onPress={() => popRoute()}>
-        <Icon name="arrow-back" size={30} color="#000000"/>
+        <Icon style={styles.buttonBarIcon} name="keyboard-arrow-left" />
       </TouchableOpacity>
     );
   }
@@ -24,7 +29,7 @@ export function renderRefreshButton(onRefresh) {
   return (
     <TouchableOpacity style={{paddingRight: 10, paddingTop: 10}}
                       onPress={() => onRefresh()}>
-      <Icon style={{textAlign: 'right'}} name="refresh" size={30} color="#000000"/>
+      <Icon style={[navigationStyles.refreshButton, styles.buttonBarIcon]} name="refresh" />
     </TouchableOpacity>
   );
 }
