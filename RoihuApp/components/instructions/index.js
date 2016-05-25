@@ -60,7 +60,7 @@ class Instructions extends Component {
 
   render() {
     const { view, actions: {setView}, lang } = this.props;
-    if (this.props.error !== null || this.props.instructions === null) {
+    if (this.props.error !== null && this.props.instructions === null) {
       return (<Text>Ei voitu hakea ohjeita</Text>);
     } else {
       return (
