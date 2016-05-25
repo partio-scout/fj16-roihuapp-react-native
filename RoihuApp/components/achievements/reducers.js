@@ -8,10 +8,10 @@ const agelevelComparator = (a, b) => a.title.localeCompare(b.title);
 export const achievements = (
   state = {
     achievements: null,
-    error: null,
     routeStack: [{name: "agelevels"}],
     ageLevelDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
-    achievementsDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title})
+    achievementsDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
+    fetch: {state: "NOT_STARTED"}
   },
   action) => {
     switch (action.type) {
@@ -31,6 +31,8 @@ export const achievements = (
       const newStack = Object.assign([], state.routeStack);
       newStack.pop();
       return Object.assign({}, state, {routeStack: newStack});
+    case "ACHIEVEMENTS_FETCH_STATE":
+      return Object.assign({}, state, {fetch: {state: action.state}});
     }
     return state;
   };

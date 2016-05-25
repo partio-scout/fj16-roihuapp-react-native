@@ -14,6 +14,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config.js';
 import { renderBackButton, renderRefreshButton } from '../../utils.js';
+import { renderRoot, fetchData } from '../common/categories.js';
+import { renderProgressBar } from '../../utils.js';
 
 const styles = StyleSheet.create({
   listItem: {
@@ -115,35 +117,44 @@ class Achievements extends Component {
   }
 
   render() {
-    const { achievements, error } = this.props;
-    if (error !== null && achievements === null) {
-      return (<Text>Ei voitu hakea saavutuksia</Text>);
-    } else {
-      return (
-        <View style={{flex: 1, width: Dimensions.get("window").width}}>
-          <View style={{flexDirection: 'row'}}>
-            {renderBackButton(this.props.routeStack, () => this.popRoute())}
-            <View style={{flex: 1}}></View>
-            {renderRefreshButton(() => this.fetchAchievements())}
-          </View>
-          <Navigator ref={(component) => {this._navigator = component;}}
-                     initialRouteStack={this.props.routeStack}
-                     renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
+    return (
+      <View style={{flex: 1, width: Dimensions.get("window").width}}>
+        <View style={{flexDirection: 'row'}}>
+          {renderBackButton(this.props.routeStack, () => this.popRoute())}
+          <View style={{flex: 1}}></View>
+          {renderRefreshButton(() => this.fetchAchievements())}
         </View>
+        {this.renderContent()}
+      </View>
+    );
+  }
+
+  renderContent() {
+    switch (this.props.fetch.state) {
+    case "STARTED":
+    case "NOT_STARTED":
+      return renderProgressBar();
+    case "ERROR":
+      if (this.props.achievements === null) {
+        return (<Text>Ei voitu hakea aktiviteetteja</Text>);
+      }
+    case "COMPLETED":
+    default:
+      return (
+        <Navigator ref={(component) => {this._navigator = component;}}
+          initialRouteStack={this.props.routeStack}
+          renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
       );
     }
   }
 
   fetchAchievements() {
-    console.log("Fetching achievements");
-    fetch(config.apiUrl + "/AchievementCategories/Translations?lang=" + this.props.lang.toUpperCase())
-      .then((response) => response.json())
-      .then((achievements) => {
-        this.props.actions.setAchievements(achievements);
-      })
-      .catch((error) => {
-        this.props.actions.setError(error);
-      });
+    fetchData("Fetching achievements",
+              this.props.actions.setFetchStatus,
+              "/AchievementCategories/Translations",
+              this.props.actions.setAchievements,
+              this.props.lang,
+              "Aktiviteettien haku epäonnistui");
   }
 
   componentDidMount() {
@@ -195,6 +206,10 @@ const actions = {
   }),
   popAchievementsRoute: () => ({
     type: "POP_ACHIEVEMENTS_ROUTE"
+  }),
+  setFetchStatus: (state) => ({
+    type: "ACHIEVEMENTS_FETCH_STATE",
+    state: state
   })
 };
 
@@ -205,7 +220,8 @@ export default connect(state => ({
   achievementsDataSource: state.achievements.achievementsDataSource,
   achievement: state.achievements.achievement,
   routeStack: state.achievements.routeStack,
-  lang: state.language.lang
+  lang: state.language.lang,
+  fetch: state.achievements.fetch
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 }))(Achievements);
