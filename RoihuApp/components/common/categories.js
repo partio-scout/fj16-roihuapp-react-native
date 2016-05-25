@@ -44,6 +44,7 @@ function renderArticle(article, navigator, selectArticle, rowID) {
           navigator.push(route);
         }}>
         <Text style={categoryStyles.textColor}>{article.title}</Text>
+        <Text style={categoryStyles.coordinate}>{article.grid_latitude}{article.grid_longitude}</Text>
         <Icon style={categoryStyles.listItemIcon} name="keyboard-arrow-right" />
       </TouchableOpacity>
     </View>
