@@ -8,21 +8,18 @@ import React, {
   StyleSheet,
   ScrollView,
   ListView,
-  TouchableOpacity,
-  Alert
+  TouchableOpacity
 } from 'react-native';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { config } from '../../config.js';
 import { t } from '../../translations.js';
 import { categoryStyles } from '../../styles.js';
-import { renderCategories, renderArticles } from '../common/categories.js';
+import { renderCategories, renderArticles, renderRoot, fetchData } from '../common/categories.js';
 
 class Locations extends Component {
 
   renderSelectedArticle(article) {
-    const { view, actions: {setView}, lang } = this.props;
     return (
       <View style={categoryStyles.article}>
         <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>
@@ -32,7 +29,7 @@ class Locations extends Component {
           <Text style={categoryStyles.textColor}>{article.bodytext}</Text>
         </ScrollView>
         <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
-          {t("Viimeksi muokattu", lang)} {moment(article.last_modified).format('DD.MM. h:mm')}
+          {t("Viimeksi muokattu", this.props.lang)} {moment(article.last_modified).format('DD.MM. h:mm')}
         </Text>
       </View>
     );
@@ -52,36 +49,12 @@ class Locations extends Component {
   }
 
   render() {
-    const { view, actions: {setView}, lang } = this.props;
-    if (this.props.error !== null && this.props.locations === null) {
-      return (<Text>Ei voitu hakea paikkoja</Text>);
-    } else {
-      return (
-        <View style={{flex: 1, width: Dimensions.get("window").width}}>
-          <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
-            {t("Tilanne", lang)} {moment(this.props.locations.timestamp).format('DD.MM. h:mm')}
-          </Text>
-          <Navigator initialRouteStack={this.props.routeStack}
-                     renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
-        </View>
-      );
-    }
-  }
-
-  fetchLocations() {
-    console.log("Fetching locations");
-    fetch(config.apiUrl + "/LocationCategories/Translations?lang=" + this.props.lang.toUpperCase())
-      .then((response) => response.json())
-      .then((locations) => {
-        this.props.actions.setLocations(locations);
-      })
-      .catch((error) => {
-        this.props.actions.setError(error);
-        console.log("Failed to fetch locations", error);
-        Alert.alert("Virhe nettiyhteydessä",
-                    "Paikkojen haku epäonnistui",
-                    [{text: "Okei", onPress: () => {}}]);
-      });
+    return renderRoot(this.props.fetch.state,
+                      this.props.locations,
+                      "Ei voitu hakea paikkoja",
+                      this.props.lang,
+                      this.props.routeStack,
+                      this.renderScene.bind(this));
   }
 
   onBack() {
@@ -93,9 +66,19 @@ class Locations extends Component {
 
   componentDidMount() {
     if (this.props.locations === null || this.props.locations.language.toUpperCase() !== this.props.lang.toUpperCase()) {
-      this.fetchLocations();
+      fetchData("Fetching locations",
+                this.props.actions.setFetchStatus,
+                "/LocationCategories/Translations",
+                this.props.actions.setLocations,
+                this.props.lang,
+                "Paikkojen haku epäonnistui");
     }
-    this.refreshListener = this.props.emitter.addListener("refresh", () => this.fetchLocations());
+    this.refreshListener = this.props.emitter.addListener("refresh", () => fetchData("Fetching locations",
+                                                                                     this.props.actions.setFetchStatus,
+                                                                                     "/LocationCategories/Translations",
+                                                                                     this.props.actions.setLocations,
+                                                                                     this.props.lang,
+                                                                                     "Paikkojen haku epäonnistui"));
     this.backListener = this.props.emitter.addListener("back", () => this.onBack());
   }
 
@@ -110,10 +93,6 @@ const actions = {
     type: "SET_LOCATIONS",
     locations: locations
   }),
-  setError: (error) => ({
-    type: "SET_LOCATIONS_ERROR",
-    error: error
-  }),
   selectCategory: (category, route) => ({
     type: "SELECT_LOCATIONS_CATEGORY",
     category: category,
@@ -126,20 +105,22 @@ const actions = {
   }),
   popNavigationRoute: () => ({
     type: "POP_LOCATIONS_ROUTE"
+  }),
+  setFetchStatus: (state) => ({
+    type: "LOCATIONS_FETCH_STATE",
+    state: state
   })
 };
 
 export const locations = (
   state = {locations: null,
-           error: null,
            categoriesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            article: {},
-           routeStack: [{name: "categories"}]},
+           routeStack: [{name: "categories"}],
+           fetch: {state: "NOT_STARTED"}},
   action) => {
     switch (action.type) {
-    case "SET_LOCATIONS_ERROR":
-      return Object.assign({}, state, {error: action.error});
     case "SET_LOCATIONS":
       return Object.assign({}, state, {locations: action.locations,
                                        categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.locations.categories)});
@@ -155,6 +136,8 @@ export const locations = (
       const newStack = Object.assign([], state.routeStack);
       newStack.pop();
       return Object.assign({}, state, {routeStack: newStack});
+    case "LOCATIONS_FETCH_STATE":
+      return Object.assign({}, state, {fetch: {state: action.state}});
     }
     return state;
   };
@@ -164,9 +147,9 @@ export default connect(state => ({
   categoriesDataSource: state.locations.categoriesDataSource,
   articlesDataSource: state.locations.articlesDataSource,
   article: state.locations.article,
-  error: state.locations.error,
   routeStack: state.locations.routeStack,
-  lang: state.language.lang
+  lang: state.language.lang,
+  fetch: state.locations.fetch
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 }))(Locations);

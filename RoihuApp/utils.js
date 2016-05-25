@@ -3,6 +3,9 @@ import React, {
   Text,
   View,
   TouchableOpacity,
+  ProgressBarAndroid,
+  ActivityIndicatorIOS,
+  Platform
 } from 'react-native';
 import { navigationStyles, styles } from './styles.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
@@ -38,4 +41,16 @@ export function last(arr) {
     return null;
   }
   return arr[arr.length - 1];
+}
+
+export function renderProgressBar() {
+  if (Platform.OS === 'ios') {
+    return (
+      <ActivityIndicatorIOS size={'large'}/>
+    );
+  } else {
+    return (
+      <ProgressBarAndroid indeterminate={true}/>
+    );
+  }
 }

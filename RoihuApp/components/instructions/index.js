@@ -8,16 +8,14 @@ import React, {
   TouchableOpacity,
   ListView,
   StyleSheet,
-  ScrollView,
-  Alert
+  ScrollView
 } from 'react-native';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { config } from '../../config.js';
 import { t } from '../../translations.js';
 import { categoryStyles } from '../../styles.js';
-import { renderCategories, renderArticles } from '../common/categories.js';
+import { renderCategories, renderArticles, renderRoot, fetchData } from '../common/categories.js';
 const Markdown = require('react-native-markdown');
 
 class Instructions extends Component {
@@ -33,14 +31,13 @@ class Instructions extends Component {
   }
 
   renderSelectedArticle(article) {
-    const { view, actions: {setView}, lang } = this.props;
     return (
       <View style={categoryStyles.article}>
         <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>
           {article.title}
         </Text>
         {this.renderBody(article.bodytext)}
-        <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>{t("Viimeksi muokattu", lang)} {moment(article.last_modified).format('DD.MM. h:mm')}</Text>
+        <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>{t("Viimeksi muokattu", this.props.lang)} {moment(article.last_modified).format('DD.MM. h:mm')}</Text>
       </View>
     );
   }
@@ -59,36 +56,12 @@ class Instructions extends Component {
   }
 
   render() {
-    const { view, actions: {setView}, lang } = this.props;
-    if (this.props.error !== null && this.props.instructions === null) {
-      return (<Text>Ei voitu hakea ohjeita</Text>);
-    } else {
-      return (
-        <View style={{flex: 1, width: Dimensions.get("window").width}}>
-          <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
-            {t("Tilanne", lang)} {moment(this.props.instructions.timestamp).format('DD.MM. h:mm')}
-          </Text>        
-          <Navigator initialRouteStack={this.props.routeStack}
-                     renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
-        </View>
-      );
-    }
-  }
-
-  fetchInstructions() {
-    console.log("Fetching instructions");
-    fetch(config.apiUrl + "/InstructionCategories/Translations?lang=" + this.props.lang.toUpperCase())
-      .then((response) => response.json())
-      .then((instructions) => {
-        this.props.actions.setInstructions(instructions);
-      })
-      .catch((error) => {
-        this.props.actions.setError(error);
-        console.log(error);
-        Alert.alert("Virhe nettiyhteydessä",
-                    "Ohjeiden haku epäonnistui",
-                    [{text: "Okei", onPress: () => {}}]);
-      });
+    return renderRoot(this.props.fetch.state,
+                      this.props.instructions,
+                      "Ei voitu hakea ohjeita",
+                      this.props.lang,
+                      this.props.routeStack,
+                      this.renderScene.bind(this));
   }
 
   onBack() {
@@ -100,9 +73,19 @@ class Instructions extends Component {
 
   componentDidMount() {
     if (this.props.instructions === null || this.props.instructions.language.toUpperCase() !== this.props.lang.toUpperCase()) {
-      this.fetchInstructions();
+      fetchData("Fetching instructions",
+                this.props.actions.setFetchStatus,
+                "/InstructionCategories/Translations",
+                this.props.actions.setInstructions,
+                this.props.lang,
+                "Ohjeiden haku epäonnistui");
     }
-    this.refreshListener = this.props.emitter.addListener("refresh", () => this.fetchInstructions());
+    this.refreshListener = this.props.emitter.addListener("refresh", () => fetchData("Fetching instructions",
+                                                                                     this.props.actions.setFetchStatus,
+                                                                                     "/InstructionCategories/Translations",
+                                                                                     this.props.actions.setInstructions,
+                                                                                     this.props.lang,
+                                                                                     "Ohjeiden haku epäonnistui"));
     this.backListener = this.props.emitter.addListener("back", () => this.onBack());
   }
 
@@ -117,10 +100,6 @@ const actions = {
     type: "SET_INSTRUCTIONS",
     instructions: instructions
   }),
-  setError: (error) => ({
-    type: "SET_INSTRUCTIONS_ERROR",
-    error: error
-  }),
   selectCategory: (category, route) => ({
     type: "SELECT_INSTRUCTIONS_CATEGORY",
     category: category,
@@ -133,20 +112,22 @@ const actions = {
   }),
   popNavigationRoute: () => ({
     type: "POP_INSTRUCTIONS_ROUTE"
+  }),
+  setFetchStatus: (state) => ({
+    type: "INSTRUCTIONS_FETCH_STATE",
+    state: state
   })
 };
 
 export const instructions = (
   state = {instructions: null,
-           error: null,
            categoriesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
-           article: "",
-           routeStack: [{name: "categories"}]},
+           article: {},
+           routeStack: [{name: "categories"}],
+           fetch: {state: "NOT_STARTED"}},
   action) => {
     switch (action.type) {
-    case "SET_INSTRUCTIONS_ERROR":
-      return Object.assign({}, state, {error: action.error});
     case "SET_INSTRUCTIONS":
       return Object.assign({}, state, {instructions: action.instructions,
                                        categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.instructions.categories)});
@@ -163,6 +144,8 @@ export const instructions = (
       newStack.pop();
       return Object.assign({},
                            state, {routeStack: newStack});
+    case "INSTRUCTIONS_FETCH_STATE":
+      return Object.assign({}, state, {fetch: {state: action.state}});
     }
     return state;
   };
@@ -172,9 +155,9 @@ export default connect(state => ({
   categoriesDataSource: state.instructions.categoriesDataSource,
   articlesDataSource: state.instructions.articlesDataSource,
   article: state.instructions.article,
-  error: state.instructions.error,
   routeStack: state.instructions.routeStack,
-  lang: state.language.lang
+  lang: state.language.lang,
+  fetch: state.instructions.fetch
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 }))(Instructions);

@@ -4,9 +4,15 @@ import React, {
   Text,
   TouchableOpacity,
   Dimensions,
-  ListView
+  ListView,
+  Navigator,
+  Alert
 } from 'react-native';
+import moment from 'moment';
+import { t } from '../../translations.js';
+import { config } from '../../config.js';
 import { categoryStyles } from '../../styles.js';
+import { renderProgressBar } from '../../utils.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
 function renderCategory(category, navigator, selectCategory, rowID) {
@@ -59,4 +65,45 @@ export function renderArticles(navigator, articlesDataSource, selectArticle) {
         style={{width: Dimensions.get("window").width}}/>
     </View>
   );
+}
+
+export function renderRoot(fetchState, data, noDataText, lang, routeStack, renderScene) {
+  switch (fetchState) {
+  case "STARTED":
+  case "NOT_STARTED":
+    return renderProgressBar();
+  case "ERROR":
+    if (data === null) {
+      return (<Text>{noDataText}</Text>);
+    }
+  case "COMPLETED":
+  default:
+    return (
+      <View style={{flex: 1, width: Dimensions.get("window").width}}>
+        <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
+          {t("Tilanne", lang)} {moment(data.timestamp).format('DD.MM. h:mm')}
+        </Text>
+        <Navigator initialRouteStack={routeStack}
+                   renderScene={(route, navigator) => renderScene(route, navigator)}/>
+      </View>
+    );
+  }
+}
+
+export function fetchData(logStart, setFetchStatus, apiPath, setData, lang, failedToFetchMessage) {
+  console.log(logStart);
+  setFetchStatus("STARTED");
+  fetch(config.apiUrl + apiPath + "?lang=" + lang.toUpperCase())
+    .then((response) => response.json())
+    .then((data) => {
+      setData(data);
+      setFetchStatus("COMPLETED");
+    })
+    .catch((error) => {
+      setFetchStatus("ERROR");
+      console.log(error);
+      Alert.alert("Virhe nettiyhteydessä",
+                  failedToFetchMessage,
+                  [{text: "Ok", onPress: () => {}}]);
+    });
 }
