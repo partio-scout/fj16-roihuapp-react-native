@@ -4,20 +4,26 @@
     "Kartta": "Map",
     "Info": "Info",
     "Minä": "Me",
-    "Saavutukset": "Achievements"
+    "Saavutukset": "Achievements",
+    "Viimeksi muokattu": "Last modified",
+    "Tilanne": "Status"
   },
   fi: {
     "Kalenteri": "Kalenteri",
     "Kartta": "Kartta",
     "Info": "Info",
     "Minä": "Minä",
-    "Saavutukset": "Saavutukset"
+    "Saavutukset": "Saavutukset",
+    "Viimeksi muokattu": "Viimeksi muokattu",
+    "Tilanne": "Tilanne"
   },
   sv: {
     "Kalenteri": "Kalendar",
     "Kartta": "Karta",
     "Info": "Info",
     "Minä": "Jag",
-    "Saavutukset": "Meriter"
+    "Saavutukset": "Meriter",
+    "Viimeksi muokattu": "Senast ändrad",
+    "Tilanne": "Status"
   }
 };

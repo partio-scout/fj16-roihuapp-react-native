@@ -11,9 +11,11 @@ import React, {
   ScrollView,
   Alert
 } from 'react-native';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config.js';
+import { t } from '../../translations.js';
 import { categoryStyles } from '../../styles.js';
 import { renderCategories, renderArticles } from '../common/categories.js';
 const Markdown = require('react-native-markdown');
@@ -23,7 +25,7 @@ class Instructions extends Component {
   renderBody(body) {
     return (
       <ScrollView style={{flex: 1}}>
-        <Markdown>
+        <Markdown style={categoryStyles.textColor}>
           {body}
         </Markdown>
       </ScrollView>
@@ -31,12 +33,14 @@ class Instructions extends Component {
   }
 
   renderSelectedArticle(article) {
+    const { view, actions: {setView}, lang } = this.props;
     return (
       <View style={categoryStyles.article}>
-        <Text style={categoryStyles.articleTitle}>
+        <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>
           {article.title}
         </Text>
         {this.renderBody(article.bodytext)}
+        <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>{t("Viimeksi muokattu", lang)} {moment(article.last_modified).format('DD.MM. h:mm')}</Text>
       </View>
     );
   }
@@ -55,11 +59,15 @@ class Instructions extends Component {
   }
 
   render() {
+    const { view, actions: {setView}, lang } = this.props;
     if (this.props.error !== null && this.props.instructions === null) {
       return (<Text>Ei voitu hakea ohjeita</Text>);
     } else {
       return (
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
+          <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
+            {t("Tilanne", lang)} {moment(this.props.instructions.timestamp).format('DD.MM. h:mm')}
+          </Text>        
           <Navigator initialRouteStack={this.props.routeStack}
                      renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
         </View>
