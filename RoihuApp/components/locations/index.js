@@ -53,7 +53,7 @@ class Locations extends Component {
 
   render() {
     const { view, actions: {setView}, lang } = this.props;
-    if (this.props.error !== null && this.props.locations === null) {
+    if (this.props.error !== null || this.props.locations === null) {
       return (<Text>Ei voitu hakea paikkoja</Text>);
     } else {
       return (
