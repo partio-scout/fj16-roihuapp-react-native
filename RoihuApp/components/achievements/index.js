@@ -159,18 +159,15 @@ class Achievements extends Component {
               "Aktiviteettien haku epäonnistui");
   }
 
-  componentDidMount() {
-    if (this.props.achievements === null || this.props.achievements.language.toUpperCase() !== this.props.lang.toUpperCase()) {
-      this.fetchAchievements();
-    }
-  }
-
   popRoute() {
     this._navigator.pop();
     this.props.actions.popAchievementsRoute();
   }
 
   componentWillMount() {
+    if (this.props.achievements === null || this.props.achievements.language.toUpperCase() !== this.props.lang.toUpperCase()) {
+      this.fetchAchievements();
+    }
     this._onBack = () => {
       if (this.props.routeStack.length === 1) {
         return false;
