@@ -37,7 +37,9 @@ class Instructions extends Component {
           {article.title}
         </Text>
         {this.renderBody(article.bodytext)}
-        <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>{t("Viimeksi muokattu", this.props.lang)} {moment(article.last_modified).format('DD.MM. h:mm')}</Text>
+        <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
+          {t("Viimeksi muokattu", this.props.lang)} {moment(article.last_modified).format(t("Timestamp", this.props.lang))}
+        </Text>
       </View>
     );
   }

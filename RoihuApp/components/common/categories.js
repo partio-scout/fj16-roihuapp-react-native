@@ -81,7 +81,7 @@ export function renderRoot(fetchState, data, noDataText, lang, routeStack, rende
     return (
       <View style={{flex: 1, width: Dimensions.get("window").width}}>
         <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
-          {t("Tilanne", lang)} {moment(data.timestamp).format('DD.MM. h:mm')}
+          {t("Tilanne", lang)} {moment(data.timestamp).format(t("Timestamp", lang))}
         </Text>
         <Navigator initialRouteStack={routeStack}
                    renderScene={(route, navigator) => renderScene(route, navigator)}/>

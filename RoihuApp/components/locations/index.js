@@ -29,7 +29,7 @@ class Locations extends Component {
           <Text style={categoryStyles.textColor}>{article.bodytext}</Text>
         </ScrollView>
         <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
-          {t("Viimeksi muokattu", this.props.lang)} {moment(article.last_modified).format('DD.MM. h:mm')}
+          {t("Viimeksi muokattu", this.props.lang)} {moment(article.last_modified).format(t("Timestamp", this.props.lang))}
         </Text>
       </View>
     );

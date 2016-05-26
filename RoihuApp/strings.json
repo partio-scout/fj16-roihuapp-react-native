@@ -5,8 +5,9 @@
     "Info": "Info",
     "Minä": "Me",
     "Saavutukset": "Achievements",
-    "Viimeksi muokattu": "Last modified",
-    "Tilanne": "Status"
+    "Viimeksi muokattu": "Last updated",
+    "Tilanne": "Last synced",
+    "Timestamp": "DD.MM. HH:mm"
   },
   fi: {
     "Kalenteri": "Kalenteri",
@@ -14,8 +15,9 @@
     "Info": "Info",
     "Minä": "Minä",
     "Saavutukset": "Saavutukset",
-    "Viimeksi muokattu": "Viimeksi muokattu",
-    "Tilanne": "Tilanne"
+    "Viimeksi muokattu": "viimeksi muokattu",
+    "Tilanne": "tilanne",
+    "Timestamp": "DD.MM. HH:mm"
   },
   sv: {
     "Kalenteri": "Kalendar",
@@ -23,7 +25,8 @@
     "Info": "Info",
     "Minä": "Jag",
     "Saavutukset": "Meriter",
-    "Viimeksi muokattu": "Senast ändrad",
-    "Tilanne": "Status"
+    "Viimeksi muokattu": "Senast redigerad",
+    "Tilanne": "Synkroniserad",
+    "Timestamp": "DD.MM. HH:mm"
   }
 };
