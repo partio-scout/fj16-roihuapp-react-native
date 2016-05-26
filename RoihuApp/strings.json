@@ -6,7 +6,9 @@
     "Minä": "Me",
     "Aktiviteetit": "Activities",
     "Viimeksi muokattu": "Last modified",
-    "Tilanne": "Status"
+    "Tilanne": "Status",
+    "Ohjeet": "Instructions",
+    "Paikat": "Locations"
   },
   fi: {
     "Kalenteri": "Kalenteri",
@@ -15,7 +17,9 @@
     "Minä": "Minä",
     "Aktiviteetit": "Aktiviteetit",
     "Viimeksi muokattu": "Viimeksi muokattu",
-    "Tilanne": "Tilanne"
+    "Tilanne": "Tilanne",
+    "Ohjeet": "Ohjeet",
+    "Paikat": "Paikat"
   },
   sv: {
     "Kalenteri": "Kalendar",
@@ -24,6 +28,8 @@
     "Minä": "Jag",
     "Aktiviteetit": "Aktiviteter",
     "Viimeksi muokattu": "Senast ändrad",
-    "Tilanne": "Status"
+    "Tilanne": "Status",
+    "Ohjeet": "Instruktioner",
+    "Paikat": "Platser"
   }
 };
