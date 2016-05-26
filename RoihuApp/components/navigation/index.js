@@ -47,7 +47,7 @@ class Navigation extends Component {
                             onPress={() => setView("achievements")}>
             <View style={{alignItems: 'center'}}>
               <Icon style={styles.buttonBarIcon} name="assessment" />
-              <Text style={styles.buttonBarColor}>{t("Saavutukset", lang)}</Text>
+              <Text style={styles.buttonBarColor}>{t("Aktiviteetit", lang)}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}

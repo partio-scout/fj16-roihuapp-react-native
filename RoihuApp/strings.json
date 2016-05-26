@@ -4,7 +4,7 @@
     "Kartta": "Map",
     "Info": "Info",
     "Minä": "Me",
-    "Saavutukset": "Achievements",
+    "Aktiviteetit": "Activities",
     "Viimeksi muokattu": "Last modified",
     "Tilanne": "Status"
   },
@@ -13,7 +13,7 @@
     "Kartta": "Kartta",
     "Info": "Info",
     "Minä": "Minä",
-    "Saavutukset": "Saavutukset",
+    "Aktiviteetit": "Aktiviteetit",
     "Viimeksi muokattu": "Viimeksi muokattu",
     "Tilanne": "Tilanne"
   },
@@ -22,7 +22,7 @@
     "Kartta": "Karta",
     "Info": "Info",
     "Minä": "Jag",
-    "Saavutukset": "Meriter",
+    "Aktiviteetit": "Aktiviteter",
     "Viimeksi muokattu": "Senast ändrad",
     "Tilanne": "Status"
   }
