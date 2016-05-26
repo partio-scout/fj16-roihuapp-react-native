@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Instructions from '../instructions/index.js';
 import Locations from '../locations/index.js';
-import { infoStyles, categoryStyles } from '../../styles.js';
+import { infoStyles, categoryStyles, navigationStyles } from '../../styles.js';
 import { renderRefreshButton, renderBackButton } from '../../utils.js';
 const EventEmitter = require('EventEmitter');
 const Icon = require('react-native-vector-icons/MaterialIcons');
@@ -27,6 +27,25 @@ class Info extends Component {
 
   renderSelectionHighlight() {
     return (<Text style={{height: 4, width: 100, backgroundColor: '#18A771'}}></Text>);
+  }
+
+  renderInfoTitle(title, routeStack) {
+    switch (routeStack.length) {
+      case 2:
+        return(
+          <View style={{flex: 1}}>
+            <Text style={navigationStyles.mainTitle}>{title}</Text>
+          </View>
+        );
+      case 3:
+        return(
+          <View style={{flex: 1}}>
+            <Text style={navigationStyles.backTitle}>{title}</Text>
+          </View>
+        );        
+      default:
+         return(<View style={{flex: 1}}></View>);
+    }
   }
 
   renderTabButton(id, text) {
@@ -55,6 +74,10 @@ class Info extends Component {
     return this.props.tab === "instructions" ? this.props.instructionsRouteStack : this.props.locationsRouteStack;
   }
 
+  getCurrentTitle() {
+    return this.props.tab === "instructions" ? this.props.instructionsTitle : this.props.locationsTitle;
+  }  
+
   getEventEmitter() {
     switch(this.props.tab) {
     case "locations":
@@ -71,9 +94,7 @@ class Info extends Component {
       <View style={[infoStyles.container, {width: Dimensions.get("window").width}]}>
         <View style={infoStyles.topNavigationBar}>
           {renderBackButton(this.getRouteStack(), () => this.onBack())}
-          <View style={{flex: 1}}>
-            <Text style={{color: '#FFFFFF', fontSize: 24, textAlign: 'center', marginTop: 7}}>{/*TitleText*/}</Text>
-          </View>
+          {this.renderInfoTitle(this.getCurrentTitle(), this.getRouteStack())}
           {renderRefreshButton(() => this.getEventEmitter().emit("refresh"))}
         </View>
         <View style={infoStyles.tabs}>
@@ -130,7 +151,9 @@ export const info = (
 export default connect(state => ({
   tab: state.info.tab,
   instructionsRouteStack: state.instructions.routeStack,
-  locationsRouteStack: state.locations.routeStack
+  locationsRouteStack: state.locations.routeStack,
+  instructionsTitle: state.instructions.currentTitle,
+  locationsTitle: state.locations.currentTitle
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 }))(Info);

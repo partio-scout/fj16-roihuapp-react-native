@@ -44,7 +44,7 @@ class Locations extends Component {
       return renderArticles(navigator, this.props.articlesDataSource, this.props.actions.selectArticle);
     case "categories":
     default:
-      return renderCategories(navigator, this.props.categoriesDataSource, this.props.actions.selectCategory);
+      return renderCategories(navigator, this.props.categoriesDataSource, this.props.actions.selectCategory, this.props.actions.setCurrentTitle);
     }
   }
 
@@ -109,7 +109,11 @@ const actions = {
   setFetchStatus: (state) => ({
     type: "LOCATIONS_FETCH_STATE",
     state: state
-  })
+  }),
+  setCurrentTitle: (title) => ({
+    type: "SET_LOCATIONS_CURRENT_TITLE",
+    currentTitle: title
+  })    
 };
 
 export const locations = (
@@ -118,6 +122,7 @@ export const locations = (
            articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            article: {},
            routeStack: [{name: "categories"}],
+           currentTitle: null,
            fetch: {state: "NOT_STARTED"}},
   action) => {
     switch (action.type) {
@@ -138,6 +143,8 @@ export const locations = (
       return Object.assign({}, state, {routeStack: newStack});
     case "LOCATIONS_FETCH_STATE":
       return Object.assign({}, state, {fetch: {state: action.state}});
+    case "SET_LOCATIONS_CURRENT_TITLE":
+      return Object.assign({}, state, {currentTitle: action.currentTitle});        
     }
     return state;
   };
@@ -148,6 +155,7 @@ export default connect(state => ({
   articlesDataSource: state.locations.articlesDataSource,
   article: state.locations.article,
   routeStack: state.locations.routeStack,
+  currentTitle: state.locations.currentTitle,
   lang: state.language.lang,
   fetch: state.locations.fetch
 }), (dispatch) => ({

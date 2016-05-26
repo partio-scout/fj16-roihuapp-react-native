@@ -53,7 +53,7 @@ class Instructions extends Component {
       return renderArticles(navigator, this.props.articlesDataSource, this.props.actions.selectArticle);
     case "categories":
     default:
-      return renderCategories(navigator, this.props.categoriesDataSource, this.props.actions.selectCategory);
+      return renderCategories(navigator, this.props.categoriesDataSource, this.props.actions.selectCategory, this.props.actions.setCurrentTitle);
     }
   }
 
@@ -118,6 +118,10 @@ const actions = {
   setFetchStatus: (state) => ({
     type: "INSTRUCTIONS_FETCH_STATE",
     state: state
+  }),
+  setCurrentTitle: (title) => ({
+    type: "SET_INSTRUCTIONS_CURRENT_TITLE",
+    currentTitle: title
   })
 };
 
@@ -127,6 +131,7 @@ export const instructions = (
            articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            article: {},
            routeStack: [{name: "categories"}],
+           currentTitle: null,
            fetch: {state: "NOT_STARTED"}},
   action) => {
     switch (action.type) {
@@ -146,6 +151,8 @@ export const instructions = (
       newStack.pop();
       return Object.assign({},
                            state, {routeStack: newStack});
+    case "SET_INSTRUCTIONS_CURRENT_TITLE":
+      return Object.assign({}, state, {currentTitle: action.currentTitle});      
     case "INSTRUCTIONS_FETCH_STATE":
       return Object.assign({}, state, {fetch: {state: action.state}});
     }
@@ -158,6 +165,7 @@ export default connect(state => ({
   articlesDataSource: state.instructions.articlesDataSource,
   article: state.instructions.article,
   routeStack: state.instructions.routeStack,
+  currentTitle: state.instructions.currentTitle,
   lang: state.language.lang,
   fetch: state.instructions.fetch
 }), (dispatch) => ({

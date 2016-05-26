@@ -49,6 +49,18 @@ export const navigationStyles = StyleSheet.create({
   },
   refreshButton: {
     textAlign: 'right'
+  },
+  mainTitle: {
+    color: MAIN_COLOR, 
+    fontSize: 24, 
+    textAlign: 'center', 
+    marginTop: 7
+  },
+  backTitle: {
+    color: MAIN_COLOR, 
+    fontSize: 18, 
+    textAlign: 'left', 
+    marginTop: 12
   }
 });
 

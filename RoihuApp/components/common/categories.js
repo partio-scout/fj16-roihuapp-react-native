@@ -15,11 +15,12 @@ import { categoryStyles } from '../../styles.js';
 import { renderProgressBar } from '../../utils.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
-function renderCategory(category, navigator, selectCategory, rowID) {
+function renderCategory(category, navigator, selectCategory, setCurrentTitle, rowID) {
   return (
     <View key={"category-" + rowID} style={categoryStyles.listItem}>
       <TouchableOpacity style={categoryStyles.listItemTouchArea} onPress={() => {
           const route = {name: "articles"};
+          setCurrentTitle(category.title);
           selectCategory(category, route);
           navigator.push(route);
         }}>
@@ -30,12 +31,12 @@ function renderCategory(category, navigator, selectCategory, rowID) {
   );
 }
 
-export function renderCategories(navigator, categoriesDataSource, selectCategory) {
+export function renderCategories(navigator, categoriesDataSource, selectCategory, setCurrentTitle) {
   return (
     <View style={categoryStyles.list}>
 
       <ListView dataSource={categoriesDataSource}
-                renderRow={(category, sectionID, rowID) => renderCategory(category, navigator, selectCategory, rowID) }
+                renderRow={(category, sectionID, rowID) => renderCategory(category, navigator, selectCategory, setCurrentTitle, rowID) }
         style={{width: Dimensions.get("window").width}}/>
     </View>
   );
