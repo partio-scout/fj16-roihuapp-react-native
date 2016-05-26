@@ -14,6 +14,7 @@ import Instructions from '../instructions/index.js';
 import Locations from '../locations/index.js';
 import { infoStyles, categoryStyles, navigationStyles } from '../../styles.js';
 import { renderRefreshButton, renderBackButton } from '../../utils.js';
+import { t } from '../../translations.js';
 const EventEmitter = require('EventEmitter');
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
@@ -98,8 +99,8 @@ class Info extends Component {
           {renderRefreshButton(() => this.getEventEmitter().emit("refresh"))}
         </View>
         <View style={infoStyles.tabs}>
-          {this.renderTabButton("instructions", "Ohjeet")}
-          {this.renderTabButton("locations", "Paikat")}
+          {this.renderTabButton("instructions", t("Ohjeet", lang))}
+          {this.renderTabButton("locations", t("Paikat", lang))}
         </View>
         <View style={{flex: 1,
                       alignItems: 'center',
@@ -153,7 +154,8 @@ export default connect(state => ({
   instructionsRouteStack: state.instructions.routeStack,
   locationsRouteStack: state.locations.routeStack,
   instructionsTitle: state.instructions.currentTitle,
-  locationsTitle: state.locations.currentTitle
+  locationsTitle: state.locations.currentTitle,
+  lang: state.language.lang
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 }))(Info);

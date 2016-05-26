@@ -102,6 +102,21 @@ class User extends Component {
     }
   }
 
+  renderLogoutButton() {
+    return (
+      <TouchableOpacity
+         style={{flex: 1}}
+         onPress={() => {
+           this.props.actions.removeCredentials(null);
+           this.props.actions.setUser({});
+        }}>
+        <Text style={{textAlign: 'right', margin: 10}}>
+          Kirjaudu ulos
+        </Text>
+      </TouchableOpacity>
+    );
+  }
+
   renderUser(data, image, navigator) {
     return (
       <View style={{flex: 1, flexDirection: 'column', width: Dimensions.get('window').width}}>
@@ -115,16 +130,7 @@ class User extends Component {
               Päivitä
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
-             style={{flex: 1}}
-             onPress={() => {
-              this.props.actions.removeCredentials(null);
-              this.props.actions.setUser({});
-            }}>
-            <Text style={{textAlign: 'right', margin: 10}}>
-              Kirjaudu ulos
-            </Text>
-          </TouchableOpacity>
+          {/*this.renderLogoutButton()*/}
         </View>
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity style={{margin: 10}}

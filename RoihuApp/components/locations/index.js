@@ -64,7 +64,7 @@ class Locations extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if (this.props.locations === null || this.props.locations.language.toUpperCase() !== this.props.lang.toUpperCase()) {
       fetchData("Fetching locations",
                 this.props.actions.setFetchStatus,
@@ -123,7 +123,7 @@ export const locations = (
            article: {},
            routeStack: [{name: "categories"}],
            currentTitle: null,
-           fetch: {state: "NOT_STARTED"}},
+           fetch: {state: "COMPLETED"}},
   action) => {
     switch (action.type) {
     case "SET_LOCATIONS":

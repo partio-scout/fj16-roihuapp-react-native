@@ -132,7 +132,6 @@ class Achievements extends Component {
   renderContent() {
     switch (this.props.fetch.state) {
     case "STARTED":
-    case "NOT_STARTED":
       return renderProgressBar();
     case "ERROR":
       if (this.props.achievements === null) {
@@ -140,6 +139,9 @@ class Achievements extends Component {
       }
     case "COMPLETED":
     default:
+      if (this.props.achievements === null) {
+        return renderProgressBar();
+      }
       return (
         <Navigator ref={(component) => {this._navigator = component;}}
           initialRouteStack={this.props.routeStack}
@@ -157,18 +159,15 @@ class Achievements extends Component {
               "Aktiviteettien haku epäonnistui");
   }
 
-  componentDidMount() {
-    if (this.props.achievements === null || this.props.achievements.language.toUpperCase() !== this.props.lang.toUpperCase()) {
-      this.fetchAchievements();
-    }
-  }
-
   popRoute() {
     this._navigator.pop();
     this.props.actions.popAchievementsRoute();
   }
 
   componentWillMount() {
+    if (this.props.achievements === null || this.props.achievements.language.toUpperCase() !== this.props.lang.toUpperCase()) {
+      this.fetchAchievements();
+    }
     this._onBack = () => {
       if (this.props.routeStack.length === 1) {
         return false;

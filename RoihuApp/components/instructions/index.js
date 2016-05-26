@@ -73,7 +73,7 @@ class Instructions extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if (this.props.instructions === null || this.props.instructions.language.toUpperCase() !== this.props.lang.toUpperCase()) {
       fetchData("Fetching instructions",
                 this.props.actions.setFetchStatus,
@@ -132,7 +132,7 @@ export const instructions = (
            article: {},
            routeStack: [{name: "categories"}],
            currentTitle: null,
-           fetch: {state: "NOT_STARTED"}},
+           fetch: {state: "COMPLETED"}},
   action) => {
     switch (action.type) {
     case "SET_INSTRUCTIONS":

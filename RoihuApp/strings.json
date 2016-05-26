@@ -7,7 +7,10 @@
     "Saavutukset": "Achievements",
     "Viimeksi muokattu": "Last updated",
     "Tilanne": "Last synced",
-    "Timestamp": "DD.MM. HH:mm"
+    "Timestamp": "DD.MM. HH:mm",
+    "Aktiviteetit": "Activities",
+    "Ohjeet": "Instructions",
+    "Paikat": "Locations"
   },
   fi: {
     "Kalenteri": "Kalenteri",
@@ -17,7 +20,10 @@
     "Saavutukset": "Saavutukset",
     "Viimeksi muokattu": "viimeksi muokattu",
     "Tilanne": "tilanne",
-    "Timestamp": "DD.MM. HH:mm"
+    "Timestamp": "DD.MM. HH:mm",
+    "Aktiviteetit": "Aktiviteetit",
+    "Ohjeet": "Ohjeet",
+    "Paikat": "Paikat"
   },
   sv: {
     "Kalenteri": "Kalendar",
@@ -27,6 +33,9 @@
     "Saavutukset": "Meriter",
     "Viimeksi muokattu": "Senast redigerad",
     "Tilanne": "Synkroniserad",
-    "Timestamp": "DD.MM. HH:mm"
+    "Timestamp": "DD.MM. HH:mm",
+    "Aktiviteetit": "Aktiviteter",
+    "Ohjeet": "Instruktioner",
+    "Paikat": "Platser"
   }
 };
