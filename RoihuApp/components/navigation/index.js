@@ -37,17 +37,17 @@ class Navigation extends Component {
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
-                            onPress={() => setView("achievements")}>
-            <View style={{alignItems: 'center'}}>
-              <Icon style={styles.buttonBarIcon} name="assessment" />
-              <Text style={styles.buttonBarColor}>{t("Saavutukset", lang)}</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}
                             onPress={() => setView("info")}>
             <View style={{alignItems: 'center'}}>
               <Icon style={styles.buttonBarIcon} name="search" />
               <Text style={styles.buttonBarColor}>{t("Info", lang)}</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}
+                            onPress={() => setView("achievements")}>
+            <View style={{alignItems: 'center'}}>
+              <Icon style={styles.buttonBarIcon} name="assessment" />
+              <Text style={styles.buttonBarColor}>{t("Saavutukset", lang)}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
