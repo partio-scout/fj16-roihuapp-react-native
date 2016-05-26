@@ -11,7 +11,7 @@ export const achievements = (
     routeStack: [{name: "agelevels"}],
     ageLevelDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
     achievementsDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
-    fetch: {state: "NOT_STARTED"}
+    fetch: {state: "COMPLETED"}
   },
   action) => {
     switch (action.type) {
