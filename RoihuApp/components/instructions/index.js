@@ -71,7 +71,7 @@ class Instructions extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if (this.props.instructions === null || this.props.instructions.language.toUpperCase() !== this.props.lang.toUpperCase()) {
       fetchData("Fetching instructions",
                 this.props.actions.setFetchStatus,
@@ -125,7 +125,7 @@ export const instructions = (
            articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            article: {},
            routeStack: [{name: "categories"}],
-           fetch: {state: "NOT_STARTED"}},
+           fetch: {state: "COMPLETED"}},
   action) => {
     switch (action.type) {
     case "SET_INSTRUCTIONS":

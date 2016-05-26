@@ -64,7 +64,7 @@ class Locations extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if (this.props.locations === null || this.props.locations.language.toUpperCase() !== this.props.lang.toUpperCase()) {
       fetchData("Fetching locations",
                 this.props.actions.setFetchStatus,
@@ -118,7 +118,7 @@ export const locations = (
            articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            article: {},
            routeStack: [{name: "categories"}],
-           fetch: {state: "NOT_STARTED"}},
+           fetch: {state: "COMPLETED"}},
   action) => {
     switch (action.type) {
     case "SET_LOCATIONS":

@@ -70,7 +70,6 @@ export function renderArticles(navigator, articlesDataSource, selectArticle) {
 export function renderRoot(fetchState, data, noDataText, lang, routeStack, renderScene) {
   switch (fetchState) {
   case "STARTED":
-  case "NOT_STARTED":
     return renderProgressBar();
   case "ERROR":
     if (data === null) {
@@ -78,6 +77,9 @@ export function renderRoot(fetchState, data, noDataText, lang, routeStack, rende
     }
   case "COMPLETED":
   default:
+    if (data === null) {
+      return renderProgressBar();
+    }
     return (
       <View style={{flex: 1, width: Dimensions.get("window").width}}>
         <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
