@@ -15,11 +15,12 @@ import { categoryStyles } from '../../styles.js';
 import { renderProgressBar } from '../../utils.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
-function renderCategory(category, navigator, selectCategory, rowID) {
+function renderCategory(category, navigator, selectCategory, setCurrentTitle, rowID) {
   return (
     <View key={"category-" + rowID} style={categoryStyles.listItem}>
       <TouchableOpacity style={categoryStyles.listItemTouchArea} onPress={() => {
           const route = {name: "articles"};
+          setCurrentTitle(category.title);
           selectCategory(category, route);
           navigator.push(route);
         }}>
@@ -30,12 +31,12 @@ function renderCategory(category, navigator, selectCategory, rowID) {
   );
 }
 
-export function renderCategories(navigator, categoriesDataSource, selectCategory) {
+export function renderCategories(navigator, categoriesDataSource, selectCategory, setCurrentTitle) {
   return (
     <View style={categoryStyles.list}>
 
       <ListView dataSource={categoriesDataSource}
-                renderRow={(category, sectionID, rowID) => renderCategory(category, navigator, selectCategory, rowID) }
+                renderRow={(category, sectionID, rowID) => renderCategory(category, navigator, selectCategory, setCurrentTitle, rowID) }
         style={{width: Dimensions.get("window").width}}/>
     </View>
   );
@@ -83,7 +84,7 @@ export function renderRoot(fetchState, data, noDataText, lang, routeStack, rende
     return (
       <View style={{flex: 1, width: Dimensions.get("window").width}}>
         <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
-          {t("Tilanne", lang)} {moment(data.timestamp).format('DD.MM. h:mm')}
+          {t("Tilanne", lang)} {moment(data.timestamp).format(t("Timestamp", lang))}
         </Text>
         <Navigator initialRouteStack={routeStack}
                    renderScene={(route, navigator) => renderScene(route, navigator)}/>
