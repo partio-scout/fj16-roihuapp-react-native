@@ -27,8 +27,7 @@ export const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    alignItems: 'center',
-    marginBottom: 5
+    alignItems: 'center'
   },
   buttonBarColor: {
     color: MAIN_COLOR

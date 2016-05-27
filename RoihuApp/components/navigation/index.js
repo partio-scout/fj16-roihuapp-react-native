@@ -21,42 +21,37 @@ const Icon = require('react-native-vector-icons/MaterialIcons');
 
 class Navigation extends Component {
 
+  renderSelectionHighlight() {
+    return (
+      <View style={{width: 80, height: 10, backgroundColor: 'white'}}></View>
+    );
+  }
+
+  renderTabButton(id, text, icon) {
+    return (
+      <TouchableOpacity style={styles.button}
+                        onPress={() => this.props.actions.setView(id)}>
+        <View style={{alignItems: 'center', flex: 1}}>
+          <Icon style={styles.buttonBarIcon} name={icon} />
+          <Text style={styles.buttonBarColor}>{text}</Text>
+          {id === this.props.view ? this.renderSelectionHighlight() : null }
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
   render() {
-    const { view, actions: {setView}, lang } = this.props;
+    const { view, lang } = this.props;
     return (
       <View style={styles.main}>
         <View style={styles.content}>
           {this.renderView(view)}
         </View>
         <View style={styles.buttonBar}>
-          <TouchableOpacity style={styles.button}
-                            onPress={() => setView("map")}>
-            <View style={{alignItems: 'center'}}>
-              <Icon style={styles.buttonBarIcon} name="place" />
-              <Text style={styles.buttonBarColor}>{t("Kartta", lang)}</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}
-                            onPress={() => setView("info")}>
-            <View style={{alignItems: 'center'}}>
-              <Icon style={styles.buttonBarIcon} name="search" />
-              <Text style={styles.buttonBarColor}>{t("Info", lang)}</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}
-                            onPress={() => setView("achievements")}>
-            <View style={{alignItems: 'center'}}>
-              <Icon style={styles.buttonBarIcon} name="assessment" />
-              <Text style={styles.buttonBarColor}>{t("Aktiviteetit", lang)}</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}
-                            onPress={() => setView("user")}>
-            <View style={{alignItems: 'center'}}>
-              <Icon style={styles.buttonBarIcon} name="account-circle" />
-              <Text style={styles.buttonBarColor}>{t("Minä", lang)}</Text>
-            </View>
-          </TouchableOpacity>
+          {this.renderTabButton("map", t("Kartta", lang), "map")}
+          {this.renderTabButton("info", t("Info", lang), "info-outline")}
+          {this.renderTabButton("achievements", t("Aktiviteetit", lang), "stars")}
+          {this.renderTabButton("user", t("Minä", lang), "perm-identity")}
         </View>
       </View>
     );
