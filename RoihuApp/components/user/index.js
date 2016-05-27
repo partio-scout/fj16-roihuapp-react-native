@@ -182,7 +182,6 @@ class User extends Component {
                      renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
         </View>
       );
-      return this.renderUser();
     } else if (error !== null) {
       return (
         <Text>error</Text>
