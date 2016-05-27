@@ -98,6 +98,9 @@ export const categoryStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
+  listItemTitle: {
+    width: 200
+  },
   listItemIcon: {
     textAlign: 'right',
     color: BORDER_COLOR,
@@ -127,5 +130,20 @@ export const categoryStyles = StyleSheet.create({
   coordinate: {
     color: BAR_BACKGROUND_COLOR,
     textAlign: 'right'
+  },
+  textInputContainer: {
+    borderColor: TEXT_COLOR,
+    borderWidth: 1,
+    marginTop: 5,
+    marginBottom: 5,
+    marginLeft: 10,
+    marginRight: 30    
+  },
+  textInput: {
+    padding: 5,
+    backgroundColor: MAIN_COLOR, 
+  },  
+  bold: {
+    fontWeight: 'bold'
   }
 });

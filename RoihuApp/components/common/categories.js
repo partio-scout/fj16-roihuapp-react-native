@@ -2,6 +2,7 @@
 import React, {
   View,
   Text,
+  TextInput,
   TouchableOpacity,
   Dimensions,
   ListView,
@@ -50,7 +51,7 @@ function renderArticle(article, navigator, selectArticle, rowID) {
           selectArticle(article, route);
           navigator.push(route);
         }}>
-        <Text style={categoryStyles.textColor}>{article.title}</Text>
+        <Text style={[categoryStyles.textColor, categoryStyles.listItemTitle]}>{article.title}</Text>
         <Text style={categoryStyles.coordinate}>{article.grid_latitude}{article.grid_longitude}</Text>
         <Icon style={categoryStyles.listItemIcon} name="keyboard-arrow-right" />
       </TouchableOpacity>
@@ -86,6 +87,13 @@ export function renderRoot(fetchState, data, noDataText, lang, routeStack, rende
         <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
           {t("Tilanne", lang)} {moment(data.timestamp).format(t("Timestamp", lang))}
         </Text>
+        {routeStack.length == 1 ? (
+          <View style={categoryStyles.textInputContainer}>
+            <TextInput 
+              style={categoryStyles.textInput} 
+              placeholder={t("Hae", lang)} />
+          </View>) : (<View />)
+        }        
         <Navigator initialRouteStack={routeStack}
                    renderScene={(route, navigator) => renderScene(route, navigator)}/>
       </View>

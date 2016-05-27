@@ -10,7 +10,9 @@
     "Timestamp": "DD.MM. HH:mm",
     "Aktiviteetit": "Activities",
     "Ohjeet": "Instructions",
-    "Paikat": "Locations"
+    "Paikat": "Locations",
+    "Hae": "Search",
+    "Sijainti": "Location:",
   },
   fi: {
     "Kalenteri": "Kalenteri",
@@ -23,7 +25,9 @@
     "Timestamp": "DD.MM. HH:mm",
     "Aktiviteetit": "Aktiviteetit",
     "Ohjeet": "Ohjeet",
-    "Paikat": "Paikat"
+    "Paikat": "Paikat",
+    "Hae": "Hae",
+    "Sijainti": "sijainti:"
   },
   sv: {
     "Kalenteri": "Kalendar",
@@ -36,6 +40,8 @@
     "Timestamp": "DD.MM. HH:mm",
     "Aktiviteetit": "Aktiviteter",
     "Ohjeet": "Instruktioner",
-    "Paikat": "Platser"
+    "Paikat": "Platser",
+    "Hae": "Sök",
+    "Sijainti": "Läge:"
   }
 };
