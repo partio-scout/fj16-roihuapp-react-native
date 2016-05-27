@@ -11,11 +11,18 @@ import React, {
 import Settings from '../settings/index.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { last } from '../../utils.js';
-import { renderBackButton } from '../../utils.js';
+import { last, renderRefreshButton, renderBackButton } from '../../utils.js';
+import { infoStyles } from '../../styles.js';
+import { styles } from '../../styles.js';
+const EventEmitter = require('EventEmitter');
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
 class SettingsWrapper extends Component {
+
+  constructor(props) {
+    super(props);
+    this.refreshEventEmitter = new EventEmitter();
+  }
 
   renderSettings(navigator) {
     return (
@@ -27,7 +34,9 @@ class SettingsWrapper extends Component {
     return React.cloneElement(this.props.children,
                               {parentNavigator: navigator,
                                pushRoute: (route) => this.pushRoute(route),
-                               resetTo: (route) => this.pushRoute(route)});
+                               resetTo: (route) => this.resetTo(route),
+                               refreshEventEmitter: this.refreshEventEmitter,
+                               popRoute: () => this.popRoute()});
   }
 
   renderScene(route, navigator) {
@@ -62,7 +71,7 @@ class SettingsWrapper extends Component {
       return (
         <TouchableOpacity style={{paddingRight: 10, paddingTop: 10}}
                           onPress={() => this.pushRoute({name: "settings"})}>
-          <Icon style={{textAlign: 'right'}} name="settings" size={30} color="#000000"/>
+          <Icon style={[{textAlign: 'right'}, styles.buttonBarIcon]} name="settings" size={30} color="#000000"/>
         </TouchableOpacity>
       );
     }
@@ -71,10 +80,11 @@ class SettingsWrapper extends Component {
   render() {
     return (
       <View style={{flex: 1, width: Dimensions.get("window").width}}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={infoStyles.topNavigationBar}>
           {renderBackButton(this.props.routeStack, () => this.popRoute())}
           <View style={{flex: 1}}></View>
           {this.renderSettingsButton()}
+          {last(this.props.routeStack).name === "user-root" ? renderRefreshButton(() => this.refreshEventEmitter.emit("refresh")) : null}
         </View>
         <Navigator ref={(component) => {this._navigator = component;}}
                    initialRouteStack={this.props.routeStack}

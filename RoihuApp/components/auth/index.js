@@ -87,7 +87,9 @@ class Auth extends Component {
     } else {
       return React.cloneElement(this.props.children,
                                 {parentNavigator: this.props.parentNavigator,
-                                 pushRoute: this.props.pushRoute});
+                                 pushRoute: this.props.pushRoute,
+                                 refreshEventEmitter: this.props.refreshEventEmitter,
+                                 popRoute: this.props.popRoute});
     }
   }
 
@@ -191,7 +193,8 @@ class Auth extends Component {
   renderPartioIDLogin() {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
-        <Login uri={config.loginUrl}/>
+        <Login uri={config.loginUrl}
+               resetRoutes={() => this.props.resetTo({name: "user-root"})}/>
       </View>
     );
   }

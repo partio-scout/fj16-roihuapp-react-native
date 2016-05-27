@@ -15,6 +15,7 @@ import { bindActionCreators } from 'redux';
 import { config } from '../../config.js';
 import { removeCredentials } from '../login/actions.js';
 import { navigationStyles } from '../../styles.js';
+import { isEmpty } from '../../utils.js';
 import Settings from '../settings/index.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 const CameraRollView = require('./CameraRollView');
@@ -59,9 +60,7 @@ class User extends Component {
 
   chooseImage(asset, navigator, setImage) {
     setImage(asset.node.image);
-    console.log("asset", asset);
-    console.log(setImage);
-    navigator.pop();
+    this.props.popRoute();
   }
 
   renderImage(asset, onSelection) {
@@ -121,18 +120,6 @@ class User extends Component {
     return (
       <View style={{flex: 1, flexDirection: 'column', width: Dimensions.get('window').width}}>
         <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity
-             style={{flex: 1}}
-             onPress={() => {
-              this.fetchUserInfo(this.props.credentials);
-            }}>
-            <Text style={{textAlign: 'left', margin: 10}}>
-              Päivitä
-            </Text>
-          </TouchableOpacity>
-          {/*this.renderLogoutButton()*/}
-        </View>
-        <View style={{flexDirection: 'row'}}>
           <TouchableOpacity style={{margin: 10}}
                             onPress={() => this.props.pushRoute({name: "list-image"})}>
             {this.renderImageSelection(navigator, image)}
@@ -166,7 +153,7 @@ class User extends Component {
       return this.renderSettings(navigator);
     case "list-image":
       return this.listImages(navigator, this.props.actions.setImage);
-    case "root":
+    case "user-root":
     default:
       return this.renderUser(this.props.data, this.props.image, navigator);
     }
@@ -194,6 +181,7 @@ class User extends Component {
   }
 
   fetchUserInfo(credentials) {
+    console.log("Fetching user info");
     fetch(config.apiUrl + "/RoihuUsers/" + credentials.userId + "?access_token=" + credentials.token)
       .then((response) => response.json())
       .then((user) => {
@@ -210,14 +198,16 @@ class User extends Component {
       this.fetchUserInfo(credentials);
     }
   }
-}
 
-function isEmpty(obj) {
-  for(var key in obj) {
-    if(obj.hasOwnProperty(key))
-      return false;
+  componentWillMount() {
+    this.refreshListener = this.props.refreshEventEmitter.addListener("refresh",
+                                                                      () => this.fetchUserInfo(this.props.credentials));
   }
-  return true;
+
+  componentWillUnmount() {
+    this.refreshListener.remove();
+  }
+
 }
 
 const setUser = (data) => ({

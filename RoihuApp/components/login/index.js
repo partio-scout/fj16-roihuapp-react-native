@@ -29,9 +29,9 @@ class Login extends Component {
     if (credentials === null) {
       return (
         <WebView source={{uri: uri}}
-                      style={{flex: 1}}
-                      javaScriptEnabled={true}
-                      onNavigationStateChange={(navState) => this.onNavigationStateChange(navState)}/>
+                 style={{flex: 1}}
+                 javaScriptEnabled={true}
+                 onNavigationStateChange={(navState) => this.onNavigationStateChange(navState)}/>
       );
     } else {
       return (
@@ -44,6 +44,7 @@ class Login extends Component {
     const [userId, token] = parseCredentials(navState.url);
     if (userId && token) {
       this.props.actions.setCredentials({token: token, userId: userId});
+      this.props.resetRoutes();
     }
   }
 }
