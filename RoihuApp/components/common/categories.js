@@ -86,6 +86,13 @@ export function renderRoot(fetchState, data, noDataText, lang, routeStack, rende
         <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
           {t("Tilanne", lang)} {moment(data.timestamp).format(t("Timestamp", lang))}
         </Text>
+        {routeStack.length == 1 ? (
+          <View style={categoryStyles.textInputContainer}>
+            <TextInput 
+              style={categoryStyles.textInput} 
+              placeholder={t("Hae", lang)} />
+          </View>) : (<View />)
+        }        
         <Navigator initialRouteStack={routeStack}
                    renderScene={(route, navigator) => renderScene(route, navigator)}/>
       </View>
