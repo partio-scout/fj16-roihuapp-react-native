@@ -2,6 +2,7 @@
 import React, {
   View,
   Text,
+  TextInput,
   TouchableOpacity,
   Dimensions,
   ListView,
@@ -50,7 +51,7 @@ function renderArticle(article, navigator, selectArticle, rowID) {
           selectArticle(article, route);
           navigator.push(route);
         }}>
-        <Text style={categoryStyles.textColor}>{article.title}</Text>
+        <Text style={[categoryStyles.textColor, categoryStyles.listItemTitle]}>{article.title}</Text>
         <Text style={categoryStyles.coordinate}>{article.grid_latitude}{article.grid_longitude}</Text>
         <Icon style={categoryStyles.listItemIcon} name="keyboard-arrow-right" />
       </TouchableOpacity>

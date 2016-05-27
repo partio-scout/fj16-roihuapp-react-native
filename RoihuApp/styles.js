@@ -98,6 +98,9 @@ export const categoryStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
+  listItemTitle: {
+    width: 200
+  },
   listItemIcon: {
     textAlign: 'right',
     color: BORDER_COLOR,
