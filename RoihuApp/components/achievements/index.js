@@ -8,7 +8,8 @@ import React, {
   Dimensions,
   Navigator,
   TouchableOpacity,
-  BackAndroid
+  BackAndroid,
+  Alert
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -136,10 +137,19 @@ class Achievements extends Component {
       headers: {'Content-Type': 'application/json'},
       body: ""}).
       then((response) => {
-        console.log(response);
+        if (response.status === 200) {
+          this.fetchAchievements();
+        } else {
+          Alert.alert("Virhe merkitessä aktiviteettia tehdyksi",
+                      "Ei voitu merkitä aktiviteettia tehdyksi",
+                      [{text: "Ok", onPress: () => {}}]);
+        }
       }).
       catch((error) => {
         console.log(error);
+        Alert.alert("Virhe nettiyhteydessä",
+                    "Ei voitu merkitä aktiviteettia tehdyksi",
+                    [{text: "Ok", onPress: () => {}}]);
       });
   }
 
