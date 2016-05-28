@@ -26,7 +26,7 @@ class SettingsWrapper extends Component {
 
   renderSettings(navigator) {
     return (
-      <Settings navigator={navigator}/>
+      <Settings/>
     );
   }
 
