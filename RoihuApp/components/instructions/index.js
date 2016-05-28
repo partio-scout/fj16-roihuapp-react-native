@@ -78,6 +78,7 @@ class Instructions extends Component {
       fetchData("Fetching instructions",
                 this.props.actions.setFetchStatus,
                 "/InstructionCategories/Translations",
+                {},
                 this.props.actions.setInstructions,
                 this.props.lang,
                 "Ohjeiden haku epäonnistui");
@@ -85,6 +86,7 @@ class Instructions extends Component {
     this.refreshListener = this.props.emitter.addListener("refresh", () => fetchData("Fetching instructions",
                                                                                      this.props.actions.setFetchStatus,
                                                                                      "/InstructionCategories/Translations",
+                                                                                     {},
                                                                                      this.props.actions.setInstructions,
                                                                                      this.props.lang,
                                                                                      "Ohjeiden haku epäonnistui"));

@@ -97,18 +97,50 @@ class Achievements extends Component {
     );
   }
 
+  renderMarkDone(achievement) {
+    if (this.props.credentials !== null && !achievement.userAchieved) {
+      return (
+        <TouchableOpacity onPress={() => this.markAchievementDone(achievement.id)}>
+          <View style={{height: 50,
+                        marginTop: 20,
+                        backgroundColor: 'rgb(22, 152, 103)',
+                        alignItems: 'center',
+                        flex: 1
+                }}>
+            <View style={{flex: 1}}></View>
+            <Text style={{color: 'white',
+                          fontWeight: 'bold'
+                  }}>TEHTY!</Text>
+            <View style={{flex: 1}}></View>
+          </View>
+        </TouchableOpacity>
+      );
+    }
+    return null;
+  }
+
   renderSelectedAchievement(achievement, navigator) {
     return (
       <View style={styles.renderSelectedAchievement}>
         <Text style={{fontWeight: 'bold', fontSize: 20}}>{achievement.title}</Text>
         <Text>{achievement.bodytext}</Text>
+        {this.renderMarkDone(achievement)}
       </View>
     );
   }
 
-  markAchievementDone(usrid, token, achievementid)
-  {
-    //Give user id, token, achieveent id
+  markAchievementDone(achievementid) {
+    console.log(`Marking achievement ${achievementid} done`);
+    fetch(config.apiUrl + "/RoihuUsers/" + this.props.credentials.userId + "/achievements/rel/" + achievementid + "?access_token=" + this.props.credentials.token, {
+      method: "PUT",
+      headers: {'Content-Type': 'application/json'},
+      body: ""}).
+      then((response) => {
+        console.log(response);
+      }).
+      catch((error) => {
+        console.log(error);
+      });
   }
 
   renderAchievements(navigator) {
@@ -172,6 +204,7 @@ class Achievements extends Component {
     fetchData("Fetching achievements",
               this.props.actions.setFetchStatus,
               "/AchievementCategories/Translations",
+              {access_token: this.props.credentials.token},
               this.props.actions.setAchievements,
               this.props.lang,
               "Aktiviteettien haku epäonnistui");
@@ -238,7 +271,8 @@ export default connect(state => ({
   achievement: state.achievements.achievement,
   routeStack: state.achievements.routeStack,
   lang: state.language.lang,
-  fetch: state.achievements.fetch
+  fetch: state.achievements.fetch,
+  credentials: state.credentials
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 }))(Achievements);
