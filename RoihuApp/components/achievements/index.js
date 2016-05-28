@@ -14,9 +14,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config.js';
 import { renderBackButton, renderRefreshButton } from '../../utils.js';
-import { renderRoot, fetchData } from '../common/categories.js';
+import { renderRoot, fetchData, renderRightArrow } from '../common/categories.js';
 import { renderProgressBar } from '../../utils.js';
-import { infoStyles } from '../../styles.js';
+import { infoStyles, categoryStyles } from '../../styles.js';
 
 const styles = StyleSheet.create({
   listItem: {
@@ -44,13 +44,15 @@ class Achievements extends Component {
 
   renderAgelevel(agelevel, navigator, rowID) {
     return (
-      <View key={"agelevel-" + rowID} style={styles.listItem}>
-        <TouchableOpacity onPress={() => {
-            const route = {name: "achievements"};
-            this.props.actions.selectAgelevel(agelevel, route);
-            navigator.push(route);
+      <View key={"agelevel-" + rowID} style={categoryStyles.listItem}>
+        <TouchableOpacity style={categoryStyles.listItemTouchArea}
+                          onPress={() => {
+                            const route = {name: "achievements"};
+                            this.props.actions.selectAgelevel(agelevel, route);
+                            navigator.push(route);
           }}>
-          <Text style={{fontWeight: 'bold'}}>{agelevel.title}</Text>
+          <Text style={categoryStyles.textColor}>{agelevel.title}</Text>
+          {renderRightArrow()}
         </TouchableOpacity>
       </View>
     );
@@ -68,13 +70,15 @@ class Achievements extends Component {
 
   renderAchievement(achievement, navigator, rowID) {
     return (
-      <View key={"achievement-" + rowID} style={styles.listItem}>
-        <TouchableOpacity onPress={() => {
-            const route = {name: "achievement"};
-            this.props.actions.selectAchievement(achievement, route);
-            navigator.push(route);
+      <View key={"achievement-" + rowID} style={categoryStyles.listItem}>
+        <TouchableOpacity style={categoryStyles.listItemTouchArea}
+                          onPress={() => {
+                            const route = {name: "achievement"};
+                            this.props.actions.selectAchievement(achievement, route);
+                            navigator.push(route);
           }}>
-          <Text style={{fontWeight: 'bold'}}>{achievement.title}</Text>
+          <Text style={[categoryStyles.textColor, categoryStyles.listItemTitle]}>{achievement.title}</Text>
+          {renderRightArrow()}
         </TouchableOpacity>
       </View>
     );

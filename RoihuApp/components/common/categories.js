@@ -7,7 +7,8 @@ import React, {
   Dimensions,
   ListView,
   Navigator,
-  Alert
+  Alert,
+  Platform
 } from 'react-native';
 import moment from 'moment';
 import { t } from '../../translations.js';
@@ -15,6 +16,14 @@ import { config } from '../../config.js';
 import { categoryStyles } from '../../styles.js';
 import { renderProgressBar } from '../../utils.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
+
+export function renderRightArrow() {
+  if (Platform.OS === 'ios') {
+    return (<Icon style={categoryStyles.listItemIcon} name="keyboard-arrow-right" />);
+  } else {
+    return null;
+  }
+}
 
 function renderCategory(category, navigator, selectCategory, setCurrentTitle, rowID) {
   return (
@@ -26,7 +35,7 @@ function renderCategory(category, navigator, selectCategory, setCurrentTitle, ro
           navigator.push(route);
         }}>
         <Text style={categoryStyles.textColor}>{category.title.slice(0,35).toUpperCase()}{category.title.length > 35 ? '...' : ''}</Text>
-        <Icon style={categoryStyles.listItemIcon} name="keyboard-arrow-right" />
+        {renderRightArrow()}
       </TouchableOpacity>
     </View>
   );
@@ -53,7 +62,7 @@ function renderArticle(article, navigator, selectArticle, rowID) {
         }}>
         <Text style={[categoryStyles.textColor, categoryStyles.listItemTitle]}>{article.title}</Text>
         <Text style={categoryStyles.coordinate}>{article.grid_latitude}{article.grid_longitude}</Text>
-        <Icon style={categoryStyles.listItemIcon} name="keyboard-arrow-right" />
+        {renderRightArrow()}
       </TouchableOpacity>
     </View>
   );
