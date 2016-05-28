@@ -16,6 +16,7 @@ import { config } from '../../config.js';
 import { renderBackButton, renderRefreshButton } from '../../utils.js';
 import { renderRoot, fetchData } from '../common/categories.js';
 import { renderProgressBar } from '../../utils.js';
+import { infoStyles } from '../../styles.js';
 
 const styles = StyleSheet.create({
   listItem: {
@@ -119,7 +120,7 @@ class Achievements extends Component {
   render() {
     return (
       <View style={{flex: 1, width: Dimensions.get("window").width}}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={infoStyles.topNavigationBar}>
           {renderBackButton(this.props.routeStack, () => this.popRoute())}
           <View style={{flex: 1}}></View>
           {renderRefreshButton(() => this.fetchAchievements())}
