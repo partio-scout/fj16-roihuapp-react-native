@@ -19,7 +19,12 @@ const Icon = require('react-native-vector-icons/MaterialIcons');
 
 export function renderRightArrow() {
   if (Platform.OS === 'ios') {
-    return (<Icon style={categoryStyles.listItemIcon} name="keyboard-arrow-right" />);
+    return (
+      <View style={{flexDirection: 'row', flex: 1, alignItems: 'flex-end'}}>
+        <View style={{flex: 1, flexDirection: 'row'}}></View>
+        <Icon style={categoryStyles.listItemIcon} name="keyboard-arrow-right" />
+      </View>
+    );
   } else {
     return null;
   }

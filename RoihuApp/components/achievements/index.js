@@ -17,6 +17,7 @@ import { renderBackButton, renderRefreshButton } from '../../utils.js';
 import { renderRoot, fetchData, renderRightArrow } from '../common/categories.js';
 import { renderProgressBar } from '../../utils.js';
 import { infoStyles, categoryStyles } from '../../styles.js';
+const Icon = require('react-native-vector-icons/MaterialIcons');
 
 const styles = StyleSheet.create({
   listItem: {
@@ -68,6 +69,15 @@ class Achievements extends Component {
     );
   }
 
+  renderDoneMark(achievement) {
+    if (achievement.userAchieved) {
+      return (
+        <Icon style={{fontSize: 22, marginRight: 10}} name="done" />
+      );
+    }
+    return null;
+  }
+
   renderAchievement(achievement, navigator, rowID) {
     return (
       <View key={"achievement-" + rowID} style={categoryStyles.listItem}>
@@ -77,8 +87,11 @@ class Achievements extends Component {
                             this.props.actions.selectAchievement(achievement, route);
                             navigator.push(route);
           }}>
-          <Text style={[categoryStyles.textColor, categoryStyles.listItemTitle]}>{achievement.title}</Text>
-          {renderRightArrow()}
+          <View style={{flexDirection: 'row', flex: 1}}>
+            {this.renderDoneMark(achievement)}
+            <Text style={[{textAlign: 'left'}, categoryStyles.textColor, categoryStyles.listItemTitle]}>{achievement.title}</Text>
+            {renderRightArrow()}
+          </View>
         </TouchableOpacity>
       </View>
     );
