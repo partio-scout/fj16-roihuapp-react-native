@@ -16,7 +16,6 @@ import { config } from '../../config.js';
 import { removeCredentials } from '../login/actions.js';
 import { navigationStyles } from '../../styles.js';
 import { isEmpty } from '../../utils.js';
-import Settings from '../settings/index.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 const CameraRollView = require('./CameraRollView');
 
@@ -141,16 +140,8 @@ class User extends Component {
     );
   }
 
-  renderSettings(navigator) {
-    return (
-      <Settings navigator={navigator}/>
-    );
-  }
-
   renderScene(route, navigator) {
     switch(route.name) {
-    case "settings":
-      return this.renderSettings(navigator);
     case "list-image":
       return this.listImages(navigator, this.props.actions.setImage);
     case "user-root":
