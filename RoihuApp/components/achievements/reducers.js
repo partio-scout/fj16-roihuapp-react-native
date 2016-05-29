@@ -3,7 +3,7 @@ import React, {
   ListView
 } from 'react-native';
 
-const agelevelComparator = (a, b) => a.title.localeCompare(b.title);
+const titleComparator = (a, b) => a.title.localeCompare(b.title);
 
 export const achievements = (
   state = {
@@ -18,9 +18,9 @@ export const achievements = (
     case "SET_ACHIEVEMENTS":
       return Object.assign({}, state, {achievements: action.achievements,
                                        ageLevelDataSource:
-                                       state.ageLevelDataSource.cloneWithRows(action.achievements.agelevels.sort(agelevelComparator))});
+                                       state.ageLevelDataSource.cloneWithRows(action.achievements.agelevels.sort(titleComparator))});
     case "SELECT_AGELEVEL":
-      return Object.assign({}, state, {achievementsDataSource: state.achievementsDataSource.cloneWithRows(action.agelevel.achievements),
+      return Object.assign({}, state, {achievementsDataSource: state.achievementsDataSource.cloneWithRows(action.agelevel.achievements.sort(titleComparator)),
                                        routeStack: state.routeStack.concat(action.route)});
     case "SELECT_ACHIEVEMENT":
       return Object.assign({}, state, {achievement: action.achievement,
