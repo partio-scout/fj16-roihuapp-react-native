@@ -34,6 +34,8 @@ export const achievements = (
       return Object.assign({}, state, {routeStack: newStack});
     case "ACHIEVEMENTS_FETCH_STATE":
       return Object.assign({}, state, {fetch: {state: action.state}});
+    case "MARK_ACHIEVEMENT_DONE":
+      return Object.assign({}, state, {achievement: Object.assign({}, state.achievement, {userAchieved: true})});
     }
     return state;
   };

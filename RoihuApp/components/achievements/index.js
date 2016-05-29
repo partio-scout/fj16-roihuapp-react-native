@@ -18,6 +18,8 @@ import { renderBackButton, renderRefreshButton } from '../../utils.js';
 import { renderRoot, fetchData, renderRightArrow } from '../common/categories.js';
 import { renderProgressBar } from '../../utils.js';
 import { infoStyles, categoryStyles } from '../../styles.js';
+import { removeCredentials } from '../login/actions.js';
+import { setView } from '../navigation/actions.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
 const styles = StyleSheet.create({
@@ -130,6 +132,11 @@ class Achievements extends Component {
     );
   }
 
+  reLogin() {
+    this.props.actions.removeCredentials();
+    this.props.actions.setView("user");
+  }
+
   markAchievementDone(achievementid) {
     console.log(`Marking achievement ${achievementid} done`);
     fetch(config.apiUrl + "/RoihuUsers/" + this.props.credentials.userId + "/achievements/rel/" + achievementid + "?access_token=" + this.props.credentials.token, {
@@ -137,9 +144,17 @@ class Achievements extends Component {
       headers: {'Content-Type': 'application/json'},
       body: ""}).
       then((response) => {
-        if (response.status === 200) {
-          this.fetchAchievements();
-        } else {
+        switch (response.status) {
+        case 200:
+          this.props.actions.markAchievementDone();
+          break;
+        case 401:
+          Alert.alert("Kirjaudu merkitäksesi aktiviteetin tehdyksi",
+                      "Kirjautuminen on vanhentunut, kirjaudu uudelleen merkitäksesi aktiviteetin tehdyksi",
+                      [{text: "Ok", onPress: () => this.reLogin()}]);
+          break;
+        default:
+          console.log(response);
           Alert.alert("Virhe merkitessä aktiviteettia tehdyksi",
                       "Ei voitu merkitä aktiviteettia tehdyksi",
                       [{text: "Ok", onPress: () => {}}]);
@@ -264,6 +279,9 @@ const actions = {
     achievement: achievement,
     route: route
   }),
+  markAchievementDone: () => ({
+    type: "MARK_ACHIEVEMENT_DONE"
+  }),
   popAchievementsRoute: () => ({
     type: "POP_ACHIEVEMENTS_ROUTE"
   }),
@@ -284,5 +302,7 @@ export default connect(state => ({
   fetch: state.achievements.fetch,
   credentials: state.credentials
 }), (dispatch) => ({
-  actions: bindActionCreators(actions, dispatch)
+  actions: bindActionCreators(Object.assign(actions,
+                                            {removeCredentials: removeCredentials,
+                                             setView: setView}), dispatch)
 }))(Achievements);
