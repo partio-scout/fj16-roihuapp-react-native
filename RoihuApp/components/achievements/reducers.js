@@ -17,12 +17,15 @@ export const achievements = (
   action) => {
     switch (action.type) {
     case "SET_ACHIEVEMENTS":
-      return Object.assign({}, state, {achievements: action.achievements,
-                                       ageLevelDataSource:
-                                       state.ageLevelDataSource.cloneWithRows(action.achievements.agelevels.sort(titleComparator))});
+      return Object.assign({},
+                           state,
+                           {achievements: action.achievements,
+                            ageLevelDataSource: state.ageLevelDataSource.cloneWithRows(action.achievements.agelevels.sort(titleComparator))});
     case "SELECT_AGELEVEL":
-      return Object.assign({}, state, {achievementsDataSource: state.achievementsDataSource.cloneWithRows(action.agelevel.achievements.sort(titleComparator)),
-                                       routeStack: state.routeStack.concat(action.route)});
+      return Object.assign({},
+                           state,
+                           {achievementsDataSource: state.achievementsDataSource.cloneWithRows(action.agelevel.achievements.sort(titleComparator)),
+                            routeStack: state.routeStack.concat(action.route)});
     case "SELECT_ACHIEVEMENT":
       return Object.assign({}, state, {achievement: action.achievement,
                                        routeStack: state.routeStack.concat(action.route)});
