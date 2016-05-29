@@ -118,7 +118,7 @@ export function renderRoot(fetchState, data, noDataText, lang, routeStack, rende
 export function fetchData(logStart, setFetchStatus, apiPath, queryParams, setData, lang, failedToFetchMessage) {
   console.log(logStart);
   const params = Object.assign({lang: lang.toUpperCase()}, queryParams);
-  const queryParamString = Object.keys(queryParams).map((k) => k + "=" + queryParams[k]).join("&");
+  const queryParamString = Object.keys(params).map((k) => k + "=" + params[k]).join("&");
   setFetchStatus("STARTED");
   fetch(config.apiUrl + apiPath + "?" + queryParamString)
     .then((response) => response.json())
