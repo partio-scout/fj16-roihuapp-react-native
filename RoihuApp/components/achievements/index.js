@@ -120,7 +120,7 @@ class Achievements extends Component {
     return null;
   }
 
-  renderSelectedAchievement(achievement, navigator) {
+  renderSelectedAchievement(achievement) {
     return (
       <View style={styles.renderSelectedAchievement}>
         <Text style={{fontWeight: 'bold', fontSize: 20}}>{achievement.title}</Text>
@@ -169,7 +169,7 @@ class Achievements extends Component {
     case "achievements":
       return this.renderAchievements(navigator);
     case "achievement":
-      return this.renderSelectedAchievement(this.props.achievement, navigator);
+      return this.renderSelectedAchievement(this.props.achievement);
     case "agelevels":
     default:
       return this.renderAgelevels(navigator);
