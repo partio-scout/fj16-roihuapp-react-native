@@ -6,7 +6,7 @@ import React, {
 
 const MAIN_COLOR = '#FFFFFF';
 const BAR_BACKGROUND_COLOR = '#18A771';
-const BORDER_COLOR = '#3EAADF';
+export const BORDER_COLOR = '#3EAADF';
 const TEXT_COLOR = '#000000';
 
 export const styles = StyleSheet.create({

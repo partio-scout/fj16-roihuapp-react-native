@@ -17,7 +17,7 @@ import { config } from '../../config.js';
 import { renderBackButton, renderRefreshButton } from '../../utils.js';
 import { renderRoot, fetchData, renderRightArrow } from '../common/categories.js';
 import { renderProgressBar } from '../../utils.js';
-import { infoStyles, categoryStyles } from '../../styles.js';
+import { infoStyles, categoryStyles, BORDER_COLOR } from '../../styles.js';
 import { removeCredentials } from '../login/actions.js';
 import { setView } from '../navigation/actions.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
@@ -97,14 +97,31 @@ class Achievements extends Component {
         </TouchableOpacity>
       );
     }
-    return null;
+    return (
+      <View style={{
+              flex: 1,
+              flexDirection: 'row',
+              marginLeft: 20,
+              marginTop: 10
+            }}>
+        <Icon style={{
+                fontSize: 60,
+                color: 'rgb(22, 152, 103)'
+              }} name="done" />
+        <View style={{flex: 1}}>
+          <Text style={{marginTop: 10}}>Hieno juttu!</Text>
+          <Text>Olet tehnyt tämän tehtävän.</Text>
+        </View>
+      </View>
+    );
   }
 
   renderSelectedAchievement(achievement) {
     return (
       <View>
-        <Text style={{fontWeight: 'bold', fontSize: 20}}>{achievement.title}</Text>
-        <Text>{achievement.bodytext}</Text>
+        <Text style={{fontWeight: 'bold', fontSize: 20, textAlign: 'center'}}>{achievement.title}</Text>
+        <View style={{flex: 1, height: 2, backgroundColor: BORDER_COLOR}}></View>
+        <Text style={{marginLeft: 10, marginRight: 10}}>{achievement.bodytext}</Text>
         {this.renderMarkDone(achievement)}
       </View>
     );
