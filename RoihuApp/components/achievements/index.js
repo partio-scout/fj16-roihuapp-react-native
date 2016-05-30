@@ -22,28 +22,6 @@ import { removeCredentials } from '../login/actions.js';
 import { setView } from '../navigation/actions.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
-const styles = StyleSheet.create({
-  listItem: {
-    borderRadius: 4,
-    borderWidth: 0.5,
-    borderColor: '#d6d7da',
-    padding: 15
-  },
-  doThisAchievement: {
-    borderRadius: 5,
-    borderWidth: 2,
-    borderColor: 'red',
-    padding: 5,
-    width: 150
-  },
-  doThisAchievementText: {
-    color: '#000',
-    textAlign: 'center'
-  },
-  renderSelectedAchievement: {
-  }
-});
-
 class Achievements extends Component {
 
   renderAgelevel(agelevel, navigator, rowID) {
@@ -124,7 +102,7 @@ class Achievements extends Component {
 
   renderSelectedAchievement(achievement) {
     return (
-      <View style={styles.renderSelectedAchievement}>
+      <View>
         <Text style={{fontWeight: 'bold', fontSize: 20}}>{achievement.title}</Text>
         <Text>{achievement.bodytext}</Text>
         {this.renderMarkDone(achievement)}
