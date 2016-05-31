@@ -224,7 +224,7 @@ class Achievements extends Component {
     fetchData("Fetching achievements",
               this.props.actions.setFetchStatus,
               "/AchievementCategories/Translations",
-              {access_token: this.props.credentials.token},
+              this.props.credentials ? {access_token: this.props.credentials.token} : {},
               this.props.actions.setAchievements,
               this.props.lang,
               "Aktiviteettien haku epäonnistui");
