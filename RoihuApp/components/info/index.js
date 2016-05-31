@@ -41,7 +41,11 @@ class Info extends Component {
       case 3:
         return(
           <View style={{flex: 1}}>
-            <Text style={navigationStyles.backTitle}>{title}</Text>
+            <Text 
+              style={navigationStyles.backTitle} 
+              onPress={() => this.onBack()}>
+              {title}
+            </Text>
           </View>
         );        
       default:
