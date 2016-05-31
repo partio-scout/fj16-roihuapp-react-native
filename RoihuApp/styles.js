@@ -130,6 +130,9 @@ export const categoryStyles = StyleSheet.create({
     color: BAR_BACKGROUND_COLOR,
     textAlign: 'right'
   },
+  locationText: {
+    paddingBottom: 10
+  },
   textInputContainer: {
     borderColor: TEXT_COLOR,
     borderWidth: 1,
