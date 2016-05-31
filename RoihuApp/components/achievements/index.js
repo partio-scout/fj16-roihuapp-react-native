@@ -17,7 +17,7 @@ import { config } from '../../config.js';
 import { renderBackButton, renderRefreshButton } from '../../utils.js';
 import { renderRoot, fetchData, renderRightArrow } from '../common/categories.js';
 import { renderProgressBar } from '../../utils.js';
-import { infoStyles, categoryStyles, BORDER_COLOR } from '../../styles.js';
+import { infoStyles, categoryStyles, BORDER_COLOR, BAR_BACKGROUND_COLOR } from '../../styles.js';
 import { removeCredentials } from '../login/actions.js';
 import { setView } from '../navigation/actions.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
@@ -78,40 +78,47 @@ class Achievements extends Component {
     );
   }
 
+  renderWideButton(text, onPress) {
+    return (
+      <TouchableOpacity onPress={onPress}>
+        <View style={{height: 50,
+                      marginTop: 20,
+                      backgroundColor: BAR_BACKGROUND_COLOR,
+                      alignItems: 'center',
+                      flex: 1
+              }}>
+          <View style={{flex: 1}}></View>
+          <Text style={{color: 'white',
+                        fontWeight: 'bold'
+                }}>{text}</Text>
+          <View style={{flex: 1}}></View>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
   renderMarkDone(achievement) {
     if (this.props.credentials !== null && !achievement.userAchieved) {
-      return (
-        <TouchableOpacity onPress={() => this.markAchievementDone(achievement.id)}>
-          <View style={{height: 50,
-                        marginTop: 20,
-                        backgroundColor: 'rgb(22, 152, 103)',
-                        alignItems: 'center',
-                        flex: 1
-                }}>
-            <View style={{flex: 1}}></View>
-            <Text style={{color: 'white',
-                          fontWeight: 'bold'
-                  }}>TEHTY!</Text>
-            <View style={{flex: 1}}></View>
-          </View>
-        </TouchableOpacity>
-      );
+      return this.renderWideButton("TEHTY!", () => this.markAchievementDone(achievement.id));
     }
     return (
-      <View style={{
-              flex: 1,
-              flexDirection: 'row',
-              marginLeft: 20,
-              marginTop: 10
-            }}>
-        <Icon style={{
-                fontSize: 60,
-                color: 'rgb(22, 152, 103)'
-              }} name="done" />
-        <View style={{flex: 1}}>
-          <Text style={{marginTop: 10}}>Hieno juttu!</Text>
-          <Text>Olet tehnyt tämän tehtävän.</Text>
+      <View>
+        <View style={{
+                flex: 1,
+                flexDirection: 'row',
+                marginLeft: 20,
+                marginTop: 10
+              }}>
+          <Icon style={{
+                  fontSize: 60,
+                  color: BAR_BACKGROUND_COLOR
+                }} name="done" />
+          <View style={{flex: 1}}>
+            <Text style={{marginTop: 10}}>Hieno juttu!</Text>
+            <Text>Olet tehnyt tämän tehtävän.</Text>
+          </View>
         </View>
+        {this.renderWideButton("ENPÄS VIELÄ OLEKAAN", () => console.log("moi"))}
       </View>
     );
   }

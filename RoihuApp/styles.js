@@ -5,7 +5,7 @@ import React, {
 } from 'react-native';
 
 const MAIN_COLOR = '#FFFFFF';
-const BAR_BACKGROUND_COLOR = '#18A771';
+export const BAR_BACKGROUND_COLOR = '#18A771';
 export const BORDER_COLOR = '#3EAADF';
 const TEXT_COLOR = '#000000';
 
