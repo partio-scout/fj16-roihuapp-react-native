@@ -5,8 +5,8 @@ import React, {
 } from 'react-native';
 
 const MAIN_COLOR = '#FFFFFF';
-export const BAR_BACKGROUND_COLOR = '#18A771';
-export const BORDER_COLOR = '#3EAADF';
+const BAR_BACKGROUND_COLOR = '#18A771';
+const BORDER_COLOR = '#3EAADF';
 const TEXT_COLOR = '#000000';
 
 export const styles = StyleSheet.create({
@@ -147,5 +147,43 @@ export const categoryStyles = StyleSheet.create({
   },
   bold: {
     fontWeight: 'bold'
+  }
+});
+
+export const achievementStyles = StyleSheet.create({
+  wideButtonContainer: {
+    height: 50,
+    marginTop: 20,
+    backgroundColor: BAR_BACKGROUND_COLOR,
+    alignItems: 'center',
+    flex: 1
+  },
+  wideButtonText: {
+    color: 'white',
+    fontWeight: 'bold'
+  },
+  doneIcon: {
+    fontSize: 60,
+    color: BAR_BACKGROUND_COLOR
+  },
+  doneContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    marginLeft: 20,
+    marginTop: 10
+  },
+  selectedAchievementTitle: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    textAlign: 'center'
+  },
+  titleSeparator: {
+    flex: 1,
+    height: 2,
+    backgroundColor: BORDER_COLOR
+  },
+  bodyText: {
+    marginLeft: 10,
+    marginRight: 10
   }
 });

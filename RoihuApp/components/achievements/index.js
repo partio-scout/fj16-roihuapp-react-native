@@ -17,7 +17,7 @@ import { config } from '../../config.js';
 import { renderBackButton, renderRefreshButton } from '../../utils.js';
 import { renderRoot, fetchData, renderRightArrow } from '../common/categories.js';
 import { renderProgressBar } from '../../utils.js';
-import { infoStyles, categoryStyles, BORDER_COLOR, BAR_BACKGROUND_COLOR } from '../../styles.js';
+import { infoStyles, categoryStyles, achievementStyles } from '../../styles.js';
 import { removeCredentials } from '../login/actions.js';
 import { setView } from '../navigation/actions.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
@@ -81,16 +81,9 @@ class Achievements extends Component {
   renderWideButton(text, onPress) {
     return (
       <TouchableOpacity onPress={onPress}>
-        <View style={{height: 50,
-                      marginTop: 20,
-                      backgroundColor: BAR_BACKGROUND_COLOR,
-                      alignItems: 'center',
-                      flex: 1
-              }}>
+        <View style={achievementStyles.wideButtonContainer}>
           <View style={{flex: 1}}></View>
-          <Text style={{color: 'white',
-                        fontWeight: 'bold'
-                }}>{text}</Text>
+          <Text style={achievementStyles.wideButtonText}>{text}</Text>
           <View style={{flex: 1}}></View>
         </View>
       </TouchableOpacity>
@@ -103,16 +96,8 @@ class Achievements extends Component {
     }
     return (
       <View>
-        <View style={{
-                flex: 1,
-                flexDirection: 'row',
-                marginLeft: 20,
-                marginTop: 10
-              }}>
-          <Icon style={{
-                  fontSize: 60,
-                  color: BAR_BACKGROUND_COLOR
-                }} name="done" />
+        <View style={achievementStyles.doneContainer}>
+          <Icon style={achievementStyles.doneIcon} name="done" />
           <View style={{flex: 1}}>
             <Text style={{marginTop: 10}}>Hieno juttu!</Text>
             <Text>Olet tehnyt tämän tehtävän.</Text>
@@ -126,9 +111,9 @@ class Achievements extends Component {
   renderSelectedAchievement(achievement) {
     return (
       <View>
-        <Text style={{fontWeight: 'bold', fontSize: 20, textAlign: 'center'}}>{achievement.title}</Text>
-        <View style={{flex: 1, height: 2, backgroundColor: BORDER_COLOR}}></View>
-        <Text style={{marginLeft: 10, marginRight: 10}}>{achievement.bodytext}</Text>
+        <Text style={achievementStyles.selectedAchievementTitle}>{achievement.title}</Text>
+        <View style={achievementStyles.titleSeparator}></View>
+        <Text style={achievementStyles.bodyText}>{achievement.bodytext}</Text>
         {this.renderMarkDone(achievement)}
       </View>
     );
