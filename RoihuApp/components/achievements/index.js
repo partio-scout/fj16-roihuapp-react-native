@@ -91,21 +91,25 @@ class Achievements extends Component {
   }
 
   renderMarkDone(achievement) {
-    if (this.props.credentials !== null && !achievement.userAchieved) {
-      return this.renderWideButton("TEHTY!", () => this.markAchievement(achievement.id, true));
+    if (this.props.credentials === null) {
+      return null;
     }
-    return (
-      <View>
-        <View style={achievementStyles.doneContainer}>
-          <Icon style={achievementStyles.doneIcon} name="done" />
-          <View style={{flex: 1}}>
-            <Text style={{marginTop: 10}}>Hieno juttu!</Text>
-            <Text>Olet tehnyt tämän tehtävän.</Text>
+    if (!achievement.userAchieved) {
+      return this.renderWideButton("TEHTY!", () => this.markAchievement(achievement.id, true));
+    } else {
+      return (
+        <View>
+          <View style={achievementStyles.doneContainer}>
+            <Icon style={achievementStyles.doneIcon} name="done" />
+            <View style={{flex: 1}}>
+              <Text style={{marginTop: 10}}>Hieno juttu!</Text>
+              <Text>Olet tehnyt tämän tehtävän.</Text>
+            </View>
           </View>
+          {this.renderWideButton("ENPÄS VIELÄ OLEKAAN", () => this.markAchievement(achievement.id, false))}
         </View>
-        {this.renderWideButton("ENPÄS VIELÄ OLEKAAN", () => this.markAchievement(achievement.id, false))}
-      </View>
-    );
+      );
+    }
   }
 
   renderSelectedAchievement(achievement) {
