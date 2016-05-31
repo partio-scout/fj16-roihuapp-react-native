@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
   hiddenButtonBarIcon: {
     color: BAR_BACKGROUND_COLOR,
     fontSize: 30
-  }  
+  }
 });
 
 export const navigationStyles = StyleSheet.create({
@@ -50,15 +50,15 @@ export const navigationStyles = StyleSheet.create({
     textAlign: 'right'
   },
   mainTitle: {
-    color: MAIN_COLOR, 
-    fontSize: 24, 
-    textAlign: 'center', 
+    color: MAIN_COLOR,
+    fontSize: 24,
+    textAlign: 'center',
     marginTop: 7
   },
   backTitle: {
-    color: MAIN_COLOR, 
-    fontSize: 18, 
-    textAlign: 'left', 
+    color: MAIN_COLOR,
+    fontSize: 18,
+    textAlign: 'left',
     marginTop: 12
   }
 });
@@ -80,9 +80,9 @@ export const infoStyles = StyleSheet.create({
     paddingBottom: 10
   },
   topNavigationBar: {
-    flexDirection: 'row', 
-    backgroundColor: BAR_BACKGROUND_COLOR, 
-    paddingBottom: 10, 
+    flexDirection: 'row',
+    backgroundColor: BAR_BACKGROUND_COLOR,
+    paddingBottom: 10,
     marginBottom: 10
   }
 });
@@ -107,7 +107,7 @@ export const categoryStyles = StyleSheet.create({
   },
   list: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'column'
   },
   article: {
     padding: 10,
@@ -120,7 +120,7 @@ export const categoryStyles = StyleSheet.create({
     fontSize: 20
   },
   textColor: {
-    color: TEXT_COLOR,
+    color: TEXT_COLOR
   },
   smallText: {
     fontSize: 10,
@@ -139,12 +139,12 @@ export const categoryStyles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
     marginLeft: 10,
-    marginRight: 30    
+    marginRight: 30
   },
   textInput: {
     padding: 5,
-    backgroundColor: MAIN_COLOR, 
-  },  
+    backgroundColor: MAIN_COLOR
+  },
   bold: {
     fontWeight: 'bold'
   }
