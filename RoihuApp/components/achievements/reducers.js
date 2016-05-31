@@ -6,6 +6,36 @@ import React, {
 const titleComparator = (a, b) => a.title.localeCompare(b.title);
 const achievementEquals = (r1, r2) => r1.id !== r2.id || r1.title !== r2.title || r1.achievement !== r2.userAchieved;
 
+function markAchievementDone(state, done) {
+  const markDone = (a) => { if(a.id === state.achievement.id) {
+    return Object.assign({}, a, {userAchieved: done});
+  } else {
+    return a;
+  }};
+  const newAgeLevel = Object.assign({},
+                                    state.agelevel,
+                                    {achievements: state.agelevel.achievements.map(markDone)});
+  const updateAgeLevel = (ageLevel) => {
+    if (ageLevel.id === newAgeLevel.id) {
+      return newAgeLevel;
+    } else {
+      return ageLevel;
+    }
+  };
+  const newAchievements = Object.assign({},
+                                        state.achievements,
+                                        {agelevels: state.achievements.agelevels.map(updateAgeLevel)});
+  const newAgeLevelDataSource = state.ageLevelDataSource.cloneWithRows(newAchievements.agelevels.sort(titleComparator));
+  const newAchievementsDataSource = state.achievementsDataSource.cloneWithRows(newAgeLevel.achievements.sort(titleComparator));
+  return Object.assign({},
+                       state,
+                       {achievements: newAchievements,
+                        achievement: Object.assign({}, state.achievement, {userAchieved: done}),
+                        ageLevelDataSource: newAgeLevelDataSource,
+                        achievementsDataSource: newAchievementsDataSource,
+                        agelevel: newAgeLevel});
+}
+
 export const achievements = (
   state = {
     achievements: null,
@@ -42,33 +72,7 @@ export const achievements = (
     case "ACHIEVEMENTS_FETCH_STATE":
       return Object.assign({}, state, {fetch: {state: action.state}});
     case "MARK_ACHIEVEMENT_DONE":
-      const markDone = (a) => { if(a.id === state.achievement.id) {
-        return Object.assign({}, a, {userAchieved: true});
-      } else {
-        return a;
-      }};
-      const newAgeLevel = Object.assign({},
-                                        state.agelevel,
-                                        {achievements: state.agelevel.achievements.map(markDone)});
-      const updateAgeLevel = (ageLevel) => {
-        if (ageLevel.id === newAgeLevel.id) {
-          return newAgeLevel;
-        } else {
-          return ageLevel;
-        }
-      };
-      const newAchievements = Object.assign({},
-                                            state.achievements,
-                                            {agelevels: state.achievements.agelevels.map(updateAgeLevel)});
-      const newAgeLevelDataSource = state.ageLevelDataSource.cloneWithRows(newAchievements.agelevels.sort(titleComparator));
-      const newAchievementsDataSource = state.achievementsDataSource.cloneWithRows(newAgeLevel.achievements.sort(titleComparator));
-      return Object.assign({},
-                           state,
-                           {achievements: newAchievements,
-                            achievement: Object.assign({}, state.achievement, {userAchieved: true}),
-                            ageLevelDataSource: newAgeLevelDataSource,
-                            achievementsDataSource: newAchievementsDataSource,
-                            agelevel: newAgeLevel});
+      return markAchievementDone(state, action.done);
     }
     return state;
   };
