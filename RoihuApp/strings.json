@@ -11,7 +11,7 @@
     "Aktiviteetit": "Activities",
     "Ohjeet": "Instructions",
     "Paikat": "Locations",
-    "Hae": "Search",
+    "Hae": "Not yet implemented",
     "Sijainti": "Location:",
   },
   fi: {
@@ -26,7 +26,7 @@
     "Aktiviteetit": "Aktiviteetit",
     "Ohjeet": "Ohjeet",
     "Paikat": "Paikat",
-    "Hae": "Hae",
+    "Hae": "Ei toimi vielä",
     "Sijainti": "sijainti:"
   },
   sv: {
@@ -41,7 +41,7 @@
     "Aktiviteetit": "Aktiviteter",
     "Ohjeet": "Instruktioner",
     "Paikat": "Platser",
-    "Hae": "Sök",
+    "Hae": "Fungerar inte ännu",
     "Sijainti": "Läge:"
   }
 };
