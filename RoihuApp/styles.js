@@ -142,6 +142,7 @@ export const categoryStyles = StyleSheet.create({
     marginRight: 30
   },
   textInput: {
+    height: 36,
     padding: 5,
     backgroundColor: MAIN_COLOR
   },
