@@ -62,3 +62,7 @@ export function isEmpty(obj) {
   }
   return true;
 }
+
+export function sortNumber(a, b) {
+  return (a < b) ? -1 : ((a == b) ? 0 : 1);
+}

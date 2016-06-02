@@ -126,6 +126,8 @@ const actions = {
   })    
 };
 
+const titleComparator = (a, b) => a.title.localeCompare(b.title);
+
 export const locations = (
   state = {locations: null,
            categoriesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
@@ -138,9 +140,9 @@ export const locations = (
     switch (action.type) {
     case "SET_LOCATIONS":
       return Object.assign({}, state, {locations: action.locations,
-                                       categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.locations.categories)});
+                                       categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.locations.categories.sort(titleComparator))});
     case "SELECT_LOCATIONS_CATEGORY":
-      return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles),
+      return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles.sort(titleComparator)),
                                        routeStack: state.routeStack.concat(action.route)});
     case "SELECT_LOCATIONS_ARTICLE":
       return Object.assign({},

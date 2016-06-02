@@ -13,6 +13,7 @@ import React, {
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { sortNumber } from '../../utils.js';
 import { t } from '../../translations.js';
 import { categoryStyles } from '../../styles.js';
 import { renderCategories, renderArticles, renderRoot, fetchData } from '../common/categories.js';
@@ -143,9 +144,9 @@ export const instructions = (
     switch (action.type) {
     case "SET_INSTRUCTIONS":
       return Object.assign({}, state, {instructions: action.instructions,
-                                       categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.instructions.categories)});
+                                       categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.instructions.categories.sort((a, b) => sortNumber(a.sort_no, b.sort_no)))});
     case "SELECT_INSTRUCTIONS_CATEGORY":
-      return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles[0]),
+      return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles[0].sort((a, b) => sortNumber(a.sort_no, b.sort_no))),
                                        routeStack: state.routeStack.concat(action.route)});
     case "SELECT_INSTRUCTIONS_ARTICLE":
       return Object.assign({},
