@@ -771,6 +771,7 @@
 				INFOPLIST_FILE = RoihuApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.roihuapp;
 				PRODUCT_NAME = RoihuApp;
 				SWIFT_OBJC_BRIDGING_HEADER = "RoihuApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -792,6 +793,7 @@
 				INFOPLIST_FILE = RoihuApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.roihuapp;
 				PRODUCT_NAME = RoihuApp;
 				SWIFT_OBJC_BRIDGING_HEADER = "RoihuApp-Bridging-Header.h";
 			};
