@@ -22,19 +22,23 @@ class Locations extends Component {
   renderSelectedArticle(article) {
     return (
       <View style={categoryStyles.article}>
-        <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>
-          {article.title}
-        </Text>
-        <Text style={[categoryStyles.textColor, categoryStyles.locationText]}>
-          <Text style={categoryStyles.bold}>{t("Sijainti", this.props.lang)} </Text>
-          <Text>{article.grid_latitude}{article.grid_longitude}</Text>
-        </Text>
-        <ScrollView style={{flex: 1}}>
-          <Text style={categoryStyles.textColor}>{article.bodytext}</Text>
-        </ScrollView>
-        <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
-          {t("Viimeksi muokattu", this.props.lang)} {moment(article.last_modified).format(t("Timestamp", this.props.lang))}
-        </Text>
+        <View style={categoryStyles.articleTitleContainer}>
+          <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>
+            {article.title}
+          </Text>
+        </View>
+        <View style={categoryStyles.articleContentContainer}>
+          <Text style={[categoryStyles.textColor, categoryStyles.locationText]}>
+            <Text style={categoryStyles.bold}>{t("Sijainti", this.props.lang)} </Text>
+            <Text>{article.grid_latitude}{article.grid_longitude}</Text>
+          </Text>
+          <ScrollView style={{flex: 1}}>
+            <Text style={categoryStyles.textColor}>{article.bodytext}</Text>
+          </ScrollView>
+          <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
+            {t("Viimeksi muokattu", this.props.lang)} {moment(article.last_modified).format(t("Timestamp", this.props.lang))}
+          </Text>
+        </View>
       </View>
     );
   }
