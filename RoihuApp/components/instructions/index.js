@@ -128,8 +128,6 @@ const actions = {
   })
 };
 
-const instructionsComparator = (a, b) => sortNumber(a.sort_no, b.sort_no);
-
 export const instructions = (
   state = {instructions: null,
            categoriesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
@@ -142,9 +140,9 @@ export const instructions = (
     switch (action.type) {
     case "SET_INSTRUCTIONS":
       return Object.assign({}, state, {instructions: action.instructions,
-                                       categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.instructions.categories.sort(instructionsComparator))});
+                                       categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.instructions.categories.sort((a, b) => sortNumber(a.sort_no, b.sort_no)))});
     case "SELECT_INSTRUCTIONS_CATEGORY":
-      return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles[0].sort(instructionsComparator)),
+      return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles[0].sort((a, b) => sortNumber(a.sort_no, b.sort_no))),
                                        routeStack: state.routeStack.concat(action.route)});
     case "SELECT_INSTRUCTIONS_ARTICLE":
       return Object.assign({},
