@@ -13,6 +13,16 @@
     "Paikat": "Locations",
     "Hae": "Not yet implemented",
     "Sijainti": "Location:",
+    "Telephone": "Tel",
+    "Email": "E-mail",
+    "Public Accounts": "Some",
+    "Primary Troop": "Troop",
+    "Disctrict": "District",
+    "Country": "Country",
+    "Age level": "Age group",
+    "Camp Troop": "Camp unit",
+    "Subcamp": "Subcamp",
+    "Description": "Desc"  
   },
   fi: {
     "Kalenteri": "Kalenteri",
@@ -27,7 +37,17 @@
     "Ohjeet": "Ohjeet",
     "Paikat": "Paikat",
     "Hae": "Ei toimi vielä",
-    "Sijainti": "sijainti:"
+    "Sijainti": "sijainti:",
+    "Telephone": "Puh",
+    "Email": "S-posti",
+    "Public Accounts": "Some",
+    "Primary Troop": "Lpk",
+    "Disctrict": "Piiri",
+    "Country": "Maa",
+    "Age level": "Ikäkausi",
+    "Camp Troop": "Leirilpk",
+    "Subcamp": "Alaleiri",
+    "Description": "Kuvaus"  
   },
   sv: {
     "Kalenteri": "Kalendar",
@@ -42,6 +62,16 @@
     "Ohjeet": "Instruktioner",
     "Paikat": "Platser",
     "Hae": "Fungerar inte ännu",
-    "Sijainti": "Läge:"
+    "Sijainti": "Läge:",
+    "Telephone": "Tel",
+    "Email": "E-post",
+    "Public Accounts": "Some-konto",
+    "Primary Troop": "Kår",
+    "Disctrict": "Distrikt",
+    "Country": "Land",
+    "Age level": "Åldersgrupp",
+    "Camp Troop": "Lägerkår",
+    "Subcamp": "Subkår",
+    "Description": "Beskrivning"  
   }
 };
