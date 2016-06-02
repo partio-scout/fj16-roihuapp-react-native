@@ -110,14 +110,21 @@ export const categoryStyles = StyleSheet.create({
     flexDirection: 'column'
   },
   article: {
-    padding: 10,
     flex: 1
   },
+  articleContentContainer: {
+    padding: 10
+  },
+  articleTitleContainer: {
+    padding:0,
+    borderBottomWidth: 1,
+    borderBottomColor: BORDER_COLOR     
+  },
   articleTitle: {
-    textAlign: 'left',
-    marginBottom: 20,
+    marginBottom: 5,
+    textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 20
+    fontSize: 20,   
   },
   textColor: {
     color: TEXT_COLOR

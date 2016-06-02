@@ -33,13 +33,17 @@ class Instructions extends Component {
   renderSelectedArticle(article) {
     return (
       <View style={categoryStyles.article}>
-        <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>
-          {article.title}
-        </Text>
-        {this.renderBody(article.bodytext)}
-        <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
-          {t("Viimeksi muokattu", this.props.lang)} {moment(article.last_modified).format(t("Timestamp", this.props.lang))}
-        </Text>
+        <View style={categoryStyles.articleTitleContainer}>
+          <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>
+            {article.title}
+          </Text>
+        </View>
+        <View style={categoryStyles.articleContentContainer}>
+          {this.renderBody(article.bodytext)}
+          <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
+            {t("Viimeksi muokattu", this.props.lang)} {moment(article.last_modified).format(t("Timestamp", this.props.lang))}
+          </Text>
+        </View>
       </View>
     );
   }
