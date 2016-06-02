@@ -1,6 +1,7 @@
 'use strict';
 import React, {
   StyleSheet,
+  Dimensions,
   Platform
 } from 'react-native';
 
@@ -194,4 +195,49 @@ export const achievementStyles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10
   }
+});
+
+export const userStyles = StyleSheet.create({
+  userUpperAreaContainer: {
+    flex: 1, 
+    flexDirection: 'row', 
+    width: Dimensions.get('window').width
+  },
+  userContentContainer: {
+    flex: 1, 
+    flexDirection: 'column', 
+    width: Dimensions.get('window').width
+  },
+  nameImageContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10
+  },
+  key: {
+    flex: 1,
+    textAlign: 'right',
+    marginRight: 10,
+    paddingBottom: 5
+  },
+  value: {
+    flex: 2,
+    paddingBottom: 5,
+    marginRight: 10
+  },
+  name: {
+    fontSize: 20
+  },
+  nickname: {
+    marginTop: 10,
+    fontSize: 28
+  },
+  userNameArea: {
+    alignSelf: 'flex-end',
+    marginBottom: 5
+  },
+  userImageArea: {
+    borderColor: BAR_BACKGROUND_COLOR,
+    borderWidth: 3,
+    margin: 10
+  },  
 });

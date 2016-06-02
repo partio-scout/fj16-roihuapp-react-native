@@ -83,8 +83,8 @@ class SettingsWrapper extends Component {
         <View style={infoStyles.topNavigationBar}>
           {renderBackButton(this.props.routeStack, () => this.popRoute())}
           <View style={{flex: 1}}></View>
-          {this.renderSettingsButton()}
           {last(this.props.routeStack).name === "user-root" ? renderRefreshButton(() => this.refreshEventEmitter.emit("refresh")) : null}
+          {this.renderSettingsButton()}
         </View>
         <Navigator ref={(component) => {this._navigator = component;}}
                    initialRouteStack={this.props.routeStack}

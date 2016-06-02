@@ -14,45 +14,29 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config.js';
 import { removeCredentials } from '../login/actions.js';
-import { navigationStyles } from '../../styles.js';
+import { t } from '../../translations.js';
+import { navigationStyles, categoryStyles, userStyles } from '../../styles.js';
 import { isEmpty } from '../../utils.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 const CameraRollView = require('./CameraRollView');
 
-const styles = StyleSheet.create({
-  key: {
-    flex: 1,
-    textAlign: 'right',
-    marginRight: 5
-  },
-  value: {
-    flex: 2
-  },
-  name: {
-    fontSize: 20
-  },
-  nickname: {
-    marginTop: 10,
-    fontSize: 50
-  }
-});
-
 class User extends Component {
 
   renderKeys(data) {
-    const keys = [{name: "Telephone:", key: 'phone'},
-                  {name: "Email:", key: 'email'},
-                  {name: "Primary Troop:", key: 'primaryTroopAndCity'},
-                  {name: "Disctrict:", key: 'scoutDistrict'},
-                  {name: "Country:", key: 'country'},
-                  {name: "Age level:", key: 'ageGroup'},
-                  {name: "Subcamp:", key: 'subcamp'},
-                  {name: "Camp Troop:", key: 'campUnit'},
-                  {name: "Description:", key: 'description'}];
+    const keys = [{name: t("Telephone", this.props.lang), key: 'phone'},
+                  {name: t("Email", this.props.lang), key: 'email'},
+                  {name: t("Public Accounts", this.props.lang), key: 'publicAccounts'},
+                  {name: t("Primary Troop", this.props.lang), key: 'primaryTroopAndCity'},
+                  {name: t("Disctrict", this.props.lang), key: 'scoutDistrict'},
+                  {name: t("Country", this.props.lang), key: 'country'},
+                  {name: t("Age level", this.props.lang), key: 'ageGroup'},
+                  {name: t("Subcamp", this.props.lang), key: 'subcamp'},
+                  {name: t("Camp Troop", this.props.lang), key: 'campUnit'},
+                  {name: t("Description", this.props.lang), key: 'description'}];
     return keys.map((item) => (
-      <View style={{flexDirection: 'row'}} key={item.key}>
-        <Text style={styles.key}>{item.name}</Text>
-        <Text style={styles.value}>{data[item.key]}</Text>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}} key={item.key}>
+        <Text style={[userStyles.key, categoryStyles.textColor]}>{item.name}</Text>
+        <Text style={[userStyles.value, categoryStyles.textColor]}>{data[item.key]}</Text>
       </View>
     ));
   }
@@ -87,15 +71,17 @@ class User extends Component {
   renderImageSelection(navigator, image) {
     if (image === null) {
       return (
-        <TouchableOpacity style={{margin: 10}}
-                          onPress={() => this.props.pushRoute({name: "list-image"})}>
-          <Icon name="add-a-photo" size={100} color="#000000"/>
+        <TouchableOpacity 
+          style={{margin: 5}}
+          onPress={() => this.props.pushRoute({name: "list-image"})}
+        >
+          <Icon style={categoryStyles.textColor} name="add-a-photo" size={65} />
         </TouchableOpacity>
       );
     } else {
       return (
         <Image source={image}
-               style={{width: 150, height: 150, margin: 5}}/>
+               style={{width: 85, height: 85, margin: 5}}/>
       );
     }
   }
@@ -117,24 +103,30 @@ class User extends Component {
 
   renderUser(data, image, navigator) {
     return (
-      <View style={{flex: 1, flexDirection: 'column', width: Dimensions.get('window').width}}>
-        <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity style={{margin: 10}}
-                            onPress={() => this.props.pushRoute({name: "list-image"})}>
-            {this.renderImageSelection(navigator, image)}
-          </TouchableOpacity>
-          <View style={{marginLeft: 10}}>
-            <Text style={styles.nickname}>
-              {data.nickname}
-            </Text>
-            <View>
-              <Text style={styles.name}>{data.firstname}</Text>
-              <Text style={styles.name}>{data.lastname}</Text>
+      <View>
+        <View style={userStyles.userUpperAreaContainer}>
+          <View style={{flex: 1}}></View>
+          <View style={{flex: 2}}>
+            <View style={userStyles.nameImageContainer}>
+              <View style={userStyles.userNameArea}>
+                <Text style={[userStyles.nickname, categoryStyles.textColor]}>
+                  {data.nickname}
+                </Text>
+                <Text style={categoryStyles.textColor}>{data.firstname} {data.lastname}</Text>
+              </View>
+              <TouchableOpacity 
+                style={userStyles.userImageArea}
+                onPress={() => this.props.pushRoute({name: "list-image"})}
+              >
+                {this.renderImageSelection(navigator, image)}
+              </TouchableOpacity>          
             </View>
           </View>
         </View>
-        <View>
-          {this.renderKeys(data)}
+        <View style={userStyles.userContentContainer}>
+          <View>
+            {this.renderKeys(data)}
+          </View>
         </View>
       </View>
     );
@@ -220,6 +212,7 @@ export default connect(state => ({
   credentials: state.credentials,
   data: state.user.data,
   error: state.user.error,
+  lang: state.language.lang,
   image: state.user.image
 }), (dispatch) => ({
   actions: bindActionCreators({setUser,
