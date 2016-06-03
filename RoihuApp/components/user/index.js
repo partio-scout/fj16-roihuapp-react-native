@@ -86,21 +86,6 @@ class User extends Component {
     }
   }
 
-  renderLogoutButton() {
-    return (
-      <TouchableOpacity
-         style={{flex: 1}}
-         onPress={() => {
-           this.props.actions.removeCredentials(null);
-           this.props.actions.setUser({});
-        }}>
-        <Text style={{textAlign: 'right', margin: 10}}>
-          Kirjaudu ulos
-        </Text>
-      </TouchableOpacity>
-    );
-  }
-
   renderUser(data, image, navigator) {
     return (
       <View>
