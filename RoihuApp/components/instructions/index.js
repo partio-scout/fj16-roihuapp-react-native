@@ -4,7 +4,6 @@ import React, {
   View,
   Dimensions,
   Text,
-  Navigator,
   TouchableOpacity,
   ListView,
   StyleSheet,
