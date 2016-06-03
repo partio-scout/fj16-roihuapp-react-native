@@ -90,11 +90,11 @@ export const infoStyles = StyleSheet.create({
 
 export const categoryStyles = StyleSheet.create({
   listItem: {
-    padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: BORDER_COLOR
   },
   listItemTouchArea: {
+    padding: 10,    
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
