@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config.js';
 import { renderBackButton, renderRefreshButton } from '../../utils.js';
-import { renderRoot, fetchData, renderRightArrow } from '../common/categories.js';
+import { fetchData, renderRightArrow } from '../common/categories.js';
 import { renderProgressBar } from '../../utils.js';
 import { infoStyles, categoryStyles, achievementStyles } from '../../styles.js';
 import { removeCredentials } from '../login/actions.js';
