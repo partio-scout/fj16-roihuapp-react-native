@@ -16,6 +16,7 @@ import { sortNumber } from '../../utils.js';
 import { t } from '../../translations.js';
 import { categoryStyles } from '../../styles.js';
 import { renderCategories, renderArticles, renderRoot, fetchData } from '../common/categories.js';
+import { onDidFocus } from '../../utils.js';
 const Markdown = require('react-native-markdown');
 
 class Instructions extends Component {
@@ -67,7 +68,8 @@ class Instructions extends Component {
                       "Ei voitu hakea ohjeita",
                       this.props.lang,
                       this.props.routeStack,
-                      this.renderScene.bind(this));
+                      this.renderScene.bind(this),
+                      (route) => onDidFocus(route, this.props.routeStack, this.props.actions.popNavigationRoute));
   }
 
   onBack() {

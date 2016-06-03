@@ -16,6 +16,7 @@ import { bindActionCreators } from 'redux';
 import { t } from '../../translations.js';
 import { categoryStyles } from '../../styles.js';
 import { renderCategories, renderArticles, renderRoot, fetchData } from '../common/categories.js';
+import { onDidFocus } from '../../utils.js';
 
 class Locations extends Component {
 
@@ -62,7 +63,8 @@ class Locations extends Component {
                       "Ei voitu hakea paikkoja",
                       this.props.lang,
                       this.props.routeStack,
-                      this.renderScene.bind(this));
+                      this.renderScene.bind(this),
+                      (route) => onDidFocus(route, this.props.routeStack, this.props.actions.popNavigationRoute));
   }
 
   onBack() {
