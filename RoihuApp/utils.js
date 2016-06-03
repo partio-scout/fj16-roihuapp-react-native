@@ -66,3 +66,9 @@ export function isEmpty(obj) {
 export function sortNumber(a, b) {
   return (a < b) ? -1 : ((a == b) ? 0 : 1);
 }
+
+export function onDidFocus(route, routeStack, popRoute) {
+  if (last(routeStack).name !== route.name){
+    popRoute();
+  }
+}

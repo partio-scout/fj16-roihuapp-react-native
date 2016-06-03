@@ -16,7 +16,7 @@ import { bindActionCreators } from 'redux';
 import { config } from '../../config.js';
 import { renderBackButton, renderRefreshButton } from '../../utils.js';
 import { fetchData, renderRightArrow } from '../common/categories.js';
-import { renderProgressBar } from '../../utils.js';
+import { renderProgressBar, onDidFocus } from '../../utils.js';
 import { infoStyles, categoryStyles, achievementStyles } from '../../styles.js';
 import { removeCredentials } from '../login/actions.js';
 import { setView } from '../navigation/actions.js';
@@ -211,6 +211,7 @@ class Achievements extends Component {
       }
       return (
         <Navigator ref={(component) => {this._navigator = component;}}
+          onDidFocus={(route) => onDidFocus(route, this.props.routeStack, this.props.actions.popAchievementsRoute)}
           initialRouteStack={this.props.routeStack}
           renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
       );
