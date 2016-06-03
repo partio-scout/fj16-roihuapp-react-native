@@ -228,7 +228,7 @@ export const userStyles = StyleSheet.create({
     paddingBottom: 5
   },
   value: {
-    flex: 2,
+    flex: 3,
     paddingBottom: 5,
     marginRight: 10
   },
@@ -241,7 +241,8 @@ export const userStyles = StyleSheet.create({
   },
   userNameArea: {
     alignSelf: 'flex-end',
-    marginBottom: 5
+    marginBottom: 5,
+    marginLeft: 10
   },
   userImageArea: {
     borderColor: BAR_BACKGROUND_COLOR,

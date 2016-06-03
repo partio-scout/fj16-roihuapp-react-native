@@ -90,8 +90,7 @@ class User extends Component {
     return (
       <View>
         <View style={userStyles.userUpperAreaContainer}>
-          <View style={{flex: 1}}></View>
-          <View style={{flex: 2}}>
+          <View style={{flex: 1}}>
             <View style={userStyles.nameImageContainer}>
               <View style={userStyles.userNameArea}>
                 <Text style={[userStyles.nickname, categoryStyles.textColor]}>
