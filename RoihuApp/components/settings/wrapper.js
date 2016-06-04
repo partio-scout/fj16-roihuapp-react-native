@@ -11,7 +11,7 @@ import React, {
 import Settings from '../settings/index.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { last, renderRefreshButton, renderBackButton } from '../../utils.js';
+import { last, renderRefreshButton, renderBackButton, onDidFocus } from '../../utils.js';
 import { infoStyles } from '../../styles.js';
 import { styles } from '../../styles.js';
 const EventEmitter = require('EventEmitter');
@@ -93,11 +93,8 @@ class SettingsWrapper extends Component {
         </View>
         <Navigator ref={(component) => {this._navigator = component;}}
           initialRouteStack={this.props.routeStack}
-          renderScene={(route, navigator) => this.renderScene(route, navigator)}
-          configureScene={() => ({
-  			  ...Navigator.SceneConfigs.FloatFromRight,
-  			gestures: {},
-		  })}/>
+          onDidFocus={(route) => onDidFocus(route, this.props.routeStack, this.props.actions.popSettingsRoute)}
+          renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
       </View>
     );
   }
