@@ -16,7 +16,7 @@ import { sortNumber } from '../../utils.js';
 import { t } from '../../translations.js';
 import { categoryStyles } from '../../styles.js';
 import { renderCategories, renderArticles, renderRoot, fetchData } from '../common/categories.js';
-import { onDidFocus } from '../../utils.js';
+import { popWhenRouteNotLastInStack } from '../../utils.js';
 const Markdown = require('react-native-markdown');
 
 class Instructions extends Component {
@@ -69,13 +69,13 @@ class Instructions extends Component {
                       this.props.lang,
                       this.props.routeStack,
                       this.renderScene.bind(this),
-                      (route) => onDidFocus(route, this.props.routeStack, this.props.actions.popNavigationRoute));
+                      (route) => popWhenRouteNotLastInStack(route, this.props.routeStack, this.props.actions.popNavigationRoute));
   }
 
   onBack() {
     if (this._navigator) {
-      this._navigator.pop();
       this.props.actions.popNavigationRoute();
+      this._navigator.pop();
     }
   }
 

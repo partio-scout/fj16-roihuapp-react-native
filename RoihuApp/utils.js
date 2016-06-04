@@ -67,7 +67,7 @@ export function sortNumber(a, b) {
   return (a < b) ? -1 : ((a == b) ? 0 : 1);
 }
 
-export function onDidFocus(route, routeStack, popRoute) {
+export function popWhenRouteNotLastInStack(route, routeStack, popRoute) {
   const lastRoute = last(routeStack);
   if (lastRoute && lastRoute.name !== route.name){
     popRoute();

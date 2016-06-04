@@ -83,7 +83,7 @@ export function renderArticles(navigator, articlesDataSource, selectArticle) {
   );
 }
 
-export function renderRoot(fetchState, data, noDataText, lang, routeStack, renderScene, onDidFocus) {
+export function renderRoot(fetchState, data, noDataText, lang, routeStack, renderScene, onWillFocus) {
   switch (fetchState) {
   case "STARTED":
     return renderProgressBar();
@@ -109,7 +109,7 @@ export function renderRoot(fetchState, data, noDataText, lang, routeStack, rende
           </View>) : (<View />)
         }        
         <Navigator initialRouteStack={routeStack}
-                   onDidFocus={onDidFocus}
+                   onWillFocus={onWillFocus}
                    renderScene={(route, navigator) => renderScene(route, navigator)}/>
       </View>
     );
