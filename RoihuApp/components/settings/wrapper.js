@@ -92,8 +92,12 @@ class SettingsWrapper extends Component {
           {this.renderSettingsButton()}
         </View>
         <Navigator ref={(component) => {this._navigator = component;}}
-                   initialRouteStack={this.props.routeStack}
-                   renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
+          initialRouteStack={this.props.routeStack}
+          renderScene={(route, navigator) => this.renderScene(route, navigator)}
+          configureScene={() => ({
+  			  ...Navigator.SceneConfigs.FloatFromRight,
+  			gestures: {},
+		  })}/>
       </View>
     );
   }

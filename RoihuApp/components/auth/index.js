@@ -81,7 +81,11 @@ class Auth extends Component {
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
           <Navigator initialRouteStack={this.props.parentNavigator.getCurrentRoutes()}
                      navigator={this.props.parentNavigator}
-                     renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
+                     renderScene={(route, navigator) => this.renderScene(route, navigator)}
+            configureScene={() => ({
+  				...Navigator.SceneConfigs.FloatFromRight,
+  			  gestures: {},
+			})}/>
         </View>
       );
     } else {
