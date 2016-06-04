@@ -162,7 +162,7 @@ class Auth extends Component {
   renderEmailSendSuccess() {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
-        <TouchableOpacity onPress={() => this.props.resetTo({name: "root"})}>
+        <TouchableOpacity onPress={() => this.props.resetTo({name: "auth-root"})}>
           <Text style={{marginLeft: 10, marginTop: 10}}>
             Palaa kirjautumisruutuun
           </Text>
@@ -209,7 +209,7 @@ class Auth extends Component {
       return this.renderEmailSendError();
     case "partioid":
       return this.renderPartioIDLogin();
-    case "root":
+    case "auth-root":
     default:
       return this.renderRootScene();
     }
