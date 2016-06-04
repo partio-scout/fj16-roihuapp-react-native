@@ -77,13 +77,18 @@ class SettingsWrapper extends Component {
     }
   }
 
+  renderRefresh() {
+    const lastRoute = last(this.props.routeStack);
+    return lastRoute && lastRoute.name === "user-root" ? renderRefreshButton(() => this.refreshEventEmitter.emit("refresh")) : null;
+  }
+
   render() {
     return (
       <View style={{flex: 1, width: Dimensions.get("window").width}}>
         <View style={infoStyles.topNavigationBar}>
           {renderBackButton(this.props.routeStack, () => this.popRoute())}
           <View style={{flex: 1}}></View>
-          {last(this.props.routeStack).name === "user-root" ? renderRefreshButton(() => this.refreshEventEmitter.emit("refresh")) : null}
+          {this.renderRefresh()}
           {this.renderSettingsButton()}
         </View>
         <Navigator ref={(component) => {this._navigator = component;}}
