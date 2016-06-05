@@ -94,7 +94,7 @@ export const categoryStyles = StyleSheet.create({
     borderBottomColor: BORDER_COLOR
   },
   listItemTouchArea: {
-    padding: 10,    
+    padding: 10,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
@@ -119,13 +119,13 @@ export const categoryStyles = StyleSheet.create({
   articleTitleContainer: {
     padding:0,
     borderBottomWidth: 1,
-    borderBottomColor: BORDER_COLOR     
+    borderBottomColor: BORDER_COLOR
   },
   articleTitle: {
     marginBottom: 5,
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 20,   
+    fontSize: 20
   },
   textColor: {
     color: TEXT_COLOR
@@ -199,13 +199,13 @@ export const achievementStyles = StyleSheet.create({
 
 export const userStyles = StyleSheet.create({
   userUpperAreaContainer: {
-    flex: 1, 
-    flexDirection: 'row', 
+    flex: 1,
+    flexDirection: 'row',
     width: Dimensions.get('window').width
   },
   userContentContainer: {
-    flex: 1, 
-    flexDirection: 'column', 
+    flex: 1,
+    flexDirection: 'column',
     width: Dimensions.get('window').width
   },
   nameImageContainer: {
@@ -239,5 +239,5 @@ export const userStyles = StyleSheet.create({
     borderColor: BAR_BACKGROUND_COLOR,
     borderWidth: 3,
     margin: 10
-  },  
+  }
 });
