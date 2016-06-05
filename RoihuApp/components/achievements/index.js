@@ -33,7 +33,7 @@ class Achievements extends Component {
                             this.props.actions.selectAgelevel(agelevel, route);
                             navigator.push(route);
           }}>
-          <Text style={categoryStyles.textColor}>{agelevel.title}</Text>
+          <Text style={categoryStyles.textColor}>{agelevel.title.toUpperCase()}</Text>
           {renderRightArrow()}
         </TouchableOpacity>
       </View>
