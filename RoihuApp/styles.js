@@ -187,7 +187,6 @@ export const achievementStyles = StyleSheet.create({
     textAlign: 'center'
   },
   titleSeparator: {
-    flex: 1,
     height: 2,
     backgroundColor: BORDER_COLOR,
     marginTop: 6,

@@ -9,7 +9,8 @@ import React, {
   Navigator,
   TouchableOpacity,
   BackAndroid,
-  Alert
+  Alert,
+  ScrollView
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -120,14 +121,16 @@ class Achievements extends Component {
 
   renderSelectedAchievement(achievement) {
     return (
-      <View>
+      <View style={{flex: 1}}>
         <Text style={achievementStyles.selectedAchievementTitle}>{achievement.title}</Text>
-        <View style={achievementStyles.titleSeparator}></View>
-        <Text style={achievementStyles.bodyText}>{achievement.bodytext}</Text>
-        <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
-          {t("Viimeksi muokattu", this.props.lang)} {moment(achievement.last_modified).format(t("Timestamp", this.props.lang))}
-        </Text>
-        {this.renderMarkDone(achievement)}
+        <Text style={achievementStyles.titleSeparator}></Text>
+        <ScrollView>
+          <Text style={achievementStyles.bodyText}>{achievement.bodytext}</Text>
+          <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
+            {t("Viimeksi muokattu", this.props.lang)} {moment(achievement.last_modified).format(t("Timestamp", this.props.lang))}
+          </Text>
+          {this.renderMarkDone(achievement)}
+        </ScrollView>
       </View>
     );
   }
