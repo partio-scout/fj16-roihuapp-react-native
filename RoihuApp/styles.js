@@ -189,7 +189,9 @@ export const achievementStyles = StyleSheet.create({
   titleSeparator: {
     flex: 1,
     height: 2,
-    backgroundColor: BORDER_COLOR
+    backgroundColor: BORDER_COLOR,
+    marginTop: 6,
+    marginBottom: 6
   },
   bodyText: {
     marginLeft: 10,
