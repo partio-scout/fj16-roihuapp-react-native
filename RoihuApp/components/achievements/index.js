@@ -20,6 +20,8 @@ import { renderProgressBar, popWhenRouteNotLastInStack } from '../../utils.js';
 import { infoStyles, categoryStyles, achievementStyles } from '../../styles.js';
 import { removeCredentials } from '../login/actions.js';
 import { setView } from '../navigation/actions.js';
+import { t } from '../../translations.js';
+import moment from 'moment';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
 class Achievements extends Component {
@@ -209,11 +211,17 @@ class Achievements extends Component {
       if (this.props.achievements === null) {
         return renderProgressBar();
       }
+      const {lang, achievements} = this.props;
       return (
-        <Navigator ref={(component) => {this._navigator = component;}}
-          onWillFocus={(route) => popWhenRouteNotLastInStack(route, this.props.routeStack, this.props.actions.popAchievementsRoute)}
-          initialRouteStack={this.props.routeStack}
-          renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
+        <View style={{flex: 1}}>
+          <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
+            {t("Tilanne", lang)} {moment(achievements.timestamp).format(t("Timestamp", lang))}
+          </Text>
+          <Navigator ref={(component) => {this._navigator = component;}}
+            onWillFocus={(route) => popWhenRouteNotLastInStack(route, this.props.routeStack, this.props.actions.popAchievementsRoute)}
+            initialRouteStack={this.props.routeStack}
+            renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
+        </View>
       );
     }
   }
