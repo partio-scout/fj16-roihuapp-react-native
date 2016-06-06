@@ -194,6 +194,13 @@ export const achievementStyles = StyleSheet.create({
   bodyText: {
     marginLeft: 10,
     marginRight: 10
+  },
+  listItemDoneIconContainer: {
+    width: 26
+  },
+  listItemDoneIcon: {
+    fontSize: 22,
+    marginRight: 10
   }
 });
 

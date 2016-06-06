@@ -55,10 +55,14 @@ class Achievements extends Component {
   renderDoneMark(achievement) {
     if (achievement.userAchieved) {
       return (
-        <Icon style={{fontSize: 22, marginRight: 10}} name="done" />
+        <View style={achievementStyles.listItemDoneIconContainer}>
+          <Icon style={achievementStyles.listItemDoneIcon} name="done" />
+        </View>
       );
     }
-    return null;
+    return (
+      <View style={achievementStyles.listItemDoneIconContainer}/>
+    );
   }
 
   renderAchievement(achievement, navigator, rowID) {
