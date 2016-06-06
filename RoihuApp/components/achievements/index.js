@@ -17,7 +17,7 @@ import { config } from '../../config.js';
 import { renderBackButton, renderRefreshButton } from '../../utils.js';
 import { fetchData, renderRightArrow } from '../common/categories.js';
 import { renderProgressBar, popWhenRouteNotLastInStack } from '../../utils.js';
-import { infoStyles, categoryStyles, achievementStyles } from '../../styles.js';
+import { infoStyles, categoryStyles, achievementStyles, navigationStyles } from '../../styles.js';
 import { removeCredentials } from '../login/actions.js';
 import { setView } from '../navigation/actions.js';
 import { t } from '../../translations.js';
@@ -192,12 +192,36 @@ class Achievements extends Component {
     }
   }
 
+  renderTitle() {
+    switch(this.props.routeStack.length) {
+    case 2:
+      return (
+        <View style={{flex: 1}}>
+          <Text style={navigationStyles.mainTitle}>{this.props.agelevel.title}</Text>
+        </View>
+      );
+    case 3:
+      return (
+        <View style={{flex: 1}}>
+          <Text style={navigationStyles.backTitle}
+                onPress={() => this._onBack()}>
+            {this.props.agelevel.title}
+          </Text>
+        </View>
+      );
+    default:
+      return (
+        <View style={{flex: 1}}></View>
+      );
+    }
+  }
+
   render() {
     return (
       <View style={{flex: 1, width: Dimensions.get("window").width}}>
         <View style={infoStyles.topNavigationBar}>
           {renderBackButton(this.props.routeStack, () => this.popRoute())}
-          <View style={{flex: 1}}></View>
+          {this.renderTitle()}
           {renderRefreshButton(() => this.fetchAchievements())}
         </View>
         {this.renderContent()}
@@ -305,6 +329,7 @@ export default connect(state => ({
   error: state.achievements.error,
   ageLevelDataSource: state.achievements.ageLevelDataSource,
   achievementsDataSource: state.achievements.achievementsDataSource,
+  agelevel: state.achievements.agelevel,
   achievement: state.achievements.achievement,
   routeStack: state.achievements.routeStack,
   lang: state.language.lang,
