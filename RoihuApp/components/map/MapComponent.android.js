@@ -2,9 +2,8 @@
 import React, {
   Component,
   View,
-  Text,
-  Dimensions,
   requireNativeComponent,
+  Dimensions,
   PropTypes
 } from 'react-native';
 
@@ -18,7 +17,7 @@ var iface = {
 
 const RCTScaleImageView = requireNativeComponent('RCTScaleImageView', iface);
 
-class Map extends Component {
+export class MapComponent extends Component {
   render() {
     return (
       <RCTScaleImageView
@@ -27,5 +26,3 @@ class Map extends Component {
     );
   }
 }
-
-module.exports = Map;

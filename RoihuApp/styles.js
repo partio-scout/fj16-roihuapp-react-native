@@ -30,6 +30,15 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center'
   },
+  basicButton: {
+    alignItems: 'center',
+    backgroundColor: BAR_BACKGROUND_COLOR,
+    marginTop: 10,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    height: 40,
+    justifyContent: 'center'
+  },
   buttonBarColor: {
     color: MAIN_COLOR
   },
@@ -48,6 +57,10 @@ export const navigationStyles = StyleSheet.create({
     margin: 10
   },
   refreshButton: {
+    textAlign: 'right'
+  },
+  mapButton: {
+    flex: 1,
     textAlign: 'right'
   },
   mainTitle: {
@@ -251,5 +264,57 @@ export const userStyles = StyleSheet.create({
     borderColor: BAR_BACKGROUND_COLOR,
     borderWidth: 3,
     margin: 10
+  }
+});
+
+export const modalStyles = StyleSheet.create({
+  header: {
+    color: TEXT_COLOR,
+    paddingBottom: 10    
+  },
+  background: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    height: Dimensions.get("window").height
+  },
+  innerContainer: {
+    backgroundColor: '#dedede', 
+    margin: 20,
+    padding: 20,
+    flex: 1, 
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  mapImage: {
+    resizeMode: 'contain',
+    alignSelf: 'center', 
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height / 1.4
+  }
+});
+
+export const modalStyles = StyleSheet.create({
+  header: {
+    color: TEXT_COLOR,
+    paddingBottom: 10    
+  },
+  background: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    height: Dimensions.get("window").height
+  },
+  innerContainer: {
+    backgroundColor: '#dedede', 
+    margin: 20,
+    padding: 20,
+    flex: 1, 
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  mapImage: {
+    resizeMode: 'contain',
+    alignSelf: 'center', 
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height / 1.4
   }
 });
