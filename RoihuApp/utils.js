@@ -62,3 +62,14 @@ export function isEmpty(obj) {
   }
   return true;
 }
+
+export function sortNumber(a, b) {
+  return (a < b) ? -1 : ((a == b) ? 0 : 1);
+}
+
+export function popWhenRouteNotLastInStack(route, routeStack, popRoute) {
+  const lastRoute = last(routeStack);
+  if (lastRoute && lastRoute.name !== route.name){
+    popRoute();
+  }
+}

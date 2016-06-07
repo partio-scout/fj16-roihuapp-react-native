@@ -12,11 +12,9 @@ import Settings from '../settings/index';
 import EditDetails from '../user/EditDetails'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { last, renderRefreshButton, renderBackButton } from '../../utils';
-import { infoStyles } from '../../styles';
-import { styles } from '../../styles';
+import { last, renderRefreshButton, renderBackButton, popWhenRouteNotLastInStack } from '../../utils';
+import { infoStyles, styles } from '../../styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
 const EventEmitter = require('EventEmitter');
 
 class SettingsWrapper extends Component {
@@ -34,7 +32,7 @@ class SettingsWrapper extends Component {
 
   renderEditDetails(navigator) {
     return (
-      <EditDetails/>
+      <EditDetails navigator={navigator}/>
     );
   }
 
@@ -75,7 +73,7 @@ class SettingsWrapper extends Component {
   }
 
   renderEditDetailsButton() {
-    if (last(this.props.routeStack).name === "edit-details") {
+    if (last(this.props.routeStack).name !== "user-root") {
       return null;
     } else {
       return (
@@ -89,7 +87,7 @@ class SettingsWrapper extends Component {
   }
 
   renderSettingsButton() {
-    if (last(this.props.routeStack).name === "settings") {
+    if (last(this.props.routeStack).name !== "user-root") {
       return null;
     } else {
       return (
@@ -101,6 +99,11 @@ class SettingsWrapper extends Component {
     }
   }
 
+  renderRefresh() {
+    const lastRoute = last(this.props.routeStack);
+    return lastRoute && lastRoute.name === "user-root" ? renderRefreshButton(() => this.refreshEventEmitter.emit("refresh")) : null;
+  }
+
   render() {
     return (
       <View style={{flex: 1, width: Dimensions.get("window").width}}>
@@ -108,12 +111,13 @@ class SettingsWrapper extends Component {
           {renderBackButton(this.props.routeStack, () => this.popRoute())}
           <View style={{flex: 1}}></View>
           {this.renderEditDetailsButton()}
-          {last(this.props.routeStack).name === "user-root" ? renderRefreshButton(() => this.refreshEventEmitter.emit("refresh")) : null}
+          {this.renderRefresh()}
           {this.renderSettingsButton()}
         </View>
         <Navigator ref={(component) => {this._navigator = component;}}
-                   initialRouteStack={this.props.routeStack}
-                   renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
+          initialRouteStack={this.props.routeStack}
+          onWillFocus={(route) => popWhenRouteNotLastInStack(route, this.props.routeStack, this.props.actions.popSettingsRoute)}
+          renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
       </View>
     );
   }
@@ -141,7 +145,7 @@ const pushSettingsRoute = (route) => ({
   route: route
 });
 
-const popSettingsRoute = () => ({
+export const popSettingsRoute = () => ({
   type: "POP_SETTINGS_ROUTE"
 });
 

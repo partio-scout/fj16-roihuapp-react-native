@@ -2,37 +2,51 @@
 import React, {
   Component,
   View,
+  Alert,
   TouchableHighlight,
   Text
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import t from 'tcomb-form-native';
+import f from 'tcomb-form-native';
 import { setDetails } from './index';
-import editDetailsModel from './EditDetailsModel';
-import { styles } from '../../styles';
+import { popSettingsRoute } from '../settings/wrapper';
+import editDetailsModel from '../models/EditDetailsModel';
+import { styles, categoryStyles } from '../../styles';
+import { t } from '../../translations';
 
 class EditDetails extends Component {
 
-  saveDetails () {
-    console.log('TISSIT');
-    console.log(this);
-    /*let values = this.refs.form.getValue();
-    console.log('VALUES:');
-    console.log(values);
-    if (values) {
-
-    }*/
+  constructor(props) {
+    super(props);
   }  
+  
+  popRoute() {
+    this.props.actions.popSettingsRoute();
+    this.props.navigator.pop();
+  }
+
+  saveDetails() {
+    let data = this.refs.form.getValue();
+    if (data) {
+      this.props.actions.setDetails(data);
+      Alert.alert(
+        null,
+        t("Käyttäjätiedot", this.props.lang),
+        [
+          {text: 'OK', onPress: () => this.popRoute()},
+        ]
+      )
+    }
+  } 
 
   render() {
-    let Form = t.form.Form;
-
+    let Form = f.form.Form;
     return (
       <View style={{flex: 1}}>
-        <Text style={{marginTop: 10, marginLeft: 10}}>Muokkaa tietoja</Text>
-        <Form ref="form" type={editDetailsModel.fields} options={editDetailsModel.options} />
-        <TouchableHighlight style={styles.basicButton} onPress={this.saveDetails}>
+        <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>{t("Muokkaa tietoja", this.props.lang)}</Text>
+        <Form ref="form" value={this.props.details} type={editDetailsModel.fields} options={editDetailsModel.options} />
+        <TouchableHighlight style={styles.basicButton} onPress={() => this.saveDetails()}>
           <Text style={styles.buttonBarColor}>Tallenna</Text>
         </TouchableHighlight>        
       </View>
@@ -42,7 +56,8 @@ class EditDetails extends Component {
 
 export default connect(state => ({
   lang: state.language.lang,
-  details: state.user.details
+  details: state.user.details,
+  routeStack: state.settings.routeStack
 }), (dispatch) => ({
-  actions: bindActionCreators({setDetails}, dispatch)
+  actions: bindActionCreators({setDetails, popSettingsRoute}, dispatch)
 }))(EditDetails);

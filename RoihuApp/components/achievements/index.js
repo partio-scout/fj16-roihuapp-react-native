@@ -9,17 +9,20 @@ import React, {
   Navigator,
   TouchableOpacity,
   BackAndroid,
-  Alert
+  Alert,
+  ScrollView
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config.js';
 import { renderBackButton, renderRefreshButton } from '../../utils.js';
-import { renderRoot, fetchData, renderRightArrow } from '../common/categories.js';
-import { renderProgressBar } from '../../utils.js';
-import { infoStyles, categoryStyles, achievementStyles } from '../../styles.js';
+import { fetchData, renderRightArrow } from '../common/categories.js';
+import { renderProgressBar, popWhenRouteNotLastInStack } from '../../utils.js';
+import { infoStyles, categoryStyles, achievementStyles, navigationStyles } from '../../styles.js';
 import { removeCredentials } from '../login/actions.js';
 import { setView } from '../navigation/actions.js';
+import { t } from '../../translations.js';
+import moment from 'moment';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
 class Achievements extends Component {
@@ -33,7 +36,7 @@ class Achievements extends Component {
                             this.props.actions.selectAgelevel(agelevel, route);
                             navigator.push(route);
           }}>
-          <Text style={categoryStyles.textColor}>{agelevel.title}</Text>
+          <Text style={categoryStyles.textColor}>{agelevel.title.toUpperCase()}</Text>
           {renderRightArrow()}
         </TouchableOpacity>
       </View>
@@ -53,10 +56,14 @@ class Achievements extends Component {
   renderDoneMark(achievement) {
     if (achievement.userAchieved) {
       return (
-        <Icon style={{fontSize: 22, marginRight: 10}} name="done" />
+        <View style={achievementStyles.listItemDoneIconContainer}>
+          <Icon style={achievementStyles.listItemDoneIcon} name="done" />
+        </View>
       );
     }
-    return null;
+    return (
+      <View style={achievementStyles.listItemDoneIconContainer}/>
+    );
   }
 
   renderAchievement(achievement, navigator, rowID) {
@@ -114,11 +121,16 @@ class Achievements extends Component {
 
   renderSelectedAchievement(achievement) {
     return (
-      <View>
+      <View style={{flex: 1}}>
         <Text style={achievementStyles.selectedAchievementTitle}>{achievement.title}</Text>
-        <View style={achievementStyles.titleSeparator}></View>
-        <Text style={achievementStyles.bodyText}>{achievement.bodytext}</Text>
-        {this.renderMarkDone(achievement)}
+        <Text style={achievementStyles.titleSeparator}></Text>
+        <ScrollView>
+          <Text style={achievementStyles.bodyText}>{achievement.bodytext}</Text>
+          <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
+            {t("Viimeksi muokattu", this.props.lang)} {moment(achievement.last_modified).format(t("Timestamp", this.props.lang))}
+          </Text>
+          {this.renderMarkDone(achievement)}
+        </ScrollView>
       </View>
     );
   }
@@ -183,12 +195,36 @@ class Achievements extends Component {
     }
   }
 
+  renderTitle() {
+    switch(this.props.routeStack.length) {
+    case 2:
+      return (
+        <View style={{flex: 1}}>
+          <Text style={navigationStyles.mainTitle}>{this.props.agelevel.title}</Text>
+        </View>
+      );
+    case 3:
+      return (
+        <View style={{flex: 1}}>
+          <Text style={navigationStyles.backTitle}
+                onPress={() => this._onBack()}>
+            {this.props.agelevel.title}
+          </Text>
+        </View>
+      );
+    default:
+      return (
+        <View style={{flex: 1}}></View>
+      );
+    }
+  }
+
   render() {
     return (
       <View style={{flex: 1, width: Dimensions.get("window").width}}>
         <View style={infoStyles.topNavigationBar}>
           {renderBackButton(this.props.routeStack, () => this.popRoute())}
-          <View style={{flex: 1}}></View>
+          {this.renderTitle()}
           {renderRefreshButton(() => this.fetchAchievements())}
         </View>
         {this.renderContent()}
@@ -209,10 +245,17 @@ class Achievements extends Component {
       if (this.props.achievements === null) {
         return renderProgressBar();
       }
+      const {lang, achievements} = this.props;
       return (
-        <Navigator ref={(component) => {this._navigator = component;}}
-          initialRouteStack={this.props.routeStack}
-          renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
+        <View style={{flex: 1}}>
+          <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
+            {t("Tilanne", lang)} {moment(achievements.timestamp).format(t("Timestamp", lang))}
+          </Text>
+          <Navigator ref={(component) => {this._navigator = component;}}
+            onWillFocus={(route) => popWhenRouteNotLastInStack(route, this.props.routeStack, this.props.actions.popAchievementsRoute)}
+            initialRouteStack={this.props.routeStack}
+            renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
+        </View>
       );
     }
   }
@@ -228,8 +271,8 @@ class Achievements extends Component {
   }
 
   popRoute() {
-    this._navigator.pop();
     this.props.actions.popAchievementsRoute();
+    this._navigator.pop();
   }
 
   componentWillMount() {
@@ -289,6 +332,7 @@ export default connect(state => ({
   error: state.achievements.error,
   ageLevelDataSource: state.achievements.ageLevelDataSource,
   achievementsDataSource: state.achievements.achievementsDataSource,
+  agelevel: state.achievements.agelevel,
   achievement: state.achievements.achievement,
   routeStack: state.achievements.routeStack,
   lang: state.language.lang,

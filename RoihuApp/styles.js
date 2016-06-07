@@ -103,11 +103,11 @@ export const infoStyles = StyleSheet.create({
 
 export const categoryStyles = StyleSheet.create({
   listItem: {
-    padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: BORDER_COLOR
   },
   listItemTouchArea: {
+    padding: 10,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
@@ -132,13 +132,13 @@ export const categoryStyles = StyleSheet.create({
   articleTitleContainer: {
     padding:0,
     borderBottomWidth: 1,
-    borderBottomColor: BORDER_COLOR     
+    borderBottomColor: BORDER_COLOR
   },
   articleTitle: {
     marginBottom: 5,
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 20,   
+    fontSize: 20
   },
   textColor: {
     color: TEXT_COLOR
@@ -200,25 +200,33 @@ export const achievementStyles = StyleSheet.create({
     textAlign: 'center'
   },
   titleSeparator: {
-    flex: 1,
     height: 2,
-    backgroundColor: BORDER_COLOR
+    backgroundColor: BORDER_COLOR,
+    marginTop: 6,
+    marginBottom: 6
   },
   bodyText: {
     marginLeft: 10,
+    marginRight: 10
+  },
+  listItemDoneIconContainer: {
+    width: 26
+  },
+  listItemDoneIcon: {
+    fontSize: 22,
     marginRight: 10
   }
 });
 
 export const userStyles = StyleSheet.create({
   userUpperAreaContainer: {
-    flex: 1, 
-    flexDirection: 'row', 
+    flex: 1,
+    flexDirection: 'row',
     width: Dimensions.get('window').width
   },
   userContentContainer: {
-    flex: 1, 
-    flexDirection: 'column', 
+    flex: 1,
+    flexDirection: 'column',
     width: Dimensions.get('window').width
   },
   nameImageContainer: {
@@ -256,7 +264,7 @@ export const userStyles = StyleSheet.create({
     borderColor: BAR_BACKGROUND_COLOR,
     borderWidth: 3,
     margin: 10
-  },  
+  }
 });
 
 export const modalStyles = StyleSheet.create({

@@ -16,6 +16,7 @@ import { bindActionCreators } from 'redux';
 import { t } from '../../translations.js';
 import { categoryStyles } from '../../styles.js';
 import { renderCategories, renderArticles, renderRoot, fetchData } from '../common/categories.js';
+import { popWhenRouteNotLastInStack } from '../../utils.js';
 
 class Locations extends Component {
 
@@ -62,13 +63,14 @@ class Locations extends Component {
                       "Ei voitu hakea paikkoja",
                       this.props.lang,
                       this.props.routeStack,
-                      this.renderScene.bind(this));
+                      this.renderScene.bind(this),
+                      (route) => popWhenRouteNotLastInStack(route, this.props.routeStack, this.props.actions.popNavigationRoute));
   }
 
   onBack() {
     if (this._navigator) {
-      this._navigator.pop();
       this.props.actions.popNavigationRoute();
+      this._navigator.pop();
     }
   }
 
@@ -126,6 +128,8 @@ const actions = {
   })    
 };
 
+const titleComparator = (a, b) => a.title.localeCompare(b.title);
+
 export const locations = (
   state = {locations: null,
            categoriesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
@@ -138,9 +142,9 @@ export const locations = (
     switch (action.type) {
     case "SET_LOCATIONS":
       return Object.assign({}, state, {locations: action.locations,
-                                       categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.locations.categories)});
+                                       categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.locations.categories.sort(titleComparator))});
     case "SELECT_LOCATIONS_CATEGORY":
-      return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles),
+      return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles.sort(titleComparator)),
                                        routeStack: state.routeStack.concat(action.route)});
     case "SELECT_LOCATIONS_ARTICLE":
       return Object.assign({},

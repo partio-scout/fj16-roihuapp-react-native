@@ -83,7 +83,15 @@ export function renderArticles(navigator, articlesDataSource, selectArticle) {
   );
 }
 
-export function renderRoot(fetchState, data, noDataText, lang, routeStack, renderScene) {
+function renderSearchInput(lang) {
+  return (
+    <View style={categoryStyles.textInputContainer}>
+      <TextInput style={categoryStyles.textInput}
+                 placeholder={t("Hae", lang)} />
+    </View>);
+}
+
+export function renderRoot(fetchState, data, noDataText, lang, routeStack, renderScene, onWillFocus) {
   switch (fetchState) {
   case "STARTED":
     return renderProgressBar();
@@ -101,14 +109,9 @@ export function renderRoot(fetchState, data, noDataText, lang, routeStack, rende
         <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
           {t("Tilanne", lang)} {moment(data.timestamp).format(t("Timestamp", lang))}
         </Text>
-        {routeStack.length == 1 ? (
-          <View style={categoryStyles.textInputContainer}>
-            <TextInput 
-              style={categoryStyles.textInput} 
-              placeholder={t("Hae", lang)} />
-          </View>) : (<View />)
-        }        
+        {routeStack.length == 1 ? renderSearchInput(lang) : (<View />)}
         <Navigator initialRouteStack={routeStack}
+                   onWillFocus={onWillFocus}
                    renderScene={(route, navigator) => renderScene(route, navigator)}/>
       </View>
     );

@@ -22,7 +22,7 @@ import CameraRollView from './CameraRollView';
 
 class User extends Component {
 
-  renderKeys(data) {
+  renderKeys(data, details) {
     const keys = [{name: t("Telephone", this.props.lang), key: 'phone'},
                   {name: t("Email", this.props.lang), key: 'email'},
                   {name: t("Public Accounts", this.props.lang), key: 'publicAccounts'},
@@ -36,7 +36,7 @@ class User extends Component {
     return keys.map((item) => (
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}} key={item.key}>
         <Text style={[userStyles.key, categoryStyles.textColor]}>{item.name}</Text>
-        <Text style={[userStyles.value, categoryStyles.textColor]}>{data[item.key]}</Text>
+        <Text style={[userStyles.value, categoryStyles.textColor]}>{details[item.key] ? details[item.key] : data[item.key]}</Text>
       </View>
     ));
   }
@@ -86,22 +86,7 @@ class User extends Component {
     }
   }
 
-  renderLogoutButton() {
-    return (
-      <TouchableOpacity
-         style={{flex: 1}}
-         onPress={() => {
-           this.props.actions.removeCredentials(null);
-           this.props.actions.setUser({});
-        }}>
-        <Text style={{textAlign: 'right', margin: 10}}>
-          Kirjaudu ulos
-        </Text>
-      </TouchableOpacity>
-    );
-  }
-
-  renderUser(data, image, navigator) {
+  renderUser(data, details, image, navigator) {
     return (
       <View>
         <View style={userStyles.userUpperAreaContainer}>
@@ -124,7 +109,7 @@ class User extends Component {
         </View>
         <View style={userStyles.userContentContainer}>
           <View>
-            {this.renderKeys(data)}
+            {this.renderKeys(data, details)}
           </View>
         </View>
       </View>
@@ -137,7 +122,7 @@ class User extends Component {
       return this.listImages(navigator, this.props.actions.setImage);
     case "user-root":
     default:
-      return this.renderUser(this.props.data, this.props.image, navigator);
+      return this.renderUser(this.props.data, this.props.details, this.props.image, navigator);
     }
   }
 
@@ -148,7 +133,11 @@ class User extends Component {
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
           <Navigator initialRouteStack={this.props.parentNavigator.getCurrentRoutes()}
                      navigator={this.props.parentNavigator}
-                     renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
+                     renderScene={(route, navigator) => this.renderScene(route, navigator)}
+            configureScene={() => ({
+  				...Navigator.SceneConfigs.FloatFromRight,
+  			  gestures: {},
+			})}/>
         </View>
       );
     } else if (error !== null) {

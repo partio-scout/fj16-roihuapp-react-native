@@ -88,8 +88,8 @@ android {
         applicationId "com.roihuapp"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode env["CIRCLE_BUILD_NUM"]?.toInteger() ?: 0
+        versionName "1.0." + (env["CIRCLE_BUILD_NUM"] ?: "0")
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
