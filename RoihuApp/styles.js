@@ -292,3 +292,29 @@ export const modalStyles = StyleSheet.create({
     height: Dimensions.get("window").height / 1.4
   }
 });
+
+export const modalStyles = StyleSheet.create({
+  header: {
+    color: TEXT_COLOR,
+    paddingBottom: 10    
+  },
+  background: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    height: Dimensions.get("window").height
+  },
+  innerContainer: {
+    backgroundColor: '#dedede', 
+    margin: 20,
+    padding: 20,
+    flex: 1, 
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  mapImage: {
+    resizeMode: 'contain',
+    alignSelf: 'center', 
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height / 1.4
+  }
+});
