@@ -6,6 +6,7 @@ import {instructions} from '../instructions/index.js';
 import {locations} from '../locations/index.js';
 import {loginMethod} from '../auth/index.js';
 import {info} from '../info/index.js';
+import {map} from '../map/reducers.js';
 import {language} from '../../translations.js';
 import {settings} from '../settings/reducers.js';
 import {achievements} from '../achievements/reducers.js';
@@ -18,6 +19,7 @@ export const reducer = combineReducers({
   locations,
   loginMethod,
   info,
+  map,
   language,
   settings,
   achievements
