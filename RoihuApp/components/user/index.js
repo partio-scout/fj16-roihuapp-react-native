@@ -111,7 +111,7 @@ class User extends Component {
                 <Text style={[userStyles.nickname, categoryStyles.textColor]}>
                   {data.nickname}
                 </Text>
-                <Text style={categoryStyles.textColor}>{data.firstname} {data.lastname}</Text>
+                <Text style={[userStyles.name, categoryStyles.textColor]}>{data.firstname} {data.lastname}</Text>
               </View>
               <TouchableOpacity 
                 style={userStyles.userImageArea}
