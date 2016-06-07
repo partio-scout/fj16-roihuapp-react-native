@@ -228,22 +228,26 @@ export const userStyles = StyleSheet.create({
     paddingBottom: 5
   },
   value: {
-    flex: 2,
+    flex: 3,
     paddingBottom: 5,
     marginRight: 10
   },
   name: {
-    fontSize: 20
+    textAlign: 'center'
   },
   nickname: {
     marginTop: 10,
-    fontSize: 28
+    fontSize: 28,
+    textAlign: 'center'
   },
   userNameArea: {
+    flex: 3,
     alignSelf: 'flex-end',
-    marginBottom: 5
+    marginBottom: 7,
+    marginLeft: 10
   },
   userImageArea: {
+    flex: 1,
     borderColor: BAR_BACKGROUND_COLOR,
     borderWidth: 3,
     margin: 10

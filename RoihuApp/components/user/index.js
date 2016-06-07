@@ -90,14 +90,13 @@ class User extends Component {
     return (
       <View>
         <View style={userStyles.userUpperAreaContainer}>
-          <View style={{flex: 1}}></View>
-          <View style={{flex: 2}}>
+          <View style={{flex: 1}}>
             <View style={userStyles.nameImageContainer}>
               <View style={userStyles.userNameArea}>
                 <Text style={[userStyles.nickname, categoryStyles.textColor]}>
                   {data.nickname}
                 </Text>
-                <Text style={categoryStyles.textColor}>{data.firstname} {data.lastname}</Text>
+                <Text style={[userStyles.name, categoryStyles.textColor]}>{data.firstname} {data.lastname}</Text>
               </View>
               <TouchableOpacity 
                 style={userStyles.userImageArea}
