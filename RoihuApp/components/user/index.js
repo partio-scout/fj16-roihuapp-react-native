@@ -12,13 +12,13 @@ import React, {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { config } from '../../config.js';
-import { removeCredentials } from '../login/actions.js';
-import { t } from '../../translations.js';
-import { navigationStyles, categoryStyles, userStyles } from '../../styles.js';
-import { isEmpty } from '../../utils.js';
-const Icon = require('react-native-vector-icons/MaterialIcons');
-const CameraRollView = require('./CameraRollView');
+import { config } from '../../config';
+import { removeCredentials } from '../login/actions';
+import { t } from '../../translations';
+import { navigationStyles, categoryStyles, userStyles } from '../../styles';
+import { isEmpty } from '../../utils';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import CameraRollView from './CameraRollView';
 
 class User extends Component {
 
@@ -207,9 +207,15 @@ const setImage = (image) => ({
   image: image
 });
 
+export const setDetails = (details) => ({
+  type: "SET_DETAILS",
+  details: details
+});
+
 export default connect(state => ({
   credentials: state.credentials,
   data: state.user.data,
+  details: state.user.details,
   error: state.user.error,
   lang: state.language.lang,
   image: state.user.image
@@ -217,5 +223,5 @@ export default connect(state => ({
   actions: bindActionCreators({setUser,
                                setError,
                                removeCredentials,
-                               setImage}, dispatch)
+                               setImage, setDetails}, dispatch)
 }))(User);

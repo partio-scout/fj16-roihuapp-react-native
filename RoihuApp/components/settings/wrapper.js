@@ -8,14 +8,16 @@ import React, {
   Navigator,
   BackAndroid
 } from 'react-native';
-import Settings from '../settings/index.js';
+import Settings from '../settings/index';
+import EditDetails from '../user/EditDetails'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { last, renderRefreshButton, renderBackButton } from '../../utils.js';
-import { infoStyles } from '../../styles.js';
-import { styles } from '../../styles.js';
+import { last, renderRefreshButton, renderBackButton } from '../../utils';
+import { infoStyles } from '../../styles';
+import { styles } from '../../styles';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 const EventEmitter = require('EventEmitter');
-const Icon = require('react-native-vector-icons/MaterialIcons');
 
 class SettingsWrapper extends Component {
 
@@ -30,6 +32,12 @@ class SettingsWrapper extends Component {
     );
   }
 
+  renderEditDetails(navigator) {
+    return (
+      <EditDetails/>
+    );
+  }
+
   renderChild(navigator) {
     return React.cloneElement(this.props.children,
                               {parentNavigator: navigator,
@@ -41,6 +49,8 @@ class SettingsWrapper extends Component {
 
   renderScene(route, navigator) {
     switch(route.name) {
+    case "edit-details":
+      return this.renderEditDetails(navigator);
     case "settings":
       return this.renderSettings(navigator);
     case "root":
@@ -64,6 +74,20 @@ class SettingsWrapper extends Component {
     this._navigator.resetTo(route);
   }
 
+  renderEditDetailsButton() {
+    if (last(this.props.routeStack).name === "edit-details") {
+      return null;
+    } else {
+      return (
+        <TouchableOpacity style={{paddingRight: 10, paddingTop: 10}}
+                          onPress={() => this.pushRoute({name: "edit-details"})}>
+          <Icon style={[{textAlign: 'right'}, styles.buttonBarIcon]} name="edit" />
+        </TouchableOpacity>
+      );
+    }
+
+  }
+
   renderSettingsButton() {
     if (last(this.props.routeStack).name === "settings") {
       return null;
@@ -71,7 +95,7 @@ class SettingsWrapper extends Component {
       return (
         <TouchableOpacity style={{paddingRight: 10, paddingTop: 10}}
                           onPress={() => this.pushRoute({name: "settings"})}>
-          <Icon style={[{textAlign: 'right'}, styles.buttonBarIcon]} name="settings" size={30} color="#000000"/>
+          <Icon style={[{textAlign: 'right'}, styles.buttonBarIcon]} name="settings" />
         </TouchableOpacity>
       );
     }
@@ -83,6 +107,7 @@ class SettingsWrapper extends Component {
         <View style={infoStyles.topNavigationBar}>
           {renderBackButton(this.props.routeStack, () => this.popRoute())}
           <View style={{flex: 1}}></View>
+          {this.renderEditDetailsButton()}
           {last(this.props.routeStack).name === "user-root" ? renderRefreshButton(() => this.refreshEventEmitter.emit("refresh")) : null}
           {this.renderSettingsButton()}
         </View>
