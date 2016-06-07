@@ -6,26 +6,14 @@ import React, {
   Image,
   Modal,
   Dimensions,
-  TouchableOpacity,
-  Platform,
-  requireNativeComponent,
-  PropTypes
+  TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { infoStyles, navigationStyles, styles, modalStyles } from '../../styles.js';
+import { MapComponent } from './MapComponent';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { infoStyles, navigationStyles, styles, modalStyles } from '../../styles';
 
-var iface = {
-  name: 'ScaleImageView',
-  propTypes: {
-    ...View.propTypes,
-    src: PropTypes.string
-  }
-};
-
-const Icon = require('react-native-vector-icons/MaterialIcons');
-const RCTScaleImageView = requireNativeComponent('RCTScaleImageView', iface);
-const RCTZoomableMapView = requireNativeComponent('RCTZoomableMapView', null);
 
 class Map extends Component {
 
@@ -63,27 +51,11 @@ class Map extends Component {
     );
   }
 
-  renderMap() {
-    switch (Platform.OS) {
-    case "ios":
-      return (
-        <RCTZoomableMapView style={{flex: 1, backgroundColor: 'white', width: Dimensions.get("window").width}}/>
-      );
-    case "android":
-    default:
-      return (
-        <RCTScaleImageView
-           style={{flex: 1, width: Dimensions.get("window").width}}
-           src={"android.resource://com.roihuapp/drawable/map"} />
-      );
-    }    
-  }
-
   render() {
     return (
       <View style={[infoStyles.container, {width: Dimensions.get("window").width}]}>
         {this.renderTopBar()}
-        {this.renderMap()}
+        <MapComponent />
         {this.renderMarkers()}
       </View>
 
