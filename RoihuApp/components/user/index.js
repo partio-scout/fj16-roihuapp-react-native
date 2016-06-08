@@ -71,7 +71,7 @@ class User extends Component {
   renderImageSelection(navigator, image) {
     if (image === null) {
       return (
-        <TouchableOpacity 
+        <TouchableOpacity
           style={{margin: 5}}
           onPress={() => this.props.pushRoute({name: "list-image"})}
         >
@@ -98,12 +98,12 @@ class User extends Component {
                 </Text>
                 <Text style={[userStyles.name, categoryStyles.textColor]}>{data.firstname} {data.lastname}</Text>
               </View>
-              <TouchableOpacity 
+              <TouchableOpacity
                 style={userStyles.userImageArea}
                 onPress={() => this.props.pushRoute({name: "list-image"})}
               >
                 {this.renderImageSelection(navigator, image)}
-              </TouchableOpacity>          
+              </TouchableOpacity>
             </View>
           </View>
         </View>
