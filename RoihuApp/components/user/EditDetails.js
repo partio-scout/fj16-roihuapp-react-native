@@ -2,7 +2,6 @@
 import React, {
   Component,
   View,
-  Alert,
   TouchableHighlight,
   Text
 } from 'react-native';
