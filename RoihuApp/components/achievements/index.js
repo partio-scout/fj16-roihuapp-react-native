@@ -14,16 +14,16 @@ import React, {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { config } from '../../config.js';
-import { renderBackButton, renderRefreshButton } from '../../utils.js';
-import { fetchData, renderRightArrow } from '../common/categories.js';
-import { renderProgressBar, popWhenRouteNotLastInStack } from '../../utils.js';
-import { infoStyles, categoryStyles, achievementStyles, navigationStyles } from '../../styles.js';
-import { removeCredentials } from '../login/actions.js';
-import { setView } from '../navigation/actions.js';
-import { t } from '../../translations.js';
+import { config } from '../../config';
+import { renderBackButton, renderRefreshButton } from '../../utils';
+import { fetchData, renderRightArrow } from '../common/categories';
+import { renderProgressBar, popWhenRouteNotLastInStack } from '../../utils';
+import { infoStyles, categoryStyles, achievementStyles, navigationStyles } from '../../styles';
+import { removeCredentials } from '../login/actions';
+import { setView } from '../navigation/actions';
+import { t } from '../../translations';
 import moment from 'moment';
-const Icon = require('react-native-vector-icons/MaterialIcons');
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 class Achievements extends Component {
 

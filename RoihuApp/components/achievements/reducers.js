@@ -2,8 +2,8 @@
 import React, {
   ListView
 } from 'react-native';
+import { sortNumber } from '../../utils';
 
-const titleComparator = (a, b) => a.title.localeCompare(b.title);
 const achievementEquals = (r1, r2) => r1.id !== r2.id || r1.title !== r2.title || r1.achievement !== r2.userAchieved;
 
 function markAchievementDone(state, done) {
@@ -52,12 +52,12 @@ export const achievements = (
       return Object.assign({},
                            state,
                            {achievements: action.achievements,
-                            ageLevelDataSource: state.ageLevelDataSource.cloneWithRows(action.achievements.agelevels.sort(titleComparator))});
+                            ageLevelDataSource: state.ageLevelDataSource.cloneWithRows(action.achievements.agelevels.sort((a, b) => sortNumber(a.sort_no, b.sort_no)))});
     case "SELECT_AGELEVEL":
       const ageLevel = state.achievements.agelevels.find((a) => a.id === action.agelevel.id);
       return Object.assign({},
                            state,
-                           {achievementsDataSource: state.achievementsDataSource.cloneWithRows(ageLevel.achievements.sort(titleComparator)),
+                           {achievementsDataSource: state.achievementsDataSource.cloneWithRows(ageLevel.achievements.sort((a, b) => sortNumber(a.sort_no, b.sort_no))),
                             routeStack: state.routeStack.concat(action.route),
                             agelevel: ageLevel});
     case "SELECT_ACHIEVEMENT":
