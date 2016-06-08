@@ -9,7 +9,6 @@ import React, {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import f from 'tcomb-form-native';
-import { setDetails } from './index';
 import { popSettingsRoute } from '../settings/wrapper';
 import { fields, options } from '../models/EditDetailsModel';
 import { styles, categoryStyles } from '../../styles';
@@ -30,13 +29,7 @@ class EditDetails extends Component {
     let data = this.refs.form.getValue();
     if (data) {
       this.props.actions.setDetails(data);
-      Alert.alert(
-        null,
-        t("Käyttäjätiedot", this.props.lang),
-        [
-          {text: 'OK', onPress: () => this.popRoute()},
-        ]
-      );
+      this.popRoute();
     }
   }
 
@@ -54,6 +47,11 @@ class EditDetails extends Component {
     );
   }
 }
+
+export const setDetails = (details) => ({
+  type: "SET_DETAILS",
+  details: details
+});
 
 export default connect(state => ({
   lang: state.language.lang,
