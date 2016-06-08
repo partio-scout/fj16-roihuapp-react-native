@@ -22,7 +22,10 @@
     "Age level": "Age group",
     "Camp Troop": "Camp unit",
     "Subcamp": "Subcamp",
-    "Description": "Desc"  
+    "Description": "Desc",
+    "Käyttäjätiedot": "EN Käyttäjätiedot päivitetty",
+    "Muokkaa tietoja": "EN Muokkaa tietoja",
+    "Tallenna": "Save"
   },
   fi: {
     "Kalenteri": "Kalenteri",
@@ -47,7 +50,10 @@
     "Age level": "Ikäkausi",
     "Camp Troop": "Leirilpk",
     "Subcamp": "Alaleiri",
-    "Description": "Kuvaus"  
+    "Description": "Kuvaus",
+    "Käyttäjätiedot": "Käyttäjätiedot päivitetty",
+    "Muokkaa tietoja": "Muokkaa tietoja",
+    "Tallenna": "Tallenna"  
   },
   sv: {
     "Kalenteri": "Kalendar",
@@ -72,6 +78,9 @@
     "Age level": "Åldersgrupp",
     "Camp Troop": "Lägerkår",
     "Subcamp": "Subkår",
-    "Description": "Beskrivning"  
+    "Description": "Beskrivning",
+    "Käyttäjätiedot": "SV Käyttäjätiedot päivitetty",
+    "Muokkaa tietoja": "SV Muokkaa tietoja",
+    "Tallenna": "SV Tallenna"    
   }
 };

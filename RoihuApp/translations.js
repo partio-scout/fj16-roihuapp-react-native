@@ -2,6 +2,7 @@
 import React, {
   NativeModules
 } from 'react-native';
+import { createStore } from 'redux'
 const I18n = require('react-native-i18n');
 const translations = require('./strings.json');
 
@@ -33,6 +34,8 @@ export const language = (
   }
   return state;
 };
+
+export const getCurrentLang = createStore(language);
 
 export const setLanguage = (lang) => ({
   type: "SET_LANGUAGE",

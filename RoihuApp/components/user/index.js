@@ -12,17 +12,17 @@ import React, {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { config } from '../../config.js';
-import { removeCredentials } from '../login/actions.js';
-import { t } from '../../translations.js';
-import { navigationStyles, categoryStyles, userStyles } from '../../styles.js';
-import { isEmpty } from '../../utils.js';
-const Icon = require('react-native-vector-icons/MaterialIcons');
-const CameraRollView = require('./CameraRollView');
+import { config } from '../../config';
+import { removeCredentials } from '../login/actions';
+import { t } from '../../translations';
+import { navigationStyles, categoryStyles, userStyles } from '../../styles';
+import { isEmpty } from '../../utils';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import CameraRollView from './CameraRollView';
 
 class User extends Component {
 
-  renderKeys(data) {
+  renderKeys(data, details) {
     const keys = [{name: t("Telephone", this.props.lang), key: 'phone'},
                   {name: t("Email", this.props.lang), key: 'email'},
                   {name: t("Public Accounts", this.props.lang), key: 'publicAccounts'},
@@ -36,7 +36,7 @@ class User extends Component {
     return keys.map((item) => (
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}} key={item.key}>
         <Text style={[userStyles.key, categoryStyles.textColor]}>{item.name}</Text>
-        <Text style={[userStyles.value, categoryStyles.textColor]}>{data[item.key]}</Text>
+        <Text style={[userStyles.value, categoryStyles.textColor]}>{details[item.key] ? details[item.key] : data[item.key]}</Text>
       </View>
     ));
   }
@@ -71,7 +71,7 @@ class User extends Component {
   renderImageSelection(navigator, image) {
     if (image === null) {
       return (
-        <TouchableOpacity 
+        <TouchableOpacity
           style={{margin: 5}}
           onPress={() => this.props.pushRoute({name: "list-image"})}
         >
@@ -86,7 +86,7 @@ class User extends Component {
     }
   }
 
-  renderUser(data, image, navigator) {
+  renderUser(data, details, image, navigator) {
     return (
       <View>
         <View style={userStyles.userUpperAreaContainer}>
@@ -98,18 +98,18 @@ class User extends Component {
                 </Text>
                 <Text style={[userStyles.name, categoryStyles.textColor]}>{data.firstname} {data.lastname}</Text>
               </View>
-              <TouchableOpacity 
+              <TouchableOpacity
                 style={userStyles.userImageArea}
                 onPress={() => this.props.pushRoute({name: "list-image"})}
               >
                 {this.renderImageSelection(navigator, image)}
-              </TouchableOpacity>          
+              </TouchableOpacity>
             </View>
           </View>
         </View>
         <View style={userStyles.userContentContainer}>
           <View>
-            {this.renderKeys(data)}
+            {this.renderKeys(data, details)}
           </View>
         </View>
       </View>
@@ -122,7 +122,7 @@ class User extends Component {
       return this.listImages(navigator, this.props.actions.setImage);
     case "user-root":
     default:
-      return this.renderUser(this.props.data, this.props.image, navigator);
+      return this.renderUser(this.props.data, this.props.details, this.props.image, navigator);
     }
   }
 
@@ -196,9 +196,15 @@ const setImage = (image) => ({
   image: image
 });
 
+export const setDetails = (details) => ({
+  type: "SET_DETAILS",
+  details: details
+});
+
 export default connect(state => ({
   credentials: state.credentials,
   data: state.user.data,
+  details: state.user.details,
   error: state.user.error,
   lang: state.language.lang,
   image: state.user.image
@@ -206,5 +212,5 @@ export default connect(state => ({
   actions: bindActionCreators({setUser,
                                setError,
                                removeCredentials,
-                               setImage}, dispatch)
+                               setImage, setDetails}, dispatch)
 }))(User);
