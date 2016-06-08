@@ -18,6 +18,6 @@
     "redux-storage": "3.0.0",
     "redux-storage-engine-reactnativeasyncstorage": "1.0.0",
     "redux-thunk": "1.0.3",
-    "tcomb-form-native": "^0.4.4"
+    "tcomb-form-native": "0.4.4"
   }
 }
