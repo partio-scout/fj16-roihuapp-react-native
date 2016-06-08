@@ -109,8 +109,8 @@ class Achievements extends Component {
           <View style={achievementStyles.doneContainer}>
             <Icon style={achievementStyles.doneIcon} name="done" />
             <View style={{flex: 1}}>
-              <Text style={{marginTop: 10}}>Hieno juttu!</Text>
-              <Text>Olet tehnyt tämän tehtävän.</Text>
+              <Text style={[categoryStyles.textColor, {marginTop: 10}]}>Hieno juttu!</Text>
+              <Text style={categoryStyles.textColor}>Olet tehnyt tämän tehtävän.</Text>
             </View>
           </View>
           {this.renderWideButton("ENPÄS VIELÄ OLEKAAN", () => this.markAchievement(achievement.id, false))}
@@ -121,16 +121,19 @@ class Achievements extends Component {
 
   renderSelectedAchievement(achievement) {
     return (
-      <View style={{flex: 1}}>
-        <Text style={achievementStyles.selectedAchievementTitle}>{achievement.title}</Text>
-        <Text style={achievementStyles.titleSeparator}></Text>
-        <ScrollView>
-          <Text style={achievementStyles.bodyText}>{achievement.bodytext}</Text>
-          <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
-            {t("Viimeksi muokattu", this.props.lang)} {moment(achievement.last_modified).format(t("Timestamp", this.props.lang))}
-          </Text>
-          {this.renderMarkDone(achievement)}
-        </ScrollView>
+      <View style={categoryStyles.article}>
+        <View style={categoryStyles.articleTitleContainer}>
+          <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>{achievement.title}</Text>
+        </View>
+        <View style={categoryStyles.articleContentContainer}>
+          <ScrollView style={{flex: 1}}>
+            <Text style={categoryStyles.textColor}>{achievement.bodytext}</Text>
+          </ScrollView>
+            <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
+              {t("Viimeksi muokattu", this.props.lang)} {moment(achievement.last_modified).format(t("Timestamp", this.props.lang))}
+            </Text>
+            {this.renderMarkDone(achievement)}
+        </View>
       </View>
     );
   }
