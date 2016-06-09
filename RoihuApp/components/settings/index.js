@@ -8,8 +8,9 @@ import React, {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { t, setLanguage } from '../../translations.js';
-import { categoryStyles } from '../../styles.js';
+import { t, setLanguage } from '../../translations';
+import { categoryStyles } from '../../styles';
+import DeviceInfo from 'react-native-device-info';
 
 
 class Settings extends Component {
@@ -38,7 +39,7 @@ class Settings extends Component {
         </View>
         <View style={categoryStyles.articleContentContainer}>
           <Text style={categoryStyles.textColor}>
-            1.0{"\n"}Suomen Partiolaiset - Finlands Scouter ry
+            {DeviceInfo.getVersion()}{"\n"}Suomen Partiolaiset - Finlands Scouter ry
           </Text>  
         </View>         
         <View style={categoryStyles.articleTitleContainer}>
