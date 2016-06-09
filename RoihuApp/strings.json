@@ -25,7 +25,12 @@
     "Description": "Desc",
     "Käyttäjätiedot": "EN Käyttäjätiedot päivitetty",
     "Muokkaa tietoja": "EN Muokkaa tietoja",
-    "Tallenna": "Save"
+    "Tallenna": "Save",
+    "Palaute": "Feedback",
+    "Versiotieto": "Versiotieto",
+    "Huomautuksia versiosta": "Huomautuksia tästä esiversiosta",
+    "Tekijät": "Tekijät",    
+    "Palaute teksti": "If you notice problems or shortcomings, or you have suggestions, please send e-mail to roihuapp@roihu2016.fi" 
   },
   fi: {
     "Kalenteri": "Kalenteri",
@@ -53,7 +58,12 @@
     "Description": "Kuvaus",
     "Käyttäjätiedot": "Käyttäjätiedot päivitetty",
     "Muokkaa tietoja": "Muokkaa tietoja",
-    "Tallenna": "Tallenna"  
+    "Tallenna": "Tallenna",
+    "Versiotieto": "Versiotieto",
+    "Huomautuksia versiosta": "Huomautuksia tästä esiversiosta",
+    "Tekijät": "Tekijät",
+    "Palaute": "Palaute",
+    "Palaute teksti": "Jos huomaat puutteita tai ongelmia, tai sinulla on parannusehdotuksia, lähetä sähköpostia osoitteeseen roihuapp@roihu2016.fi" 
   },
   sv: {
     "Kalenteri": "Kalendar",
@@ -81,6 +91,11 @@
     "Description": "Beskrivning",
     "Käyttäjätiedot": "SV Käyttäjätiedot päivitetty",
     "Muokkaa tietoja": "SV Muokkaa tietoja",
-    "Tallenna": "SV Tallenna"    
+    "Tallenna": "SV Tallenna",
+    "Versiotieto": "Versiotieto",
+    "Huomautuksia versiosta": "Huomautuksia tästä esiversiosta",
+    "Tekijät": "Tekijät",    
+    "Palaute": "SV Palaute",
+    "Palaute teksti": "SV Jos huomaat puutteita tai ongelmia, tai sinulla on parannusehdotuksia, lähetä sähköpostia osoitteeseen roihuapp@roihu2016.fi"   
   }
 };
