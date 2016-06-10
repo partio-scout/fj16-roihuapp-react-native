@@ -178,7 +178,8 @@ export const achievementStyles = StyleSheet.create({
     marginTop: 20,
     backgroundColor: BAR_BACKGROUND_COLOR,
     alignItems: 'center',
-    flex: 1
+    flex: 1,
+    borderRadius: 5
   },
   wideButtonText: {
     color: 'white',
