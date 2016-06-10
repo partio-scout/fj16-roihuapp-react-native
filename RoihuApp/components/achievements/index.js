@@ -98,11 +98,12 @@ class Achievements extends Component {
   }
 
   renderMarkDone(achievement) {
-    if (this.props.credentials === null) {
+    const { credentials, lang } = this.props;
+    if (credentials === null) {
       return null;
     }
     if (!achievement.userAchieved) {
-      return this.renderWideButton("TEHTY!", () => this.markAchievement(achievement.id, true));
+      return this.renderWideButton(t("TEHTY!", lang), () => this.markAchievement(achievement.id, true));
     } else {
       return (
         <View>
@@ -113,7 +114,7 @@ class Achievements extends Component {
               <Text style={categoryStyles.textColor}>Olet tehnyt tämän tehtävän.</Text>
             </View>
           </View>
-          {this.renderWideButton("ENPÄS VIELÄ OLEKAAN", () => this.markAchievement(achievement.id, false))}
+          {this.renderWideButton(t("ENPÄS VIELÄ OLEKAAN", lang), () => this.markAchievement(achievement.id, false))}
         </View>
       );
     }
@@ -145,7 +146,8 @@ class Achievements extends Component {
 
   markAchievement(achievementid, done) {
     console.log(`Marking achievement ${achievementid} ${(done ? "done" : "not done")}`);
-    fetch(config.apiUrl + "/RoihuUsers/" + this.props.credentials.userId + "/achievements/rel/" + achievementid + "?access_token=" + this.props.credentials.token, {
+    const { credentials, lang } = this.props;
+    fetch(config.apiUrl + "/RoihuUsers/" + credentials.userId + "/achievements/rel/" + achievementid + "?access_token=" + credentials.token, {
       method: done ? "PUT" : "DELETE",
       headers: {'Content-Type': 'application/json'},
       body: ""}).
@@ -156,22 +158,26 @@ class Achievements extends Component {
           this.props.actions.markAchievementDone(done);
           break;
         case 401:
-          Alert.alert(done ? "Kirjaudu merkitäksesi aktiviteetin tehdyksi" : "Kirjaudu peruaksesi aktiviteetin tekemisen",
-                      "Kirjautuminen on vanhentunut, kirjaudu uudelleen",
-                      [{text: "Ok", onPress: () => this.reLogin()}]);
+          Alert.alert(done ? t("Kirjaudu merkitäksesi aktiviteetin tehdyksi", lang) :
+                      t("Kirjaudu peruaksesi aktiviteetin tekemisen", lang),
+                      t("Kirjautuminen on vanhentunut, kirjaudu uudelleen", lang),
+                      [{text: t("Ok", lang), onPress: () => this.reLogin()}]);
           break;
         default:
           console.log(response);
-          Alert.alert(done ? "Virhe merkitessä aktiviteettia tehdyksi" : "Virhe peruessa aktiviteetin tekemistä",
-                      done ? "Ei voitu merkitä aktiviteettia tehdyksi" : "Ei voitu perua aktiviteetin tekemistä",
-                      [{text: "Ok", onPress: () => {}}]);
+          Alert.alert(done ? t("Virhe merkitessä aktiviteettia tehdyksi", lang) :
+                             t("Virhe peruessa aktiviteetin tekemistä", lang),
+                      done ? t("Ei voitu merkitä aktiviteettia tehdyksi", lang) :
+                             t("Ei voitu perua aktiviteetin tekemistä", lang),
+                      [{text: t("Ok", lang), onPress: () => {}}]);
         }
       }).
       catch((error) => {
         console.log(error);
-        Alert.alert("Virhe nettiyhteydessä",
-                    done ? "Ei voitu merkitä aktiviteettia tehdyksi" : "Ei voitu perua aktiviteetin tekemistä",
-                    [{text: "Ok", onPress: () => {}}]);
+        Alert.alert(t("Virhe nettiyhteydessä", lang),
+                    done ? t("Ei voitu merkitä aktiviteettia tehdyksi", lang) :
+                           t("Ei voitu perua aktiviteetin tekemistä", lang),
+                    [{text: t("Ok", lang), onPress: () => {}}]);
       });
   }
 
