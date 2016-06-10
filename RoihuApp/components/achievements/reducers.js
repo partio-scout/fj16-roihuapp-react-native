@@ -25,8 +25,8 @@ function markAchievementDone(state, done) {
   const newAchievements = Object.assign({},
                                         state.achievements,
                                         {agelevels: state.achievements.agelevels.map(updateAgeLevel)});
-  const newAgeLevelDataSource = state.ageLevelDataSource.cloneWithRows(newAchievements.agelevels.sort(titleComparator));
-  const newAchievementsDataSource = state.achievementsDataSource.cloneWithRows(newAgeLevel.achievements.sort(titleComparator));
+  const newAgeLevelDataSource = state.ageLevelDataSource.cloneWithRows(newAchievements.agelevels.sort(sortNumber));
+  const newAchievementsDataSource = state.achievementsDataSource.cloneWithRows(newAgeLevel.achievements.sort(sortNumber));
   return Object.assign({},
                        state,
                        {achievements: newAchievements,
