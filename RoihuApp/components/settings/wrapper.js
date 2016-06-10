@@ -9,7 +9,7 @@ import React, {
   BackAndroid
 } from 'react-native';
 import Settings from '../settings/index';
-import EditDetails from '../user/EditDetails'
+import EditDetails from '../user/EditDetails';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { last, renderRefreshButton, renderBackButton, popWhenRouteNotLastInStack } from '../../utils';
