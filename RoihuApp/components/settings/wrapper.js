@@ -87,7 +87,7 @@ class SettingsWrapper extends Component {
   }
 
   renderSettingsButton() {
-    if (last(this.props.routeStack).name !== "user-root") {
+    if (last(this.props.routeStack).name === "settings") {
       return null;
     } else {
       return (
