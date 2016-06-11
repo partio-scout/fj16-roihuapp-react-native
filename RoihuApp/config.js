@@ -1,4 +1,6 @@
+const baseUrl = "https://app.roihu2016.fi";
+
 export const config = {
-  apiUrl: "https://roihuapp-demo.herokuapp.com/api",
-  loginUrl: "https://roihuapp-demo.herokuapp.com/saml/login"
+  apiUrl: baseUrl + "/api",
+  loginUrl: baseUrl + "/saml/login"
 };
