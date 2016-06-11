@@ -2,7 +2,7 @@
 import React, {
   ListView
 } from 'react-native';
-import { sortNumber } from '../../utils';
+import { sortNumber, isEmpty } from '../../utils';
 
 const achievementEquals = (r1, r2) => r1.id !== r2.id || r1.title !== r2.title || r1.achievement !== r2.userAchieved;
 
@@ -36,6 +36,14 @@ function markAchievementDone(state, done) {
                         agelevel: newAgeLevel});
 }
 
+const agelevelById = (agelevels, id) => agelevels.find((a) => a.id === id);
+
+const createCurrentAgeLevelSelection = (state, achievements) => {
+  const currentAgeLevel = agelevelById(achievements.agelevels, state.agelevel.id);
+  return {agelevel: currentAgeLevel,
+          achievementsDataSource: state.achievementsDataSource.cloneWithRows(currentAgeLevel.achievements.sort((a, b) => sortNumber(a.sort_no, b.sort_no)))};
+};
+
 export const achievements = (
   state = {
     achievements: null,
@@ -48,18 +56,24 @@ export const achievements = (
   },
   action) => {
     switch (action.type) {
-    case "SET_ACHIEVEMENTS":
+    case "SET_ACHIEVEMENTS": {
+      const selectedAgeLevel = isEmpty(state.agelevel) ? {} : createCurrentAgeLevelSelection(state, action.achievements);
+      const selectedAchievement = isEmpty(state.achievement) ? {} : {achievement: selectedAgeLevel.agelevel.achievements.find((a) => a.id === state.achievement.id)};
       return Object.assign({},
                            state,
                            {achievements: action.achievements,
-                            ageLevelDataSource: state.ageLevelDataSource.cloneWithRows(action.achievements.agelevels.sort((a, b) => sortNumber(a.sort_no, b.sort_no)))});
-    case "SELECT_AGELEVEL":
-      const ageLevel = state.achievements.agelevels.find((a) => a.id === action.agelevel.id);
+                            ageLevelDataSource: state.ageLevelDataSource.cloneWithRows(action.achievements.agelevels.sort((a, b) => sortNumber(a.sort_no, b.sort_no)))},
+                           selectedAgeLevel,
+                           selectedAchievement);
+    }
+    case "SELECT_AGELEVEL": {
+      const selectedAgeLevel = agelevelById(state.achievements.agelevels, action.agelevel.id);
       return Object.assign({},
                            state,
-                           {achievementsDataSource: state.achievementsDataSource.cloneWithRows(ageLevel.achievements.sort((a, b) => sortNumber(a.sort_no, b.sort_no))),
+                           {achievementsDataSource: state.achievementsDataSource.cloneWithRows(selectedAgeLevel.achievements.sort((a, b) => sortNumber(a.sort_no, b.sort_no))),
                             routeStack: state.routeStack.concat(action.route),
-                            agelevel: ageLevel});
+                            agelevel: selectedAgeLevel});
+    }
     case "SELECT_ACHIEVEMENT":
       return Object.assign({}, state, {achievement: action.achievement,
                                        routeStack: state.routeStack.concat(action.route)});
