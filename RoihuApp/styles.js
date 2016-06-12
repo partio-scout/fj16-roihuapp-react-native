@@ -271,7 +271,7 @@ export const userStyles = StyleSheet.create({
 export const modalStyles = StyleSheet.create({
   header: {
     color: TEXT_COLOR,
-    paddingBottom: 10    
+    paddingBottom: 10
   },
   background: {
     flex: 1,
@@ -279,16 +279,16 @@ export const modalStyles = StyleSheet.create({
     height: Dimensions.get("window").height
   },
   innerContainer: {
-    backgroundColor: '#dedede', 
+    backgroundColor: '#dedede',
     margin: 20,
     padding: 20,
-    flex: 1, 
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   mapImage: {
     resizeMode: 'contain',
-    alignSelf: 'center', 
+    alignSelf: 'center',
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height / 1.4
   }
