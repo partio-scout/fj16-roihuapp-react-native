@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "RoihuApp.app"
-               BlueprintName = "RoihuApp"
-               ReferencedContainer = "container:RoihuApp.xcodeproj">
+               BuildableName = "Roihu 2016.app"
+               BlueprintName = "Roihu 2016"
+               ReferencedContainer = "container:Roihu 2016.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "RoihuAppTests.xctest"
-               BlueprintName = "RoihuAppTests"
-               ReferencedContainer = "container:RoihuApp.xcodeproj">
+               BuildableName = "Roihu 2016.xctest"
+               BlueprintName = "Roihu 2016Tests"
+               ReferencedContainer = "container:Roihu 2016.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "RoihuAppTests.xctest"
-               BlueprintName = "RoihuAppTests"
-               ReferencedContainer = "container:RoihuApp.xcodeproj">
+               BuildableName = "Roihu 2016.xctest"
+               BlueprintName = "Roihu 2016Tests"
+               ReferencedContainer = "container:Roihu 2016.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,16 +57,16 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "RoihuApp.app"
-            BlueprintName = "RoihuApp"
-            ReferencedContainer = "container:RoihuApp.xcodeproj">
+            BuildableName = "Roihu 2016.app"
+            BlueprintName = "Roihu 2016"
+            ReferencedContainer = "container:Roihu 2016.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "RoihuApp.app"
-            BlueprintName = "RoihuApp"
-            ReferencedContainer = "container:RoihuApp.xcodeproj">
+            BuildableName = "Roihu 2016.app"
+            BlueprintName = "Roihu 2016"
+            ReferencedContainer = "container:Roihu 2016.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -99,9 +99,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "RoihuApp.app"
-            BlueprintName = "RoihuApp"
-            ReferencedContainer = "container:RoihuApp.xcodeproj">
+            BuildableName = "Roihu 2016.app"
+            BlueprintName = "Roihu 2016"
+            ReferencedContainer = "container:Roihu 2016.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
