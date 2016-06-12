@@ -20,9 +20,9 @@ class ScrollViewController : NSObject, UIScrollViewDelegate {
     doubleTapRecognizer.numberOfTouchesRequired = 1
     scrollView.addGestureRecognizer(doubleTapRecognizer)
     
-    scrollView.minimumZoomScale = 0.3;
+    scrollView.minimumZoomScale = 0.05;
     scrollView.maximumZoomScale = 2.0
-    scrollView.zoomScale = 0.3
+    scrollView.zoomScale = 0.1
   }
   
   func centerScrollViewContents() {
