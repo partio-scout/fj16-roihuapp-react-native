@@ -7,8 +7,7 @@ import React, {
   Dimensions,
   ListView,
   Navigator,
-  Alert,
-  Platform
+  Alert
 } from 'react-native';
 import moment from 'moment';
 import { t } from '../../translations.js';
@@ -18,16 +17,12 @@ import { renderProgressBar } from '../../utils.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
 export function renderRightArrow() {
-  if (Platform.OS === 'ios') {
-    return (
-      <View style={{flexDirection: 'row', flex: 1, alignItems: 'flex-end'}}>
-        <View style={{flex: 1, flexDirection: 'row'}}></View>
-        <Icon style={categoryStyles.listItemIcon} name="keyboard-arrow-right" />
-      </View>
-    );
-  } else {
-    return null;
-  }
+  return (
+    <View style={{flexDirection: 'row', flex: 1, alignItems: 'flex-end'}}>
+      <View style={{flex: 1, flexDirection: 'row'}}></View>
+      <Icon style={categoryStyles.listItemIcon} name="keyboard-arrow-right" />
+    </View>
+  );
 }
 
 function renderCategory(category, navigator, selectCategory, setCurrentTitle, rowID) {
