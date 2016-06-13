@@ -7,7 +7,8 @@ import React, {
   Dimensions,
   ListView,
   Navigator,
-  Alert
+  Alert,
+  Platform
 } from 'react-native';
 import moment from 'moment';
 import { t } from '../../translations.js';
@@ -79,6 +80,9 @@ export function renderArticles(navigator, articlesDataSource, selectArticle) {
 }
 
 function renderSearchInput(lang) {
+  if (Platform.OS === 'ios')
+    return null;
+
   return (
     <View style={categoryStyles.textInputContainer}>
       <TextInput style={categoryStyles.textInput}
