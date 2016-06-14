@@ -145,7 +145,9 @@ export const categoryStyles = StyleSheet.create({
   },
   smallText: {
     fontSize: 10,
-    textAlign: 'right'
+    textAlign: 'right',
+    marginTop: 10,
+    marginBottom: 10
   },
   coordinate: {
     color: BAR_BACKGROUND_COLOR,

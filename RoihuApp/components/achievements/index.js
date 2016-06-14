@@ -129,10 +129,10 @@ class Achievements extends Component {
         <View style={categoryStyles.articleContentContainer}>
           <ScrollView style={{flex: 1}}>
             <Text style={categoryStyles.textColor}>{achievement.bodytext}</Text>
-          </ScrollView>
             <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
               {t("Viimeksi muokattu", this.props.lang)} {moment(achievement.last_modified).format(t("Timestamp", this.props.lang))}
             </Text>
+          </ScrollView>
             {this.renderMarkDone(achievement)}
         </View>
       </View>
