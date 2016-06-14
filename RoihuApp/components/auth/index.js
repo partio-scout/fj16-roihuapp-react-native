@@ -124,41 +124,41 @@ class Auth extends Component {
                 textAlign: 'center',
                 color: 'black',
                 fontWeight: 'bold',
-                fontSize: 20,
+                fontSize: 20
               }}>
           {t("login title", this.props.lang)}
         </Text>
-      <View style={styles.bigButton}>
-        <TouchableOpacity onPress={() => this.props.pushRoute({name: "partioid"}) }>
-          <Text style={{
-                  margin: 15,
-                  textAlign: 'center',
-                  fontSize: 20,
-                  color: 'white',
-                }}>
-            {t("Kirjaudu Partioid:llä", this.props.lang)}
-          </Text>
-        </TouchableOpacity>
-      </View>
-      	 <View style={styles.bigButton}>
+        <View style={styles.bigButton}>
+          <TouchableOpacity onPress={() => this.props.pushRoute({name: "partioid"}) }>
+            <Text style={{
+                    margin: 15,
+                    textAlign: 'center',
+                    fontSize: 20,
+                    color: 'white'
+                  }}>
+              {t("Kirjaudu Partioid:llä", this.props.lang)}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      	<View style={styles.bigButton}>
 	        <TouchableOpacity onPress={() => {
 	            this.props.pushRoute({name: "email"});
 	          }}>
-		        <Text style={{
+		      <Text style={{
 		              margin: 15,
 	                  textAlign: 'center',
 	                  fontSize: 20,
-	                  color: 'white',
+	                  color: 'white'
 		            }}>
-		              {t("Kirjaudu sähköpostiosoitteella", this.props.lang)}
-		        </Text>    	
-	         </TouchableOpacity>
-         </View> 
+		        {t("Kirjaudu sähköpostiosoitteella", this.props.lang)}
+		      </Text>
+	        </TouchableOpacity>
+        </View>
            <Text style={{
-	           	textAlign: 'center',
-	           	color: 'black',
-      		 }}>
-		              {t("Sähköpostillakirjautumiskäsky", this.props.lang)}
+	           	   textAlign: 'center',
+	           	   color: 'black'
+      		     }}>
+		     {t("Sähköpostillakirjautumiskäsky", this.props.lang)}
 		   </Text>
       </View>
     );
