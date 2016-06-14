@@ -81,7 +81,7 @@ class Locations extends Component {
         fetchData("Fetching locations",
                   this.props.actions.setFetchStatus,
                   "/LocationCategories/Translations",
-                  {},
+                  {'afterDate': this.props.locations.timestamp},
                   this.props.actions.setLocations,
                   this.props.lang,
                   "Paikkojen haku epäonnistui");
@@ -91,7 +91,7 @@ class Locations extends Component {
       fetchData("Fetching locations",
                 this.props.actions.setFetchStatus,
                 "/LocationCategories/Translations",
-                {},
+                {afterDate:moment().format()},
                 this.props.actions.setLocations,
                 this.props.lang,
                 "Paikkojen haku epäonnistui");
@@ -99,7 +99,7 @@ class Locations extends Component {
     this.refreshListener = this.props.emitter.addListener("refresh", () => fetchData("Fetching locations",
                                                                                      this.props.actions.setFetchStatus,
                                                                                      "/LocationCategories/Translations",
-                                                                                     {},
+                                                                                     {'afterDate': this.props.locations.timestamp},
                                                                                      this.props.actions.setLocations,
                                                                                      this.props.lang,
                                                                                      "Paikkojen haku epäonnistui"));
