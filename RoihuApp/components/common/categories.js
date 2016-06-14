@@ -80,14 +80,15 @@ export function renderArticles(navigator, articlesDataSource, selectArticle) {
 }
 
 function renderSearchInput(lang) {
-  if (Platform.OS === 'ios')
+  return null;
+  /*if (Platform.OS === 'ios')
     return null;
 
   return (
     <View style={categoryStyles.textInputContainer}>
       <TextInput style={categoryStyles.textInput}
                  placeholder={t("Hae", lang)} />
-    </View>);
+    </View>);*/
 }
 
 export function renderRoot(fetchState, data, noDataText, lang, routeStack, renderScene, onWillFocus) {
