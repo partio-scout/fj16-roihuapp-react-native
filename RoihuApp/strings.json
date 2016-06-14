@@ -44,7 +44,14 @@
     "Ei voitu perua aktiviteetin tekemistä": "EN: Ei voitu perua aktiviteetin tekemistä",
     "Virhe nettiyhteydessä": "EN: Virhe nettiyhteydessä",
     "Ei voitu merkitä aktiviteettia tehdyksi": "EN: Ei voitu merkitä aktiviteettia tehdyksi",
-    "Ei voitu perua aktiviteetin tekemistä": "EN: Ei voitu perua aktiviteetin tekemistä"
+    "Ei voitu perua aktiviteetin tekemistä": "EN: Ei voitu perua aktiviteetin tekemistä",
+    "login title": "Sign in to see your \n personal information",
+    "Kirjaudu Partioid:llä": "SIGN IN WITH SCOUT ID",
+    "Kirjaudu sähköpostiosoitteella": "SIGN IN WITH E-MAIL",
+    "Sähköpostillakirjautumiskäsky": "If you aren't part of Finlands Scout RY, \n sign in with e-mail",
+    "sähköpostiosoite placeholder": "E-mail",
+    "lähetä nappi": "EN: PYYDÄ KIRJAUTUMISLINKKI",
+    "E-mail kirjautumisen teksti": "EN: Jos et ole Suomen Patiolaisten jäsen, \n kirjoita yllä olevaan tekstikenttään se \n sähköpostiosoite, jonka annoit ilmoit- \n tautuessasi leirille, ja napauta painiketta. \n \n Antamaasi osoitteeseen lähetetään \n kirjautumislinkki, jota napauttamalla \n voit kirjautua tähän sovellukseen. \n \n Jos olet Suomen Partiolaisten jäsen \n käytä kirjautumiseen PartioID:tä.",
   },
   fi: {
     "Kalenteri": "Kalenteri",
@@ -91,7 +98,14 @@
     "Ei voitu perua aktiviteetin tekemistä": "Ei voitu perua aktiviteetin tekemistä",
     "Virhe nettiyhteydessä": "Virhe nettiyhteydessä",
     "Ei voitu merkitä aktiviteettia tehdyksi": "Ei voitu merkitä aktiviteettia tehdyksi",
-    "Ei voitu perua aktiviteetin tekemistä": "Ei voitu perua aktiviteetin tekemistä"
+    "Ei voitu perua aktiviteetin tekemistä": "Ei voitu perua aktiviteetin tekemistä",
+    "login title": "Kirjaudu nähdäksesi \n henkilökohtaiset tietosi",
+    "Kirjaudu Partioid:llä": "KIRJAUDU PARTIOID:LLÄ",
+    "Kirjaudu sähköpostiosoitteella": "KIRJAUDU SÄHKÖPOSTIOSOITTEELLA",
+    "Sähköpostillakirjautumiskäsky": "Jos et ole Suomen Partiolaisten jäsen, \n kirjaudu sähköpostiosoitteella",
+    "sähköpostiosoite placeholder": "sähköpostiosoite",
+    "lähetä nappi": "PYYDÄ KIRJAUTUMISLINKKI",
+    "E-mail kirjautumisen teksti": "Jos et ole Suomen Patiolaisten jäsen, \n kirjoita yllä olevaan tekstikenttään se \n sähköpostiosoite, jonka annoit ilmoit- \n tautuessasi leirille, ja napauta painiketta. \n \n Antamaasi osoitteeseen lähetetään \n kirjautumislinkki, jota napauttamalla \n voit kirjautua tähän sovellukseen. \n \n Jos olet Suomen Partiolaisten jäsen \n käytä kirjautumiseen PartioID:tä.",
   },
   sv: {
     "Kalenteri": "Kalendar",
@@ -138,6 +152,13 @@
     "Ei voitu perua aktiviteetin tekemistä": "SV: Ei voitu perua aktiviteetin tekemistä",
     "Virhe nettiyhteydessä": "SV: Virhe nettiyhteydessä",
     "Ei voitu merkitä aktiviteettia tehdyksi": "SV: Ei voitu merkitä aktiviteettia tehdyksi",
-    "Ei voitu perua aktiviteetin tekemistä": "SV: Ei voitu perua aktiviteetin tekemistä"
-  }
+    "Ei voitu perua aktiviteetin tekemistä": "SV: Ei voitu perua aktiviteetin tekemistä",
+    "login title": "SV: Kirjaudu nähdäksesi \n henkilökohtaiset tietosi",
+    "Kirjaudu Partioid:llä": "SV: KIRJAUDU PARTIOID:LLÄ",
+    "Kirjaudu sähköpostiosoitteella": "SV: KIRJAUDU SÄHKÖPOSTIOSOITTEELLA",
+    "Sähköpostillakirjautumiskäsky": "SV: Jos et ole Suomen Partiolaisten jäsen, \n kirjaudu sähköpostiosoitteella",
+    "sähköpostiosoite placeholder": "SV: sähköpostiosoite",
+    "lähetä nappi": "SV: PYYDÄ KIRJAUTUMISLINKKI",
+    "E-mail kirjautumisen teksti": "SV: Jos et ole Suomen Patiolaisten jäsen, \n kirjoita yllä olevaan tekstikenttään se \n sähköpostiosoite, jonka annoit ilmoit- \n tautuessasi leirille, ja napauta painiketta. \n \n Antamaasi osoitteeseen lähetetään \n kirjautumislinkki, jota napauttamalla \n voit kirjautua tähän sovellukseen. \n \n Jos olet Suomen Partiolaisten jäsen \n käytä kirjautumiseen PartioID:tä.",
+}
 };

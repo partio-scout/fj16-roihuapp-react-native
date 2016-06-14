@@ -165,11 +165,17 @@ export const categoryStyles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 30
   },
+    textInputContainer2: {
+    borderColor: TEXT_COLOR,
+    borderWidth: 1,
+    margin: 20,
+  },
   textInput: {
     height: 36,
     padding: 5,
     backgroundColor: MAIN_COLOR
   },
+
   bold: {
     fontWeight: 'bold'
   }

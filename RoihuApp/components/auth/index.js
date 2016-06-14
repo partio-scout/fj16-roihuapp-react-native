@@ -20,15 +20,28 @@ import Login from '../login/index.js';
 import { config } from '../../config.js';
 import { parseCredentials } from '../auth/utils.js';
 import { navigationStyles } from '../../styles.js';
+import { t } from '../../translations.js';
+import { categoryStyles } from '../../styles.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
 const styles = StyleSheet.create({
-  sendButton: {
-    borderColor: 'gray',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    width: 100,
-    borderRadius: 10
+  bigButton: {
+	alignItems: 'center',
+	backgroundColor: '#18A771',
+	marginTop: 50,
+	marginBottom: 5,
+  alignSelf: 'stretch',
+  height: 40,
+  justifyContent: 'center'
+  },
+  bigButton2: {
+  alignItems: 'center',
+  backgroundColor: '#18A771',
+  marginTop: 10,
+  marginBottom: 5,
+  alignSelf: 'stretch',
+  height: 40,
+  justifyContent: 'center'
   }
 });
 
@@ -43,24 +56,25 @@ class EmailLogin extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <View style={{paddingTop: 60}}>
-          <Text style={{textAlign: 'center'}}>
-            Antamalla sähköpostiosoitteesi saat kirjautumislinkin
-          </Text>
-          <TextInput style={{borderColor: 'gray', borderWidth: 1, height: 40, margin: 10}}
-                     value={this.state.text}
-                     autoCapitalize={'none'}
-                     autoCorrect={false}
-                     onSubmitEditing={() => this.props.send(this.state.text)}
-                     onChangeText={(text) => this.setState({text})}/>
-        </View>
+        	<View style={categoryStyles.textInputContainer2}>
+	          <TextInput style={categoryStyles.textInput}
+	                     value={this.state.text}
+	                     autoCapitalize={'none'}
+	                     autoCorrect={false}
+	                     onSubmitEditing={() => this.props.send(this.state.text)}
+	                     onChangeText={(text) => this.setState({text})}
+	                     placeholder={t("sähköpostiosoite placeholder", this.props.lang)}/>
+	        </View>
         <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
-          <TouchableOpacity style={styles.sendButton}
+          <TouchableOpacity style={styles.bigButton2}
                             onPress={() => this.props.send(this.state.text)}>
-            <Text style={{textAlign: 'center'}}>
-              Lähetä
+            <Text style={{textAlign: 'center', color: 'white'}}>
+              {t("lähetä nappi", this.props.lang)}
             </Text>
           </TouchableOpacity>
+          <Text style={{textAlign: 'center', color: 'black'}}>
+              {t("E-mail kirjautumisen teksti", this.props.lang)}
+          </Text>
         </View>
       </View>
     );
@@ -104,36 +118,48 @@ class Auth extends Component {
               flexDirection: 'column',
               alignItems: 'center'}
             }>
-        <Image source={require('../../images/logo_white.png')}
-               style={{margin: 20}}/>
         <Text style={{
-                padding: 15,
-                textAlign: 'center'
+                marginTop: 40,
+                marginBottom: 10,
+                textAlign: 'center',
+                color: 'black',
+                fontWeight: 'bold',
+                fontSize: 20,
               }}>
-          Kirjautuminen vaaditaan omien tietojen näkemiseksi
+          {t("login title", this.props.lang)}
         </Text>
+      <View style={styles.bigButton}>
         <TouchableOpacity onPress={() => this.props.pushRoute({name: "partioid"}) }>
           <Text style={{
-                  padding: 15,
+                  margin: 15,
                   textAlign: 'center',
                   fontSize: 20,
-                  color: 'blue'
+                  color: 'white',
                 }}>
-            Kirjaudu PartioID:llä
+            {t("Kirjaudu Partioid:llä", this.props.lang)}
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {
-            this.props.pushRoute({name: "email"});
-          }}>
-          <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
-            <Text style={{textAlign: 'center'}}>
-              Jos et ole Suomen Partiolaisten jäsen, kirjaudu
-            </Text>
-            <Text style={{textAlign: 'center', fontSize: 20, color: 'blue'}}>
-              Sähköpostiosoitteella
-            </Text>
-          </View>
-        </TouchableOpacity>
+      </View>
+      	 <View style={styles.bigButton}>
+	        <TouchableOpacity onPress={() => {
+	            this.props.pushRoute({name: "email"});
+	          }}>
+		        <Text style={{
+		              margin: 15,
+	                  textAlign: 'center',
+	                  fontSize: 20,
+	                  color: 'white',
+		            }}>
+		              {t("Kirjaudu sähköpostiosoitteella", this.props.lang)}
+		        </Text>    	
+	         </TouchableOpacity>
+         </View> 
+           <Text style={{
+	           	textAlign: 'center',
+	           	color: 'black',
+      		 }}>
+		              {t("Sähköpostillakirjautumiskäsky", this.props.lang)}
+		   </Text>
       </View>
     );
   }
@@ -142,6 +168,7 @@ class Auth extends Component {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
         <EmailLogin email={this.props.email}
+                    lang={this.props.lang}
                     send={(text) => {
                       this.props.actions.setEmail(text);
                       fetch(config.apiUrl + "/RoihuUsers/emailLogin", {
@@ -248,7 +275,8 @@ const setEmail = (email) => ({
 
 export default connect(state => ({
   credentials: state.credentials,
-  email: state.loginMethod.email
+  email: state.loginMethod.email,
+  lang: state.language.lang
 }), (dispatch) => ({
   actions: bindActionCreators({setCredentials, setEmail}, dispatch)
 }))(Auth);
