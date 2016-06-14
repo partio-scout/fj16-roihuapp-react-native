@@ -16,6 +16,7 @@ import User from '../user/index';
 import Info from '../info/index';
 import SettingsWrapper from '../settings/wrapper';
 import Achievements from '../achievements/index';
+import CalendarWrapper from '../calendar/wrapper';
 import Calendar from '../calendar/index';
 import * as actions from './actions';
 const Icon = require('react-native-vector-icons/MaterialIcons');
@@ -62,7 +63,13 @@ class Navigation extends Component {
   renderView(view) {
     switch (view) {
     case "calendar":
-      return (<Calendar/>);
+      return (
+        <CalendarWrapper>
+          <Auth>
+            <Calendar/>
+          </Auth>
+        </CalendarWrapper>
+      );
     case "info":
       return (<Info/>);
     case "achievements":
