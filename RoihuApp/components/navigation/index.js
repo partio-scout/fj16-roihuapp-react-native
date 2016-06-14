@@ -8,15 +8,16 @@ import React, {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {styles} from '../../styles.js';
-import { t } from '../../translations.js';
+import {styles} from '../../styles';
+import { t } from '../../translations';
 import Map from '../map/index';
-import Auth from '../auth/index.js';
-import User from '../user/index.js';
-import Info from '../info/index.js';
-import SettingsWrapper from '../settings/wrapper.js';
-import Achievements from '../achievements/index.js';
-import * as actions from './actions.js';
+import Auth from '../auth/index';
+import User from '../user/index';
+import Info from '../info/index';
+import SettingsWrapper from '../settings/wrapper';
+import Achievements from '../achievements/index';
+import Calendar from '../calendar/index';
+import * as actions from './actions';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
 class Navigation extends Component {
@@ -48,6 +49,7 @@ class Navigation extends Component {
           {this.renderView(view)}
         </View>
         <View style={styles.buttonBar}>
+          {this.renderTabButton("calendar", t("Kalenteri", lang), "insert-invitation")}
           {this.renderTabButton("map", t("Kartta", lang), "map")}
           {this.renderTabButton("info", t("Info", lang), "info-outline")}
           {this.renderTabButton("achievements", t("Aktiviteetit", lang), "stars")}
@@ -59,6 +61,8 @@ class Navigation extends Component {
 
   renderView(view) {
     switch (view) {
+    case "calendar":
+      return (<Calendar/>);
     case "info":
       return (<Info/>);
     case "achievements":

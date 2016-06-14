@@ -8,9 +8,12 @@ import React, {
   Dimensions,
   ListView
 } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { config } from '../../config';
 
-const moment = require('moment');
-const R = require('ramda');
+import moment from 'moment';
+import R from 'ramda';
 
 const styles = StyleSheet.create({
   viewPager: {
@@ -22,7 +25,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const saturday = R.map((hour) => ({start_time: moment("2016-07-23T00:00:00+0300").add(hour, 'hours'),
+/*const saturday = R.map((hour) => ({start_time: moment("2016-07-23T00:00:00+0300").add(hour, 'hours'),
                                    end_time: moment("2016-07-23T01:00:00+0300").add(hour, 'hours'),
                                    title: "Jalista suoralla lauantai " + hour,
                                    id: 30 + hour}),
@@ -40,9 +43,9 @@ const events = R.unnest([{start_time: moment("2016-07-22T08:00:00+0300"),
                          {start_time: moment("2016-07-24T18:00:00+0300"),
                           end_time: moment("2016-07-24T19:00:00+0300"),
                           title: "Jalista suoralla sunnuntai",
-                          id: 4}]);
+                          id: 4}]);*/
 
-class Day extends Component {
+/*class Day extends Component {
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id});
@@ -82,20 +85,73 @@ const partitionKey = (timestamp) => timestamp.format("YYYY.MM.DD");
 
 function eventsByDay(events) {
   return R.groupBy((event) => partitionKey(event.start_time), events);
-}
+}*/
 
-export default class Calendar extends Component {
+class Calendar extends Component {
   render() {
-    const viewsByKey = R.sortBy(([key, view]) => parseInt(key),
+    /*const viewsByKey = R.sortBy(([key, view]) => parseInt(key),
                                 R.toPairs(R.map(pageView, eventsByDay(events))));
     const today = moment("2016-07-23T18:00:00+0300");
     const todayIndex = R.findIndex(([key, view]) => key === partitionKey(today), viewsByKey);
-    const views = R.map(([key, view]) => view, viewsByKey);
+    const views = R.map(([key, view]) => view, viewsByKey);*/
     return (
-      <ViewPagerAndroid style={[styles.viewPager, {width: Dimensions.get('window').width}]}
+      <View>
+        <Text>Mortonki</Text>
+      </View>
+      /*<ViewPagerAndroid style={[styles.viewPager, {width: Dimensions.get('window').width}]}
                         initialPage={todayIndex === -1 ? 0 : todayIndex}>
         {views}
-      </ViewPagerAndroid>
+      </ViewPagerAndroid>*/
     );
   }
+
+  fetchUserCalendar(credentials) {
+    console.log("Fetching user calendar");
+    fetch(config.apiUrl + "/RoihuUsers/" + credentials.userId + "/calendar?access_token=" + credentials.token)
+      .then((response) => response.json())
+      .then((calendar) => {
+        this.props.actions.setCalendar(calendar);
+      })
+      .catch((error) => {
+        this.props.actions.setError(error);
+      });
+  }
+
+  componentDidMount() {
+    const { credentials, data } = this.props;
+    if (isEmpty(data)) {
+      this.fetchUserCalendar(credentials);
+    }
+  }
+
+  componentWillMount() {
+    this.refreshListener = this.props.refreshEventEmitter.addListener (
+      "refresh", () => this.fetchUserCalendar(this.props.credentials)
+    );
+  }
+
+  componentWillUnmount() {
+    this.refreshListener.remove();
+  }  
 }
+
+const setCalendar = (data) => ({
+  type: "SET_CALENDAR",
+  details: details
+});
+
+const setError = (error) => ({
+  type: "SET_CALENDAR_ERROR",
+  error: error
+});
+
+export default connect(state => ({
+  credentials: state.credentials,
+  data: state.calendar.data,
+  error: state.calendar.error,
+  lang: state.language.lang,
+}), (dispatch) => ({
+  actions: bindActionCreators({setCalendar,
+                               setError,
+                               removeCredentials}, dispatch)
+}))(Calendar);
