@@ -51,7 +51,7 @@ class User extends Component {
       <TouchableOpacity key={asset} onPress={() => onSelection(asset)}>
         <Image source={asset.node.image}
                resizeMode={'contain'}
-               style={{width: 150, height: 150, margin: 5}}/>
+               style={{width: 71, height: 71, margin: 5}}/>
       </TouchableOpacity>
     );
   }
@@ -81,7 +81,7 @@ class User extends Component {
     } else {
       return (
         <Image source={image}
-               style={{width: 85, height: 85, margin: 5}}/>
+               style={{width: 71, height: 71, margin: 5}}/>
       );
     }
   }
