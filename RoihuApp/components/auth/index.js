@@ -111,7 +111,7 @@ class Auth extends Component {
     }
   }
 
-  renderRootScene() {
+  renderPartioIdLogin() {
     return (
       <View style={{
               flex: 1,
@@ -140,12 +140,23 @@ class Auth extends Component {
             </Text>
           </TouchableOpacity>
         </View>
+      </View>
+    );
+  }
+
+  renderEmailLogin() {
+    return (
+      <View style={{
+              flex: 1,
+              flexDirection: 'column',
+              alignItems: 'center'}
+            }>
       	<View style={styles.bigButton}>
-	        <TouchableOpacity onPress={() => {
-	            this.props.pushRoute({name: "email"});
-	          }}>
-		      <Text style={{
-		              margin: 15,
+	      <TouchableOpacity onPress={() => {
+	          this.props.pushRoute({name: "email"});
+	        }}>
+		    <Text style={{
+		            margin: 15,
 	                  textAlign: 'center',
 	                  fontSize: 20,
 	                  color: 'white'
@@ -160,6 +171,15 @@ class Auth extends Component {
       		     }}>
 		     {t("Sähköpostillakirjautumiskäsky", this.props.lang)}
 		   </Text>
+      </View>
+    );
+  }
+
+  renderRootScene() {
+    return (
+      <View>
+        {this.renderPartioIdLogin()}
+        {this.renderEmailLogin()}
       </View>
     );
   }
