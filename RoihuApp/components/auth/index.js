@@ -179,7 +179,7 @@ class Auth extends Component {
     return (
       <View>
         {this.renderPartioIdLogin()}
-        {this.renderEmailLogin()}
+        {/*this.renderEmailLogin()*/}
       </View>
     );
   }
