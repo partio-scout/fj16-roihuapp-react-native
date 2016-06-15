@@ -9,7 +9,7 @@ import React, {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { t, setLanguage } from '../../translations';
-import { categoryStyles } from '../../styles';
+import { styles, categoryStyles } from '../../styles';
 import DeviceInfo from 'react-native-device-info';
 
 
@@ -39,25 +39,9 @@ class Settings extends Component {
         </View>
         <View style={categoryStyles.articleContentContainer}>
           <Text style={categoryStyles.textColor}>
-            {DeviceInfo.getVersion()}{"\n"}Suomen Partiolaiset - Finlands Scouter ry
+            {DeviceInfo.getVersion()}{"\n"}{"\n"}{t("Versiotieto-content", this.props.lang)}{"\n"}{"\n"}Suomen Partiolaiset - Finlands Scouter ry
           </Text>  
-        </View>         
-        <View style={categoryStyles.articleTitleContainer}>
-          <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>
-            {t("Huomautuksia versiosta", this.props.lang)}
-          </Text>
-        </View>
-        <View style={categoryStyles.articleContentContainer}>
-          <Text style={categoryStyles.textColor}>
-            - Kalenteri-osio puuttuu vielä.{"\n"}
-            - Tapahtumahaku-osio puuttuu vielä.{"\n"}
-            - Kartta ei ole lopullinen.{"\n"}
-            - Ohjeet-osion artikkelit ovat kohta vaihtumassa todellisiksi.{"\n"}
-            - Paikat-osiosta puuttuu vielä paljon paikkoja.{"\n"}
-            - Aktiviteetit-osio on tekstien puolesta valmis, mutta suoritusten lukumäärätietoja tulee vielä lisää.{"\n"}
-            - Minä-osio näyttää vain yhden testikäyttäjän tiedot.{"\n"}
-          </Text>  
-        </View>         
+        </View>                 
         <View style={categoryStyles.articleTitleContainer}>
           <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>
             {t("Palaute", this.props.lang)}
@@ -73,8 +57,8 @@ class Settings extends Component {
             {t("Tekijät", this.props.lang)}
           </Text>
         </View>  
-        <View style={categoryStyles.articleContentContainer}>
-          <Text style={categoryStyles.textColor}>
+        <View style={[categoryStyles.articleContentContainer, styles.content]}>
+          <Text style={[categoryStyles.textColor, {textAlign: 'center'}]}>
             <Text style={categoryStyles.bold}>Toiminnallisuus, projektipäällikkyys</Text>
             <Text>
               {"\n"}Sakari Kouti
