@@ -295,7 +295,7 @@ export const modalStyles = StyleSheet.create({
     padding: 20,
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   mapImage: {
     resizeMode: 'contain',
