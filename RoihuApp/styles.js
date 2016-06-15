@@ -5,8 +5,8 @@ import React, {
   Platform
 } from 'react-native';
 
-const MAIN_COLOR = '#FFFFFF';
-const BAR_BACKGROUND_COLOR = '#18A771';
+export const MAIN_COLOR = '#FFFFFF';
+export const BAR_BACKGROUND_COLOR = '#18A771';
 const BORDER_COLOR = '#3EAADF';
 const TEXT_COLOR = '#000000';
 
@@ -96,6 +96,7 @@ export const infoStyles = StyleSheet.create({
   topNavigationBar: {
     flexDirection: 'row',
     backgroundColor: BAR_BACKGROUND_COLOR,
+    height: 50,
     paddingBottom: 10,
     marginBottom: 10
   }

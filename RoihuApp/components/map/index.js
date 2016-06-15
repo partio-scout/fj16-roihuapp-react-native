@@ -6,23 +6,28 @@ import React, {
   Image,
   Modal,
   Dimensions,
+  Platform,
   TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { MapComponent } from './MapComponent';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { infoStyles, navigationStyles, styles, modalStyles } from '../../styles';
+import { infoStyles, navigationStyles, styles, modalStyles, MAIN_COLOR, BAR_BACKGROUND_COLOR } from '../../styles';
 
 
 class Map extends Component {
 
   renderTopBar() {
+    const markerIcon = Platform.OS === 'android' ? (
+      <TouchableOpacity style={{paddingRight: 10, paddingTop: 10, flex: 1}} onPress={() => this.props.actions.setMarkers(true)}>
+          <Icon style={[navigationStyles.mapButton, styles.buttonBarIcon]} name="place" color={Platform.OS === 'android' ? MAIN_COLOR : BAR_BACKGROUND_COLOR} />
+        </TouchableOpacity>
+    ) : (<View />);
+    
     return(
       <View style={infoStyles.topNavigationBar}>
-        <TouchableOpacity style={{paddingRight: 10, paddingTop: 10, flex: 1}} onPress={() => this.props.actions.setMarkers(true)}>
-          <Icon style={[navigationStyles.mapButton, styles.buttonBarIcon]} name="place" />
-        </TouchableOpacity>
+       {markerIcon}
       </View>
     );        
   }
