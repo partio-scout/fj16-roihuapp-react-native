@@ -13,7 +13,7 @@ import React, {
 import moment from 'moment';
 import { t } from '../../translations.js';
 import { config } from '../../config.js';
-import { categoryStyles } from '../../styles.js';
+import { categoryStyles, styles } from '../../styles.js';
 import { renderProgressBar } from '../../utils.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
@@ -85,8 +85,8 @@ function renderSearchInput(lang) {
     return null;
 
   return (
-    <View style={categoryStyles.textInputContainer}>
-      <TextInput style={categoryStyles.textInput}
+    <View style={styles.textInputContainer}>
+      <TextInput style={styles.textInput}
                  placeholder={t("Hae", lang)} />
     </View>);*/
 }

@@ -19,7 +19,7 @@ import { setCredentials } from '../login/actions.js';
 import Login from '../login/index.js';
 import { config } from '../../config.js';
 import { parseCredentials } from '../auth/utils.js';
-import { navigationStyles, categoryStyles, authStyles } from '../../styles.js';
+import { authStyles, styles } from '../../styles.js';
 import { t } from '../../translations.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
@@ -34,8 +34,8 @@ class EmailLogin extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        	<View style={categoryStyles.textInputContainer2}>
-	          <TextInput style={categoryStyles.textInput}
+        	<View style={authStyles.textInputContainer}>
+	          <TextInput style={styles.textInput}
 	                     value={this.state.text}
 	                     autoCapitalize={'none'}
 	                     autoCorrect={false}
@@ -44,7 +44,7 @@ class EmailLogin extends Component {
 	                     placeholder={t("sähköpostiosoite placeholder", this.props.lang)}/>
 	        </View>
         <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
-          <TouchableOpacity style={authStyles.bigButton2}
+          <TouchableOpacity style={authStyles.sendEmailButton}
                             onPress={() => this.props.send(this.state.text)}>
             <Text style={{textAlign: 'center', color: 'white'}}>
               {t("lähetä nappi", this.props.lang)}

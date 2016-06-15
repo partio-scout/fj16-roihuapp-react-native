@@ -10,6 +10,19 @@ export const BAR_BACKGROUND_COLOR = '#18A771';
 const BORDER_COLOR = '#3EAADF';
 const TEXT_COLOR = '#000000';
 
+const baseTextInputContainer =  {
+    borderColor: TEXT_COLOR,
+    borderWidth: 1
+};
+
+const baseButton = {
+  alignItems: 'center',
+  backgroundColor: BAR_BACKGROUND_COLOR,
+  alignSelf: 'stretch',
+  height: 40,
+  justifyContent: 'center'
+};
+
 export const styles = StyleSheet.create({
   main: {
     flexDirection: 'column',
@@ -31,13 +44,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center'
   },
   basicButton: {
-    alignItems: 'center',
-    backgroundColor: BAR_BACKGROUND_COLOR,
+    ...baseButton,
     marginTop: 10,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    height: 40,
-    justifyContent: 'center'
+    marginBottom: 10
   },
   buttonBarColor: {
     color: MAIN_COLOR
@@ -49,6 +58,11 @@ export const styles = StyleSheet.create({
   hiddenButtonBarIcon: {
     color: BAR_BACKGROUND_COLOR,
     fontSize: 30
+  },
+  textInput: {
+    height: 36,
+    padding: 5,
+    backgroundColor: MAIN_COLOR
   }
 });
 
@@ -158,24 +172,12 @@ export const categoryStyles = StyleSheet.create({
     paddingBottom: 10
   },
   textInputContainer: {
-    borderColor: TEXT_COLOR,
-    borderWidth: 1,
+    ...baseTextInputContainer,
     marginTop: 5,
     marginBottom: 5,
     marginLeft: 10,
     marginRight: 30
   },
-    textInputContainer2: {
-    borderColor: TEXT_COLOR,
-    borderWidth: 1,
-    margin: 20,
-  },
-  textInput: {
-    height: 36,
-    padding: 5,
-    backgroundColor: MAIN_COLOR
-  },
-
   bold: {
     fontWeight: 'bold'
   }
@@ -305,21 +307,17 @@ export const modalStyles = StyleSheet.create({
 
 export const authStyles = StyleSheet.create({
   bigButton: {
-	alignItems: 'center',
-	backgroundColor: '#18A771',
+    ...baseButton,
 	marginTop: 50,
-	marginBottom: 5,
-    alignSelf: 'stretch',
-    height: 40,
-    justifyContent: 'center'
+	marginBottom: 5
   },
-  bigButton2: {
-    alignItems: 'center',
-    backgroundColor: '#18A771',
+  sendEmailButton: {
+    ...baseButton,
     marginTop: 10,
-    marginBottom: 5,
-    alignSelf: 'stretch',
-    height: 40,
-    justifyContent: 'center'
-  }
+    marginBottom: 5
+  },
+  textInputContainer: {
+    ...baseTextInputContainer,
+    margin: 20
+  },
 });
