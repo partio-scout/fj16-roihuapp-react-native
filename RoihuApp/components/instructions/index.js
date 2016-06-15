@@ -86,7 +86,7 @@ class Instructions extends Component {
         fetchData("Fetching instructions",
                   this.props.actions.setFetchStatus,
                   "/LocationCategories/Translations",
-                  {'afterDate': moment().format()},
+                  {},
                   this.props.actions.setInstructions,
                   this.props.lang,
                   "Ohjeiden haku epäonnistui");
@@ -96,7 +96,7 @@ class Instructions extends Component {
       fetchData("Fetching instructions",
                 this.props.actions.setFetchStatus,
                 "/InstructionCategories/Translations",
-                {'afterDate': moment().format()},
+                {},
                 this.props.actions.setInstructions,
                 this.props.lang,
                 "Ohjeiden haku epäonnistui");
