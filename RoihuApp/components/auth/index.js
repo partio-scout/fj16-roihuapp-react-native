@@ -19,31 +19,9 @@ import { setCredentials } from '../login/actions.js';
 import Login from '../login/index.js';
 import { config } from '../../config.js';
 import { parseCredentials } from '../auth/utils.js';
-import { navigationStyles } from '../../styles.js';
+import { navigationStyles, categoryStyles, authStyles } from '../../styles.js';
 import { t } from '../../translations.js';
-import { categoryStyles } from '../../styles.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
-
-const styles = StyleSheet.create({
-  bigButton: {
-	alignItems: 'center',
-	backgroundColor: '#18A771',
-	marginTop: 50,
-	marginBottom: 5,
-    alignSelf: 'stretch',
-    height: 40,
-    justifyContent: 'center'
-  },
-  bigButton2: {
-    alignItems: 'center',
-    backgroundColor: '#18A771',
-    marginTop: 10,
-    marginBottom: 5,
-    alignSelf: 'stretch',
-    height: 40,
-    justifyContent: 'center'
-  }
-});
 
 class EmailLogin extends Component {
   constructor(props) {
@@ -66,7 +44,7 @@ class EmailLogin extends Component {
 	                     placeholder={t("sähköpostiosoite placeholder", this.props.lang)}/>
 	        </View>
         <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
-          <TouchableOpacity style={styles.bigButton2}
+          <TouchableOpacity style={authStyles.bigButton2}
                             onPress={() => this.props.send(this.state.text)}>
             <Text style={{textAlign: 'center', color: 'white'}}>
               {t("lähetä nappi", this.props.lang)}
@@ -128,7 +106,7 @@ class Auth extends Component {
               }}>
           {t("login title", this.props.lang)}
         </Text>
-        <View style={styles.bigButton}>
+        <View style={authStyles.bigButton}>
           <TouchableOpacity onPress={() => this.props.pushRoute({name: "partioid"}) }>
             <Text style={{
                     margin: 15,
@@ -151,7 +129,7 @@ class Auth extends Component {
               flexDirection: 'column',
               alignItems: 'center'}
             }>
-      	<View style={styles.bigButton}>
+      	<View style={authStyles.bigButton}>
 	      <TouchableOpacity onPress={() => {
 	          this.props.pushRoute({name: "email"});
 	        }}>

@@ -302,3 +302,24 @@ export const modalStyles = StyleSheet.create({
     height: Dimensions.get("window").height / 1.4
   }
 });
+
+export const authStyles = StyleSheet.create({
+  bigButton: {
+	alignItems: 'center',
+	backgroundColor: '#18A771',
+	marginTop: 50,
+	marginBottom: 5,
+    alignSelf: 'stretch',
+    height: 40,
+    justifyContent: 'center'
+  },
+  bigButton2: {
+    alignItems: 'center',
+    backgroundColor: '#18A771',
+    marginTop: 10,
+    marginBottom: 5,
+    alignSelf: 'stretch',
+    height: 40,
+    justifyContent: 'center'
+  }
+});
