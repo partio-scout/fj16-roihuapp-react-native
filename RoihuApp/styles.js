@@ -131,7 +131,7 @@ export const categoryStyles = StyleSheet.create({
     padding: 10
   },
   articleTitleContainer: {
-    padding:0,
+    paddingTop: 10,
     borderBottomWidth: 1,
     borderBottomColor: BORDER_COLOR
   },
