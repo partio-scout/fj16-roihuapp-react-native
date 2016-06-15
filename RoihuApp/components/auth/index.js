@@ -30,18 +30,18 @@ const styles = StyleSheet.create({
 	backgroundColor: '#18A771',
 	marginTop: 50,
 	marginBottom: 5,
-  alignSelf: 'stretch',
-  height: 40,
-  justifyContent: 'center'
+    alignSelf: 'stretch',
+    height: 40,
+    justifyContent: 'center'
   },
   bigButton2: {
-  alignItems: 'center',
-  backgroundColor: '#18A771',
-  marginTop: 10,
-  marginBottom: 5,
-  alignSelf: 'stretch',
-  height: 40,
-  justifyContent: 'center'
+    alignItems: 'center',
+    backgroundColor: '#18A771',
+    marginTop: 10,
+    marginBottom: 5,
+    alignSelf: 'stretch',
+    height: 40,
+    justifyContent: 'center'
   }
 });
 
