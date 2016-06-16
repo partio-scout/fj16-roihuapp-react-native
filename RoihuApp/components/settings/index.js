@@ -20,7 +20,7 @@ class Settings extends Component {
       <ScrollView>
         <View style={categoryStyles.articleTitleContainer}>
           <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>
-            Kieli
+            {t("Kieli", this.props.lang)}
           </Text>
         </View>
         <View style={categoryStyles.articleContentContainer}>
@@ -59,44 +59,44 @@ class Settings extends Component {
         </View>  
         <View style={[categoryStyles.articleContentContainer, styles.content]}>
           <Text style={[categoryStyles.textColor, {textAlign: 'center'}]}>
-            <Text style={categoryStyles.bold}>Toiminnallisuus, projektipäällikkyys</Text>
+            <Text style={categoryStyles.bold}>{t("Toiminnallisuus, projektipäällikkyys", this.props.lang)}</Text>
             <Text>
               {"\n"}Sakari Kouti
             </Text>
             {"\n"}{"\n"}
-            <Text style={categoryStyles.bold}>Käyttöliittymä</Text>
+            <Text style={categoryStyles.bold}>{t("Käyttöliittymä", this.props.lang)}</Text>
             <Text>
               {"\n"}Sakari Kouti
               {"\n"}Kimmo Koskinen
             </Text>
             {"\n"}{"\n"}
-            <Text style={categoryStyles.bold}>Ohjelmointi</Text>
+            <Text style={categoryStyles.bold}>{t("Ohjelmointi", this.props.lang)}</Text>
             <Text>
               {"\n"}Kimmo Koskinen
               {"\n"}Kalle Haavisto
             </Text>
             {"\n"}{"\n"}
-            <Text style={categoryStyles.bold}>Ulkoasu</Text>
+            <Text style={categoryStyles.bold}>{t("Ulkoasu", this.props.lang)}</Text>
             <Text>
               {"\n"}Henna Heikkilä
             </Text>
             {"\n"}{"\n"}
-            <Text style={categoryStyles.bold}>Ikonit</Text>
+            <Text style={categoryStyles.bold}>{t("Ikonit", this.props.lang)}</Text>
             <Text>
               {"\n"}Mira Moisio
             </Text>
             {"\n"}{"\n"}
-            <Text style={categoryStyles.bold}>Backend-ohjelmointi</Text>
+            <Text style={categoryStyles.bold}>{t("Backend-ohjelmointi", this.props.lang)}</Text>
             <Text>
               {"\n"}Matias Turunen
             </Text>
             {"\n"}{"\n"}
-            <Text style={categoryStyles.bold}>Paikka- ja kalenteri-data</Text>
+            <Text style={categoryStyles.bold}>{t("Paikka- ja kalenteri-data", this.props.lang)}</Text>
             <Text>
               {"\n"}Jaakko Honkala
             </Text>
             {"\n"}{"\n"}
-            <Text style={categoryStyles.bold}>Lisäksi apuna</Text>
+            <Text style={categoryStyles.bold}>{t("Lisäksi apuna", this.props.lang)}</Text>
             <Text>
               {"\n"}Antti Auranen
               {"\n"}Niilo Jaakkola
