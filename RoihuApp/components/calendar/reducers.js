@@ -1,6 +1,12 @@
+import React, {
+  ListView
+} from 'react-native';
+import { sortByDate } from '../../utils';
+
 export const calendar = (
   state = {routeStack: [{name: "root"}],
            calendar: null,
+           calendarDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.eventId !== r2.eventId}),
            error: null},
   action) => {
     switch (action.type) {
@@ -11,9 +17,13 @@ export const calendar = (
       newStack.pop();
       return Object.assign({}, state, {routeStack: newStack});
     case "RESET_CALENDAR_ROUTES":
-      return Object.assign({}, state, {routeStack: [action.route]});      
+      return Object.assign({}, state, {routeStack: [action.route]}); 
+ 
     case "SET_CALENDAR":
-      return Object.assign({}, state, {calendar: action.calendar});
+      return Object.assign({}, state, {calendar: action.calendar.calendar,
+                                       calendarDataSource: state.calendarDataSource.cloneWithRows(
+                                          action.calendar.calendar.events.sort((a, b) => sortByDate(a.startTime, b.startTime))
+                                       )});
     case "SET_CALENDAR_ERROR":
       return Object.assign({}, state, {error: action.error});
     }
