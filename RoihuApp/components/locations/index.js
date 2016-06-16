@@ -78,11 +78,11 @@ class Locations extends Component {
     if (this.props.locations !== null && this.props.locations.language.toUpperCase () === this.props.lang.toUpperCase()) {
       // Fetch data automatically if servers next_check time is in past
       if (moment().isAfter(this.props.locations.next_check)) {
-        fetchData("Fetching locations",
+        fetchData("Fetching modified locations",
                   this.props.actions.setFetchStatus,
                   "/LocationCategories/Translations",
-                  {},
-                  this.props.actions.setLocations,
+                  {'afterDate': this.props.locations.timestamp},
+                  this.props.actions.setModifiedLocations,
                   this.props.lang,
                   "Paikkojen haku epäonnistui");
       }
@@ -96,11 +96,11 @@ class Locations extends Component {
                 this.props.lang,
                 "Paikkojen haku epäonnistui");
     }
-    this.refreshListener = this.props.emitter.addListener("refresh", () => fetchData("Fetching locations",
+    this.refreshListener = this.props.emitter.addListener("refresh", () => fetchData("Fetching modified locations",
                                                                                      this.props.actions.setFetchStatus,
                                                                                      "/LocationCategories/Translations",
-                                                                                     {},
-                                                                                     this.props.actions.setLocations,
+                                                                                     {'afterDate': this.props.locations.timestamp},
+                                                                                     this.props.actions.setModifiedLocations,
                                                                                      this.props.lang,
                                                                                      "Paikkojen haku epäonnistui"));
     this.backListener = this.props.emitter.addListener("back", () => this.onBack());
@@ -116,6 +116,10 @@ const actions = {
   setLocations: (locations) => ({
     type: "SET_LOCATIONS",
     locations: locations
+  }),
+  setModifiedLocations: (newLocations) => ({
+    type: "SET_MODIFIED_LOCATIONS",
+    newLocations: newLocations
   }),
   selectCategory: (category, route) => ({
     type: "SELECT_LOCATIONS_CATEGORY",
@@ -144,6 +148,7 @@ const titleComparator = (a, b) => a.title.localeCompare(b.title);
 
 export const locations = (
   state = {locations: null,
+           newLocations: null,
            categoriesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            article: {},
@@ -155,6 +160,10 @@ export const locations = (
     case "SET_LOCATIONS":
       return Object.assign({}, state, {locations: action.locations,
                                        categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.locations.categories.sort(titleComparator))});
+    case "SET_MODIFIED_LOCATIONS":
+      const modifiedLocations = Object.assign({}, state.locations, actions.newLocations);
+      return Object.assign({}, state, {locations: modifiedLocations,
+                                       categoriesDataSource: state.categoriesDataSource.cloneWithRows(modifiedLocations.categories.sort(titleComparator))});      
     case "SELECT_LOCATIONS_CATEGORY":
       return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles.sort(titleComparator)),
                                        routeStack: state.routeStack.concat(action.route)});
@@ -177,6 +186,7 @@ export const locations = (
 
 export default connect(state => ({
   locations: state.locations.locations,
+  newLocations: state.locations.newLocations,
   categoriesDataSource: state.locations.categoriesDataSource,
   articlesDataSource: state.locations.articlesDataSource,
   article: state.locations.article,

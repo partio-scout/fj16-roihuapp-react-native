@@ -83,11 +83,11 @@ class Instructions extends Component {
     if (this.props.instructions !== null && this.props.instructions.language.toUpperCase () === this.props.lang.toUpperCase()) {
       // Fetch data automatically if servers next_check time is in past
       if (moment().isAfter(this.props.instructions.next_check)) {
-        fetchData("Fetching instructions",
+        fetchData("Fetching modified instructions",
                   this.props.actions.setFetchStatus,
                   "/LocationCategories/Translations",
-                  {},
-                  this.props.actions.setInstructions,
+                  {'afterDate': this.props.instructions.timestamp},
+                  this.props.actions.setModifiedInstructions,
                   this.props.lang,
                   "Ohjeiden haku epäonnistui");
       }
@@ -101,11 +101,11 @@ class Instructions extends Component {
                 this.props.lang,
                 "Ohjeiden haku epäonnistui");
     }
-    this.refreshListener = this.props.emitter.addListener("refresh", () => fetchData("Fetching instructions",
+    this.refreshListener = this.props.emitter.addListener("refresh", () => fetchData("Fetching modified instructions",
                                                                                      this.props.actions.setFetchStatus,
                                                                                      "/InstructionCategories/Translations",
-                                                                                     {},
-                                                                                     this.props.actions.setInstructions,
+                                                                                     {'afterDate': this.props.instructions.timestamp},
+                                                                                     this.props.actions.setModifiedInstructions,
                                                                                      this.props.lang,
                                                                                      "Ohjeiden haku epäonnistui"));
     this.backListener = this.props.emitter.addListener("back", () => this.onBack());
@@ -122,6 +122,12 @@ const actions = {
     type: "SET_INSTRUCTIONS",
     instructions: instructions
   }),
+
+  setModifiedInstructions: (newInstructions) => ({
+    type: "SET_MODIFIED_INSTRUCTIONS",
+    newInstructions: newInstructions
+  }),
+
   selectCategory: (category, route) => ({
     type: "SELECT_INSTRUCTIONS_CATEGORY",
     category: category,
@@ -147,6 +153,7 @@ const actions = {
 
 export const instructions = (
   state = {instructions: null,
+           newInstructions: null,
            categoriesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            article: {},
@@ -158,6 +165,10 @@ export const instructions = (
     case "SET_INSTRUCTIONS":
       return Object.assign({}, state, {instructions: action.instructions,
                                        categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.instructions.categories.sort((a, b) => sortNumber(a.sort_no, b.sort_no)))});
+    case "SET_MODIFIED_INSTRUCTIONS":
+      const modifiedInstructions = Object.assign({}, state.instructions, state.newInstructions);
+      return Object.assign({}, state, {instructions: modifiedInstructions,
+                                       categoriesDataSource: state.categoriesDataSource.cloneWithRows(modifiedInstructions.categories.sort((a, b) => sortNumber(a.sort_no, b.sort_no)))});
     case "SELECT_INSTRUCTIONS_CATEGORY":
       return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles[0].sort((a, b) => sortNumber(a.sort_no, b.sort_no))),
                                        routeStack: state.routeStack.concat(action.route)});
@@ -181,6 +192,7 @@ export const instructions = (
 
 export default connect(state => ({
   instructions: state.instructions.instructions,
+  newInstructions: state.instructions.newInstructions,
   categoriesDataSource: state.instructions.categoriesDataSource,
   articlesDataSource: state.instructions.articlesDataSource,
   article: state.instructions.article,
