@@ -35,6 +35,7 @@
     "TEHTY!": "DONE!",
     "ENPÄS VIELÄ OLEKAAN": "NO, HAVEN'T DONE YET",
     "Ok": "Ok",
+    "Hieno juttu": "Excellent! \n You have done this activity."
     "Kirjaudu merkitäksesi aktiviteetin tehdyksi": "Log in to mark the activity as done",
     "Kirjaudu peruaksesi aktiviteetin tekemisen": "Log in to unmark the activity as done",
     "Kirjautuminen on vanhentunut, kirjaudu uudelleen": "The login session has expired. Log in again.",
@@ -62,6 +63,7 @@
     "Backend-ohjelmointi": "Backend Programming",
     "Paikka- ja kalenteri-data": "Location and Calendar Data",
     "Lisäksi apuna": "Also Helped",
+    "Karttamerkit": "Map Legend",
   },
   fi: {
     "Kalenteri": "Kalenteri",
@@ -99,6 +101,7 @@
     "TEHTY!": "TEHTY!",
     "ENPÄS VIELÄ OLEKAAN": "ENPÄS VIELÄ OLEKAAN",
     "Ok": "Ok",
+    "Hieno juttu": "Hieno juttu! \n Olet tehnyt tämän tehtävän."
     "Kirjaudu merkitäksesi aktiviteetin tehdyksi": "Kirjaudu merkitäksesi aktiviteetin tehdyksi",
     "Kirjaudu peruaksesi aktiviteetin tekemisen": "Kirjaudu peruaksesi aktiviteetin tekemisen",
     "Kirjautuminen on vanhentunut, kirjaudu uudelleen": "Kirjautuminen on vanhentunut, kirjaudu uudelleen",
@@ -126,6 +129,7 @@
     "Backend-ohjelmointi": "Backend-ohjelmointi",
     "Paikka- ja kalenteri-data": "Paikka- ja kalenteri-data",
     "Lisäksi apuna": "Lisäksi apuna",
+    "Karttamerkit": "Karttamerkit",
   },
   sv: {
     "Kalenteri": "Kalendar",
@@ -160,9 +164,10 @@
     "Tekijät": "Skapad av",
     "Palaute": "SV Palaute",
     "Palaute teksti": "SV Jos huomaat puutteita tai ongelmia, tai sinulla on parannusehdotuksia, lähetä sähköpostia osoitteeseen roihuapp@roihu2016.fi",
-    "TEHTY!": "SV: TEHTY!",
+    "TEHTY!": "UTFÖRD!",
     "ENPÄS VIELÄ OLEKAAN": "NEJ, HAR INTE UTFÖRT DEN ÄNNU",
     "Ok": "Ok",
+    "Hieno juttu": "Fint! \n Du har utfört den här uppgiften."
     "Kirjaudu merkitäksesi aktiviteetin tehdyksi": "Logga in för att anteckna aktiviteten utförd",
     "Kirjaudu peruaksesi aktiviteetin tekemisen": "SV: Kirjaudu peruaksesi aktiviteetin tekemisen",
     "Kirjautuminen on vanhentunut, kirjaudu uudelleen": "Din inloggning har löpt ut, logga in på nytt.",
@@ -190,5 +195,6 @@
     "Backend-ohjelmointi": "Backend-programmering",
     "Paikka- ja kalenteri-data": "Plats- och kalenderdata",
     "Lisäksi apuna": "Dessutom",
+    "Karttamerkit": "SV Karttamerkit",
   }
 };
