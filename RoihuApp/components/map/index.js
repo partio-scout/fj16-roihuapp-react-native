@@ -77,6 +77,7 @@ const actions = {
 
 export default connect(state => ({
   markers: state.map.markers,
+  lang: state.language.lang
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 }))(Map);
