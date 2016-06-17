@@ -42,7 +42,7 @@ class Map extends Component {
           >
           <View style={modalStyles.background}>
             <View style={modalStyles.innerContainer}>
-              <Text style={modalStyles.header}>Karttamerkit</Text>
+              <Text style={modalStyles.header}>{t("Karttamerkit", this.props.lang)}</Text>
               <Image 
                 style={modalStyles.mapImage}
                 source={require('../../images/Karttamerkit-feikki.png')} />
@@ -77,6 +77,7 @@ const actions = {
 
 export default connect(state => ({
   markers: state.map.markers,
+  lang: state.language.lang
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 }))(Map);

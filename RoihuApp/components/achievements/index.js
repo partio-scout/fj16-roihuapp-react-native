@@ -110,8 +110,8 @@ class Achievements extends Component {
           <View style={achievementStyles.doneContainer}>
             <Icon style={achievementStyles.doneIcon} name="done" />
             <View style={{flex: 1}}>
-              <Text style={[categoryStyles.textColor, {marginTop: 10}]}>Hieno juttu!</Text>
-              <Text style={categoryStyles.textColor}>Olet tehnyt tämän tehtävän.</Text>
+              <Text style={[categoryStyles.textColor, {marginTop: 10}]}>{t("Hieno juttu", this.props.lang)}</Text>
+              <Text style={categoryStyles.textColor}>{t("Olet tehnyt tämän tehtävän", this.props.lang)}</Text>
             </View>
           </View>
           {this.renderWideButton(t("ENPÄS VIELÄ OLEKAAN", lang), () => this.markAchievement(achievement.id, false))}

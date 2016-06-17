@@ -25,7 +25,7 @@ class Settings extends Component {
         </View>
         <View style={categoryStyles.articleContentContainer}>
           <Picker selectedValue={this.props.lang}
-                  prompt={"Kieli"}
+                  prompt={t("Kieli", this.props.lang)}
                   onValueChange={(lang) => this.props.actions.setLanguage(lang)}>
             <Picker.Item label="Suomi" value="fi" />
             <Picker.Item label="Svenska" value="sv" />
@@ -39,7 +39,7 @@ class Settings extends Component {
         </View>
         <View style={categoryStyles.articleContentContainer}>
           <Text style={categoryStyles.textColor}>
-            {DeviceInfo.getVersion()}{"\n"}{"\n"}{t("Versiotieto-content", this.props.lang)}{"\n"}{"\n"}Suomen Partiolaiset - Finlands Scouter ry
+            {DeviceInfo.getVersion()}{"\n"}{"\n"}{t("Versiotieto-content", this.props.lang)}
           </Text>  
         </View>                 
         <View style={categoryStyles.articleTitleContainer}>
