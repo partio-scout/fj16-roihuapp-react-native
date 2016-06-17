@@ -40,7 +40,7 @@ class EditDetails extends Component {
         <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>{t("Muokkaa tietoja", lang)}</Text>
         <Form ref="form" value={details} type={fields} options={options(lang)} />
         <TouchableHighlight style={styles.basicButton} onPress={() => this.saveDetails()}>
-          <Text style={styles.buttonBarColor}>Tallenna</Text>
+          <Text style={styles.buttonBarColor}>{t("Tallenna", lang)}</Text>
         </TouchableHighlight>
       </View>
     );
