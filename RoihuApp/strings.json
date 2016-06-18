@@ -1,5 +1,5 @@
 {
-  en: {
+  "en": {
     "Kalenteri": "Calendar",
     "Kartta": "Map",
     "Info": "Info",
@@ -60,9 +60,9 @@
     "Backend-ohjelmointi": "Backend Programming",
     "Paikka- ja kalenteri-data": "Location and Calendar Data",
     "Lisäksi apuna": "Also Helped",
-    "Karttamerkit": "Map Legend",
+    "Karttamerkit": "Map Legend"
   },
-  fi: {
+  "fi": {
     "Kalenteri": "Kalenteri",
     "Kartta": "Kartta",
     "Info": "Info",
@@ -123,9 +123,9 @@
     "Backend-ohjelmointi": "Backend-ohjelmointi",
     "Paikka- ja kalenteri-data": "Paikka- ja kalenteri-data",
     "Lisäksi apuna": "Lisäksi apuna",
-    "Karttamerkit": "Karttamerkit",
+    "Karttamerkit": "Karttamerkit"
   },
-  sv: {
+  "sv": {
     "Kalenteri": "Kalendar",
     "Kartta": "Karta",
     "Info": "Info",
@@ -186,6 +186,6 @@
     "Backend-ohjelmointi": "Backend-programmering",
     "Paikka- ja kalenteri-data": "Plats- och kalenderdata",
     "Lisäksi apuna": "Dessutom",
-    "Karttamerkit": "SV Karttamerkit",
+    "Karttamerkit": "SV Karttamerkit"
   }
-};
+}
