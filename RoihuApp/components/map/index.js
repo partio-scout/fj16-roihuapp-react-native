@@ -24,12 +24,12 @@ class Map extends Component {
           <Icon style={[navigationStyles.mapButton, styles.buttonBarIcon]} name="place" color={Platform.OS === 'android' ? MAIN_COLOR : BAR_BACKGROUND_COLOR} />
         </TouchableOpacity>
     ) : (<View />);
-    
+
     return(
       <View style={infoStyles.topNavigationBar}>
        {markerIcon}
       </View>
-    );        
+    );
   }
 
   renderMarkers() {
@@ -43,7 +43,7 @@ class Map extends Component {
           <View style={modalStyles.background}>
             <View style={modalStyles.innerContainer}>
               <Text style={modalStyles.header}>{t("Karttamerkit", this.props.lang)}</Text>
-              <Image 
+              <Image
                 style={modalStyles.mapImage}
                 source={require('../../images/Karttamerkit-feikki.png')} />
               <TouchableOpacity style={styles.basicButton} onPress={() => this.props.actions.setMarkers(false)}>
@@ -52,7 +52,7 @@ class Map extends Component {
             </View>
           </View>
         </Modal>
-      </TouchableOpacity>     
+      </TouchableOpacity>
     );
   }
 
