@@ -14,7 +14,7 @@ import { bindActionCreators } from 'redux';
 import { MapComponent } from './MapComponent';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { infoStyles, navigationStyles, styles, modalStyles, MAIN_COLOR, BAR_BACKGROUND_COLOR } from '../../styles';
-
+import { t } from '../../translations';
 
 class Map extends Component {
 
