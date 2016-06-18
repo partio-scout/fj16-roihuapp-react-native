@@ -84,6 +84,8 @@ class Calendar extends Component {
     fetch(config.apiUrl + "/RoihuUsers/" + credentials.userId + "/calendar?access_token=" + credentials.token + "&lang=" + this.props.lang.toUpperCase())
       .then((response) => response.json())
       .then((calendar) => {
+        console.log('KALENTERI');
+        console.log(calendar);
         setCalendar(calendar);
       })
       .catch((error) => {
