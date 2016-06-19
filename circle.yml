@@ -11,7 +11,7 @@ dependencies:
         pwd:
           RoihuApp
     - npm install -g react-native-cli
-    - if [ $CIRCLE_BRANCH = 'beta' ]; then sed -i "" -e s/app-dev\.roihu2016\.fi/app\.roihu2016\.fi/ RoihuApp/config.js; fi
+    - if [ $CIRCLE_BRANCH = 'beta' ]; then sed -i "" -e s/app-dev\.roihu2016\.fi/app\.roihu2016\.fi/ fj16-roihuapp-react-native/RoihuApp/config.js; fi
 
 test:
   pre:
