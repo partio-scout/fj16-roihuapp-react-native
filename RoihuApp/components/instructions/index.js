@@ -147,7 +147,7 @@ export const instructions = (
       return Object.assign({}, state, {instructions: action.instructions,
                                        categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.instructions.categories.sort((a, b) => sortNumber(a.sort_no, b.sort_no)))});
     case "SELECT_INSTRUCTIONS_CATEGORY":
-      return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles[0].sort((a, b) => sortNumber(a.sort_no, b.sort_no))),
+      return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles.sort((a, b) => sortNumber(a.sort_no, b.sort_no))),
                                        routeStack: state.routeStack.concat(action.route)});
     case "SELECT_INSTRUCTIONS_ARTICLE":
       return Object.assign({},
@@ -160,7 +160,7 @@ export const instructions = (
       return Object.assign({},
                            state, {routeStack: newStack});
     case "SET_INSTRUCTIONS_CURRENT_TITLE":
-      return Object.assign({}, state, {currentTitle: action.currentTitle});      
+      return Object.assign({}, state, {currentTitle: action.currentTitle});
     case "INSTRUCTIONS_FETCH_STATE":
       return Object.assign({}, state, {fetch: {state: action.state}});
     }
