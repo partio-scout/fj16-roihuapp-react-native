@@ -12,6 +12,9 @@ import * as storage from 'redux-storage';
 import createEngine from 'redux-storage-engine-reactnativeasyncstorage';
 import {reducer} from './reducers.js';
 import Navigation from '../navigation/index.js';
+import { baseUrl } from '../../config';
+
+console.log("Using base url", baseUrl);
 
 const engine = createEngine('roihu');
 const middleware = storage.createMiddleware(engine);
