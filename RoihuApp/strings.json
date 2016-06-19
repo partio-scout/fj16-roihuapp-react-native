@@ -60,7 +60,8 @@
     "Backend-ohjelmointi": "Backend Programming",
     "Paikka- ja kalenteri-data": "Location and Calendar Data",
     "Lisäksi apuna": "Also Helped",
-    "Karttamerkit": "Map Legend"
+    "Karttamerkit": "Map Legend",
+    "Aktiviteettien haku epäonnistui": "Failed to fetch activities"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -123,7 +124,8 @@
     "Backend-ohjelmointi": "Backend-ohjelmointi",
     "Paikka- ja kalenteri-data": "Paikka- ja kalenteri-data",
     "Lisäksi apuna": "Lisäksi apuna",
-    "Karttamerkit": "Karttamerkit"
+    "Karttamerkit": "Karttamerkit",
+    "Aktiviteettien haku epäonnistui": "Aktiviteettien haku epäonnistui"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -186,6 +188,7 @@
     "Backend-ohjelmointi": "Backend-programmering",
     "Paikka- ja kalenteri-data": "Plats- och kalenderdata",
     "Lisäksi apuna": "Dessutom",
-    "Karttamerkit": "SV Karttamerkit"
+    "Karttamerkit": "SV Karttamerkit",
+    "Aktiviteettien haku epäonnistui": "SV: Aktiviteettien haku epäonnistui"
   }
 }
