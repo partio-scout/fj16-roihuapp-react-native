@@ -107,7 +107,7 @@ class Auth extends Component {
           {t("login title", this.props.lang)}
         </Text>
         <View style={authStyles.bigButton}>
-          <TouchableOpacity onPress={() => this.props.pushRoute({name: "partioid"}) }>
+          <TouchableOpacity style={{alignSelf: 'stretch',}} onPress={() => this.props.pushRoute({name: "partioid"}) }>
             <Text style={{
                     margin: 15,
                     textAlign: 'center',
