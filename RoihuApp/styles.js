@@ -142,7 +142,8 @@ export const categoryStyles = StyleSheet.create({
     flex: 1
   },
   articleContentContainer: {
-    padding: 10
+    padding: 10,
+    flex: 1
   },
   articleTitleContainer: {
     paddingTop: 10,
