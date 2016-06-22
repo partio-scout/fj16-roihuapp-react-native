@@ -7,7 +7,7 @@ import React, {
   TouchableOpacity,
   ListView,
   StyleSheet,
-  ScrollView
+  WebView
 } from 'react-native';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -17,17 +17,28 @@ import { t } from '../../translations.js';
 import { categoryStyles } from '../../styles.js';
 import { renderCategories, renderArticles, renderRoot, fetchData } from '../common/categories.js';
 import { popWhenRouteNotLastInStack } from '../../utils.js';
-const Markdown = require('react-native-markdown');
+import showdown from 'showdown';
 
 class Instructions extends Component {
 
+  constructor() {
+    super();
+    this.converter = new showdown.Converter({tables: true, strikethrough: true});
+  }
+
   renderBody(body) {
+    const html = `
+<html>
+  <style>
+  body {
+    font-family: Roboto, '-apple-system', Helvetica Neue, Arial;
+  }
+  </style>
+  <body>${this.converter.makeHtml(body)}</body>
+</html>
+`;
     return (
-      <ScrollView style={{flex: 1}}>
-        <Markdown style={categoryStyles.textColor}>
-          {body}
-        </Markdown>
-      </ScrollView>
+      <WebView source={{html: html}}/>
     );
   }
 
