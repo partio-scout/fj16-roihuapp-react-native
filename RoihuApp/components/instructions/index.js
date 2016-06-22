@@ -34,7 +34,7 @@ class Instructions extends Component {
     font-family: Roboto, '-apple-system', Helvetica Neue, Arial;
   }
   </style>
-  <body>${this.converter.makeHtml(body)}</body>
+  <body>${this.converter.makeHtml(body.replace(/([#]+)([^#]*)[#]+/g, (match, headerMarks, header) => headerMarks + header))}</body>
 </html>
 `;
     return (
