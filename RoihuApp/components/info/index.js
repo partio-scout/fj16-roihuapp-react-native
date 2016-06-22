@@ -35,13 +35,14 @@ class Info extends Component {
       case 2:
         return(
           <View style={{flex: 1}}>
-            <Text style={navigationStyles.mainTitle}>{title}</Text>
+            <Text numberOfLines={1} style={navigationStyles.mainTitle}>{title}</Text>
           </View>
         );
       case 3:
         return(
           <View style={{flex: 1}}>
-            <Text 
+            <Text
+              numberOfLines={1}  
               style={navigationStyles.backTitle} 
               onPress={() => this.onBack()}>
               {title}
