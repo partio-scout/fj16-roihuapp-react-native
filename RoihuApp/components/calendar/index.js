@@ -41,6 +41,16 @@ class Calendar extends Component {
     }
   }
 
+  renderAudience(event, lang) {
+    if (event.subcamp !== '') {
+      return t("Vain alaleirille", lang);
+    } else if (event.camptroop !== '') {
+      return t("Vain leirilippukunnalle", lang);
+    } else {
+      return t("Kaikille", lang);
+    }
+  }
+
   renderCalendarEvent(navigator, event) {
     const { view, actions: {setView}, lang } = this.props;
     return (
@@ -53,7 +63,10 @@ class Calendar extends Component {
         <View style={categoryStyles.articleContentContainer}>
           <View style={calendarStyles.eventDetailContainer}>
             <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Kenelle", lang)}</Text>
-            <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}></Text>
+            <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>
+              {this.renderAudience(event, lang)}
+              {"\n"}{event.ageGroups}
+            </Text>
           </View>        
           <View style={calendarStyles.eventDetailContainer}>
             <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Päivämäärä", lang)}</Text>

@@ -71,7 +71,10 @@
     "Päivämäärä": "Date:",
     "Kellonaika": "Time:",
     "Paikka": "Location:",
-    "Osallistumassa": "Attending:"
+    "Osallistumassa": "Attending:",
+    "Kaikille": "For anyone",
+    "Vain leirilippukunnalle": "Only for my camp unit",
+    "Vain alaleirille": "Only for my subcamp"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -145,7 +148,10 @@
     "Päivämäärä": "Päivämäärä:",
     "Kellonaika": "Kellonaika:",
     "Paikka": "Paikka:",
-    "Osallistumassa": "Osallistumassa:"
+    "Osallistumassa": "Osallistumassa:",
+    "Kaikille": "kaikille",
+    "Vain leirilippukunnalle": "vain leirilippukunnalle",
+    "Vain alaleirille": "vain alaleirille"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -219,6 +225,9 @@
     "Päivämäärä": "Datum:",
     "Kellonaika": "Tidpunkt:",
     "Paikka": "Plats:",
-    "Osallistumassa": "Deltar:"
+    "Osallistumassa": "Deltar:",
+    "Kaikille": "För alla",
+    "Vain leirilippukunnalle": "bara för lägerkåren",
+    "Vain alaleirille": "bara för underlägret"
   }
 }
