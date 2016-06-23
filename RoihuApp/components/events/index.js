@@ -87,6 +87,7 @@ class Events extends Component {
                    onWillFocus={onWillFocus}
                    renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
       </View>
+    )
   }
 
   onBack() {
