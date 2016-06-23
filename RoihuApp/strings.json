@@ -67,6 +67,11 @@
     "Kirjaudu nähdäksesi päivitetyt tiedot": "Login to refresh user information",
     "Ohjeiden haku epäonnistui": "Failed to fetch instructions",
     "Virhe nettiyhteydessä": "Network error"
+    "Kenelle": "Audience:",
+    "Päivämäärä": "Date:",
+    "Kellonaika": "Time:",
+    "Paikka": "Location:",
+    "Osallistumassa": "Attending:"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -135,7 +140,12 @@
     "Kirjautuminen vanhentunut": "Kirjautuminen vanhentunut",
     "Kirjaudu nähdäksesi päivitetyt tiedot": "Kirjaudu nähdäksesi päivitetyt tiedot",
     "Ohjeiden haku epäonnistui": "Ohjeiden haku epäonnistui",
-    "Virhe nettiyhteydessä": "Virhe nettiyhteydessä"
+    "Virhe nettiyhteydessä": "Virhe nettiyhteydessä",
+    "Kenelle": "Kenelle:",
+    "Päivämäärä": "Päivämäärä:",
+    "Kellonaika": "Kellonaika:",
+    "Paikka": "Paikka:",
+    "Osallistumassa": "Osallistumassa:"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -205,5 +215,10 @@
     "Kirjaudu nähdäksesi päivitetyt tiedot": "SV: Kirjaudu nähdäksesi päivitetyt tiedot",
     "Ohjeiden haku epäonnistui": "SV: Ohjeiden haku epäonnistui",
     "Virhe nettiyhteydessä": "Problem med nätförbindelsen"
+    "Kenelle": "För vem:",
+    "Päivämäärä": "Datum:",
+    "Kellonaika": "Tidpunkt:",
+    "Paikka": "Plats:",
+    "Osallistumassa": "Deltar:"
   }
 }

@@ -281,6 +281,22 @@ export const userStyles = StyleSheet.create({
   }
 });
 
+export const calendarStyles = StyleSheet.create({
+  eventDetailContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  eventDetailTitle: {
+    flex:1.5, 
+    textAlign: 'right'
+  },
+  eventDetailContent: {
+    flex:2.5,
+    marginLeft: 5
+  }
+});
+
 export const modalStyles = StyleSheet.create({
   header: {
     color: TEXT_COLOR,

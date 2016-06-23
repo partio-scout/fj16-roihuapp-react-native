@@ -6,6 +6,7 @@ import React, {
   StyleSheet,
   Dimensions,
   ListView,
+  ScrollView,
   Navigator,
   TouchableOpacity
 } from 'react-native';
@@ -15,7 +16,7 @@ import { bindActionCreators } from 'redux';
 import { config } from '../../config';
 import { removeCredentials } from '../login/actions';
 import { isEmpty, renderRefreshButton } from '../../utils';
-import { infoStyles, categoryStyles } from '../../styles';
+import { calendarStyles, infoStyles, categoryStyles } from '../../styles';
 import { t } from '../../translations.js';
 
 class Calendar extends Component {
@@ -41,9 +42,46 @@ class Calendar extends Component {
   }
 
   renderCalendarEvent(navigator, event) {
+    const { view, actions: {setView}, lang } = this.props;
     return (
-      <View>
-        <Text>{event.name}</Text>
+      <View style={categoryStyles.article}>
+        <View style={categoryStyles.articleTitleContainer}>
+          <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>
+            {event.name}
+          </Text>
+        </View>
+        <View style={categoryStyles.articleContentContainer}>
+          <View style={calendarStyles.eventDetailContainer}>
+            <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Kenelle", lang)}</Text>
+            <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}></Text>
+          </View>        
+          <View style={calendarStyles.eventDetailContainer}>
+            <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Päivämäärä", lang)}</Text>
+            <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{moment(event.startTime).format(t("Timestamp", lang))}</Text>
+          </View>        
+          <View style={calendarStyles.eventDetailContainer}>
+            <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Kellonaika", lang)}</Text>
+            <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{moment(event.startTime).format(t("Time", lang))}-{moment(event.endTime).format(t("Time", lang))}</Text>
+          </View>        
+          <View style={calendarStyles.eventDetailContainer}>
+            <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Sijainti", lang)}</Text>
+            <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{event.grid_latitude}{event.grid_longitude}</Text>
+          </View>        
+          <View style={calendarStyles.eventDetailContainer}>
+            <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Paikka", lang)}</Text>
+            <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{event.locationName}</Text>
+          </View>        
+          <View style={calendarStyles.eventDetailContainer}>
+            <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Osallistumassa", lang)}</Text>
+            <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{event.participantCount}</Text>
+          </View>
+          <ScrollView style={{flex: 1}}>
+            <Text style={categoryStyles.textColor}>{event.description}</Text>
+          </ScrollView>
+          <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
+            {t("Viimeksi muokattu", lang)} {moment(event.lastModified).format(t("Timestamp", lang))}
+          </Text>
+        </View>
       </View>
     );
   }
