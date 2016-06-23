@@ -9,12 +9,14 @@ import React, {
   Navigator,
   TouchableOpacity
 } from 'react-native';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config';
 import { removeCredentials } from '../login/actions';
 import { isEmpty, renderRefreshButton } from '../../utils';
 import { infoStyles, categoryStyles } from '../../styles';
+import { t } from '../../translations.js';
 
 class Calendar extends Component {
 
@@ -22,14 +24,49 @@ class Calendar extends Component {
     super(props);
   }  
 
-  renderCalendarEvent(event, navigator, rowID) {
+  getBackgroundColor(type) {
+    switch(type) {
+      case 'Ruokailu':
+        return 'rgb(121, 207, 173)';
+      case 'Tapaaminen':
+        return 'rgb(146, 208, 240)';
+      case 'Aamuohjelma':
+        return 'rgb(255, 243, 99)';
+      case 'Iltaohjelma':
+        return 'rgb(236, 142, 117)';
+      case 'Valinnainen ohjelma':
+      default:
+        return 'rgb(208, 119, 174)';
+    }
+  }
+
+  renderCalendarEvent(navigator, event) {
     return (
-      <View key={"calendar-" + rowID} style={categoryStyles.listItem}>
+      <View>
+        <Text>{event.name}</Text>
+      </View>
+    );
+  }
+
+  renderCalendarEvents(event, navigator, rowID) {
+    const { view, actions: {setView}, lang } = this.props;
+    const background = this.getBackgroundColor(event.type);
+    return (
+      <View key={"calendar-" + rowID} style={[categoryStyles.listItem, {backgroundColor: background}]}>
         <TouchableOpacity style={categoryStyles.listItemTouchArea} onPress={() => {
             const route = {name: "event"};
+            this.props.actions.selectEvent(event, route);
             navigator.push(route);
           }}>
-          <Text style={categoryStyles.textColor}>{event.name.slice(0,35).toUpperCase()}{event.name.length > 35 ? '...' : ''}</Text>
+          <Text style={[categoryStyles.textColor, {flex: 1}]}>
+            <Text>
+              {moment(event.startTime).format(t("Time", lang))}-{"\n"} 
+            </Text>
+            <Text>
+              {moment(event.endTime).format(t("Time", lang))}
+            </Text>
+          </Text>
+          <Text style={[categoryStyles.textColor, {flex: 5}]}>{event.name.slice(0,35).toUpperCase()}{event.name.length > 35 ? '...' : ''}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -39,7 +76,7 @@ class Calendar extends Component {
     return (
       <View style={categoryStyles.list}>
         <ListView dataSource={calendarDataSource}
-                  renderRow={(event, sectionID, rowID) => this.renderCalendarEvent(event, navigator, rowID) }
+                  renderRow={(event, sectionID, rowID) => this.renderCalendarEvents(event, navigator, rowID) }
           style={{width: Dimensions.get("window").width}}/>
       </View>
     );
@@ -48,17 +85,22 @@ class Calendar extends Component {
   renderScene(route, navigator) {
     this._navigator = navigator;
     switch(route.name) {
-    case "user-root":
-    default:
-      return this.renderCalendar(navigator, this.props.calendarDataSource);
+      case "event":
+        return this.renderCalendarEvent(navigator, this.props.event);
+      case "user-root":
+      default:
+        return this.renderCalendar(navigator, this.props.calendarDataSource);
     }
   }
 
   render() {
-    const { calendar, error } = this.props;
+    const { calendar, error, lang } = this.props;
     if (!isEmpty(calendar)) {
       return (
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
+          <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
+            {t("Tilanne", lang)} {moment(calendar.timestamp).format(t("Timestamp", lang))}
+          </Text>              
           <Navigator initialRouteStack={this.props.parentNavigator.getCurrentRoutes()}
                      navigator={this.props.parentNavigator}
                      renderScene={(route, navigator) => this.renderScene(route, navigator)}
@@ -84,8 +126,6 @@ class Calendar extends Component {
     fetch(config.apiUrl + "/RoihuUsers/" + credentials.userId + "/calendar?access_token=" + credentials.token + "&lang=" + this.props.lang.toUpperCase())
       .then((response) => response.json())
       .then((calendar) => {
-        console.log('KALENTERI');
-        console.log(calendar);
         setCalendar(calendar);
       })
       .catch((error) => {
@@ -113,6 +153,12 @@ const setCalendar = (calendar) => ({
   calendar: calendar
 });
 
+const selectEvent = (event, route) => ({
+  type: "SELECT_CALENDAR_EVENT",
+  event: event,
+  route: route
+});
+
 const setError = (error) => ({
   type: "SET_CALENDAR_ERROR",
   error: error
@@ -120,10 +166,11 @@ const setError = (error) => ({
 
 export default connect(state => ({
   credentials: state.credentials,
+  event: state.calendar.event,
   calendar: state.calendar.calendar,
   calendarDataSource: state.calendar.calendarDataSource,
   error: state.calendar.error,
   lang: state.language.lang
 }), (dispatch) => ({
-  actions: bindActionCreators({setCalendar, setError, removeCredentials}, dispatch)
+  actions: bindActionCreators({setCalendar, selectEvent, setError, removeCredentials}, dispatch)
 }))(Calendar);

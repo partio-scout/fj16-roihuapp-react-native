@@ -119,12 +119,13 @@ export const infoStyles = StyleSheet.create({
 export const categoryStyles = StyleSheet.create({
   listItem: {
     borderBottomWidth: 1,
-    borderBottomColor: BORDER_COLOR
+    borderBottomColor: BORDER_COLOR,
   },
   listItemTouchArea: {
     padding: 10,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   listItemTitle: {
     width: 200

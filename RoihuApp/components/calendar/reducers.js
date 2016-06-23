@@ -4,7 +4,7 @@ import React, {
 import { sortByDate } from '../../utils';
 
 export const calendar = (
-  state = {routeStack: [{name: "root"}],
+  state = {routeStack: [{name: "user-root"}],
            calendar: null,
            calendarDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.eventId !== r2.eventId}),
            error: null},
@@ -24,6 +24,11 @@ export const calendar = (
                                        calendarDataSource: state.calendarDataSource.cloneWithRows(
                                           action.calendar.calendar.events.sort((a, b) => sortByDate(a.startTime, b.startTime))
                                        )});
+    case "SELECT_CALENDAR_EVENT":
+      return Object.assign({},
+                           state,
+                           {event: action.event,
+                            routeStack: state.routeStack.concat(action.route)});    
     case "SET_CALENDAR_ERROR":
       return Object.assign({}, state, {error: action.error});
     }
