@@ -6,7 +6,8 @@ import React, {
   Text,
   TouchableOpacity,
   ListView,
-  StyleSheet
+  StyleSheet,
+  Navigator
 } from 'react-native';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -25,11 +26,16 @@ class Events extends Component {
   renderScene(route, navigator) {
     this._navigator = navigator;
     switch(route.name) {
+    }
   }
 
   render() {
     return (
-      <View></View>
+      <View style={{flex: 1, width: Dimensions.get("window").width}}>
+        <Navigator initialRouteStack={this.props.routeStack}
+                   onWillFocus={onWillFocus}
+                   renderScene={(route, navigator) => renderScene(route, navigator)}/>
+      </View>
     )
   }
 
