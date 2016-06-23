@@ -87,7 +87,6 @@ class Events extends Component {
                    onWillFocus={onWillFocus}
                    renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
       </View>
-    )
   }
 
   onBack() {
@@ -146,9 +145,6 @@ export const events = (
       newStack.pop();
       return Object.assign({},
                            state, {routeStack: newStack});
-    }
-    return state;
-  };
 
 export default connect(state => ({
   event: state.events.event,
