@@ -465,6 +465,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Roihu 2016" */;
 			buildPhases = (
+				4AB851791D205AF4002B9EAA /* Choose jsCodeLocation and baseUrl */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -722,6 +723,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
+		};
+		4AB851791D205AF4002B9EAA /* Choose jsCodeLocation and baseUrl */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Choose jsCodeLocation and baseUrl";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"$CONFIGURATION\" != \"Debug\" ]; then\n  echo \"Building for production\"\n  sed -i \"\" -e s/app-dev\\.roihu2016\\.fi/app\\.roihu2016\\.fi/ ../config.js;\n  sed -i \"\" -e 's/^\\/\\/\\([[:space:]]*\\)jsCodeLocation/\\1jsCodeLocation/' RoihuApp/AppDelegate.m\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
