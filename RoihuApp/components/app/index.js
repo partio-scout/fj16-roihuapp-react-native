@@ -20,9 +20,6 @@ const engine = createEngine('roihu');
 const middleware = storage.createMiddleware(engine);
 const createStoreWithMiddleware = applyMiddleware(middleware)(createStore);
 const store = createStoreWithMiddleware(storage.reducer(reducer));
-store.subscribe(() => {
-  console.log("state:", store.getState());
-});
 const load = storage.createLoader(engine);
 load(store)
   .then((newState) => console.log('Loaded state:', newState))
