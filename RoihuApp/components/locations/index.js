@@ -75,6 +75,19 @@ class Locations extends Component {
   }
 
   componentWillMount() {
+    if (this.props.locations !== null && this.props.locations.language.toUpperCase () === this.props.lang.toUpperCase()) {
+      // Fetch data automatically if servers next_check time is in past
+      if (moment().isAfter(this.props.locations.next_check)) {
+        fetchData("Fetching locations",
+                  this.props.actions.setFetchStatus,
+                  "/LocationCategories/Translations",
+                  {},
+                  this.props.actions.setLocations,
+                  this.props.lang,
+                  "Paikkojen haku epäonnistui");
+      }
+    } 
+
     if (this.props.locations === null || this.props.locations.language.toUpperCase() !== this.props.lang.toUpperCase()) {
       fetchData("Fetching locations",
                 this.props.actions.setFetchStatus,

@@ -91,6 +91,19 @@ class Instructions extends Component {
   }
 
   componentWillMount() {
+    if (this.props.instructions !== null && this.props.instructions.language.toUpperCase () === this.props.lang.toUpperCase()) {
+      // Fetch data automatically if servers next_check time is in past
+      if (moment().isAfter(this.props.instructions.next_check)) {
+        fetchData("Fetching instructions",
+                  this.props.actions.setFetchStatus,
+                  "/InstructionCategories/Translations",
+                  {},
+                  this.props.actions.setInstructions,
+                  this.props.lang,
+                  "Ohjeiden haku epäonnistui");
+      }
+    } 
+          
     if (this.props.instructions === null || this.props.instructions.language.toUpperCase() !== this.props.lang.toUpperCase()) {
       fetchData("Fetching instructions",
                 this.props.actions.setFetchStatus,
