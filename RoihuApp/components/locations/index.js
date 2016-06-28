@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { t } from '../../translations.js';
 import { categoryStyles } from '../../styles.js';
-import { renderCategories, renderArticles, renderRoot, fetchData } from '../common/categories.js';
+import { renderCategories, renderArticles, renderRoot, shouldFetch, fetchData } from '../common/categories.js';
 import { popWhenRouteNotLastInStack } from '../../utils.js';
 
 class Locations extends Component {
@@ -75,28 +75,16 @@ class Locations extends Component {
   }
 
   componentWillMount() {
-    if (this.props.locations !== null && this.props.locations.language.toUpperCase () === this.props.lang.toUpperCase()) {
-      // Fetch data automatically if servers next_check time is in past
-      if (moment().isAfter(this.props.locations.next_check)) {
-        fetchData("Fetching locations",
-                  this.props.actions.setFetchStatus,
-                  "/LocationCategories/Translations",
-                  {},
-                  this.props.actions.setLocations,
-                  this.props.lang,
-                  "Paikkojen haku epäonnistui");
-      }
-    } 
-
-    if (this.props.locations === null || this.props.locations.language.toUpperCase() !== this.props.lang.toUpperCase()) {
+    if (shouldFetch(this.props.locations, this.props.lang)) {
       fetchData("Fetching locations",
-                this.props.actions.setFetchStatus,
-                "/LocationCategories/Translations",
-                {},
-                this.props.actions.setLocations,
-                this.props.lang,
-                "Paikkojen haku epäonnistui");
+                        this.props.actions.setFetchStatus,
+                        "/LocationCategories/Translations",
+                        {},
+                        this.props.actions.setLocations,
+                        this.props.lang,
+                        "Paikkojen haku epäonnistui");
     }
+
     this.refreshListener = this.props.emitter.addListener("refresh", () => fetchData("Fetching locations",
                                                                                      this.props.actions.setFetchStatus,
                                                                                      "/LocationCategories/Translations",

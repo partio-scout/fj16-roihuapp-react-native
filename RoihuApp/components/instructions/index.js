@@ -15,7 +15,7 @@ import { bindActionCreators } from 'redux';
 import { sortNumber } from '../../utils.js';
 import { t } from '../../translations.js';
 import { categoryStyles } from '../../styles.js';
-import { renderCategories, renderArticles, renderRoot, fetchData } from '../common/categories.js';
+import { renderCategories, renderArticles, renderRoot, shouldFetch, fetchData } from '../common/categories.js';
 import { popWhenRouteNotLastInStack } from '../../utils.js';
 import showdown from 'showdown';
 
@@ -91,28 +91,16 @@ class Instructions extends Component {
   }
 
   componentWillMount() {
-    if (this.props.instructions !== null && this.props.instructions.language.toUpperCase () === this.props.lang.toUpperCase()) {
-      // Fetch data automatically if servers next_check time is in past
-      if (moment().isAfter(this.props.instructions.next_check)) {
-        fetchData("Fetching instructions",
-                  this.props.actions.setFetchStatus,
-                  "/InstructionCategories/Translations",
-                  {},
-                  this.props.actions.setInstructions,
-                  this.props.lang,
-                  "Ohjeiden haku epäonnistui");
-      }
-    } 
-          
-    if (this.props.instructions === null || this.props.instructions.language.toUpperCase() !== this.props.lang.toUpperCase()) {
+    if (shouldFetch(this.props.instructions, this.props.lang)) {
       fetchData("Fetching instructions",
-                this.props.actions.setFetchStatus,
-                "/InstructionCategories/Translations",
-                {},
-                this.props.actions.setInstructions,
-                this.props.lang,
-                "Ohjeiden haku epäonnistui");
+          this.props.actions.setFetchStatus,
+          "/InstructionCategories/Translations",
+          {},
+          this.props.actions.setInstructions,
+          this.props.lang,
+          "Ohjeiden haku epäonnistui");
     }
+
     this.refreshListener = this.props.emitter.addListener("refresh", () => fetchData("Fetching instructions",
                                                                                      this.props.actions.setFetchStatus,
                                                                                      "/InstructionCategories/Translations",
