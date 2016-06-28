@@ -81,6 +81,7 @@ class Events extends Component {
 
   render() {
     const onWillFocus = (route) => popWhenRouteNotLastInStack(route, this.props.routeStack, this.props.actions.popNavigationRoute);
+
     return (
       <View style={{flex: 1, width: Dimensions.get("window").width}}>
         <Navigator initialRouteStack={this.props.routeStack}
@@ -146,6 +147,9 @@ export const events = (
       newStack.pop();
       return Object.assign({},
                            state, {routeStack: newStack});
+    }
+    return state;
+  };
 
 export default connect(state => ({
   event: state.events.event,
