@@ -8,7 +8,8 @@ import React, {
   ListView,
   StyleSheet,
   Navigator,
-  ScrollView
+  ScrollView,
+  TextInput
 } from 'react-native';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -21,6 +22,7 @@ import { categoryStyles, styles } from '../../styles';
 import { popWhenRouteNotLastInStack, sortByDate } from '../../utils';
 
 const Form = f.form.Form;
+
 
 class Events extends Component {
 
@@ -35,15 +37,13 @@ class Events extends Component {
     }
   }
 
-  renderEventsSearch(navigator) {
-    const Form = f.form.Form;
+  renderEventsSearch() {
     const { search, result, eventsDataSource, lang } = this.props;  
-    console.log('RESULT', result);  
     return (
       <View style={categoryStyles.article}>
         <View style={[categoryStyles.articleContentContainer, {flexDirection: 'row'}]}>
           <View style={{height: 40, flex: 4}}>
-            <Form ref={(form) => this.refs = form} value={search} type={fields(lang)} options={options(lang)} />         
+            <Form ref={(form) => this.refs = form} value={search} type={fields(lang)} options={options(lang)} />
           </View>
           <View style={{flex: 1}}>
             <TouchableHighlight style={[styles.basicButton]} onPress={() => this.searchEvent()}>
@@ -81,12 +81,11 @@ class Events extends Component {
 
   render() {
     const onWillFocus = (route) => popWhenRouteNotLastInStack(route, this.props.routeStack, this.props.actions.popNavigationRoute);
-
     return (
       <View style={{flex: 1, width: Dimensions.get("window").width}}>
         <Navigator initialRouteStack={this.props.routeStack}
                    onWillFocus={onWillFocus}
-                   renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
+                   renderScene={(route, navigator, refs) => this.renderScene(route, navigator, refs)}/>
       </View>
     )
   }
