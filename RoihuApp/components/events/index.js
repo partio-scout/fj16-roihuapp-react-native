@@ -86,7 +86,6 @@ class Events extends Component {
         <Navigator initialRouteStack={this.props.routeStack}
                    onWillFocus={onWillFocus}
                    renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
-
       </View>
     )
   }
