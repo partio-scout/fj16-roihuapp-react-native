@@ -30,11 +30,13 @@ class Events extends Component {
   }
 
   render() {
+    const onWillFocus = (route) => popWhenRouteNotLastInStack(route, this.props.routeStack, this.props.actions.popNavigationRoute);
+
     return (
       <View style={{flex: 1, width: Dimensions.get("window").width}}>
         <Navigator initialRouteStack={this.props.routeStack}
                    onWillFocus={onWillFocus}
-                   renderScene={(route, navigator) => renderScene(route, navigator)}/>
+                   renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
       </View>
     )
   }
@@ -55,10 +57,21 @@ class Events extends Component {
   }
 }
 
+const actions = {
+  popNavigationRoute: () => ({
+    type: "POP_EVENTS_ROUTE"
+  })
+};
+
 export const events = (
   state = {routeStack: [{name: "events"}]},
   action) => {
     switch (action.type) {
+    case "POP_EVENTS_ROUTE":
+      const newStack = Object.assign([], state.routeStack);
+      newStack.pop();
+      return Object.assign({},
+                           state, {routeStack: newStack});
     }
     return state;
   };

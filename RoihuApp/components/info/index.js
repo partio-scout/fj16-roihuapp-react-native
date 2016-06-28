@@ -107,7 +107,7 @@ class Info extends Component {
   getEventEmitter() {
     switch(this.props.tab) {
       case "events":
-        return this.eventsEmitter;
+        return this.eventsEventEmitter;
       case "locations":
         return this.locationsEventEmitter;
       case "instructions":
@@ -118,12 +118,14 @@ class Info extends Component {
 
   render() {
     const { view, actions: {setView}, lang } = this.props;
+    const renderRefresh = (this.props.tab != 'events') ? renderRefreshButton(() => this.getEventEmitter().emit("refresh")) : null;
+
     return (
       <View style={[infoStyles.container, {width: Dimensions.get("window").width}]}>
         <View style={infoStyles.topNavigationBar}>
           {renderBackButton(this.getRouteStack(), () => this.onBack())}
           {this.renderInfoTitle(this.getCurrentTitle(), this.getRouteStack())}
-          {renderRefreshButton(() => this.getEventEmitter().emit("refresh"))}
+          {renderRefresh}
         </View>
         <View style={infoStyles.tabs}>
           {this.renderTabButton("events", "Tapahtumat")}
