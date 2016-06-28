@@ -18,6 +18,8 @@ import { categoryStyles } from '../../styles.js';
 import { renderCategories, renderArticles, renderRoot, shouldFetch, fetchData } from '../common/categories.js';
 import { popWhenRouteNotLastInStack } from '../../utils.js';
 import showdown from 'showdown';
+const Entities = require('html-entities').AllHtmlEntities;
+const entities = new Entities();
 
 class Instructions extends Component {
 
@@ -119,10 +121,18 @@ class Instructions extends Component {
   }
 }
 
+const decodeTitle = (obj) => Object.assign({},
+                                           obj,
+                                           {title: entities.decode(obj.title)});
+
 const actions = {
   setInstructions: (instructions) => ({
     type: "SET_INSTRUCTIONS",
-    instructions: instructions
+    instructions: Object.assign({},
+                                instructions,
+                                {categories: instructions.categories.map((category) => Object.assign({},
+                                                                                                     decodeTitle(category),
+                                                                                                     {articles: category.articles.map(decodeTitle)}))})
   }),
   selectCategory: (category, route) => ({
     type: "SELECT_INSTRUCTIONS_CATEGORY",
