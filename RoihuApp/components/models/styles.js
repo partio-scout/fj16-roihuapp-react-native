@@ -118,7 +118,9 @@ var stylesheet = Object.freeze({
   },
   datepicker: {
     normal: {
-      marginBottom: 4
+      marginBottom: 4,
+      marginLeft: 10,
+      marginRight: 10
     },
     // the style applied when a validation error occours
     error: {
