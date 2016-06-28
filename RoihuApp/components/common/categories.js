@@ -118,6 +118,22 @@ export function renderRoot(fetchState, data, noDataText, lang, routeStack, rende
   }
 }
 
+export function shouldFetch(data, lang) {
+  if (data === null) {
+      return true
+  }
+
+  if (data.language.toUpperCase() !== lang.toUpperCase()) {
+      return true
+  }
+
+  if (moment().isAfter(data.next_check)) {
+    return true;
+  }
+
+  return false; 
+}
+
 export function fetchData(logStart, setFetchStatus, apiPath, queryParams, setData, lang, failedToFetchMessage) {
   console.log(logStart);
   const params = Object.assign({lang: lang.toUpperCase()}, queryParams);
