@@ -76,13 +76,15 @@ class Locations extends Component {
 
   componentWillMount() {
     if (shouldFetch(this.props.locations, this.props.lang)) {
-      fetchData("Fetching locations",
-                        this.props.actions.setFetchStatus,
-                        "/LocationCategories/Translations",
-                        {},
-                        this.props.actions.setLocations,
-                        this.props.lang,
-                        "Paikkojen haku epäonnistui");
+      fetchData(
+        "Fetching locations",
+        this.props.actions.setFetchStatus,
+        "/LocationCategories/Translations",
+        {},
+        this.props.actions.setLocations,
+        this.props.lang,
+        "Paikkojen haku epäonnistui"
+      );
     }
 
     this.refreshListener = this.props.emitter.addListener("refresh", () => fetchData("Fetching locations",

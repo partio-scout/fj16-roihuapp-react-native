@@ -92,13 +92,15 @@ class Instructions extends Component {
 
   componentWillMount() {
     if (shouldFetch(this.props.instructions, this.props.lang)) {
-      fetchData("Fetching instructions",
-          this.props.actions.setFetchStatus,
-          "/InstructionCategories/Translations",
-          {},
-          this.props.actions.setInstructions,
-          this.props.lang,
-          "Ohjeiden haku epäonnistui");
+      fetchData(
+        "Fetching instructions",
+        this.props.actions.setFetchStatus,
+        "/InstructionCategories/Translations",
+        {},
+        this.props.actions.setInstructions,
+        this.props.lang,
+        "Ohjeiden haku epäonnistui"
+      );
     }
 
     this.refreshListener = this.props.emitter.addListener("refresh", () => fetchData("Fetching instructions",
