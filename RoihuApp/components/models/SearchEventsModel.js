@@ -74,6 +74,24 @@ export const options = (lang) => ({
     },
     ageGroup: {
       label: t("Age level", lang)
+    },
+    trackers: {
+      label: t("Tarpojat", lang)
+    },
+    explorers: {
+      label: t("Samoajat", lang)
+    },
+    rovers: {
+      label: t("Vaeltajat", lang)
+    },
+    adults: {
+      label: t("Aikuiset", lang)
+    },
+    dayCareKids: {
+      label: t("Päiväkotilapset", lang)
+    },
+    schoolKids: {
+      label: t("EVT", lang)
     }
   }
 });

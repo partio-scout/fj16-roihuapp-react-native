@@ -23,7 +23,6 @@ import { popWhenRouteNotLastInStack, sortByDate } from '../../utils';
 
 const Form = f.form.Form;
 
-
 class Events extends Component {
 
   constructor(props) {
