@@ -68,9 +68,12 @@ class Instructions extends Component {
     case "article":
       return this.renderSelectedArticle(this.props.article);
     case "articles":
-      return renderArticles(navigator, this.props.articlesDataSource, this.props.actions.selectArticle);
+      return renderArticles(navigator, this.props.articlesDataSource, this.props.actions.selectArticle, this.props.searchText, this.props.actions.setCurrentTitle);
     case "categories":
     default:
+      if (this.props.searchText.length > 0) {
+        return renderArticles(navigator, this.props.searchDataSource, this.props.actions.selectArticle, this.props.searchText, this.props.actions.setCurrentTitle);
+      }
       return renderCategories(navigator, this.props.categoriesDataSource, this.props.actions.selectCategory, this.props.actions.setCurrentTitle);
     }
   }
@@ -82,7 +85,9 @@ class Instructions extends Component {
                       this.props.lang,
                       this.props.routeStack,
                       this.renderScene.bind(this),
-                      (route) => popWhenRouteNotLastInStack(route, this.props.routeStack, this.props.actions.popNavigationRoute));
+                      (route) => popWhenRouteNotLastInStack(route, this.props.routeStack, this.props.actions.popNavigationRoute),
+                      this.props.searchText,
+                      this.props.actions.setSearchData);
   }
 
   onBack() {
@@ -154,16 +159,23 @@ const actions = {
   setCurrentTitle: (title) => ({
     type: "SET_INSTRUCTIONS_CURRENT_TITLE",
     currentTitle: title
-  })
+  }),
+  setSearchData: (data, text) => ({
+    type: "SET_INSTRUCTIONS_SEARCH_DATA",
+    data: data,
+    text: text
+  }),  
 };
 
 export const instructions = (
   state = {instructions: null,
            categoriesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
+           searchDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            article: {},
            routeStack: [{name: "categories"}],
            currentTitle: null,
+           searchText: '',
            fetch: {state: "COMPLETED"}},
   action) => {
     switch (action.type) {
@@ -173,6 +185,9 @@ export const instructions = (
     case "SELECT_INSTRUCTIONS_CATEGORY":
       return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles.sort((a, b) => sortNumber(a.sort_no, b.sort_no))),
                                        routeStack: state.routeStack.concat(action.route)});
+    case "SET_INSTRUCTIONS_SEARCH_DATA":
+      return Object.assign({}, state, {searchDataSource: state.searchDataSource.cloneWithRows(action.data.sort((a, b) => sortNumber(a.sort_no, b.sort_no))),
+                                       searchText: action.text});
     case "SELECT_INSTRUCTIONS_ARTICLE":
       return Object.assign({},
                            state,
@@ -195,9 +210,11 @@ export default connect(state => ({
   instructions: state.instructions.instructions,
   categoriesDataSource: state.instructions.categoriesDataSource,
   articlesDataSource: state.instructions.articlesDataSource,
+  searchDataSource: state.instructions.searchDataSource,
   article: state.instructions.article,
   routeStack: state.instructions.routeStack,
   currentTitle: state.instructions.currentTitle,
+  searchText: state.instructions.searchText,
   lang: state.language.lang,
   fetch: state.instructions.fetch
 }), (dispatch) => ({

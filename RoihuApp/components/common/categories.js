@@ -53,10 +53,13 @@ export function renderCategories(navigator, categoriesDataSource, selectCategory
   );
 }
 
-function renderArticle(article, navigator, selectArticle, rowID) {
+function renderArticle(article, navigator, selectArticle, searchText, setCurrentTitle, rowID) {
   return (
     <View key={"article-" + rowID} style={categoryStyles.listItem}>
       <TouchableOpacity style={categoryStyles.listItemTouchArea} onPress={() => {
+          if (searchText.length > 0) {
+            setCurrentTitle(null);
+          }
           const route = {name: "article"};
           selectArticle(article, route);
           navigator.push(route);
@@ -69,29 +72,46 @@ function renderArticle(article, navigator, selectArticle, rowID) {
   );
 }
 
-export function renderArticles(navigator, articlesDataSource, selectArticle) {
+export function renderArticles(navigator, articlesDataSource, selectArticle, searchText, setCurrentTitle) {
   return (
     <View style={categoryStyles.list}>
       <ListView dataSource={articlesDataSource}
-                renderRow={(article, sectionID, rowID) => renderArticle(article, navigator, selectArticle, rowID) }
+                enableEmptySections={true}
+                renderRow={(article, sectionID, rowID) => renderArticle(article, navigator, selectArticle, searchText, setCurrentTitle, rowID) }
         style={{width: Dimensions.get("window").width}}/>
     </View>
   );
 }
 
-function renderSearchInput(lang) {
-  return null;
-  /*if (Platform.OS === 'ios')
+function filterArticles(searchText, data, setSearchData) {
+  const text = searchText.toLowerCase();
+  const articles = [];
+  data.categories.forEach(function (category) {
+    category.articles.forEach(function (article) {
+      if (article.title.toLowerCase().includes(text) || article.bodytext.toLowerCase().includes(text)) {
+        articles.push(article);
+      }
+    });
+  });
+  setSearchData(articles, searchText);
+}
+
+function renderSearchInput(lang, data, searchText, setSearchData) {
+  if (Platform.OS === 'ios')
     return null;
 
   return (
-    <View style={styles.textInputContainer}>
+    <View style={categoryStyles.textInputContainer}>
       <TextInput style={styles.textInput}
+                 value={searchText}
+                 onChangeText={
+                    (text) => filterArticles(text, data, setSearchData)
+                 }
                  placeholder={t("Hae", lang)} />
-    </View>);*/
+    </View>);
 }
 
-export function renderRoot(fetchState, data, noDataText, lang, routeStack, renderScene, onWillFocus) {
+export function renderRoot(fetchState, data, noDataText, lang, routeStack, renderScene, onWillFocus, searchText, setSearchData) {
   switch (fetchState) {
   case "STARTED":
     return renderProgressBar();
@@ -109,7 +129,7 @@ export function renderRoot(fetchState, data, noDataText, lang, routeStack, rende
         <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
           {t("Tilanne", lang)} {moment(data.timestamp).format(t("Timestamp", lang))}
         </Text>
-        {routeStack.length == 1 ? renderSearchInput(lang) : (<View />)}
+        {routeStack.length == 1 ? renderSearchInput(lang, data, searchText, setSearchData) : (<View />)}
         <Navigator initialRouteStack={routeStack}
                    onWillFocus={onWillFocus}
                    renderScene={(route, navigator) => renderScene(route, navigator)}/>

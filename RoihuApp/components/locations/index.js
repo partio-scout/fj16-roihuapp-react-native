@@ -50,9 +50,12 @@ class Locations extends Component {
     case "article":
       return this.renderSelectedArticle(this.props.article);
     case "articles":
-      return renderArticles(navigator, this.props.articlesDataSource, this.props.actions.selectArticle);
+      return renderArticles(navigator, this.props.articlesDataSource, this.props.actions.selectArticle, this.props.searchText, this.props.actions.setCurrentTitle);
     case "categories":
     default:
+      if (this.props.searchText.length > 0) {
+        return renderArticles(navigator, this.props.searchDataSource, this.props.actions.selectArticle, this.props.searchText, this.props.actions.setCurrentTitle);
+      }
       return renderCategories(navigator, this.props.categoriesDataSource, this.props.actions.selectCategory, this.props.actions.setCurrentTitle);
     }
   }
@@ -64,7 +67,9 @@ class Locations extends Component {
                       this.props.lang,
                       this.props.routeStack,
                       this.renderScene.bind(this),
-                      (route) => popWhenRouteNotLastInStack(route, this.props.routeStack, this.props.actions.popNavigationRoute));
+                      (route) => popWhenRouteNotLastInStack(route, this.props.routeStack, this.props.actions.popNavigationRoute),
+                      this.props.searchText,
+                      this.props.actions.setSearchData);
   }
 
   onBack() {
@@ -128,7 +133,12 @@ const actions = {
   setCurrentTitle: (title) => ({
     type: "SET_LOCATIONS_CURRENT_TITLE",
     currentTitle: title
-  })    
+  }),
+  setSearchData: (data, text) => ({
+    type: "SET_LOCATIONS_SEARCH_DATA",
+    data: data,
+    text: text
+  }),      
 };
 
 const titleComparator = (a, b) => a.title.localeCompare(b.title);
@@ -137,9 +147,11 @@ export const locations = (
   state = {locations: null,
            categoriesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
+           searchDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            article: {},
            routeStack: [{name: "categories"}],
            currentTitle: null,
+           searchText: '',
            fetch: {state: "COMPLETED"}},
   action) => {
     switch (action.type) {
@@ -149,6 +161,9 @@ export const locations = (
     case "SELECT_LOCATIONS_CATEGORY":
       return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles.sort(titleComparator)),
                                        routeStack: state.routeStack.concat(action.route)});
+    case "SET_LOCATIONS_SEARCH_DATA":
+      return Object.assign({}, state, {searchDataSource: state.searchDataSource.cloneWithRows(action.data.sort(titleComparator)),
+                                       searchText: action.text});    
     case "SELECT_LOCATIONS_ARTICLE":
       return Object.assign({},
                            state,
@@ -170,9 +185,11 @@ export default connect(state => ({
   locations: state.locations.locations,
   categoriesDataSource: state.locations.categoriesDataSource,
   articlesDataSource: state.locations.articlesDataSource,
+  searchDataSource: state.locations.searchDataSource,
   article: state.locations.article,
   routeStack: state.locations.routeStack,
   currentTitle: state.locations.currentTitle,
+  searchText: state.locations.searchText,
   lang: state.language.lang,
   fetch: state.locations.fetch
 }), (dispatch) => ({
