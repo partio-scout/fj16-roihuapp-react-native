@@ -78,7 +78,16 @@
     "Osallistumassa": "Attending:",
     "Kaikille": "For anyone",
     "Vain leirilippukunnalle": "Only for my camp unit",
-    "Vain alaleirille": "Only for my subcamp"
+    "Vain alaleirille": "Only for my subcamp",
+    "Pvm": "Date",
+    "Heinäkuuta": "July",
+    "Alkaa aikaisintaan": "Starts earliers",
+    "Tarpojat": "Trackers",
+    "Samoajat": "Explorers",
+    "Vaeltajat": "Rovers",
+    "Aikuiset": "Adults",
+    "Päiväkotilapset": "Day care kids",
+    "EVT": "School kids"    
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -159,7 +168,16 @@
     "Osallistumassa": "Osallistumassa:",
     "Kaikille": "kaikille",
     "Vain leirilippukunnalle": "vain leirilippukunnalle",
-    "Vain alaleirille": "vain alaleirille"
+    "Vain alaleirille": "vain alaleirille",
+    "Pvm": "Pvm",
+    "Heinäkuuta": "heinäkuuta",
+    "Alkaa aikaisintaan": "Alkaa aikaisintaan",
+    "Tarpojat": "Tarpojat",
+    "Samoajat": "Samoajat",
+    "Vaeltajat": "Vaeltajat",
+    "Aikuiset": "Aikuiset",
+    "Päiväkotilapset": "Päiväkotilapset",
+    "EVT": "EVT"    
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -240,6 +258,17 @@
     "Osallistumassa": "Deltar:",
     "Kaikille": "För alla",
     "Vain leirilippukunnalle": "bara för lägerkåren",
-    "Vain alaleirille": "bara för underlägret"
+    "Vain alaleirille": "bara för underlägret",
+    "Karttamerkit": "SV Karttamerkit",
+    "Aktiviteettien haku epäonnistui": "SV: Aktiviteettien haku epäonnistui",
+    "Pvm": "SV Pvm",
+    "Heinäkuuta": "SV heinäkuuta",
+    "Alkaa aikaisintaan": "SV Alkaa aikaisintaan",
+    "Tarpojat": "Spejarscouterna",
+    "Samoajat": "Explorerscouterna",
+    "Vaeltajat": "Roverscouterna",
+    "Aikuiset": "Vuxna",
+    "Päiväkotilapset": "SV Päiväkotilapset",
+    "EVT": "SV EVT"          
   }
 }

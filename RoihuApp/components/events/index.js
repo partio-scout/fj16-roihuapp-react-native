@@ -4,7 +4,6 @@ import React, {
   View,
   Dimensions,
   Text,
-  TextInput,
   TouchableHighlight,
   ListView,
   StyleSheet,
@@ -23,15 +22,14 @@ class Events extends Component {
 
   constructor(props) {
     super(props);
-    this.searchEvent = this.searchEvent.bind(this);
   }
 
   searchEvent() {
-    console.log('REFFIT:');
-    /*const result = this.refs.form.getValue();
+    // HANDLER FOR FORM
+    /*const data = this.refs.form.getValue();
     if (result) {
       this.props.actions.setLatestSearch(result);
-    } */   
+    }*/  
   }
 
   renderEventsSearch() {
@@ -42,7 +40,7 @@ class Events extends Component {
         <View style={[categoryStyles.articleContentContainer, {flexDirection: 'row'}]}>
           <View style={{height: 40, flex: 4}}>
             <Form 
-              ref="search" 
+              ref="form" 
               value={search} 
               type={fields} 
               options={options(lang)} 
