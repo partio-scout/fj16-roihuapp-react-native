@@ -62,7 +62,16 @@
     "Paikka- ja kalenteri-data": "Location and Calendar Data",
     "Lisäksi apuna": "Also Helped",
     "Karttamerkit": "Map Legend",
-    "Aktiviteettien haku epäonnistui": "Failed to fetch activities"
+    "Aktiviteettien haku epäonnistui": "Failed to fetch activities",
+    "Pvm": "Date",
+    "Heinäkuuta": "July",
+    "Alkaa aikaisintaan": "Starts earliers",
+    "Tarpojat": "Trackers",
+    "Samoajat": "Explorers",
+    "Vaeltajat": "Rovers",
+    "Aikuiset": "Adults",
+    "Päiväkotilapset": "Day care kids",
+    "EVT": "School kids"    
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -127,7 +136,16 @@
     "Paikka- ja kalenteri-data": "Paikka- ja kalenteri-data",
     "Lisäksi apuna": "Lisäksi apuna",
     "Karttamerkit": "Karttamerkit",
-    "Aktiviteettien haku epäonnistui": "Aktiviteettien haku epäonnistui"
+    "Aktiviteettien haku epäonnistui": "Aktiviteettien haku epäonnistui",
+    "Pvm": "Pvm",
+    "Heinäkuuta": "heinäkuuta",
+    "Alkaa aikaisintaan": "Alkaa aikaisintaan",
+    "Tarpojat": "Tarpojat",
+    "Samoajat": "Samoajat",
+    "Vaeltajat": "Vaeltajat",
+    "Aikuiset": "Aikuiset",
+    "Päiväkotilapset": "Päiväkotilapset",
+    "EVT": "EVT"    
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -192,6 +210,15 @@
     "Paikka- ja kalenteri-data": "Plats- och kalenderdata",
     "Lisäksi apuna": "Dessutom",
     "Karttamerkit": "SV Karttamerkit",
-    "Aktiviteettien haku epäonnistui": "SV: Aktiviteettien haku epäonnistui"
+    "Aktiviteettien haku epäonnistui": "SV: Aktiviteettien haku epäonnistui",
+    "Pvm": "SV Pvm",
+    "Heinäkuuta": "SV heinäkuuta",
+    "Alkaa aikaisintaan": "SV Alkaa aikaisintaan",
+    "Tarpojat": "Spejarscouterna",
+    "Samoajat": "Explorerscouterna",
+    "Vaeltajat": "Roverscouterna",
+    "Aikuiset": "Vuxna",
+    "Päiväkotilapset": "SV Päiväkotilapset",
+    "EVT": "SV EVT"          
   }
 }
