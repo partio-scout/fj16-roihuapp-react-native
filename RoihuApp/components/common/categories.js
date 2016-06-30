@@ -57,7 +57,7 @@ function renderArticle(article, navigator, selectArticle, searchText, setCurrent
   return (
     <View key={"article-" + rowID} style={categoryStyles.listItem}>
       <TouchableOpacity style={categoryStyles.listItemTouchArea} onPress={() => {
-          if (searchText.length > 0) {
+          if (searchText.trim().length > 0) {
             setCurrentTitle(null);
           }
           const route = {name: "article"};
@@ -85,7 +85,7 @@ export function renderArticles(navigator, articlesDataSource, selectArticle, sea
 }
 
 function filterArticles(searchText, data, setSearchData) {
-  const text = searchText.toLowerCase();
+  const text = searchText.trim().toLowerCase();
   const articles = [];
   data.categories.forEach(function (category) {
     category.articles.forEach(function (article) {

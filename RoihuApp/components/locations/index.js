@@ -57,7 +57,7 @@ class Locations extends Component {
                             this.props.actions.setCurrentTitle);
     case "categories":
     default:
-      if (this.props.searchText.length > 0) {
+      if (this.props.searchText.trim().length > 0) {
         return renderArticles(navigator,
                               this.props.searchDataSource,
                               this.props.actions.selectArticle,
