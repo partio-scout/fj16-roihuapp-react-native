@@ -132,7 +132,7 @@ const actions = {
                                 instructions,
                                 {categories: instructions.categories.map((category) => Object.assign({},
                                                                                                      decodeTitle(category),
-                                                                                                     {articles: category.articles.map(decodeTitle)}))})
+                                                                                                     {articles: category.articles[0].map(decodeTitle)}))})
   }),
   selectCategory: (category, route) => ({
     type: "SELECT_INSTRUCTIONS_CATEGORY",
