@@ -120,18 +120,18 @@ export function renderRoot(fetchState, data, noDataText, lang, routeStack, rende
 
 export function shouldFetch(data, lang) {
   if (data === null) {
-      return true
+      return true;
   }
 
   if (data.language.toUpperCase() !== lang.toUpperCase()) {
-      return true
+      return true;
   }
 
   if (moment().isAfter(data.next_check)) {
     return true;
   }
 
-  return false; 
+  return false;
 }
 
 export function fetchData(logStart, setFetchStatus, apiPath, queryParams, setData, lang, failedToFetchMessage) {
