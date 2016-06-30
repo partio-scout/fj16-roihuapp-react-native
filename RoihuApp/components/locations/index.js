@@ -50,13 +50,24 @@ class Locations extends Component {
     case "article":
       return this.renderSelectedArticle(this.props.article);
     case "articles":
-      return renderArticles(navigator, this.props.articlesDataSource, this.props.actions.selectArticle, this.props.searchText, this.props.actions.setCurrentTitle);
+      return renderArticles(navigator,
+                            this.props.articlesDataSource,
+                            this.props.actions.selectArticle,
+                            this.props.searchText,
+                            this.props.actions.setCurrentTitle);
     case "categories":
     default:
       if (this.props.searchText.length > 0) {
-        return renderArticles(navigator, this.props.searchDataSource, this.props.actions.selectArticle, this.props.searchText, this.props.actions.setCurrentTitle);
+        return renderArticles(navigator,
+                              this.props.searchDataSource,
+                              this.props.actions.selectArticle,
+                              this.props.searchText,
+                              this.props.actions.setCurrentTitle);
       }
-      return renderCategories(navigator, this.props.categoriesDataSource, this.props.actions.selectCategory, this.props.actions.setCurrentTitle);
+      return renderCategories(navigator,
+                              this.props.categoriesDataSource,
+                              this.props.actions.selectCategory,
+                              this.props.actions.setCurrentTitle);
     }
   }
 
