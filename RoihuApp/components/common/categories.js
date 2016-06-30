@@ -46,6 +46,7 @@ export function renderCategories(navigator, categoriesDataSource, selectCategory
     <View style={categoryStyles.list}>
 
       <ListView dataSource={categoriesDataSource}
+                key={"categories"}
                 renderRow={(category, sectionID, rowID) => renderCategory(category, navigator, selectCategory, setCurrentTitle, rowID) }
         style={{width: Dimensions.get("window").width}}/>
     </View>
@@ -76,6 +77,7 @@ export function renderArticles(navigator, articlesDataSource, selectArticle, sea
     <View style={categoryStyles.list}>
       <ListView dataSource={articlesDataSource}
                 enableEmptySections={true}
+                key={"articles"}
                 renderRow={(article, sectionID, rowID) => renderArticle(article, navigator, selectArticle, searchText, setCurrentTitle, rowID) }
         style={{width: Dimensions.get("window").width}}/>
     </View>
