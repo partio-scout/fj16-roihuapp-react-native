@@ -8,7 +8,8 @@ import React, {
   Dimensions,
   Image,
   CameraRoll,
-  Navigator
+  Navigator,
+  Alert
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -19,6 +20,7 @@ import { navigationStyles, categoryStyles, userStyles } from '../../styles';
 import { isEmpty } from '../../utils';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CameraRollView from './CameraRollView';
+import { setView } from '../navigation/actions';
 
 class User extends Component {
 
@@ -151,14 +153,34 @@ class User extends Component {
     }
   }
 
+  reLogin() {
+    this.props.actions.removeCredentials();
+    this.props.actions.setView("user");
+  }
+
   fetchUserInfo(credentials) {
     console.log("Fetching user info");
     fetch(config.apiUrl + "/RoihuUsers/" + credentials.userId + "?access_token=" + credentials.token)
-      .then((response) => response.json())
+      .then((response) => {
+        switch (response.status) {
+        case 200:
+          return response.json();
+        case 401:
+          Alert.alert(t("Kirjautuminen vanhentunut", this.props.lang),
+                      t("Kirjaudu nähdäksesi päivitetyt tiedot", this.props.lang),
+                      [{text: t("Ok", this.props.lang),
+                        onPress: () => this.reLogin()}]);
+          return Promise.reject("Unauthorized");
+        default:
+          return Promise.reject("Unknown response");
+        }
+      })
       .then((user) => {
+        console.log("user", user);
         this.props.actions.setUser(user);
       })
       .catch((error) => {
+        console.log("Error while fetching user info", error);
         this.props.actions.setError(error);
       });
   }
@@ -212,5 +234,7 @@ export default connect(state => ({
   actions: bindActionCreators({setUser,
                                setError,
                                removeCredentials,
-                               setImage, setDetails}, dispatch)
+                               setImage,
+                               setDetails,
+                               setView}, dispatch)
 }))(User);

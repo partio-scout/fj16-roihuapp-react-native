@@ -61,7 +61,9 @@
     "Paikka- ja kalenteri-data": "Location and Calendar Data",
     "Lisäksi apuna": "Also Helped",
     "Karttamerkit": "Map Legend",
-    "Aktiviteettien haku epäonnistui": "Failed to fetch activities"
+    "Aktiviteettien haku epäonnistui": "Failed to fetch activities",
+    "Kirjautuminen vanhentunut": "Login expired",
+    "Kirjaudu nähdäksesi päivitetyt tiedot": "Login to refresh user information"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -125,7 +127,9 @@
     "Paikka- ja kalenteri-data": "Paikka- ja kalenteri-data",
     "Lisäksi apuna": "Lisäksi apuna",
     "Karttamerkit": "Karttamerkit",
-    "Aktiviteettien haku epäonnistui": "Aktiviteettien haku epäonnistui"
+    "Aktiviteettien haku epäonnistui": "Aktiviteettien haku epäonnistui",
+    "Kirjautuminen vanhentunut": "Kirjautuminen vanhentunut",
+    "Kirjaudu nähdäksesi päivitetyt tiedot": "Kirjaudu nähdäksesi päivitetyt tiedot"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -189,6 +193,8 @@
     "Paikka- ja kalenteri-data": "Plats- och kalenderdata",
     "Lisäksi apuna": "Dessutom",
     "Karttamerkit": "SV Karttamerkit",
-    "Aktiviteettien haku epäonnistui": "SV: Aktiviteettien haku epäonnistui"
+    "Aktiviteettien haku epäonnistui": "SV: Aktiviteettien haku epäonnistui",
+    "Kirjautuminen vanhentunut": "Kirjautuminen vanhentunut",
+    "Kirjaudu nähdäksesi päivitetyt tiedot": "Kirjaudu nähdäksesi päivitetyt tiedot"
   }
 }
