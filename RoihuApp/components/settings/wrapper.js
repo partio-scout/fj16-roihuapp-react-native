@@ -73,7 +73,7 @@ class SettingsWrapper extends Component {
   }
 
   renderEditDetailsButton() {
-    if (last(this.props.routeStack).name !== "user-root") {
+    if (last(this.props.routeStack).name !== "user-root" || this.props.credentials === null) {
       return null;
     } else {
       return (
@@ -101,7 +101,11 @@ class SettingsWrapper extends Component {
 
   renderRefresh() {
     const lastRoute = last(this.props.routeStack);
-    return lastRoute && lastRoute.name === "user-root" ? renderRefreshButton(() => this.refreshEventEmitter.emit("refresh")) : null;
+    if (lastRoute && lastRoute.name !== "user-root" || this.props.credentials === null) {
+      return null;
+    } else {
+      return renderRefreshButton(() => this.refreshEventEmitter.emit("refresh"));
+    }
   }
 
   render() {
@@ -155,7 +159,8 @@ const resetSettingsRoutesTo = (route) => ({
 });
 
 export default connect(state => ({
-  routeStack: state.settings.routeStack
+  routeStack: state.settings.routeStack,
+  credentials: state.credentials
 }), (dispatch) => ({
   actions: bindActionCreators({pushSettingsRoute,
                                popSettingsRoute,
