@@ -74,7 +74,7 @@ class Locations extends Component {
   render() {
     return renderRoot(this.props.fetch.state,
                       this.props.locations,
-                      "Ei voitu hakea paikkoja",
+                      t("Ei voitu hakea paikkoja", this.props.lang),
                       this.props.lang,
                       this.props.routeStack,
                       this.renderScene.bind(this),
@@ -99,7 +99,7 @@ class Locations extends Component {
         {},
         this.props.actions.setLocations,
         this.props.lang,
-        "Paikkojen haku epäonnistui"
+        t("Paikkojen haku epäonnistui", this.props.lang)
       );
     }
 
@@ -109,7 +109,7 @@ class Locations extends Component {
                                                                                      {},
                                                                                      this.props.actions.setLocations,
                                                                                      this.props.lang,
-                                                                                     "Paikkojen haku epäonnistui"));
+                                                                                     t("Paikkojen haku epäonnistui", this.props.lang)));
     this.backListener = this.props.emitter.addListener("back", () => this.onBack());
   }
 

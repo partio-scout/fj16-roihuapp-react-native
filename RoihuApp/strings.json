@@ -63,7 +63,9 @@
     "Karttamerkit": "Map Legend",
     "Aktiviteettien haku epäonnistui": "Failed to fetch activities",
     "Kirjautuminen vanhentunut": "Login expired",
-    "Kirjaudu nähdäksesi päivitetyt tiedot": "Login to refresh user information"
+    "Kirjaudu nähdäksesi päivitetyt tiedot": "Login to refresh user information",
+    "Ohjeiden haku epäonnistui": "Failed to fetch instructions",
+    "Virhe nettiyhteydessä": "Network error"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -129,7 +131,9 @@
     "Karttamerkit": "Karttamerkit",
     "Aktiviteettien haku epäonnistui": "Aktiviteettien haku epäonnistui",
     "Kirjautuminen vanhentunut": "Kirjautuminen vanhentunut",
-    "Kirjaudu nähdäksesi päivitetyt tiedot": "Kirjaudu nähdäksesi päivitetyt tiedot"
+    "Kirjaudu nähdäksesi päivitetyt tiedot": "Kirjaudu nähdäksesi päivitetyt tiedot",
+    "Ohjeiden haku epäonnistui": "Ohjeiden haku epäonnistui",
+    "Virhe nettiyhteydessä": "Virhe nettiyhteydessä"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -195,6 +199,8 @@
     "Karttamerkit": "SV Karttamerkit",
     "Aktiviteettien haku epäonnistui": "SV: Aktiviteettien haku epäonnistui",
     "Kirjautuminen vanhentunut": "SV: Kirjautuminen vanhentunut",
-    "Kirjaudu nähdäksesi päivitetyt tiedot": "SV: Kirjaudu nähdäksesi päivitetyt tiedot"
+    "Kirjaudu nähdäksesi päivitetyt tiedot": "SV: Kirjaudu nähdäksesi päivitetyt tiedot",
+    "Ohjeiden haku epäonnistui": "SV: Ohjeiden haku epäonnistui",
+    "Virhe nettiyhteydessä": "Nätverksfel"
   }
 }

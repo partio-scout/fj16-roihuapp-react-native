@@ -166,7 +166,7 @@ export function fetchData(logStart, setFetchStatus, apiPath, queryParams, setDat
     .catch((error) => {
       setFetchStatus("ERROR");
       console.log(error);
-      Alert.alert("Virhe nettiyhteydessä",
+      Alert.alert(t("Virhe nettiyhteydessä", lang),
                   failedToFetchMessage,
                   [{text: "Ok", onPress: () => {}}]);
     });

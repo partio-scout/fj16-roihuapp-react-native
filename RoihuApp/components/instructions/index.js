@@ -92,7 +92,7 @@ class Instructions extends Component {
   render() {
     return renderRoot(this.props.fetch.state,
                       this.props.instructions,
-                      "Ei voitu hakea ohjeita",
+                      t("Ei voitu hakea ohjeita", this.props.lang),
                       this.props.lang,
                       this.props.routeStack,
                       this.renderScene.bind(this),
@@ -117,7 +117,7 @@ class Instructions extends Component {
         {},
         this.props.actions.setInstructions,
         this.props.lang,
-        "Ohjeiden haku epäonnistui"
+        t("Ohjeiden haku epäonnistui", this.props.lang)
       );
     }
 
@@ -127,7 +127,7 @@ class Instructions extends Component {
                                                                                      {},
                                                                                      this.props.actions.setInstructions,
                                                                                      this.props.lang,
-                                                                                     "Ohjeiden haku epäonnistui"));
+                                                                                     t("Ohjeiden haku epäonnistui", this.props.lang)));
     this.backListener = this.props.emitter.addListener("back", () => this.onBack());
   }
 
