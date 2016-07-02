@@ -152,15 +152,29 @@ export function shouldFetch(data, lang) {
   return false;
 }
 
-export function fetchData(logStart, setFetchStatus, apiPath, queryParams, setData, lang, failedToFetchMessage) {
+export function fetchData(logStart, setFetchStatus, apiPath, queryParams, setData, lang, failedToFetchMessage, etag, setEtag) {
   console.log(logStart);
+  const fetchParams = Object.assign({method: "GET"}, {headers: etag ? {'If-None-Match': etag} : {}});
   const params = Object.assign({lang: lang.toUpperCase()}, queryParams);
   const queryParamString = Object.keys(params).map((k) => k + "=" + params[k]).join("&");
   setFetchStatus("STARTED");
-  fetch(config.apiUrl + apiPath + "?" + queryParamString)
-    .then((response) => response.json())
+  fetch(config.apiUrl + apiPath + "?" + queryParamString, fetchParams)
+    .then((response) => {
+      setEtag(response.headers.get("Etag"));
+      switch (response.status) {
+      case 304:
+        console.log("cache valid");
+        return Promise.resolve({cached: true});
+      case 200:
+        console.log("cache invalid");
+      default:
+        return response.json();
+      }
+    })
     .then((data) => {
-      setData(data);
+      if (!data.cached) {
+        setData(data);
+      }
       setFetchStatus("COMPLETED");
     })
     .catch((error) => {

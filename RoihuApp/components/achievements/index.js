@@ -275,7 +275,9 @@ class Achievements extends Component {
               this.props.credentials ? {access_token: this.props.credentials.token} : {},
               this.props.actions.setAchievements,
               this.props.lang,
-              t("Aktiviteettien haku epäonnistui", this.props.lang));
+              t("Aktiviteettien haku epäonnistui", this.props.lang),
+              null,
+              (etag) => {});
   }
 
   popRoute() {

@@ -99,7 +99,9 @@ class Locations extends Component {
         {},
         this.props.actions.setLocations,
         this.props.lang,
-        t("Paikkojen haku epäonnistui", this.props.lang)
+        t("Paikkojen haku epäonnistui", this.props.lang),
+        this.props.fetch.etag,
+        this.props.actions.setEtag
       );
     }
 
@@ -109,7 +111,9 @@ class Locations extends Component {
                                                                                      {},
                                                                                      this.props.actions.setLocations,
                                                                                      this.props.lang,
-                                                                                     t("Paikkojen haku epäonnistui", this.props.lang)));
+                                                                                     t("Paikkojen haku epäonnistui", this.props.lang),
+                                                                                     this.props.fetch.etag,
+                                                                                     this.props.actions.setEtag));
     this.backListener = this.props.emitter.addListener("back", () => this.onBack());
   }
 
@@ -149,7 +153,11 @@ const actions = {
     type: "SET_LOCATIONS_SEARCH_DATA",
     data: data,
     text: text
-  }),      
+  }),
+  setEtag: (etag) => ({
+    type: "SET_LOCATIONS_ETAG",
+    etag: etag
+  })
 };
 
 const titleComparator = (a, b) => a.title.localeCompare(b.title);
@@ -163,7 +171,8 @@ export const locations = (
            routeStack: [{name: "categories"}],
            currentTitle: null,
            searchText: '',
-           fetch: {state: "COMPLETED"}},
+           fetch: {state: "COMPLETED",
+                   etag: null}},
   action) => {
     switch (action.type) {
     case "SET_LOCATIONS":
@@ -174,7 +183,7 @@ export const locations = (
                                        routeStack: state.routeStack.concat(action.route)});
     case "SET_LOCATIONS_SEARCH_DATA":
       return Object.assign({}, state, {searchDataSource: state.searchDataSource.cloneWithRows(action.data.sort(titleComparator)),
-                                       searchText: action.text});    
+                                       searchText: action.text});
     case "SELECT_LOCATIONS_ARTICLE":
       return Object.assign({},
                            state,
@@ -185,9 +194,15 @@ export const locations = (
       newStack.pop();
       return Object.assign({}, state, {routeStack: newStack});
     case "LOCATIONS_FETCH_STATE":
-      return Object.assign({}, state, {fetch: {state: action.state}});
+      return Object.assign({}, state, {fetch: {state: action.state,
+                                               etag: state.fetch.etag}});
     case "SET_LOCATIONS_CURRENT_TITLE":
-      return Object.assign({}, state, {currentTitle: action.currentTitle});        
+      return Object.assign({}, state, {currentTitle: action.currentTitle});
+    case "SET_LOCATIONS_ETAG":
+      return Object.assign({},
+                           state,
+                           {fetch: {etag: action.etag,
+                                    state: state.fetch.state}});
     }
     return state;
   };

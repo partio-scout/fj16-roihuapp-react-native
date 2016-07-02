@@ -117,7 +117,9 @@ class Instructions extends Component {
         {},
         this.props.actions.setInstructions,
         this.props.lang,
-        t("Ohjeiden haku epäonnistui", this.props.lang)
+        t("Ohjeiden haku epäonnistui", this.props.lang),
+        this.props.fetch.etag,
+        this.props.actions.setEtag
       );
     }
 
@@ -127,7 +129,9 @@ class Instructions extends Component {
                                                                                      {},
                                                                                      this.props.actions.setInstructions,
                                                                                      this.props.lang,
-                                                                                     t("Ohjeiden haku epäonnistui", this.props.lang)));
+                                                                                     t("Ohjeiden haku epäonnistui", this.props.lang),
+                                                                                     this.props.fetch.etag,
+                                                                                     this.props.actions.setEtag));
     this.backListener = this.props.emitter.addListener("back", () => this.onBack());
   }
 
@@ -175,6 +179,10 @@ const actions = {
     type: "SET_INSTRUCTIONS_SEARCH_DATA",
     data: data,
     text: text
+  }),
+  setEtag: (etag) => ({
+    type: "SET_INSTRUCTIONS_ETAG",
+    etag: etag
   })
 };
 
@@ -187,7 +195,8 @@ export const instructions = (
            routeStack: [{name: "categories"}],
            currentTitle: null,
            searchText: '',
-           fetch: {state: "COMPLETED"}},
+           fetch: {state: "COMPLETED",
+                   etag: null}},
   action) => {
     switch (action.type) {
     case "SET_INSTRUCTIONS":
@@ -212,7 +221,13 @@ export const instructions = (
     case "SET_INSTRUCTIONS_CURRENT_TITLE":
       return Object.assign({}, state, {currentTitle: action.currentTitle});
     case "INSTRUCTIONS_FETCH_STATE":
-      return Object.assign({}, state, {fetch: {state: action.state}});
+      return Object.assign({}, state, {fetch: {state: action.state,
+                                               etag: state.fetch.etag}});
+    case "SET_INSTRUCTIONS_ETAG":
+      return Object.assign({},
+                           state,
+                           {fetch: {etag: action.etag,
+                                    state: state.fetch.state}});
     }
     return state;
   };
