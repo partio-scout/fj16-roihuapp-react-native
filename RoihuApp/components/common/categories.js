@@ -16,7 +16,7 @@ import { categoryStyles, styles } from '../../styles.js';
 import { renderProgressBar } from '../../utils.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
-const DEFAULT_TTL = 3600;
+const DEFAULT_TTL = 60 * 60 * 24;
 
 export function renderRightArrow() {
   return (
