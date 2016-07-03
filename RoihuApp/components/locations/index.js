@@ -16,7 +16,7 @@ import { bindActionCreators } from 'redux';
 import { t } from '../../translations.js';
 import { categoryStyles } from '../../styles.js';
 import { renderCategories, renderArticles, renderRoot, shouldFetch, fetchData, findById } from '../common/categories.js';
-import { popWhenRouteNotLastInStack } from '../../utils.js';
+import { popWhenRouteNotLastInStack, last } from '../../utils.js';
 
 class Locations extends Component {
 
@@ -188,6 +188,9 @@ export const locations = (
       const currentArticlesDataSource = currentSelectedCategory ?
               state.articlesDataSource.cloneWithRows(currentSelectedCategory.articles.sort(titleComparator)) :
               state.articlesDataSource;
+      const newCurrentTitle = state.currentTitle && currentSelectedCategory ?
+              (["articles", "article"].includes(last(state.routeStack).name) ? currentSelectedCategory.title : state.currentTitle) :
+              state.currentTitle;
       return Object.assign({},
                            state,
                            {locations: action.locations,
@@ -195,7 +198,8 @@ export const locations = (
                             state.categoriesDataSource.cloneWithRows(action.locations.categories.sort(titleComparator)),
                             articlesDataSource: currentArticlesDataSource,
                             selectedCategory: currentSelectedCategory,
-                            selectedArticle: currentSelectedArticle});
+                            selectedArticle: currentSelectedArticle,
+                            currentTitle: newCurrentTitle});
     }
     case "SELECT_LOCATIONS_CATEGORY":
       return Object.assign({},

@@ -16,7 +16,7 @@ import { sortNumber } from '../../utils.js';
 import { t } from '../../translations.js';
 import { categoryStyles } from '../../styles.js';
 import { renderCategories, renderArticles, renderRoot, shouldFetch, fetchData, findById } from '../common/categories.js';
-import { popWhenRouteNotLastInStack } from '../../utils.js';
+import { popWhenRouteNotLastInStack, last } from '../../utils.js';
 import showdown from 'showdown';
 const Entities = require('html-entities').AllHtmlEntities;
 const entities = new Entities();
@@ -214,13 +214,17 @@ export const instructions = (
       const currentArticlesDataSource = currentSelectedCategory ?
               state.articlesDataSource.cloneWithRows(currentSelectedCategory.articles.sort(sortNoComparator)) :
               state.articlesDataSource ;
+      const newCurrentTitle = state.currentTitle && currentSelectedCategory ?
+              (["articles", "article"].includes(last(state.routeStack).name) ? currentSelectedCategory.title : state.currentTitle) :
+              state.currentTitle;
       return Object.assign({},
                            state,
                            {instructions: action.instructions,
                             categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.instructions.categories.sort(sortNoComparator)),
                             articlesDataSource: currentArticlesDataSource,
                             selectedCategory: currentSelectedCategory,
-                            selectedArticle: currentSelectedArticle});
+                            selectedArticle: currentSelectedArticle,
+                            currentTitle: newCurrentTitle});
     }
     case "SELECT_INSTRUCTIONS_CATEGORY":
       return Object.assign({},
