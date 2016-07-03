@@ -65,7 +65,10 @@
     "Kirjautuminen vanhentunut": "Login expired",
     "Kirjaudu nähdäksesi päivitetyt tiedot": "Login to refresh user information",
     "Ohjeiden haku epäonnistui": "Failed to fetch instructions",
-    "Virhe nettiyhteydessä": "Network error"
+    "Virhe nettiyhteydessä": "Network error",
+    "Ei voitu hakea ohjeita": "Could not fetch instructions",
+    "Ei voitu hakea paikkoja": "Could not fetch locations",
+    "Paikkojen haku epäonnistui": "Failed to fetch locations"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -133,7 +136,10 @@
     "Kirjautuminen vanhentunut": "Kirjautuminen vanhentunut",
     "Kirjaudu nähdäksesi päivitetyt tiedot": "Kirjaudu nähdäksesi päivitetyt tiedot",
     "Ohjeiden haku epäonnistui": "Ohjeiden haku epäonnistui",
-    "Virhe nettiyhteydessä": "Virhe nettiyhteydessä"
+    "Virhe nettiyhteydessä": "Virhe nettiyhteydessä",
+    "Ei voitu hakea ohjeita": "Ei voitu hakea ohjeita",
+    "Ei voitu hakea paikkoja": "Ei voitu hakea paikkoja",
+    "Paikkojen haku epäonnistui": "Paikkojen haku epäonnistui"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -201,6 +207,9 @@
     "Kirjautuminen vanhentunut": "SV: Kirjautuminen vanhentunut",
     "Kirjaudu nähdäksesi päivitetyt tiedot": "SV: Kirjaudu nähdäksesi päivitetyt tiedot",
     "Ohjeiden haku epäonnistui": "SV: Ohjeiden haku epäonnistui",
-    "Virhe nettiyhteydessä": "Problem med nätförbindelsen"
+    "Virhe nettiyhteydessä": "Problem med nätförbindelsen",
+    "Ei voitu hakea ohjeita": "SV: Ei voitu hakea ohjeita",
+    "Ei voitu hakea paikkoja": "SV: Ei voitu hakea paikkoja",
+    "Paikkojen haku epäonnistui": "SV: Paikkojen haku epäonnistui"
   }
 }
