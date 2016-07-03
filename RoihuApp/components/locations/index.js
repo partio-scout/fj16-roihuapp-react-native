@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { t } from '../../translations.js';
 import { categoryStyles } from '../../styles.js';
-import { renderCategories, renderArticles, renderRoot, shouldFetch, fetchData } from '../common/categories.js';
+import { renderCategories, renderArticles, renderRoot, shouldFetch, fetchData, findById } from '../common/categories.js';
 import { popWhenRouteNotLastInStack } from '../../utils.js';
 
 class Locations extends Component {
@@ -48,7 +48,7 @@ class Locations extends Component {
     this._navigator = navigator;
     switch(route.name) {
     case "article":
-      return this.renderSelectedArticle(this.props.article);
+      return this.renderSelectedArticle(this.props.selectedArticle);
     case "articles":
       return renderArticles(navigator,
                             this.props.articlesDataSource,
@@ -167,7 +167,8 @@ export const locations = (
            categoriesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            searchDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
-           article: {},
+           selectedCategory: null,
+           selectedArticle: null,
            routeStack: [{name: "categories"}],
            currentTitle: null,
            searchText: '',
@@ -177,19 +178,38 @@ export const locations = (
                    lastSuccesfullTs: moment().unix()}},
   action) => {
     switch (action.type) {
-    case "SET_LOCATIONS":
-      return Object.assign({}, state, {locations: action.locations,
-                                       categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.locations.categories.sort(titleComparator))});
+    case "SET_LOCATIONS": {
+      const currentSelectedCategory = state.selectedCategory ?
+              findById(action.locations.categories, state.selectedCategory.id) :
+              null;
+      const currentSelectedArticle = state.selectedArticle ?
+              findById(currentSelectedCategory.articles, state.selectedArticle.id) :
+              null;
+      const currentArticlesDataSource = currentSelectedCategory ?
+              state.articlesDataSource.cloneWithRows(currentSelectedCategory.articles.sort(titleComparator)) :
+              state.articlesDataSource;
+      return Object.assign({},
+                           state,
+                           {locations: action.locations,
+                            categoriesDataSource:
+                            state.categoriesDataSource.cloneWithRows(action.locations.categories.sort(titleComparator)),
+                            articlesDataSource: currentArticlesDataSource,
+                            selectedCategory: currentSelectedCategory,
+                            selectedArticle: currentSelectedArticle});
+    }
     case "SELECT_LOCATIONS_CATEGORY":
-      return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles.sort(titleComparator)),
-                                       routeStack: state.routeStack.concat(action.route)});
+      return Object.assign({},
+                           state,
+                           {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles.sort(titleComparator)),
+                            selectedCategory: action.category,
+                            routeStack: state.routeStack.concat(action.route)});
     case "SET_LOCATIONS_SEARCH_DATA":
       return Object.assign({}, state, {searchDataSource: state.searchDataSource.cloneWithRows(action.data.sort(titleComparator)),
                                        searchText: action.text});
     case "SELECT_LOCATIONS_ARTICLE":
       return Object.assign({},
                            state,
-                           {article: action.article,
+                           {selectedArticle: action.article,
                             routeStack: state.routeStack.concat(action.route)});
     case "POP_LOCATIONS_ROUTE":
       const newStack = Object.assign([], state.routeStack);
@@ -219,7 +239,8 @@ export default connect(state => ({
   categoriesDataSource: state.locations.categoriesDataSource,
   articlesDataSource: state.locations.articlesDataSource,
   searchDataSource: state.locations.searchDataSource,
-  article: state.locations.article,
+  selectedArticle: state.locations.selectedArticle,
+  selectedCategory: state.locations.selectedCategory,
   routeStack: state.locations.routeStack,
   currentTitle: state.locations.currentTitle,
   searchText: state.locations.searchText,

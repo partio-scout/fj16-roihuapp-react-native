@@ -19,8 +19,9 @@ console.log("Using base url", baseUrl);
 
 const engine = migrate(createEngine('roihu'), 1);
 engine.addMigration(1, (state) => {
-  console.log("migration 1: remove article key from state.instructions");
+  console.log("migration 1: remove article key from state.instructions and state.locations");
   delete state.instructions.article;
+  delete state.locations.article;
   return state;
 });
 const middleware = storage.createMiddleware(engine);
