@@ -66,7 +66,7 @@
     "Kirjautuminen vanhentunut": "Login expired",
     "Kirjaudu nähdäksesi päivitetyt tiedot": "Login to refresh user information",
     "Ohjeiden haku epäonnistui": "Failed to fetch instructions",
-    "Virhe nettiyhteydessä": "Network error"
+    "Virhe nettiyhteydessä": "Network error",
     "Kenelle": "Audience:",
     "Päivämäärä": "Date:",
     "Kellonaika": "Time:",
@@ -220,7 +220,7 @@
     "Kirjautuminen vanhentunut": "SV: Kirjautuminen vanhentunut",
     "Kirjaudu nähdäksesi päivitetyt tiedot": "SV: Kirjaudu nähdäksesi päivitetyt tiedot",
     "Ohjeiden haku epäonnistui": "SV: Ohjeiden haku epäonnistui",
-    "Virhe nettiyhteydessä": "Problem med nätförbindelsen"
+    "Virhe nettiyhteydessä": "Problem med nätförbindelsen",
     "Kenelle": "För vem:",
     "Päivämäärä": "Datum:",
     "Kellonaika": "Tidpunkt:",
