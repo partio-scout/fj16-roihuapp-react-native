@@ -66,7 +66,7 @@ class Instructions extends Component {
     this._navigator = navigator;
     switch(route.name) {
     case "article":
-      return this.renderSelectedArticle(this.props.article);
+      return this.renderSelectedArticle(this.props.selectedArticle);
     case "articles":
       return renderArticles(navigator,
                             this.props.articlesDataSource,
@@ -186,12 +186,15 @@ const actions = {
   })
 };
 
+const sortNoComparator = (a, b) => sortNumber(a.sort_no, b.sort_no);
+
 export const instructions = (
   state = {instructions: null,
            categoriesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            searchDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
-           article: {},
+           selectedCategory: null,
+           selectedArticle: null,
            routeStack: [{name: "categories"}],
            currentTitle: null,
            searchText: '',
@@ -201,19 +204,37 @@ export const instructions = (
                    lastSuccesfullTs: moment().unix()}},
   action) => {
     switch (action.type) {
-    case "SET_INSTRUCTIONS":
-      return Object.assign({}, state, {instructions: action.instructions,
-                                       categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.instructions.categories.sort((a, b) => sortNumber(a.sort_no, b.sort_no)))});
+    case "SET_INSTRUCTIONS": {
+      const currentSelectedCategory = state.selectedCategory ?
+              action.instructions.categories.find((category) => state.selectedCategory.id === category.id) :
+              null;
+      const currentSelectedArticle = state.selectedArticle ?
+              currentSelectedCategory.articles.find((article) => state.selectedArticle.id === article.id) :
+              null;
+      const currentArticlesDataSource = currentSelectedCategory ?
+              state.articlesDataSource.cloneWithRows(currentSelectedCategory.articles.sort(sortNoComparator)) :
+              state.articlesDataSource ;
+      return Object.assign({},
+                           state,
+                           {instructions: action.instructions,
+                            categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.instructions.categories.sort(sortNoComparator)),
+                            articlesDataSource: currentArticlesDataSource,
+                            selectedCategory: currentSelectedCategory,
+                            selectedArticle: currentSelectedArticle});
+    }
     case "SELECT_INSTRUCTIONS_CATEGORY":
-      return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles.sort((a, b) => sortNumber(a.sort_no, b.sort_no))),
-                                       routeStack: state.routeStack.concat(action.route)});
+      return Object.assign({},
+                           state,
+                           {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles.sort(sortNoComparator)),
+                            selectedCategory: action.category,
+                            routeStack: state.routeStack.concat(action.route)});
     case "SET_INSTRUCTIONS_SEARCH_DATA":
-      return Object.assign({}, state, {searchDataSource: state.searchDataSource.cloneWithRows(action.data.sort((a, b) => sortNumber(a.sort_no, b.sort_no))),
+      return Object.assign({}, state, {searchDataSource: state.searchDataSource.cloneWithRows(action.data.sort(sortNoComparator)),
                                        searchText: action.text});
     case "SELECT_INSTRUCTIONS_ARTICLE":
       return Object.assign({},
                            state,
-                           {article: action.article,
+                           {selectedArticle: action.article,
                             routeStack: state.routeStack.concat(action.route)});
     case "POP_INSTRUCTIONS_ROUTE":
       const newStack = Object.assign([], state.routeStack);
@@ -244,7 +265,8 @@ export default connect(state => ({
   categoriesDataSource: state.instructions.categoriesDataSource,
   articlesDataSource: state.instructions.articlesDataSource,
   searchDataSource: state.instructions.searchDataSource,
-  article: state.instructions.article,
+  selectedArticle: state.instructions.selectedArticle,
+  selectedCategory: state.instructions.selectedCategory,
   routeStack: state.instructions.routeStack,
   currentTitle: state.instructions.currentTitle,
   searchText: state.instructions.searchText,

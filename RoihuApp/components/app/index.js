@@ -10,13 +10,19 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import * as storage from 'redux-storage';
 import createEngine from 'redux-storage-engine-reactnativeasyncstorage';
+import migrate from 'redux-storage-decorator-migrate';
 import {reducer} from './reducers.js';
 import Navigation from '../navigation/index.js';
 import { baseUrl } from '../../config';
 
 console.log("Using base url", baseUrl);
 
-const engine = createEngine('roihu');
+const engine = migrate(createEngine('roihu'), 1);
+engine.addMigration(1, (state) => {
+  console.log("migration 1: remove article key from state.instructions");
+  delete state.instructions.article;
+  return state;
+});
 const middleware = storage.createMiddleware(engine);
 const createStoreWithMiddleware = applyMiddleware(middleware)(createStore);
 const store = createStoreWithMiddleware(storage.reducer(reducer));
