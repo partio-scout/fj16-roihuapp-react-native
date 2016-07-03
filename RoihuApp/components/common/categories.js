@@ -189,3 +189,7 @@ export function fetchData(logStart, setFetchStatus, apiPath, queryParams, setDat
                   [{text: "Ok", onPress: () => {}}]);
     });
 }
+
+export function findById(data, id) {
+  return data.find((x) => x.id === id);
+}

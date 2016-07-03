@@ -15,7 +15,7 @@ import { bindActionCreators } from 'redux';
 import { sortNumber } from '../../utils.js';
 import { t } from '../../translations.js';
 import { categoryStyles } from '../../styles.js';
-import { renderCategories, renderArticles, renderRoot, shouldFetch, fetchData } from '../common/categories.js';
+import { renderCategories, renderArticles, renderRoot, shouldFetch, fetchData, findById } from '../common/categories.js';
 import { popWhenRouteNotLastInStack } from '../../utils.js';
 import showdown from 'showdown';
 const Entities = require('html-entities').AllHtmlEntities;
@@ -206,10 +206,10 @@ export const instructions = (
     switch (action.type) {
     case "SET_INSTRUCTIONS": {
       const currentSelectedCategory = state.selectedCategory ?
-              action.instructions.categories.find((category) => state.selectedCategory.id === category.id) :
+              findById(action.instructions.categories, state.selectedCategory.id) :
               null;
       const currentSelectedArticle = state.selectedArticle ?
-              currentSelectedCategory.articles.find((article) => state.selectedArticle.id === article.id) :
+              findById(currentSelectedCategory.articles, state.selectedArticle.id) :
               null;
       const currentArticlesDataSource = currentSelectedCategory ?
               state.articlesDataSource.cloneWithRows(currentSelectedCategory.articles.sort(sortNoComparator)) :
