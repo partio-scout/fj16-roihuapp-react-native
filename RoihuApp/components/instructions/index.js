@@ -221,13 +221,13 @@ export const instructions = (
     case "SET_INSTRUCTIONS_CURRENT_TITLE":
       return Object.assign({}, state, {currentTitle: action.currentTitle});
     case "INSTRUCTIONS_FETCH_STATE":
-      return Object.assign({}, state, {fetch: {state: action.state,
-                                               etag: state.fetch.etag}});
+      return Object.assign({},
+                           state,
+                           {fetch: Object.assign({}, state.fetch, {state: action.state})});
     case "SET_INSTRUCTIONS_ETAG":
       return Object.assign({},
                            state,
-                           {fetch: {etag: action.etag,
-                                    state: state.fetch.state}});
+                           {fetch: Object.assign({}, state.fetch, {etag: action.etag})});
     }
     return state;
   };
