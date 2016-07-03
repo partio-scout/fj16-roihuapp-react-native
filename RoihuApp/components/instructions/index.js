@@ -90,7 +90,7 @@ class Instructions extends Component {
   }
 
   render() {
-    return renderRoot(this.props.fetch.state,
+    return renderRoot(this.props.fetch,
                       this.props.instructions,
                       t("Ei voitu hakea ohjeita", this.props.lang),
                       this.props.lang,
@@ -109,7 +109,7 @@ class Instructions extends Component {
   }
 
   componentWillMount() {
-    if (shouldFetch(this.props.instructions, this.props.lang, this.props.fetch.ts)) {
+    if (shouldFetch(this.props.instructions, this.props.lang, this.props.fetch.lastTs)) {
       fetchData(
         "Fetching instructions",
         this.props.actions.setFetchStatus,
@@ -197,7 +197,8 @@ export const instructions = (
            searchText: '',
            fetch: {state: "COMPLETED",
                    etag: null,
-                   ts: moment().unix()}},
+                   lastTs: moment().unix(),
+                   lastSuccesfullTs: moment().unix()}},
   action) => {
     switch (action.type) {
     case "SET_INSTRUCTIONS":
@@ -221,13 +222,15 @@ export const instructions = (
                            state, {routeStack: newStack});
     case "SET_INSTRUCTIONS_CURRENT_TITLE":
       return Object.assign({}, state, {currentTitle: action.currentTitle});
-    case "INSTRUCTIONS_FETCH_STATE":
+    case "INSTRUCTIONS_FETCH_STATE": {
+      const now = moment().unix();
       return Object.assign({},
                            state,
                            {fetch: Object.assign({},
                                                  state.fetch,
-                                                 {state: action.state,
-                                                  ts: moment().unix()})});
+                                                 {state: action.state, lastTs: now},
+                                                 action.state == "COMPLETED" ? {lastSuccesfullTs: now} : {})});
+    }
     case "SET_INSTRUCTIONS_ETAG":
       return Object.assign({},
                            state,

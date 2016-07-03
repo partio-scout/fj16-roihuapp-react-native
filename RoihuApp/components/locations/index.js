@@ -72,7 +72,7 @@ class Locations extends Component {
   }
 
   render() {
-    return renderRoot(this.props.fetch.state,
+    return renderRoot(this.props.fetch,
                       this.props.locations,
                       t("Ei voitu hakea paikkoja", this.props.lang),
                       this.props.lang,
@@ -91,7 +91,7 @@ class Locations extends Component {
   }
 
   componentWillMount() {
-    if (shouldFetch(this.props.locations, this.props.lang, this.props.fetch.ts)) {
+    if (shouldFetch(this.props.locations, this.props.lang, this.props.fetch.lastTs)) {
       fetchData(
         "Fetching locations",
         this.props.actions.setFetchStatus,
@@ -173,7 +173,8 @@ export const locations = (
            searchText: '',
            fetch: {state: "COMPLETED",
                    etag: null,
-                   ts: moment().unix()}},
+                   lastTs: moment().unix(),
+                   lastSuccesfullTs: moment().unix()}},
   action) => {
     switch (action.type) {
     case "SET_LOCATIONS":
@@ -194,13 +195,15 @@ export const locations = (
       const newStack = Object.assign([], state.routeStack);
       newStack.pop();
       return Object.assign({}, state, {routeStack: newStack});
-    case "LOCATIONS_FETCH_STATE":
+    case "LOCATIONS_FETCH_STATE": {
+      const now = moment().unix();
       return Object.assign({},
                            state,
                            {fetch: Object.assign({},
                                                  state.fetch,
-                                                 {state: action.state,
-                                                  ts: moment().unix()})});
+                                                 {state: action.state, lastTs: now},
+                                                 action.state == "COMPLETED" ? {lastSuccesfullTs: now} : {})});
+    }
     case "SET_LOCATIONS_CURRENT_TITLE":
       return Object.assign({}, state, {currentTitle: action.currentTitle});
     case "SET_LOCATIONS_ETAG":

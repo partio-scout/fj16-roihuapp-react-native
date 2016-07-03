@@ -112,7 +112,7 @@ function renderSearchInput(lang, data, searchText, setSearchData) {
 }
 
 export function renderRoot(fetchState, data, noDataText, lang, routeStack, renderScene, onWillFocus, searchText, setSearchData) {
-  switch (fetchState) {
+  switch (fetchState.state) {
   case "STARTED":
     return renderProgressBar();
   case "ERROR":
@@ -127,7 +127,7 @@ export function renderRoot(fetchState, data, noDataText, lang, routeStack, rende
     return (
       <View style={{flex: 1, width: Dimensions.get("window").width}}>
         <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
-          {t("Tilanne", lang)} {moment(data.timestamp).format(t("Timestamp", lang))}
+          {t("Tilanne", lang)} {moment(fetchState.lastSuccesfullTs * 1000).format(t("Timestamp", lang))}
         </Text>
         {routeStack.length == 1 ? renderSearchInput(lang, data, searchText, setSearchData) : (<View />)}
         <Navigator initialRouteStack={routeStack}
@@ -138,7 +138,7 @@ export function renderRoot(fetchState, data, noDataText, lang, routeStack, rende
   }
 }
 
-export function shouldFetch(data, lang, fetchTs) {
+export function shouldFetch(data, lang, lastTs) {
   if (data === null) {
       return true;
   }
@@ -148,7 +148,7 @@ export function shouldFetch(data, lang, fetchTs) {
   }
 
   const ttl = data ? (data.ttl ? data.ttl : DEFAULT_TTL) : DEFAULT_TTL;
-  if (moment().isAfter(moment(fetchTs * 1000).add(ttl, 'seconds'))) {
+  if (moment().isAfter(moment(lastTs * 1000).add(ttl, 'seconds'))) {
     console.log("Time for next check");
     return true;
   }
