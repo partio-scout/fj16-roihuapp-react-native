@@ -16,6 +16,8 @@ import { categoryStyles, styles } from '../../styles.js';
 import { renderProgressBar } from '../../utils.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
+const DEFAULT_TTL = 3600;
+
 export function renderRightArrow() {
   return (
     <View style={{flexDirection: 'row', flex: 1, alignItems: 'flex-end'}}>
@@ -136,7 +138,7 @@ export function renderRoot(fetchState, data, noDataText, lang, routeStack, rende
   }
 }
 
-export function shouldFetch(data, lang) {
+export function shouldFetch(data, lang, fetchTs) {
   if (data === null) {
       return true;
   }
@@ -145,7 +147,9 @@ export function shouldFetch(data, lang) {
       return true;
   }
 
-  if (moment().isAfter(data.next_check)) {
+  const ttl = data ? (data.ttl ? data.ttl : DEFAULT_TTL) : DEFAULT_TTL;
+  if (moment().isAfter(moment(fetchTs * 1000).add(ttl, 'seconds'))) {
+    console.log("Time for next check");
     return true;
   }
 

@@ -109,7 +109,7 @@ class Instructions extends Component {
   }
 
   componentWillMount() {
-    if (shouldFetch(this.props.instructions, this.props.lang)) {
+    if (shouldFetch(this.props.instructions, this.props.lang, this.props.fetch.ts)) {
       fetchData(
         "Fetching instructions",
         this.props.actions.setFetchStatus,
@@ -196,7 +196,8 @@ export const instructions = (
            currentTitle: null,
            searchText: '',
            fetch: {state: "COMPLETED",
-                   etag: null}},
+                   etag: null,
+                   ts: moment().unix()}},
   action) => {
     switch (action.type) {
     case "SET_INSTRUCTIONS":
@@ -223,7 +224,10 @@ export const instructions = (
     case "INSTRUCTIONS_FETCH_STATE":
       return Object.assign({},
                            state,
-                           {fetch: Object.assign({}, state.fetch, {state: action.state})});
+                           {fetch: Object.assign({},
+                                                 state.fetch,
+                                                 {state: action.state,
+                                                  ts: moment().unix()})});
     case "SET_INSTRUCTIONS_ETAG":
       return Object.assign({},
                            state,

@@ -91,7 +91,7 @@ class Locations extends Component {
   }
 
   componentWillMount() {
-    if (shouldFetch(this.props.locations, this.props.lang)) {
+    if (shouldFetch(this.props.locations, this.props.lang, this.props.fetch.ts)) {
       fetchData(
         "Fetching locations",
         this.props.actions.setFetchStatus,
@@ -172,7 +172,8 @@ export const locations = (
            currentTitle: null,
            searchText: '',
            fetch: {state: "COMPLETED",
-                   etag: null}},
+                   etag: null,
+                   ts: moment().unix()}},
   action) => {
     switch (action.type) {
     case "SET_LOCATIONS":
@@ -196,7 +197,10 @@ export const locations = (
     case "LOCATIONS_FETCH_STATE":
       return Object.assign({},
                            state,
-                           {fetch: Object.assign({}, state.fetch, {state: action.state})});
+                           {fetch: Object.assign({},
+                                                 state.fetch,
+                                                 {state: action.state,
+                                                  ts: moment().unix()})});
     case "SET_LOCATIONS_CURRENT_TITLE":
       return Object.assign({}, state, {currentTitle: action.currentTitle});
     case "SET_LOCATIONS_ETAG":
