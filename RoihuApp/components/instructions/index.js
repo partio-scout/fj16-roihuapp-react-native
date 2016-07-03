@@ -213,10 +213,10 @@ export const instructions = (
               null;
       const currentArticlesDataSource = currentSelectedCategory ?
               state.articlesDataSource.cloneWithRows(currentSelectedCategory.articles.sort(sortNoComparator)) :
-              state.articlesDataSource ;
+              state.articlesDataSource;
       const newCurrentTitle = state.currentTitle && currentSelectedCategory ?
               (["articles", "article"].includes(last(state.routeStack).name) ? currentSelectedCategory.title : state.currentTitle) :
-              state.currentTitle;
+            state.currentTitle;
       return Object.assign({},
                            state,
                            {instructions: action.instructions,

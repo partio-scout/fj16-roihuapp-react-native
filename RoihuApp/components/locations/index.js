@@ -190,7 +190,7 @@ export const locations = (
               state.articlesDataSource;
       const newCurrentTitle = state.currentTitle && currentSelectedCategory ?
               (["articles", "article"].includes(last(state.routeStack).name) ? currentSelectedCategory.title : state.currentTitle) :
-              state.currentTitle;
+            state.currentTitle;
       return Object.assign({},
                            state,
                            {locations: action.locations,
