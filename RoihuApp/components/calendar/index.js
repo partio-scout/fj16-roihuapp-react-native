@@ -23,7 +23,7 @@ class Calendar extends Component {
 
   constructor(props) {
     super(props);
-  }  
+  }
 
   getBackgroundColor(type) {
     switch(type) {
@@ -67,23 +67,23 @@ class Calendar extends Component {
               {this.renderAudience(event, lang)}
               {"\n"}{event.ageGroups}
             </Text>
-          </View>        
+          </View>
           <View style={calendarStyles.eventDetailContainer}>
             <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Päivämäärä", lang)}</Text>
             <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{moment(event.startTime).format(t("Timestamp", lang))}</Text>
-          </View>        
+          </View>
           <View style={calendarStyles.eventDetailContainer}>
             <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Kellonaika", lang)}</Text>
             <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{moment(event.startTime).format(t("Time", lang))}-{moment(event.endTime).format(t("Time", lang))}</Text>
-          </View>        
+          </View>
           <View style={calendarStyles.eventDetailContainer}>
             <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Sijainti", lang)}</Text>
             <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{event.grid_latitude}{event.grid_longitude}</Text>
-          </View>        
+          </View>
           <View style={calendarStyles.eventDetailContainer}>
             <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Paikka", lang)}</Text>
             <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{event.locationName}</Text>
-          </View>        
+          </View>
           <View style={calendarStyles.eventDetailContainer}>
             <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Osallistumassa", lang)}</Text>
             <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{event.participantCount}</Text>
@@ -111,7 +111,7 @@ class Calendar extends Component {
           }}>
           <Text style={[categoryStyles.textColor, {flex: 1}]}>
             <Text>
-              {moment(event.startTime).format(t("Time", lang))}-{"\n"} 
+              {moment(event.startTime).format(t("Time", lang))}-{"\n"}
             </Text>
             <Text>
               {moment(event.endTime).format(t("Time", lang))}
@@ -151,7 +151,7 @@ class Calendar extends Component {
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
           <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
             {t("Tilanne", lang)} {moment(calendar.timestamp).format(t("Timestamp", lang))}
-          </Text>              
+          </Text>
           <Navigator initialRouteStack={this.props.parentNavigator.getCurrentRoutes()}
                      navigator={this.props.parentNavigator}
                      renderScene={(route, navigator) => this.renderScene(route, navigator)}
@@ -187,16 +187,16 @@ class Calendar extends Component {
   componentWillMount() {
     if (this.props.calendar === null || this.props.calendar.language.toUpperCase() !== this.props.lang.toUpperCase()) {
       this.fetchUserCalendar(this.props.credentials, this.props.actions.setCalendar, this.props.actions.setError);
-    }   
+    }
 
     this.refreshListener = this.props.refreshEventEmitter.addListener(
       "refresh", () => this.fetchUserCalendar(this.props.credentials, this.props.actions.setCalendar, this.props.actions.setError)
-    ); 
+    );
   }
 
   componentWillUnmount() {
     this.refreshListener.remove();
-  }  
+  }
 }
 
 const setCalendar = (calendar) => ({

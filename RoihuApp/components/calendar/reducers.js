@@ -17,8 +17,8 @@ export const calendar = (
       newStack.pop();
       return Object.assign({}, state, {routeStack: newStack});
     case "RESET_CALENDAR_ROUTES":
-      return Object.assign({}, state, {routeStack: [action.route]}); 
- 
+      return Object.assign({}, state, {routeStack: [action.route]});
+
     case "SET_CALENDAR":
       return Object.assign({}, state, {calendar: action.calendar.calendar,
                                        calendarDataSource: state.calendarDataSource.cloneWithRows(
@@ -28,7 +28,7 @@ export const calendar = (
       return Object.assign({},
                            state,
                            {event: action.event,
-                            routeStack: state.routeStack.concat(action.route)});    
+                            routeStack: state.routeStack.concat(action.route)});
     case "SET_CALENDAR_ERROR":
       return Object.assign({}, state, {error: action.error});
     }
