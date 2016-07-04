@@ -15,8 +15,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { t } from '../../translations.js';
 import { categoryStyles } from '../../styles.js';
-import { renderCategories, renderArticles, renderRoot, shouldFetch, fetchData } from '../common/categories.js';
-import { popWhenRouteNotLastInStack } from '../../utils.js';
+import { renderCategories, renderArticles, renderRoot, shouldFetch, fetchData, findById } from '../common/categories.js';
+import { popWhenRouteNotLastInStack, last } from '../../utils.js';
 
 class Locations extends Component {
 
@@ -48,7 +48,7 @@ class Locations extends Component {
     this._navigator = navigator;
     switch(route.name) {
     case "article":
-      return this.renderSelectedArticle(this.props.article);
+      return this.renderSelectedArticle(this.props.selectedArticle);
     case "articles":
       return renderArticles(navigator,
                             this.props.articlesDataSource,
@@ -72,7 +72,7 @@ class Locations extends Component {
   }
 
   render() {
-    return renderRoot(this.props.fetch.state,
+    return renderRoot(this.props.fetch,
                       this.props.locations,
                       t("Ei voitu hakea paikkoja", this.props.lang),
                       this.props.lang,
@@ -91,7 +91,7 @@ class Locations extends Component {
   }
 
   componentWillMount() {
-    if (shouldFetch(this.props.locations, this.props.lang)) {
+    if (shouldFetch(this.props.locations, this.props.lang, this.props.fetch.lastTs)) {
       fetchData(
         "Fetching locations",
         this.props.actions.setFetchStatus,
@@ -99,7 +99,9 @@ class Locations extends Component {
         {},
         this.props.actions.setLocations,
         this.props.lang,
-        t("Paikkojen haku epäonnistui", this.props.lang)
+        t("Paikkojen haku epäonnistui", this.props.lang),
+        this.props.fetch.etag,
+        this.props.actions.setEtag
       );
     }
 
@@ -109,7 +111,9 @@ class Locations extends Component {
                                                                                      {},
                                                                                      this.props.actions.setLocations,
                                                                                      this.props.lang,
-                                                                                     t("Paikkojen haku epäonnistui", this.props.lang)));
+                                                                                     t("Paikkojen haku epäonnistui", this.props.lang),
+                                                                                     this.props.fetch.etag,
+                                                                                     this.props.actions.setEtag));
     this.backListener = this.props.emitter.addListener("back", () => this.onBack());
   }
 
@@ -149,7 +153,11 @@ const actions = {
     type: "SET_LOCATIONS_SEARCH_DATA",
     data: data,
     text: text
-  }),      
+  }),
+  setEtag: (etag) => ({
+    type: "SET_LOCATIONS_ETAG",
+    etag: etag
+  })
 };
 
 const titleComparator = (a, b) => a.title.localeCompare(b.title);
@@ -159,35 +167,73 @@ export const locations = (
            categoriesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            searchDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
-           article: {},
+           selectedCategory: null,
+           selectedArticle: null,
            routeStack: [{name: "categories"}],
            currentTitle: null,
            searchText: '',
-           fetch: {state: "COMPLETED"}},
+           fetch: {state: "COMPLETED",
+                   etag: null,
+                   lastTs: moment().unix(),
+                   lastSuccesfullTs: moment().unix()}},
   action) => {
     switch (action.type) {
-    case "SET_LOCATIONS":
-      return Object.assign({}, state, {locations: action.locations,
-                                       categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.locations.categories.sort(titleComparator))});
+    case "SET_LOCATIONS": {
+      const currentSelectedCategory = state.selectedCategory ?
+              findById(action.locations.categories, state.selectedCategory.id) :
+              null;
+      const currentSelectedArticle = state.selectedArticle ?
+              findById(currentSelectedCategory.articles, state.selectedArticle.id) :
+              null;
+      const currentArticlesDataSource = currentSelectedCategory ?
+              state.articlesDataSource.cloneWithRows(currentSelectedCategory.articles.sort(titleComparator)) :
+              state.articlesDataSource;
+      const newCurrentTitle = state.currentTitle && currentSelectedCategory ?
+              (["articles", "article"].includes(last(state.routeStack).name) ? currentSelectedCategory.title : state.currentTitle) :
+            state.currentTitle;
+      return Object.assign({},
+                           state,
+                           {locations: action.locations,
+                            categoriesDataSource:
+                            state.categoriesDataSource.cloneWithRows(action.locations.categories.sort(titleComparator)),
+                            articlesDataSource: currentArticlesDataSource,
+                            selectedCategory: currentSelectedCategory,
+                            selectedArticle: currentSelectedArticle,
+                            currentTitle: newCurrentTitle});
+    }
     case "SELECT_LOCATIONS_CATEGORY":
-      return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles.sort(titleComparator)),
-                                       routeStack: state.routeStack.concat(action.route)});
+      return Object.assign({},
+                           state,
+                           {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles.sort(titleComparator)),
+                            selectedCategory: action.category,
+                            routeStack: state.routeStack.concat(action.route)});
     case "SET_LOCATIONS_SEARCH_DATA":
       return Object.assign({}, state, {searchDataSource: state.searchDataSource.cloneWithRows(action.data.sort(titleComparator)),
-                                       searchText: action.text});    
+                                       searchText: action.text});
     case "SELECT_LOCATIONS_ARTICLE":
       return Object.assign({},
                            state,
-                           {article: action.article,
+                           {selectedArticle: action.article,
                             routeStack: state.routeStack.concat(action.route)});
     case "POP_LOCATIONS_ROUTE":
       const newStack = Object.assign([], state.routeStack);
       newStack.pop();
       return Object.assign({}, state, {routeStack: newStack});
-    case "LOCATIONS_FETCH_STATE":
-      return Object.assign({}, state, {fetch: {state: action.state}});
+    case "LOCATIONS_FETCH_STATE": {
+      const now = moment().unix();
+      return Object.assign({},
+                           state,
+                           {fetch: Object.assign({},
+                                                 state.fetch,
+                                                 {state: action.state, lastTs: now},
+                                                 action.state == "COMPLETED" ? {lastSuccesfullTs: now} : {})});
+    }
     case "SET_LOCATIONS_CURRENT_TITLE":
-      return Object.assign({}, state, {currentTitle: action.currentTitle});        
+      return Object.assign({}, state, {currentTitle: action.currentTitle});
+    case "SET_LOCATIONS_ETAG":
+      return Object.assign({},
+                           state,
+                           {fetch: Object.assign({}, state.fetch, {etag: action.etag})});
     }
     return state;
   };
@@ -197,7 +243,8 @@ export default connect(state => ({
   categoriesDataSource: state.locations.categoriesDataSource,
   articlesDataSource: state.locations.articlesDataSource,
   searchDataSource: state.locations.searchDataSource,
-  article: state.locations.article,
+  selectedArticle: state.locations.selectedArticle,
+  selectedCategory: state.locations.selectedCategory,
   routeStack: state.locations.routeStack,
   currentTitle: state.locations.currentTitle,
   searchText: state.locations.searchText,
