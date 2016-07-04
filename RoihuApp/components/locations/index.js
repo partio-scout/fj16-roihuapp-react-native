@@ -189,7 +189,7 @@ export const locations = (
               state.articlesDataSource.cloneWithRows(currentSelectedCategory.articles.sort(titleComparator)) :
               state.articlesDataSource;
       const newCurrentTitle = state.currentTitle && currentSelectedCategory ?
-              (["articles", "article"].includes(last(state.routeStack).name) ? currentSelectedCategory.title : state.currentTitle) :
+              (["articles", "article"].find((route) => last(state.routeStack).name === route) ? currentSelectedCategory.title : state.currentTitle) :
             state.currentTitle;
       return Object.assign({},
                            state,
