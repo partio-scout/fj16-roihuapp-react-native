@@ -208,7 +208,7 @@ export const instructions = (
       const currentSelectedCategory = state.selectedCategory ?
               findById(action.instructions.categories, state.selectedCategory.id) :
               null;
-      const currentSelectedArticle = state.selectedArticle ?
+      const currentSelectedArticle = state.selectedArticle && currentSelectedCategory ?
               findById(currentSelectedCategory.articles, state.selectedArticle.id) :
               null;
       const currentArticlesDataSource = currentSelectedCategory ?
