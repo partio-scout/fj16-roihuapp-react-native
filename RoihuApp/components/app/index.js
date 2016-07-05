@@ -14,12 +14,19 @@ import migrate from 'redux-storage-decorator-migrate';
 import {reducer} from './reducers.js';
 import Navigation from '../navigation/index.js';
 import { baseUrl } from '../../config';
+import { isEmpty } from '../../utils';
 
 console.log("Using base url", baseUrl);
 
 const engine = migrate(createEngine('roihu'), 1);
 engine.addMigration(1, (state) => {
   console.log("migration 1: remove article key from state.instructions and state.locations");
+  if (!isEmpty(state.instructions.article)) {
+    state.instructions.selectedArticle = state.instructions.article;
+  }
+  if (!isEmpty(state.locations.article)) {
+    state.locations.selectedArticle = state.locations.article;
+  }
   delete state.instructions.article;
   delete state.locations.article;
   return state;
