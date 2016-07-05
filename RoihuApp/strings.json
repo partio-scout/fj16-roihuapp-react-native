@@ -166,8 +166,8 @@
     "Muokkaa tietoja": "Redigera",
     "Tallenna": "Spara",
     "Versiotieto": "Version",
-    "Versiotieto-content": "SV: Appia kehitetään vielä ennen leiriä, joten käy silloin tällöin tarkastamassa, onko tullut päivityksiä.\n\nKirjautuminen tulee mahdolliseksi lähempänä leiriä.\n\nSuomen Partiolaiset - Finlands Scouter ry",
-    "Palaute": "SV: Palaute",
+    "Versiotieto-content": "Appen utvecklas ännu innan lägret. Kolla nu och då om det kommit uppdateringar.\n\nInloggningen är möjlig närmare lägret.\n\nSuomen Partiolaiset - Finlands Scouter ry",
+    "Palaute": "Respons",
     "Palaute teksti": "SV Jos huomaat puutteita tai ongelmia, tai sinulla on parannusehdotuksia, lähetä sähköpostia osoitteeseen roihuapp@roihu2016.fi",
     "TEHTY!": "UTFÖRD!",
     "ENPÄS VIELÄ OLEKAAN": "NEJ, HAR INTE UTFÖRT DEN ÄNNU",
@@ -201,12 +201,12 @@
     "Paikka- ja kalenteri-data": "Plats- och kalenderdata",
     "Lisäksi apuna": "Dessutom",
     "Karttamerkit": "Kartsymboler",
-    "Aktiviteettien haku epäonnistui": "SV: Aktiviteettien haku epäonnistui",
+    "Aktiviteettien haku epäonnistui": "Sökning av aktiviteter misslyckades",
     "Kirjautuminen vanhentunut": "Din inloggning har föråldrats",
     "Kirjaudu nähdäksesi päivitetyt tiedot": "Logga in för att se uppdaterad information",
-    "Ohjeiden haku epäonnistui": "SV: Ohjeiden haku epäonnistui",
-    "Ei voitu hakea ohjeita": "SV: Ei voitu hakea ohjeita",
-    "Ei voitu hakea paikkoja": "SV: Ei voitu hakea paikkoja",
-    "Paikkojen haku epäonnistui": "SV: Paikkojen haku epäonnistui"
+    "Ohjeiden haku epäonnistui": "Hämtningen av instruktioner misslyckades",
+    "Ei voitu hakea ohjeita": "Instruktionerna kunde inte hämtas",
+    "Ei voitu hakea paikkoja": "Kunde inte söka platserna",
+    "Paikkojen haku epäonnistui": "Sökningen av platserna misslyckades"
   }
 }
