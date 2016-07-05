@@ -23,6 +23,7 @@ public class ScaleImageViewManager extends SimpleViewManager<SubsamplingScaleIma
     protected SubsamplingScaleImageView createViewInstance(ThemedReactContext reactContext) {
         Log.i("ScaleImageViewManager", "createViewInstance");
         SubsamplingScaleImageView view = new SubsamplingScaleImageView(reactContext);
+        view.setMinimumDpi(80);
         view.setPanEnabled(true);
         view.setZoomEnabled(true);
         return view;
