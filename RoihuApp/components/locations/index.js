@@ -180,11 +180,11 @@ export const locations = (
     switch (action.type) {
     case "SET_LOCATIONS": {
       const currentSelectedCategory = state.selectedCategory ?
-              findById(action.locations.categories, state.selectedCategory.id) :
-              null;
+              findById(action.locations.categories, state.selectedCategory.id) || state.selectedCategory:
+              state.selectedCategory;
       const currentSelectedArticle = state.selectedArticle && currentSelectedCategory ?
-              findById(currentSelectedCategory.articles, state.selectedArticle.id) :
-              null;
+              findById(currentSelectedCategory.articles, state.selectedArticle.id) || state.selectedArticle:
+              state.selectedArticle;
       const currentArticlesDataSource = currentSelectedCategory ?
               state.articlesDataSource.cloneWithRows(currentSelectedCategory.articles.sort(titleComparator)) :
               state.articlesDataSource;
