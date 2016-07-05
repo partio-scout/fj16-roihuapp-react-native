@@ -206,11 +206,11 @@ export const instructions = (
     switch (action.type) {
     case "SET_INSTRUCTIONS": {
       const currentSelectedCategory = state.selectedCategory ?
-              findById(action.instructions.categories, state.selectedCategory.id) :
-              null;
+              findById(action.instructions.categories, state.selectedCategory.id) || state.selectedCategory :
+              state.selectedCategory;
       const currentSelectedArticle = state.selectedArticle && currentSelectedCategory ?
-              findById(currentSelectedCategory.articles, state.selectedArticle.id) :
-              null;
+              findById(currentSelectedCategory.articles, state.selectedArticle.id) || state.selectedArticle :
+              state.selectedArticle;
       const currentArticlesDataSource = currentSelectedCategory ?
               state.articlesDataSource.cloneWithRows(currentSelectedCategory.articles.sort(sortNoComparator)) :
               state.articlesDataSource;
