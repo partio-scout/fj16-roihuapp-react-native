@@ -1,6 +1,7 @@
 package com.roihuapp;
 
 import com.facebook.react.ReactActivity;
+import com.github.alinz.reactnativewebviewbridge.WebViewBridgePackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.i18n.reactnativei18n.ReactNativeI18n;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -38,6 +39,7 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
                 new MainReactPackage(),
+            new WebViewBridgePackage(),
             new RNDeviceInfo(),
                 new ReactNativeI18n(),
                 new ScaleImageViewPackage(),
