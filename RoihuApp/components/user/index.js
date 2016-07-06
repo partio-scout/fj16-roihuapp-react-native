@@ -9,7 +9,8 @@ import React, {
   Image,
   CameraRoll,
   Navigator,
-  Alert
+  Alert,
+  ScrollView
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -101,19 +102,21 @@ class User extends Component {
                 <Text style={[userStyles.name, categoryStyles.textColor]}>{data.firstname} {data.lastname}</Text>
               </View>
               <TouchableOpacity
-                style={userStyles.userImageArea}
-                onPress={() => this.props.pushRoute({name: "list-image"})}
-              >
+                 style={userStyles.userImageArea}
+                 onPress={() => this.props.pushRoute({name: "list-image"})}
+                >
                 {this.renderImageSelection(navigator, image)}
               </TouchableOpacity>
             </View>
           </View>
         </View>
-        <View style={userStyles.userContentContainer}>
-          <View>
-            {this.renderKeys(data, details)}
+        <ScrollView>
+          <View style={userStyles.userContentContainer}>
+            <View>
+              {this.renderKeys(data, details)}
+            </View>
           </View>
-        </View>
+        </ScrollView>
       </View>
     );
   }
