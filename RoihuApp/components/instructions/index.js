@@ -15,8 +15,8 @@ import { bindActionCreators } from 'redux';
 import { sortNumber } from '../../utils.js';
 import { t } from '../../translations.js';
 import { categoryStyles } from '../../styles.js';
-import { renderCategories, renderArticles, renderRoot, shouldFetch, fetchData } from '../common/categories.js';
-import { popWhenRouteNotLastInStack } from '../../utils.js';
+import { renderCategories, renderArticles, renderRoot, shouldFetch, fetchData, findById } from '../common/categories.js';
+import { popWhenRouteNotLastInStack, last } from '../../utils.js';
 import showdown from 'showdown';
 const Entities = require('html-entities').AllHtmlEntities;
 const entities = new Entities();
@@ -66,7 +66,7 @@ class Instructions extends Component {
     this._navigator = navigator;
     switch(route.name) {
     case "article":
-      return this.renderSelectedArticle(this.props.article);
+      return this.renderSelectedArticle(this.props.selectedArticle);
     case "articles":
       return renderArticles(navigator,
                             this.props.articlesDataSource,
@@ -90,7 +90,7 @@ class Instructions extends Component {
   }
 
   render() {
-    return renderRoot(this.props.fetch.state,
+    return renderRoot(this.props.fetch,
                       this.props.instructions,
                       t("Ei voitu hakea ohjeita", this.props.lang),
                       this.props.lang,
@@ -109,7 +109,7 @@ class Instructions extends Component {
   }
 
   componentWillMount() {
-    if (shouldFetch(this.props.instructions, this.props.lang)) {
+    if (shouldFetch(this.props.instructions, this.props.lang, this.props.fetch.lastTs)) {
       fetchData(
         "Fetching instructions",
         this.props.actions.setFetchStatus,
@@ -117,7 +117,9 @@ class Instructions extends Component {
         {},
         this.props.actions.setInstructions,
         this.props.lang,
-        t("Ohjeiden haku epäonnistui", this.props.lang)
+        t("Ohjeiden haku epäonnistui", this.props.lang),
+        this.props.fetch.etag,
+        this.props.actions.setEtag
       );
     }
 
@@ -127,7 +129,9 @@ class Instructions extends Component {
                                                                                      {},
                                                                                      this.props.actions.setInstructions,
                                                                                      this.props.lang,
-                                                                                     t("Ohjeiden haku epäonnistui", this.props.lang)));
+                                                                                     t("Ohjeiden haku epäonnistui", this.props.lang),
+                                                                                     this.props.fetch.etag,
+                                                                                     this.props.actions.setEtag));
     this.backListener = this.props.emitter.addListener("back", () => this.onBack());
   }
 
@@ -175,34 +179,66 @@ const actions = {
     type: "SET_INSTRUCTIONS_SEARCH_DATA",
     data: data,
     text: text
+  }),
+  setEtag: (etag) => ({
+    type: "SET_INSTRUCTIONS_ETAG",
+    etag: etag
   })
 };
+
+const sortNoComparator = (a, b) => sortNumber(a.sort_no, b.sort_no);
 
 export const instructions = (
   state = {instructions: null,
            categoriesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            articlesDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
            searchDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id || r1.title !== r2.title}),
-           article: {},
+           selectedCategory: null,
+           selectedArticle: null,
            routeStack: [{name: "categories"}],
            currentTitle: null,
            searchText: '',
-           fetch: {state: "COMPLETED"}},
+           fetch: {state: "COMPLETED",
+                   etag: null,
+                   lastTs: moment().unix(),
+                   lastSuccesfullTs: moment().unix()}},
   action) => {
     switch (action.type) {
-    case "SET_INSTRUCTIONS":
-      return Object.assign({}, state, {instructions: action.instructions,
-                                       categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.instructions.categories.sort((a, b) => sortNumber(a.sort_no, b.sort_no)))});
+    case "SET_INSTRUCTIONS": {
+      const currentSelectedCategory = state.selectedCategory ?
+              findById(action.instructions.categories, state.selectedCategory.id) || state.selectedCategory :
+              state.selectedCategory;
+      const currentSelectedArticle = state.selectedArticle && currentSelectedCategory ?
+              findById(currentSelectedCategory.articles, state.selectedArticle.id) || state.selectedArticle :
+              state.selectedArticle;
+      const currentArticlesDataSource = currentSelectedCategory ?
+              state.articlesDataSource.cloneWithRows(currentSelectedCategory.articles.sort(sortNoComparator)) :
+              state.articlesDataSource;
+      const newCurrentTitle = state.currentTitle && currentSelectedCategory ?
+              (["articles", "article"].find((route) => last(state.routeStack).name === route) ? currentSelectedCategory.title : state.currentTitle) :
+            state.currentTitle;
+      return Object.assign({},
+                           state,
+                           {instructions: action.instructions,
+                            categoriesDataSource: state.categoriesDataSource.cloneWithRows(action.instructions.categories.sort(sortNoComparator)),
+                            articlesDataSource: currentArticlesDataSource,
+                            selectedCategory: currentSelectedCategory,
+                            selectedArticle: currentSelectedArticle,
+                            currentTitle: newCurrentTitle});
+    }
     case "SELECT_INSTRUCTIONS_CATEGORY":
-      return Object.assign({}, state, {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles.sort((a, b) => sortNumber(a.sort_no, b.sort_no))),
-                                       routeStack: state.routeStack.concat(action.route)});
+      return Object.assign({},
+                           state,
+                           {articlesDataSource: state.articlesDataSource.cloneWithRows(action.category.articles.sort(sortNoComparator)),
+                            selectedCategory: action.category,
+                            routeStack: state.routeStack.concat(action.route)});
     case "SET_INSTRUCTIONS_SEARCH_DATA":
-      return Object.assign({}, state, {searchDataSource: state.searchDataSource.cloneWithRows(action.data.sort((a, b) => sortNumber(a.sort_no, b.sort_no))),
+      return Object.assign({}, state, {searchDataSource: state.searchDataSource.cloneWithRows(action.data.sort(sortNoComparator)),
                                        searchText: action.text});
     case "SELECT_INSTRUCTIONS_ARTICLE":
       return Object.assign({},
                            state,
-                           {article: action.article,
+                           {selectedArticle: action.article,
                             routeStack: state.routeStack.concat(action.route)});
     case "POP_INSTRUCTIONS_ROUTE":
       const newStack = Object.assign([], state.routeStack);
@@ -211,8 +247,19 @@ export const instructions = (
                            state, {routeStack: newStack});
     case "SET_INSTRUCTIONS_CURRENT_TITLE":
       return Object.assign({}, state, {currentTitle: action.currentTitle});
-    case "INSTRUCTIONS_FETCH_STATE":
-      return Object.assign({}, state, {fetch: {state: action.state}});
+    case "INSTRUCTIONS_FETCH_STATE": {
+      const now = moment().unix();
+      return Object.assign({},
+                           state,
+                           {fetch: Object.assign({},
+                                                 state.fetch,
+                                                 {state: action.state, lastTs: now},
+                                                 action.state == "COMPLETED" ? {lastSuccesfullTs: now} : {})});
+    }
+    case "SET_INSTRUCTIONS_ETAG":
+      return Object.assign({},
+                           state,
+                           {fetch: Object.assign({}, state.fetch, {etag: action.etag})});
     }
     return state;
   };
@@ -222,7 +269,8 @@ export default connect(state => ({
   categoriesDataSource: state.instructions.categoriesDataSource,
   articlesDataSource: state.instructions.articlesDataSource,
   searchDataSource: state.instructions.searchDataSource,
-  article: state.instructions.article,
+  selectedArticle: state.instructions.selectedArticle,
+  selectedCategory: state.instructions.selectedCategory,
   routeStack: state.instructions.routeStack,
   currentTitle: state.instructions.currentTitle,
   searchText: state.instructions.searchText,

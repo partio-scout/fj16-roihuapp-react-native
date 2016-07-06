@@ -16,6 +16,8 @@ import { categoryStyles, styles } from '../../styles.js';
 import { renderProgressBar } from '../../utils.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
+const DEFAULT_TTL = 60 * 60 * 24;
+
 export function renderRightArrow() {
   return (
     <View style={{flexDirection: 'row', flex: 1, alignItems: 'flex-end'}}>
@@ -110,7 +112,7 @@ function renderSearchInput(lang, data, searchText, setSearchData) {
 }
 
 export function renderRoot(fetchState, data, noDataText, lang, routeStack, renderScene, onWillFocus, searchText, setSearchData) {
-  switch (fetchState) {
+  switch (fetchState.state) {
   case "STARTED":
     return renderProgressBar();
   case "ERROR":
@@ -125,7 +127,7 @@ export function renderRoot(fetchState, data, noDataText, lang, routeStack, rende
     return (
       <View style={{flex: 1, width: Dimensions.get("window").width}}>
         <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
-          {t("Tilanne", lang)} {moment(data.timestamp).format(t("Timestamp", lang))}
+          {t("Tilanne", lang)} {moment(fetchState.lastSuccesfullTs * 1000).format(t("Timestamp", lang))}
         </Text>
         {routeStack.length == 1 ? renderSearchInput(lang, data, searchText, setSearchData) : (<View />)}
         <Navigator initialRouteStack={routeStack}
@@ -136,7 +138,7 @@ export function renderRoot(fetchState, data, noDataText, lang, routeStack, rende
   }
 }
 
-export function shouldFetch(data, lang) {
+export function shouldFetch(data, lang, lastTs) {
   if (data === null) {
       return true;
   }
@@ -145,22 +147,38 @@ export function shouldFetch(data, lang) {
       return true;
   }
 
-  if (moment().isAfter(data.next_check)) {
+  const ttl = data ? (data.ttl ? data.ttl : DEFAULT_TTL) : DEFAULT_TTL;
+  if (moment().isAfter(moment(lastTs * 1000).add(ttl, 'seconds'))) {
+    console.log("Time for next check");
     return true;
   }
 
   return false;
 }
 
-export function fetchData(logStart, setFetchStatus, apiPath, queryParams, setData, lang, failedToFetchMessage) {
+export function fetchData(logStart, setFetchStatus, apiPath, queryParams, setData, lang, failedToFetchMessage, etag, setEtag) {
   console.log(logStart);
+  const fetchParams = Object.assign({method: "GET"}, {headers: etag ? {'If-None-Match': etag} : {}});
   const params = Object.assign({lang: lang.toUpperCase()}, queryParams);
   const queryParamString = Object.keys(params).map((k) => k + "=" + params[k]).join("&");
   setFetchStatus("STARTED");
-  fetch(config.apiUrl + apiPath + "?" + queryParamString)
-    .then((response) => response.json())
+  fetch(config.apiUrl + apiPath + "?" + queryParamString, fetchParams)
+    .then((response) => {
+      setEtag(response.headers.get("Etag"));
+      switch (response.status) {
+      case 304:
+        console.log("cache valid");
+        return Promise.resolve({cached: true});
+      case 200:
+        console.log("cache invalid");
+      default:
+        return response.json();
+      }
+    })
     .then((data) => {
-      setData(data);
+      if (!data.cached) {
+        setData(data);
+      }
       setFetchStatus("COMPLETED");
     })
     .catch((error) => {
@@ -170,4 +188,8 @@ export function fetchData(logStart, setFetchStatus, apiPath, queryParams, setDat
                   failedToFetchMessage,
                   [{text: "Ok", onPress: () => {}}]);
     });
+}
+
+export function findById(data, id) {
+  return data.find((x) => x.id === id);
 }
