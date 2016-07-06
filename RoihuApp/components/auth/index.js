@@ -15,12 +15,12 @@ import React, {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setCredentials } from '../login/actions.js';
-import Login from '../login/index.js';
-import { config } from '../../config.js';
-import { parseCredentials } from '../auth/utils.js';
-import { authStyles, styles } from '../../styles.js';
-import { t } from '../../translations.js';
+import { setCredentials } from '../login/actions';
+import Login from '../login/index';
+import { config } from '../../config';
+import { parseCredentials } from '../auth/utils';
+import { authStyles, styles } from '../../styles';
+import { t } from '../../translations';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
 class EmailLogin extends Component {

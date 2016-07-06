@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import {view} from '../navigation/reducers.js';
 import {credentials} from '../login/reducers.js';
 import {user} from '../user/reducers.js';
+import {calendar} from '../calendar/reducers.js';
 import {instructions} from '../instructions/index.js';
 import {locations} from '../locations/index.js';
 import {loginMethod} from '../auth/index.js';
@@ -15,6 +16,7 @@ export const reducer = combineReducers({
   view,
   credentials,
   user,
+  calendar,
   instructions,
   locations,
   loginMethod,
