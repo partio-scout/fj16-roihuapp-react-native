@@ -7,7 +7,8 @@ import React, {
   TouchableOpacity,
   ListView,
   StyleSheet,
-  WebView
+  WebView,
+  Linking
 } from 'react-native';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -18,14 +19,35 @@ import { categoryStyles } from '../../styles.js';
 import { renderCategories, renderArticles, renderRoot, shouldFetch, fetchData, findById } from '../common/categories.js';
 import { popWhenRouteNotLastInStack, last } from '../../utils.js';
 import showdown from 'showdown';
+import WebViewBridge from 'react-native-webview-bridge';
 const Entities = require('html-entities').AllHtmlEntities;
 const entities = new Entities();
+
+const injectScript = `
+(function () {
+  if (WebViewBridge) {
+    var anchors = document.querySelectorAll('a');
+    for (i = 0; i < anchors.length; i++) {
+      anchors[i].onclick = function (e) {
+        e.preventDefault();
+        WebViewBridge.send(e.target.href);
+      }
+    }
+  }
+}());
+`;
 
 class Instructions extends Component {
 
   constructor() {
     super();
     this.converter = new showdown.Converter({tables: true, strikethrough: true});
+  }
+
+  onBridgeMessage(url) {
+    Linking.openURL(url).catch((error) => {
+      console.log("Could not open instruction link: " + url);
+    });
   }
 
   renderBody(body) {
@@ -40,7 +62,12 @@ class Instructions extends Component {
 </html>
 `;
     return (
-      <WebView source={{html: html}}/>
+      <WebViewBridge
+         source={{html: html}}
+         ref="webviewbridge"
+         onBridgeMessage={(message) => this.onBridgeMessage(message)}
+        injectedJavaScript={injectScript}
+        javaScriptEnabled={true}/>
     );
   }
 

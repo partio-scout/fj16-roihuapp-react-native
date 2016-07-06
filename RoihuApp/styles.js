@@ -119,12 +119,13 @@ export const infoStyles = StyleSheet.create({
 export const categoryStyles = StyleSheet.create({
   listItem: {
     borderBottomWidth: 1,
-    borderBottomColor: BORDER_COLOR
+    borderBottomColor: BORDER_COLOR,
   },
   listItemTouchArea: {
     padding: 10,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   listItemTitle: {
     width: 200
@@ -277,6 +278,22 @@ export const userStyles = StyleSheet.create({
     borderColor: BAR_BACKGROUND_COLOR,
     borderWidth: 3,
     margin: 10
+  }
+});
+
+export const calendarStyles = StyleSheet.create({
+  eventDetailContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  eventDetailTitle: {
+    flex:1.5, 
+    textAlign: 'right'
+  },
+  eventDetailContent: {
+    flex:2.5,
+    marginLeft: 5
   }
 });
 

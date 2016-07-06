@@ -8,6 +8,7 @@ import React, {
   Platform
 } from 'react-native';
 import { navigationStyles, styles } from './styles.js';
+import moment from 'moment';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
 export function renderBackButton(routeStack, popRoute) {
@@ -65,6 +66,10 @@ export function isEmpty(obj) {
 
 export function sortNumber(a, b) {
   return (a < b) ? -1 : ((a == b) ? 0 : 1);
+}
+
+export function sortByDate(a, b) {
+  return (moment(a).isBefore(b)) ? -1 : ((moment(a).isSame(b)) ? 0 : 1);
 }
 
 export function popWhenRouteNotLastInStack(route, routeStack, popRoute) {
