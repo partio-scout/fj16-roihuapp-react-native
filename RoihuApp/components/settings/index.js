@@ -78,7 +78,8 @@ class Settings extends Component {
             {"\n"}{"\n"}
             <Text style={categoryStyles.bold}>{t("Ulkoasu", this.props.lang)}</Text>
             <Text>
-              {"\n"}Henna Heikkilä
+              {"\n"}Henna Heikkilä (UX)
+              {"\n"}Mira Moisio
             </Text>
             {"\n"}{"\n"}
             <Text style={categoryStyles.bold}>{t("Ikonit", this.props.lang)}</Text>
