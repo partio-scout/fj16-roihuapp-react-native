@@ -12,7 +12,6 @@ import { t, setLanguage } from '../../translations';
 import { styles, categoryStyles } from '../../styles';
 import DeviceInfo from 'react-native-device-info';
 
-
 class Settings extends Component {
   render() {
     return (
@@ -40,23 +39,23 @@ class Settings extends Component {
         <View style={categoryStyles.articleContentContainer}>
           <Text style={categoryStyles.textColor}>
             {DeviceInfo.getVersion()}{"\n"}{"\n"}{t("Versiotieto-content", this.props.lang)}
-          </Text>  
-        </View>                 
+          </Text>
+        </View>
         <View style={categoryStyles.articleTitleContainer}>
           <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>
             {t("Palaute", this.props.lang)}
           </Text>
-        </View> 
+        </View>
         <View style={categoryStyles.articleContentContainer}>
           <Text style={categoryStyles.textColor}>
             {t("Palaute teksti", this.props.lang)}
-          </Text>  
-        </View> 
+          </Text>
+        </View>
         <View style={categoryStyles.articleTitleContainer}>
           <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>
             {t("Tekijät", this.props.lang)}
           </Text>
-        </View>  
+        </View>
         <View style={[categoryStyles.articleContentContainer, styles.content]}>
           <Text style={[categoryStyles.textColor, {textAlign: 'center'}]}>
             <Text style={categoryStyles.bold}>{t("Toiminnallisuus, projektipäällikkyys", this.props.lang)}</Text>
@@ -104,9 +103,9 @@ class Settings extends Component {
               {"\n"}Atte Pohjanmaa
               {"\n"}Emil Virkki
             </Text>
-          </Text>  
-        </View>   
-        </ScrollView>                                    
+          </Text>
+        </View>
+        </ScrollView>
       </View>
     );
   }
