@@ -20,10 +20,10 @@ export const calendar = (
       return Object.assign({}, state, {routeStack: [action.route]});
 
     case "SET_CALENDAR":
-      return Object.assign({}, state, {calendar: action.calendar.calendar,
-                                       calendarDataSource: state.calendarDataSource.cloneWithRows(
-                                          action.calendar.calendar.events.sort((a, b) => sortByDate(a.startTime, b.startTime))
-                                       )});
+      return Object.assign({},
+                           state,
+                           {calendar: action.calendar.calendar,
+                            calendarDataSource: state.calendarDataSource.cloneWithRows(action.calendar.calendar.events.sort((a, b) => sortByDate(a.startTime, b.startTime)))});
     case "SELECT_CALENDAR_EVENT":
       return Object.assign({},
                            state,
