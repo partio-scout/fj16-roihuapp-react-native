@@ -223,7 +223,7 @@ class Auth extends Component {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
         <Login uri={config.loginUrl}
-               resetRoutes={() => this.props.resetTo({name: "user-root"})}/>
+               onLogin={() => this.props.resetTo({name: "user-root"})}/>
       </View>
     );
   }
