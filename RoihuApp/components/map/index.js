@@ -12,7 +12,7 @@ import React, {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { MapComponent } from './MapComponent';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { infoStyles, navigationStyles, styles, modalStyles, MAIN_COLOR, BAR_BACKGROUND_COLOR } from '../../styles';
 import { t } from '../../translations';
 
@@ -21,7 +21,7 @@ class Map extends Component {
   renderTopBar() {
     const markerIcon = (
       <TouchableOpacity style={{paddingRight: 10, paddingTop: 10, flex: 1}} onPress={() => this.props.actions.setMarkers(true)}>
-          <Icon style={[navigationStyles.mapButton, styles.buttonBarIcon]} name="place" color={Platform.OS === 'android' ? MAIN_COLOR : BAR_BACKGROUND_COLOR} />
+          <Icon style={[navigationStyles.mapButton, styles.buttonBarIcon]} name="map-signs" color={Platform.OS === 'android' ? MAIN_COLOR : BAR_BACKGROUND_COLOR} />
         </TouchableOpacity>
     );
 
