@@ -4,7 +4,7 @@ import React, {
 import { sortByDate } from '../../utils';
 
 export const calendar = (
-  state = {routeStack: [{name: "user-root"}],
+  state = {routeStack: [{name: "calendar-root"}],
            calendar: null,
            calendarDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.eventId !== r2.eventId}),
            error: null},
