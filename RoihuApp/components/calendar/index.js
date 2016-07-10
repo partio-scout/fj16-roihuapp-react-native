@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config';
 import { removeCredentials } from '../login/actions';
-import { isEmpty, renderRefreshButton } from '../../utils';
+import { renderRefreshButton } from '../../utils';
 import { calendarStyles, infoStyles, categoryStyles } from '../../styles';
 import { t } from '../../translations.js';
 
@@ -146,7 +146,7 @@ class Calendar extends Component {
 
   render() {
     const { calendar, error, lang } = this.props;
-    if (!isEmpty(calendar)) {
+    if (calendar) {
       return (
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
           <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
