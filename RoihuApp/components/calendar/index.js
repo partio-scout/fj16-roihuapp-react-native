@@ -52,7 +52,7 @@ class Calendar extends Component {
   }
 
   renderCalendarEvent(navigator, event) {
-    const { view, actions: {setView}, lang } = this.props;
+    const { lang } = this.props;
     return (
       <View style={categoryStyles.article}>
         <View style={categoryStyles.articleTitleContainer}>
@@ -100,7 +100,7 @@ class Calendar extends Component {
   }
 
   renderCalendarEvents(event, navigator, rowID) {
-    const { view, actions: {setView}, lang } = this.props;
+    const { lang } = this.props;
     const background = this.getBackgroundColor(event.type);
     return (
       <View key={"calendar-" + rowID} style={[categoryStyles.listItem, {backgroundColor: background}]}>
