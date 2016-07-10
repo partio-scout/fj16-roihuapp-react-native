@@ -1,5 +1,5 @@
 export const settings = (
-  state = {routeStack: [{name: "root"}]},
+  state = {routeStack: [{name: "user-root"}]},
   action) => {
     switch (action.type) {
     case "PUSH_SETTINGS_ROUTE":
