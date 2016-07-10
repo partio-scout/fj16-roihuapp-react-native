@@ -155,11 +155,11 @@ class Calendar extends Component {
           </Text>
           <View style={{flexDirection: 'row'}}>
             <View style={{flex: 1}}/>
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={() => this.props.actions.selectDate("prev")}>
               <Icon style={calendarStyles.dateButton} name="keyboard-arrow-left" />
             </TouchableOpacity>
             <Text>{moment(selectedDay, "YYYY.MM.DD").format("dddd [\n] DD.MM.YYYY")}</Text>
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={() => this.props.actions.selectDate("next")}>
               <Icon style={calendarStyles.dateButton} name="keyboard-arrow-right" />
             </TouchableOpacity>
             <View style={{flex: 1}}/>
@@ -226,6 +226,11 @@ const setError = (error) => ({
   error: error
 });
 
+const selectDate = (dateType) => ({
+  type: "CALENDAR_SELECT_DATE",
+  dateType: dateType
+});
+
 export default connect(state => ({
   credentials: state.credentials,
   event: state.calendar.event,
@@ -236,5 +241,5 @@ export default connect(state => ({
   error: state.calendar.error,
   lang: state.language.lang
 }), (dispatch) => ({
-  actions: bindActionCreators({setCalendar, selectEvent, setError, removeCredentials}, dispatch)
+  actions: bindActionCreators({setCalendar, selectEvent, setError, removeCredentials, selectDate}, dispatch)
 }))(Calendar);
