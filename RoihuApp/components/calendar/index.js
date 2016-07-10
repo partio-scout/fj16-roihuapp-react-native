@@ -138,7 +138,7 @@ class Calendar extends Component {
     switch(route.name) {
       case "event":
         return this.renderCalendarEvent(navigator, this.props.event);
-      case "user-root":
+      case "calendar-root":
       default:
         return this.renderCalendar(navigator, this.props.calendarDataSource);
     }
