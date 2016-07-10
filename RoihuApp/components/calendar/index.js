@@ -107,7 +107,7 @@ class Calendar extends Component {
         <TouchableOpacity style={categoryStyles.listItemTouchArea} onPress={() => {
             const route = {name: "event"};
             this.props.actions.selectEvent(event, route);
-            navigator.push(route);
+            this.props.pushRoute(route);
           }}>
           <Text style={[categoryStyles.textColor, {flex: 1}]}>
             <Text>
@@ -204,10 +204,9 @@ const setCalendar = (calendar) => ({
   calendar: calendar
 });
 
-const selectEvent = (event, route) => ({
+const selectEvent = (event) => ({
   type: "SELECT_CALENDAR_EVENT",
-  event: event,
-  route: route
+  event: event
 });
 
 const setError = (error) => ({
