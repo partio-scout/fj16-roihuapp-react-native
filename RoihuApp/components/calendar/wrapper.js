@@ -55,7 +55,7 @@ class CalendarWrapper extends Component {
 
   renderRefresh() {
     const lastRoute = last(this.props.routeStack);
-    return lastRoute && lastRoute.name === "user-root" ? renderRefreshButton(() => this.refreshEventEmitter.emit("refresh")) : null;
+    return lastRoute && lastRoute.name === "calendar-root" ? renderRefreshButton(() => this.refreshEventEmitter.emit("refresh")) : null;
   }
 
   render() {
