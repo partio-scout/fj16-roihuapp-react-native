@@ -28,8 +28,7 @@ export const calendar = (
     case "SELECT_CALENDAR_EVENT":
       return Object.assign({},
                            state,
-                           {event: action.event,
-                            routeStack: state.routeStack.concat(action.route)});
+                           {event: action.event});
     case "SET_CALENDAR_ERROR":
       return Object.assign({}, state, {error: action.error});
     }
