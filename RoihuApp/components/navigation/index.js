@@ -50,7 +50,7 @@ class Navigation extends Component {
           {this.renderView(view)}
         </View>
         <View style={styles.buttonBar}>
-          {/*this.renderTabButton("calendar", t("Kalenteri", lang), "insert-invitation")*/}
+          {this.renderTabButton("calendar", t("Kalenteri", lang), "insert-invitation")}
           {this.renderTabButton("map", t("Kartta", lang), "map")}
           {this.renderTabButton("info", t("Info", lang), "info-outline")}
           {this.renderTabButton("achievements", t("Aktiviteetit", lang), "stars")}
