@@ -25,7 +25,7 @@ class CalendarWrapper extends Component {
     return React.cloneElement(this.props.children,
                               {parentNavigator: navigator,
                                pushRoute: (route) => this.pushRoute(route),
-                               resetTo: (route) => this.resetTo(route),
+                               onLogin: () => this.resetTo({name: "calendar-root"}),
                                refreshEventEmitter: this.refreshEventEmitter,
                                popRoute: () => this.popRoute()});
   }
