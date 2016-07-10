@@ -18,6 +18,7 @@ import { removeCredentials } from '../login/actions';
 import { renderRefreshButton } from '../../utils';
 import { calendarStyles, infoStyles, categoryStyles } from '../../styles';
 import { t } from '../../translations.js';
+const Icon = require('react-native-vector-icons/MaterialIcons');
 
 class Calendar extends Component {
 
@@ -145,13 +146,24 @@ class Calendar extends Component {
   }
 
   render() {
-    const { calendar, error, lang } = this.props;
+    const { calendar, error, lang, selectedDay } = this.props;
     if (calendar) {
       return (
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
           <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
             {t("Tilanne", lang)} {moment(calendar.timestamp).format(t("Timestamp", lang))}
           </Text>
+          <View style={{flexDirection: 'row'}}>
+            <View style={{flex: 1}}/>
+            <TouchableOpacity onPress={() => {}}>
+              <Icon style={calendarStyles.dateButton} name="keyboard-arrow-left" />
+            </TouchableOpacity>
+            <Text>{moment(selectedDay, "YYYY.MM.DD").format("dddd [\n] DD.MM.YYYY")}</Text>
+            <TouchableOpacity onPress={() => {}}>
+              <Icon style={calendarStyles.dateButton} name="keyboard-arrow-right" />
+            </TouchableOpacity>
+            <View style={{flex: 1}}/>
+          </View>
           <Navigator initialRouteStack={this.props.parentNavigator.getCurrentRoutes()}
                      navigator={this.props.parentNavigator}
                      renderScene={(route, navigator) => this.renderScene(route, navigator)}
@@ -217,6 +229,8 @@ const setError = (error) => ({
 export default connect(state => ({
   credentials: state.credentials,
   event: state.calendar.event,
+  eventsByDay: state.calendar.eventByDay,
+  selectedDay: state.calendar.selectedDay,
   calendar: state.calendar.calendar,
   calendarDataSource: state.calendar.calendarDataSource,
   error: state.calendar.error,

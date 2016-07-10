@@ -288,12 +288,18 @@ export const calendarStyles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   eventDetailTitle: {
-    flex:1.5, 
+    flex:1.5,
     textAlign: 'right'
   },
   eventDetailContent: {
     flex:2.5,
     marginLeft: 5
+  },
+  dateButton: {
+    color: MAIN_COLOR,
+    fontSize: 30,
+    backgroundColor: BAR_BACKGROUND_COLOR,
+    width: 30
   }
 });
 
