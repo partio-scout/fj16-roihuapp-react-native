@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config';
 import { removeCredentials } from '../login/actions';
-import { renderRefreshButton } from '../../utils';
+import { renderRefreshButton, last } from '../../utils';
 import { calendarStyles, infoStyles, categoryStyles } from '../../styles';
 import { t } from '../../translations.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
@@ -145,29 +145,36 @@ class Calendar extends Component {
     }
   }
 
+  renderDateSelection() {
+    const { selectedDay } = this.props;
+    return (
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{flex: 1}}/>
+        <TouchableOpacity onPress={() => this.props.actions.selectDate("prev")}>
+          <View style={calendarStyles.dateSelectionIconContainer}>
+            <Icon style={calendarStyles.dateSelectionIcon} name="keyboard-arrow-left" />
+          </View>
+        </TouchableOpacity>
+        <Text style={{width: 80, textAlign: 'center'}}>{moment(selectedDay, "YYYY.MM.DD").format("dddd[\n]DD.MM.YYYY")}</Text>
+        <TouchableOpacity onPress={() => this.props.actions.selectDate("next")}>
+          <View style={calendarStyles.dateSelectionIconContainer}>
+            <Icon style={calendarStyles.dateSelectionIcon} name="keyboard-arrow-right" />
+          </View>
+        </TouchableOpacity>
+        <View style={{flex: 1}}/>
+      </View>
+    );
+  }
+
   render() {
-    const { calendar, error, lang, selectedDay } = this.props;
+    const { calendar, error, lang, selectedDay, routeStack } = this.props;
     if (calendar) {
       return (
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
           <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10, marginTop: 0}]}>
             {t("Tilanne", lang)} {moment(calendar.timestamp).format(t("Timestamp", lang))}
           </Text>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{flex: 1}}/>
-            <TouchableOpacity onPress={() => this.props.actions.selectDate("prev")}>
-              <View style={calendarStyles.dateSelectionIconContainer}>
-                <Icon style={calendarStyles.dateSelectionIcon} name="keyboard-arrow-left" />
-              </View>
-            </TouchableOpacity>
-            <Text style={{width: 80, textAlign: 'center'}}>{moment(selectedDay, "YYYY.MM.DD").format("dddd[\n]DD.MM.YYYY")}</Text>
-            <TouchableOpacity onPress={() => this.props.actions.selectDate("next")}>
-              <View style={calendarStyles.dateSelectionIconContainer}>
-                <Icon style={calendarStyles.dateSelectionIcon} name="keyboard-arrow-right" />
-              </View>
-            </TouchableOpacity>
-            <View style={{flex: 1}}/>
-          </View>
+          {last(routeStack).name === "calendar-root" ? this.renderDateSelection() : null}
           <Navigator initialRouteStack={this.props.parentNavigator.getCurrentRoutes()}
                      navigator={this.props.parentNavigator}
                      renderScene={(route, navigator) => this.renderScene(route, navigator)}
@@ -243,7 +250,8 @@ export default connect(state => ({
   calendar: state.calendar.calendar,
   calendarDataSource: state.calendar.calendarDataSource,
   error: state.calendar.error,
-  lang: state.language.lang
+  lang: state.language.lang,
+  routeStack: state.calendar.routeStack
 }), (dispatch) => ({
   actions: bindActionCreators({setCalendar, selectEvent, setError, removeCredentials, selectDate}, dispatch)
 }))(Calendar);
