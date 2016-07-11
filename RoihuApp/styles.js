@@ -295,11 +295,18 @@ export const calendarStyles = StyleSheet.create({
     flex:2.5,
     marginLeft: 5
   },
-  dateButton: {
+  dateSelectionIcon: {
     color: MAIN_COLOR,
-    fontSize: 30,
+    backgroundColor: '#FFFFFF00',
+    fontSize: 30
+  },
+  dateSelectionIconContainer: {
+    width: 45,
+    height: 45,
+    borderRadius: 50,
     backgroundColor: BAR_BACKGROUND_COLOR,
-    width: 30
+    padding: 8,
+    margin: 5
   }
 });
 

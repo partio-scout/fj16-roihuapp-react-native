@@ -150,17 +150,21 @@ class Calendar extends Component {
     if (calendar) {
       return (
         <View style={{flex: 1, width: Dimensions.get("window").width}}>
-          <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
+          <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10, marginTop: 0}]}>
             {t("Tilanne", lang)} {moment(calendar.timestamp).format(t("Timestamp", lang))}
           </Text>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={{flex: 1}}/>
             <TouchableOpacity onPress={() => this.props.actions.selectDate("prev")}>
-              <Icon style={calendarStyles.dateButton} name="keyboard-arrow-left" />
+              <View style={calendarStyles.dateSelectionIconContainer}>
+                <Icon style={calendarStyles.dateSelectionIcon} name="keyboard-arrow-left" />
+              </View>
             </TouchableOpacity>
-            <Text>{moment(selectedDay, "YYYY.MM.DD").format("dddd [\n] DD.MM.YYYY")}</Text>
+            <Text style={{width: 80, textAlign: 'center'}}>{moment(selectedDay, "YYYY.MM.DD").format("dddd[\n]DD.MM.YYYY")}</Text>
             <TouchableOpacity onPress={() => this.props.actions.selectDate("next")}>
-              <Icon style={calendarStyles.dateButton} name="keyboard-arrow-right" />
+              <View style={calendarStyles.dateSelectionIconContainer}>
+                <Icon style={calendarStyles.dateSelectionIcon} name="keyboard-arrow-right" />
+              </View>
             </TouchableOpacity>
             <View style={{flex: 1}}/>
           </View>
