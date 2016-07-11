@@ -51,12 +51,10 @@ export const calendar = (
       return Object.assign({}, state, {error: action.error});
     case "CALENDAR_SELECT_DATE": {
       const sortedDays = R.sort(sortByDate, Object.keys(state.eventsByDay));
-      console.log(sortedDays);
       const selectedDayIndex = R.findIndex((day) => day === state.selectedDay, sortedDays);
       const newSelectedDay = sortedDays[R.min(R.max(selectedDayIndex + (action.dateType === 'prev' ? 1 : -1),
                                                     0),
                                               sortedDays.length - 1)];
-      console.log("newSelectedDay", newSelectedDay);
       return Object.assign({},
                            state,
                            {selectedDay: newSelectedDay,
