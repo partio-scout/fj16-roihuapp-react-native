@@ -147,7 +147,7 @@ class Calendar extends Component {
   }
 
   renderDateSelection() {
-    const { selectedDay } = this.props;
+    const { selectedDay, lang } = this.props;
     return (
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <View style={{flex: 1, alignItems: 'center'}}>
@@ -160,7 +160,7 @@ class Calendar extends Component {
             <Icon style={calendarStyles.dateSelectionIcon} name="keyboard-arrow-left" />
           </View>
         </TouchableOpacity>
-        <Text style={{width: 80, textAlign: 'center'}}>{moment(selectedDay, "YYYY.MM.DD").format("dddd[\n]DD.MM.YYYY")}</Text>
+        <Text style={{width: 80, textAlign: 'center'}}>{moment(selectedDay, "YYYY.MM.DD").locale(lang).format("dddd[\n]DD.MM.YYYY")}</Text>
         <TouchableOpacity onPress={() => this.props.actions.selectDate("next")}>
           <View style={calendarStyles.dateSelectionIconContainer}>
             <Icon style={calendarStyles.dateSelectionIcon} name="keyboard-arrow-right" />

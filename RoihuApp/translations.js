@@ -6,9 +6,6 @@ const I18n = require('react-native-i18n');
 const translations = require('./strings.json');
 const fi = require('moment/locale/fi');
 const sv = require('moment/locale/sv');
-import moment from 'moment';
-moment.locale('fi', fi);
-moment.locale('sv', sv);
 
 I18n.fallbacks = true;
 I18n.translations = translations;
@@ -34,7 +31,6 @@ export const language = (
   action) => {
   switch (action.type) {
   case "SET_LANGUAGE":
-    moment.locale(action.lang);
     return Object.assign({}, state, {lang: action.lang});
   }
   return state;
