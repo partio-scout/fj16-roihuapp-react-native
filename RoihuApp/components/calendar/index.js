@@ -152,7 +152,7 @@ class Calendar extends Component {
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <View style={{flex: 1, alignItems: 'center'}}>
           <TouchableOpacity onPress={() => this.props.actions.selectDate("today")}>
-            <Text style={calendarStyles.todayButton}>TÄNÄÄN</Text>
+            <Text style={calendarStyles.todayButton}>{t("TÄNÄÄN", lang).toUpperCase()}</Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity onPress={() => this.props.actions.selectDate("prev")}>

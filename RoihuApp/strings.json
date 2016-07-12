@@ -79,7 +79,8 @@
     "Vain leirilippukunnalle": "Only for my camp unit",
     "Vain alaleirille": "Only for my subcamp",
     "Kirjaudu nähdäksesi kalenterisi": "Login to see your calendar",
-    "Ei kalenteritapahtumia": "No events in calendar"
+    "Ei kalenteritapahtumia": "No events in calendar",
+    "TÄNÄÄN": "TODAY"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -161,7 +162,8 @@
     "Vain leirilippukunnalle": "vain leirilippukunnalle",
     "Vain alaleirille": "vain alaleirille",
     "Kirjaudu nähdäksesi kalenterisi": "Kirjaudu nähdäksesi kalenterisi",
-    "Ei kalenteritapahtumia": "Ei kalenteritapahtumia"
+    "Ei kalenteritapahtumia": "Ei kalenteritapahtumia",
+    "TÄNÄÄN": "TÄNÄÄN"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -243,6 +245,7 @@
     "Vain leirilippukunnalle": "bara för lägerkåren",
     "Vain alaleirille": "bara för underlägret",
     "Kirjaudu nähdäksesi kalenterisi": "SV: Kirjaudu nähdäksesi kalenterisi",
-    "Ei kalenteritapahtumia": "SV: Ei kalenteritapahtumia"
+    "Ei kalenteritapahtumia": "SV: Ei kalenteritapahtumia",
+    "TÄNÄÄN": "I DAG"
   }
 }
