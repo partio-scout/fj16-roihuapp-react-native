@@ -78,9 +78,9 @@ export const calendar = (
       return Object.assign({}, state, {error: action.error});
     case "SELECT_CALENDAR_DATE": {
       const sortedDays = sortDays(Object.keys(state.eventsByDay));
-      const newSelectedDay = action.dateType === "today" ?
+      const newSelectedDay = action.selection === "today" ?
               findClosestDay(sortedDays) :
-              findDayBySelection(sortedDays, state.selectedDay, action.dateType);
+              findDayBySelection(sortedDays, state.selectedDay, action.selection);
       return Object.assign({},
                            state,
                            {selectedDay: newSelectedDay,

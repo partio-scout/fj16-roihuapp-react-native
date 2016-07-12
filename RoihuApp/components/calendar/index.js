@@ -260,9 +260,9 @@ const setError = (error) => ({
   error: error
 });
 
-const selectDate = (dateType) => ({
+const selectDate = (selection) => ({
   type: "SELECT_CALENDAR_DATE",
-  dateType: dateType
+  selection: selection
 });
 
 const setFetchStatus = (state) => ({
