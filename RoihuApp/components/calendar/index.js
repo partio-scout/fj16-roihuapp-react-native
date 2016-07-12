@@ -176,7 +176,7 @@ class Calendar extends Component {
       );
     } else {
       return (
-        <View>
+        <View style={{flex: 1}}>
           {last(this.props.routeStack).name === "calendar-root" ? this.renderDateSelection() : null}
           <Navigator initialRouteStack={this.props.parentNavigator.getCurrentRoutes()}
                      navigator={this.props.parentNavigator}
