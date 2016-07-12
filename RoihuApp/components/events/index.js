@@ -36,6 +36,7 @@ class Events extends Component {
   }
 
   renderEventsSearch(navigator) {
+    const Form = f.form.Form;
     const { search, eventsDataSource, lang } = this.props;    
     return (
       <View style={categoryStyles.article}>
@@ -79,6 +80,7 @@ class Events extends Component {
         <Navigator initialRouteStack={this.props.routeStack}
                    onWillFocus={onWillFocus}
                    renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
+
       </View>
     )
   }
