@@ -15,7 +15,7 @@ export const calendar = (
   state = {routeStack: [{name: "calendar-root"}],
            calendar: null,
            event: null,
-           eventsByDay: null,
+           eventsByDay: {},
            selectedDay: null,
            calendarDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.eventId !== r2.eventId}),
            error: null},
@@ -33,15 +33,20 @@ export const calendar = (
       const eventsByDay = partitionEventsByDay(action.calendar.events);
       const sortedDays = R.sort(sortByDate, Object.keys(eventsByDay));
       const today = partitionKey(moment());
-      const currentSelectedDay = state.selectedDay ?
-              R.find((date) => date === state.selectedDay, sortedDays) || sortedDays[0] :
-              R.find((date) => date === today, sortedDays) || sortedDays[0];
+      const currentSelectedDay = sortedDays.length !== 0 ? (
+        state.selectedDay ?
+          R.find((date) => date === state.selectedDay, sortedDays) || sortedDays[0] :
+          R.find((date) => date === today, sortedDays) || sortedDays[0]
+      ) : null;
+      const currentCalendarDataSource = currentSelectedDay ?
+              state.calendarDataSource.cloneWithRows(eventsByDay[currentSelectedDay].sort(sortByStartTime)) :
+              state.calendarDataSource;
       return Object.assign({},
                            state,
                            {calendar: action.calendar,
                             eventsByDay: eventsByDay,
                             selectedDay: currentSelectedDay,
-                            calendarDataSource: state.calendarDataSource.cloneWithRows(eventsByDay[currentSelectedDay].sort(sortByStartTime))});
+                            calendarDataSource: currentCalendarDataSource});
     }
     case "SELECT_CALENDAR_EVENT":
       return Object.assign({},
