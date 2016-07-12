@@ -47,7 +47,7 @@ class Navigation extends Component {
     return (
       <View style={styles.main}>
         <View style={styles.content}>
-          {this.renderView(view)}
+          {this.renderView(view, lang)}
         </View>
         <View style={styles.buttonBar}>
           {this.renderTabButton("calendar", t("Kalenteri", lang), "insert-invitation")}
@@ -60,12 +60,12 @@ class Navigation extends Component {
     );
   }
 
-  renderView(view) {
+  renderView(view, lang) {
     switch (view) {
     case "calendar":
       return (
         <CalendarWrapper>
-          <Auth>
+          <Auth loginPrompt={t("Kirjaudu nähdäksesi kalenterisi", lang)}>
             <Calendar/>
           </Auth>
         </CalendarWrapper>
@@ -77,7 +77,7 @@ class Navigation extends Component {
     case "user":
       return (
         <SettingsWrapper>
-          <Auth>
+          <Auth loginPrompt={t("login title", lang)}>
             <User/>
           </Auth>
         </SettingsWrapper>
