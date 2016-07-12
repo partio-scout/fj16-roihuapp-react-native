@@ -91,7 +91,8 @@
     "Päiväkotilapset": "Day care kids",
     "EVT": "School kids",    
     "Kirjaudu nähdäksesi kalenterisi": "Login to see your calendar",
-    "Ei kalenteritapahtumia": "No events in calendar"
+    "Ei kalenteritapahtumia": "No events in calendar",
+    "TÄNÄÄN": "TODAY"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -185,7 +186,8 @@
     "Päiväkotilapset": "Päiväkotilapset",
     "EVT": "EVT",  
     "Kirjaudu nähdäksesi kalenterisi": "Kirjaudu nähdäksesi kalenterisi",
-    "Ei kalenteritapahtumia": "Ei kalenteritapahtumia"
+    "Ei kalenteritapahtumia": "Ei kalenteritapahtumia",
+    "TÄNÄÄN": "TÄNÄÄN"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -281,6 +283,7 @@
     "Päiväkotilapset": "SV Päiväkotilapset",
     "EVT": "SV EVT",         
     "Kirjaudu nähdäksesi kalenterisi": "SV: Kirjaudu nähdäksesi kalenterisi",
-    "Ei kalenteritapahtumia": "SV: Ei kalenteritapahtumia"
+    "Ei kalenteritapahtumia": "SV: Ei kalenteritapahtumia",
+    "TÄNÄÄN": "I DAG"
   }
 }
