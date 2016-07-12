@@ -255,7 +255,7 @@ const setError = (error) => ({
 });
 
 const selectDate = (dateType) => ({
-  type: "CALENDAR_SELECT_DATE",
+  type: "SELECT_CALENDAR_DATE",
   dateType: dateType
 });
 
