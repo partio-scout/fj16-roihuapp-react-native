@@ -77,7 +77,8 @@
     "Osallistumassa": "Attending:",
     "Kaikille": "For anyone",
     "Vain leirilippukunnalle": "Only for my camp unit",
-    "Vain alaleirille": "Only for my subcamp"
+    "Vain alaleirille": "Only for my subcamp",
+    "Kirjaudu nähdäksesi kalenterisi": "Login to see your calendar"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -157,7 +158,8 @@
     "Osallistumassa": "Osallistumassa:",
     "Kaikille": "kaikille",
     "Vain leirilippukunnalle": "vain leirilippukunnalle",
-    "Vain alaleirille": "vain alaleirille"
+    "Vain alaleirille": "vain alaleirille",
+    "Kirjaudu nähdäksesi kalenterisi": "Kirjaudu nähdäksesi kalenterisi"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -237,6 +239,7 @@
     "Osallistumassa": "Deltar:",
     "Kaikille": "För alla",
     "Vain leirilippukunnalle": "bara för lägerkåren",
-    "Vain alaleirille": "bara för underlägret"
+    "Vain alaleirille": "bara för underlägret",
+    "Kirjaudu nähdäksesi kalenterisi": "SV: Kirjaudu nähdäksesi kalenterisi"
   }
 }

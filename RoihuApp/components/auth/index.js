@@ -104,7 +104,7 @@ class Auth extends Component {
                 fontWeight: 'bold',
                 fontSize: 20
               }}>
-          {t("login title", this.props.lang)}
+          {this.props.loginPrompt}
         </Text>
         <View style={authStyles.bigButton}>
           <TouchableOpacity style={{alignSelf: 'stretch'}} onPress={() => this.props.pushRoute({name: "partioid"}) }>
