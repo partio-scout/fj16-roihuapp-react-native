@@ -36,7 +36,11 @@ export const calendar = (
            eventsByDay: {},
            selectedDay: null,
            calendarDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.eventId !== r2.eventId}),
-           error: null},
+           error: null,
+           fetch: {state: "COMPLETED",
+                   etag: null,
+                   lastTs: moment().unix(),
+                   lastSuccesfullTs: moment().unix()}},
   action) => {
     switch (action.type) {
     case "PUSH_CALENDAR_ROUTE":
@@ -82,6 +86,19 @@ export const calendar = (
                            {selectedDay: newSelectedDay,
                             calendarDataSource: state.calendarDataSource.cloneWithRows(state.eventsByDay[newSelectedDay].sort(sortByStartTime))});
     }
+    case "CALENDAR_FETCH_STATE": {
+      const now = moment().unix();
+      return Object.assign({},
+                           state,
+                           {fetch: Object.assign({},
+                                                 state.fetch,
+                                                 {state: action.state, lastTs: now},
+                                                 action.state == "COMPLETED" ? {lastSuccesfullTs: now} : {})});
+    }
+    case "SET_CALENDAR_ETAG":
+      return Object.assign({},
+                           state,
+                           {fetch: Object.assign({}, state.fetch, {etag: action.etag})});
     }
     return state;
   };

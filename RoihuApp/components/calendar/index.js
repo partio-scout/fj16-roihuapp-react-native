@@ -15,9 +15,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config';
 import { removeCredentials } from '../login/actions';
-import { renderRefreshButton, last } from '../../utils';
+import { renderRefreshButton, last, renderProgressBar } from '../../utils';
 import { calendarStyles, infoStyles, categoryStyles } from '../../styles';
 import { t } from '../../translations.js';
+import { fetchData, shouldFetch } from '../common/categories';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 const R = require('ramda');
 
@@ -194,48 +195,49 @@ class Calendar extends Component {
     }
   }
 
-  render() {
-    const { calendar, error, lang, selectedDay, routeStack } = this.props;
-    if (calendar) {
-      return (
-        <View style={{flex: 1, width: Dimensions.get("window").width}}>
-          <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10, marginTop: 0}]}>
-            {t("Tilanne", lang)} {moment(calendar.timestamp).format(t("Timestamp", lang))}
-          </Text>
-          {this.renderContent()}
-        </View>
-      );
-    } else if (error !== null) {
-      return (
-        <Text>error</Text>
-      );
-    } else {
-      return (
-        <Text>No calendar</Text>
-      );
-    }
+  renderContentWithTimestamp() {
+    const { fetch: { lastSuccesfullTs }, lang } = this.props;
+    return (
+      <View style={{flex: 1, width: Dimensions.get("window").width}}>
+        <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10, marginTop: 0}]}>
+          {t("Tilanne", lang)} {moment(lastSuccesfullTs * 1000).format(t("Timestamp", lang))}
+        </Text>
+        {this.renderContent()}
+      </View>
+    );
   }
 
-  fetchUserCalendar(credentials, setCalendar, setError) {
-    console.log("Fetching user calendar");
-    fetch(config.apiUrl + "/RoihuUsers/" + credentials.userId + "/calendar?access_token=" + credentials.token + "&lang=" + this.props.lang.toUpperCase())
-      .then((response) => response.json())
-      .then((calendar) => {
-        setCalendar(calendar.calendar);
-      })
-      .catch((error) => {
-        setError(error);
-      });
+  render() {
+    const { calendar, error, lang, selectedDay, routeStack } = this.props;
+    switch (this.props.fetch.state) {
+    case "STARTED":
+      return renderProgressBar();
+    case "ERROR":
+      if (calendar === null) {
+        return (<Text>t("Ei voitu hakea kalenteria", lang)</Text>);
+      }
+    case "COMPLETED":
+    default:
+      return this.renderContentWithTimestamp();
+    }
   }
 
   componentWillMount() {
-    if (this.props.calendar === null || this.props.calendar.language.toUpperCase() !== this.props.lang.toUpperCase()) {
-      this.fetchUserCalendar(this.props.credentials, this.props.actions.setCalendar, this.props.actions.setError);
+    const doFetch = R.partial(fetchData,
+                             ["Fetching user calendar",
+                              this.props.actions.setFetchStatus,
+                              `/RoihuUsers/${this.props.credentials.userId}/calendar`,
+                              {access_token: this.props.credentials.token},
+                              (data) => this.props.actions.setCalendar(data.calendar),
+                              this.props.lang,
+                              t("Kalenterin haku epäonnistui", this.props.lang),
+                              this.props.fetch.etag,
+                              this.props.actions.setEtag]);
+    if (shouldFetch(this.props.calendar, this.props.lang, this.props.fetch.lastTs)) {
+      doFetch();
     }
 
-    this.refreshListener = this.props.refreshEventEmitter.addListener(
-      "refresh", () => this.fetchUserCalendar(this.props.credentials, this.props.actions.setCalendar, this.props.actions.setError)
-    );
+    this.refreshListener = this.props.refreshEventEmitter.addListener("refresh", () => doFetch());
   }
 
   componentWillUnmount() {
@@ -263,6 +265,16 @@ const selectDate = (dateType) => ({
   dateType: dateType
 });
 
+const setFetchStatus = (state) => ({
+  type: "CALENDAR_FETCH_STATE",
+  state: state
+});
+
+const setEtag = (etag) => ({
+  type: "SET_CALENDAR_ETAG",
+  etag: etag
+});
+
 export default connect(state => ({
   credentials: state.credentials,
   event: state.calendar.event,
@@ -272,7 +284,14 @@ export default connect(state => ({
   calendarDataSource: state.calendar.calendarDataSource,
   error: state.calendar.error,
   lang: state.language.lang,
-  routeStack: state.calendar.routeStack
+  routeStack: state.calendar.routeStack,
+  fetch: state.calendar.fetch
 }), (dispatch) => ({
-  actions: bindActionCreators({setCalendar, selectEvent, setError, removeCredentials, selectDate}, dispatch)
+  actions: bindActionCreators({setCalendar,
+                               selectEvent,
+                               setError,
+                               removeCredentials,
+                               selectDate,
+                               setFetchStatus,
+                               setEtag}, dispatch)
 }))(Calendar);
