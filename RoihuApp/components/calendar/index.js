@@ -101,7 +101,7 @@ class Calendar extends Component {
     );
   }
 
-  renderCalendarEvents(event, navigator, rowID) {
+  renderEventRow(event, navigator, rowID) {
     const { lang } = this.props;
     const background = this.getBackgroundColor(event.type);
     return (
@@ -129,7 +129,7 @@ class Calendar extends Component {
     return (
       <View style={categoryStyles.list}>
         <ListView dataSource={calendarDataSource}
-                  renderRow={(event, sectionID, rowID) => this.renderCalendarEvents(event, navigator, rowID) }
+                  renderRow={(event, sectionID, rowID) => this.renderEventRow(event, navigator, rowID) }
           style={{width: Dimensions.get("window").width}}/>
       </View>
     );
