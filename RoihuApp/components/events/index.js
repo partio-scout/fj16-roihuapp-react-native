@@ -8,8 +8,8 @@ import React, {
   ListView,
   StyleSheet,
   Navigator,
-  ScrollView,
-  TextInput
+  TextInput,
+  ScrollView
 } from 'react-native';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -84,7 +84,7 @@ class Events extends Component {
       <View style={{flex: 1, width: Dimensions.get("window").width}}>
         <Navigator initialRouteStack={this.props.routeStack}
                    onWillFocus={onWillFocus}
-                   renderScene={(route, navigator, refs) => this.renderScene(route, navigator, refs)}/>
+                   renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
       </View>
     )
   }
