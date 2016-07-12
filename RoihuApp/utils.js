@@ -68,10 +68,14 @@ export function sortNumber(a, b) {
   return (a < b) ? -1 : ((a == b) ? 0 : 1);
 }
 
-export function sortByDate(a, b) {
-  return (moment(a, moment.ISO_8601).isBefore(moment(b, moment.ISO_8601))) ?
+export function sortByDateWithFormat(format, a , b) {
+  return (moment(a, format).isBefore(moment(b, format))) ?
     -1 :
-    ((moment(a, moment.ISO_8601).isSame(moment(b, moment.ISO_8601))) ? 0 : 1);
+    ((moment(a, format).isSame(moment(b, format))) ? 0 : 1);
+}
+
+export function sortByDate(a, b) {
+  return sortByDateWithFormat(moment.ISO_8601, a, b);
 }
 
 export function popWhenRouteNotLastInStack(route, routeStack, popRoute) {

@@ -150,7 +150,11 @@ class Calendar extends Component {
     const { selectedDay } = this.props;
     return (
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{flex: 1}}/>
+        <View style={{flex: 1, alignItems: 'center'}}>
+          <TouchableOpacity onPress={() => this.props.actions.selectDate("today")}>
+            <Text style={calendarStyles.todayButton}>TÄNÄÄN</Text>
+          </TouchableOpacity>
+        </View>
         <TouchableOpacity onPress={() => this.props.actions.selectDate("prev")}>
           <View style={calendarStyles.dateSelectionIconContainer}>
             <Icon style={calendarStyles.dateSelectionIcon} name="keyboard-arrow-left" />
