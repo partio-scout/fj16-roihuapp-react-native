@@ -171,7 +171,7 @@ class Calendar extends Component {
     if (R.isEmpty(this.props.eventsByDay)) {
       return (
         <View style={{flex: 1, alignItems: 'center'}}>
-          <Text>Ei kalenteritapahtumia</Text>
+          <Text>{t("Ei kalenteritapahtumia", this.props.lang)}</Text>
         </View>
       );
     } else {
