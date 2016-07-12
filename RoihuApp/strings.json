@@ -90,7 +90,8 @@
     "Aikuiset": "Adults",
     "Päiväkotilapset": "Day care kids",
     "EVT": "School kids",    
-    "Kirjaudu nähdäksesi kalenterisi": "Login to see your calendar"
+    "Kirjaudu nähdäksesi kalenterisi": "Login to see your calendar",
+    "Ei kalenteritapahtumia": "No events in calendar"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -164,7 +165,7 @@
     "Ei voitu hakea ohjeita": "Ei voitu hakea ohjeita",
     "Ei voitu hakea paikkoja": "Ei voitu hakea paikkoja",
     "Ohjeiden haku epäonnistui": "Ohjeiden haku epäonnistui",
-    "Paikkojen haku epäonnistui": "Paikkojen haku epäonnistui", 
+    "Paikkojen haku epäonnistui": "Paikkojen haku epäonnistui",
     "Virhe nettiyhteydessä": "Virhe nettiyhteydessä",
     "Kenelle": "Kenelle:",
     "Päivämäärä": "Päivämäärä:",
@@ -183,7 +184,8 @@
     "Aikuiset": "Aikuiset",
     "Päiväkotilapset": "Päiväkotilapset",
     "EVT": "EVT",  
-    "Kirjaudu nähdäksesi kalenterisi": "Kirjaudu nähdäksesi kalenterisi"
+    "Kirjaudu nähdäksesi kalenterisi": "Kirjaudu nähdäksesi kalenterisi",
+    "Ei kalenteritapahtumia": "Ei kalenteritapahtumia"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -278,6 +280,7 @@
     "Aikuiset": "Vuxna",
     "Päiväkotilapset": "SV Päiväkotilapset",
     "EVT": "SV EVT",         
-    "Kirjaudu nähdäksesi kalenterisi": "SV: Kirjaudu nähdäksesi kalenterisi"
+    "Kirjaudu nähdäksesi kalenterisi": "SV: Kirjaudu nähdäksesi kalenterisi",
+    "Ei kalenteritapahtumia": "SV: Ei kalenteritapahtumia"
   }
 }
