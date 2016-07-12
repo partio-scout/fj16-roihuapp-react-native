@@ -12,15 +12,18 @@ var HELP_COLOR = '#999999';
 var BORDER_COLOR = '#cccccc';
 var DISABLED_COLOR = '#777777';
 var DISABLED_BACKGROUND_COLOR = '#eeeeee';
-var FONT_SIZE = 16;
+var FONT_SIZE = 14;
 var FONT_WEIGHT = '500';
 
 var stylesheet = Object.freeze({
-  fieldset: {},
+  fieldset: {
+
+  },
   // the style applied to the container of all inputs
   formGroup: {
     normal: {
-      marginBottom: 10
+      flexDirection: 'row',
+      marginBottom: 5
     },
     error: {
       marginBottom: 10
@@ -30,8 +33,9 @@ var stylesheet = Object.freeze({
     normal: {
       color: LABEL_COLOR,
       fontSize: FONT_SIZE,
-      marginBottom: 5,
-      marginLeft: 10,
+      marginTop: 15,
+      marginLeft: 5,
+      marginRight: 10,
       fontWeight: FONT_WEIGHT
     },
     // the style applied when a validation error occours
@@ -62,6 +66,7 @@ var stylesheet = Object.freeze({
   },
   textbox: {
     normal: {
+      flex: 1,
       color: INPUT_COLOR,
       fontSize: FONT_SIZE,
       height: 36,
@@ -69,7 +74,7 @@ var stylesheet = Object.freeze({
       borderColor: BORDER_COLOR,
       borderWidth: 1,
       marginBottom: 5,
-      marginLeft: 10,
+      marginLeft: 0,
       marginRight: 10,
       paddingTop: 7,
       paddingBottom: 7
@@ -109,7 +114,8 @@ var stylesheet = Object.freeze({
   },
   select: {
     normal: {
-      marginBottom: 4
+      flex: 1,
+      marginBottom: 0
     },
     // the style applied when a validation error occours
     error: {
@@ -118,7 +124,8 @@ var stylesheet = Object.freeze({
   },
   datepicker: {
     normal: {
-      marginBottom: 4,
+      flex: 1,
+      marginBottom: 0,
       marginLeft: 10,
       marginRight: 10
     },
