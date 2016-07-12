@@ -5,8 +5,10 @@ import React, {
   Platform
 } from 'react-native';
 
-export const MAIN_COLOR = '#FFFFFF';
-export const BAR_BACKGROUND_COLOR = '#18A771';
+const WHITE = '#FFFFFF';
+export const MAIN_COLOR = WHITE;
+const GREEN = '#18A771';
+export const BAR_BACKGROUND_COLOR = GREEN;
 const BORDER_COLOR = '#3EAADF';
 const TEXT_COLOR = '#000000';
 
@@ -296,7 +298,7 @@ export const calendarStyles = StyleSheet.create({
     marginLeft: 5
   },
   dateSelectionIcon: {
-    color: MAIN_COLOR,
+    color: WHITE,
     backgroundColor: '#FFFFFF00',
     fontSize: 30
   },
@@ -304,7 +306,7 @@ export const calendarStyles = StyleSheet.create({
     width: 45,
     height: 45,
     borderRadius: 50,
-    backgroundColor: BAR_BACKGROUND_COLOR,
+    backgroundColor: GREEN,
     padding: 8,
     margin: 5
   }
