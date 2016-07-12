@@ -18,7 +18,7 @@ import { t } from '../../translations';
 import { fields, options } from '../models/SearchEventsModel';
 import { fetchEvents, renderEvents, renderEvent } from '../common/events';
 import { categoryStyles, styles } from '../../styles';
-import { popWhenRouteNotLastInStack } from '../../utils';
+import { popWhenRouteNotLastInStack, sortByDate } from '../../utils';
 
 const Form = f.form.Form;
 
@@ -118,11 +118,22 @@ const actions = {
 };
 
 export const events = (
-  state = {event: {}, search: {}, result: {}, eventsDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.eventId !== r2.eventId}), routeStack: [{name: "search"}]},
+  state = {
+    event: {}, 
+    search: {}, 
+    result: {}, 
+    eventsDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.eventId !== r2.eventId}), routeStack: [{name: "search"}]
+  },
   action) => {
     switch (action.type) {
     case "SET_SEARCH_RESULT":
-      return Object.assign({}, state, {search: action.search, result: action.result, eventsDataSource: state.eventsDataSource.cloneWithRows(action.result.events)});
+      return Object.assign(
+        {}, state, {
+          search: action.search, 
+          result: action.result, 
+          eventsDataSource: state.eventsDataSource.cloneWithRows(action.result.events.sort((a, b) => sortByDate(a.startTime, b.startTime)))
+        }
+      );
     case "SELECT_EVENT":
       return Object.assign({}, state, {event: action.event, routeStack: state.routeStack.concat(action.route)});            
     case "POP_EVENTS_ROUTE":
