@@ -309,6 +309,9 @@ export const calendarStyles = StyleSheet.create({
     backgroundColor: GREEN,
     padding: 8,
     margin: 5
+  },
+  todayButton: {
+    color: GREEN
   }
 });
 
