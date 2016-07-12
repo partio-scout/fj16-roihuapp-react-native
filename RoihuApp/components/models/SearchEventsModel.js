@@ -31,28 +31,32 @@ const Hours = f.enums({
   23: '23:00',
 });
 
-const Days = f.enums({
-  20: '20. heinäkuuta',
-  21: '21. heinäkuuta',
-  22: '22. heinäkuuta',
-  23: '23. heinäkuuta',
-  24: '24. heinäkuuta',
-  25: '25. heinäkuuta',
-  26: '26. heinäkuuta',
-  27: '27. heinäkuuta',
-  28: '28. heinäkuuta',
+const Days = (lang) => f.enums({
+  20: '20. ' + t("Heinäkuuta", lang),
+  21: '21. ' + t("Heinäkuuta", lang),
+  22: '22. ' + t("Heinäkuuta", lang),
+  23: '23. ' + t("Heinäkuuta", lang),
+  24: '24. ' + t("Heinäkuuta", lang),
+  25: '25. ' + t("Heinäkuuta", lang),
+  26: '26. ' + t("Heinäkuuta", lang),
+  27: '27. ' + t("Heinäkuuta", lang),
+  28: '28. ' + t("Heinäkuuta", lang),
 });
 
-export const fields = f.struct({
-  searchString: f.String,
-  date: Days,
-  startTime: Hours,
-  trackers: f.Boolean,
-  explorers: f.Boolean,
-  rovers: f.Boolean,
-  adults: f.Boolean,
-  dayCareKids: f.Boolean,
-  schoolKids: f.Boolean
+const Groups = (lang) => f.enums({
+  trackers: t('Tarpojat', lang),
+  explorers: t('Samoajat', lang),
+  rovers: t('Vaeltajat', lang),
+  adults: t('Aikuiset', lang),
+  dayCareKids: t('Päiväkotilapset', lang),
+  schoolKids: t('EVT', lang)
+});
+
+export const fields = (lang) => f.struct({
+  searchString: f.maybe(f.String),
+  date: f.maybe(Days(lang)),
+  startTime: f.maybe(Hours),
+  ageGroup: f.maybe(Groups(lang))
 });
 
 export const options = (lang) => ({
@@ -68,23 +72,8 @@ export const options = (lang) => ({
     startTime: {
       label: t("Alkaa aikaisintaan", lang)
     },
-    trackers: {
-      label: t("Tarpojat", lang)
-    },
-    explorers: {
-      label: t("Samoajat", lang)
-    },
-    rovers: {
-      label: t("Vaeltajat", lang)
-    },
-    adults: {
-      label: t("Aikuiset", lang)
-    },
-    dayCareKids: {
-      label: t("Päiväkotilapset", lang)
-    },
-    schoolKids: {
-      label: t("EVT", lang)
+    ageGroup: {
+      label: t("Age level", lang)
     }
   }
 });

@@ -7,16 +7,20 @@ import React, {
   TouchableHighlight,
   ListView,
   StyleSheet,
-  Navigator
+  Navigator,
+  ScrollView
 } from 'react-native';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import f from 'tcomb-form-native';
-import { t } from '../../translations.js';
+import { t } from '../../translations';
 import { fields, options } from '../models/SearchEventsModel';
-import { categoryStyles, styles } from '../../styles.js';
-import { popWhenRouteNotLastInStack } from '../../utils.js';
+import { fetchEvents, renderEvents, renderEvent } from '../common/events';
+import { categoryStyles, styles } from '../../styles';
+import { popWhenRouteNotLastInStack } from '../../utils';
+
+const Form = f.form.Form;
 
 class Events extends Component {
 
@@ -25,26 +29,19 @@ class Events extends Component {
   }
 
   searchEvent() {
-    // HANDLER FOR FORM
-    /*const data = this.refs.form.getValue();
-    if (result) {
-      this.props.actions.setLatestSearch(result);
-    }*/  
+    let data = this.refs.getValue();
+    if (data) {
+      fetchEvents("/CalendarEvents/Translations", data, this.props.actions.setLatestSearch, this.props.lang);
+    }
   }
 
-  renderEventsSearch() {
-    const Form = f.form.Form;
-    const { search, lang } = this.props;    
+  renderEventsSearch(navigator) {
+    const { search, eventsDataSource, lang } = this.props;    
     return (
       <View style={categoryStyles.article}>
         <View style={[categoryStyles.articleContentContainer, {flexDirection: 'row'}]}>
           <View style={{height: 40, flex: 4}}>
-            <Form 
-              ref="form" 
-              value={search} 
-              type={fields} 
-              options={options(lang)} 
-            />
+            <Form ref={(form) => this.refs = form} value={search} type={fields(lang)} options={options(lang)} />         
           </View>
           <View style={{flex: 1}}>
             <TouchableHighlight style={[styles.basicButton]} onPress={() => this.searchEvent()}>
@@ -52,6 +49,14 @@ class Events extends Component {
             </TouchableHighlight>
           </View>
         </View>
+        {eventsDataSource ? (
+          <ScrollView style={categoryStyles.list}>
+            <ListView dataSource={eventsDataSource}
+                      renderRow={(event, sectionID, rowID) => renderEvents(event, navigator, this.props.actions.selectEvent, lang, rowID) }
+              style={{width: Dimensions.get("window").width}}/>
+          </ScrollView>
+          ): (<View><Text>Ei löydy</Text></View>)
+        }
       </View>
     );
   }
@@ -60,10 +65,10 @@ class Events extends Component {
     this._navigator = navigator;
     switch(route.name) {
       case "event":
-        return (<View />);
+        return renderEvent(navigator, this.props.event, this.props.lang);
       case "search":
       default:
-        return this.renderEventsSearch();
+        return this.renderEventsSearch(navigator);
     }
   }
 
@@ -73,7 +78,7 @@ class Events extends Component {
       <View style={{flex: 1, width: Dimensions.get("window").width}}>
         <Navigator initialRouteStack={this.props.routeStack}
                    onWillFocus={onWillFocus}
-                   renderScene={(route, navigator, refs) => this.renderScene(route, navigator, refs)}/>
+                   renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
       </View>
     )
   }
@@ -98,18 +103,26 @@ const actions = {
   popNavigationRoute: () => ({
     type: "POP_EVENTS_ROUTE"
   }),
-  setLatestSearch: (search) => ({
+  setLatestSearch: (search, result) => ({
     type: "SET_SEARCH_RESULT",
-    search: search 
+    search: search,
+    result: result 
+  }),
+  selectEvent: (event, route) => ({
+    type: "SELECT_EVENT",
+    event: event,
+    route: route
   })
 };
 
 export const events = (
-  state = {search: {}, routeStack: [{name: "search"}]},
+  state = {event: {}, search: {}, result: {}, eventsDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.eventId !== r2.eventId}), routeStack: [{name: "search"}]},
   action) => {
     switch (action.type) {
     case "SET_SEARCH_RESULT":
-      return Object.assign({}, state, {search: action.search});      
+      return Object.assign({}, state, {search: action.search, result: action.result, eventsDataSource: state.eventsDataSource.cloneWithRows(action.result.events)});
+    case "SELECT_EVENT":
+      return Object.assign({}, state, {event: action.event, routeStack: state.routeStack.concat(action.route)});            
     case "POP_EVENTS_ROUTE":
       const newStack = Object.assign([], state.routeStack);
       newStack.pop();
@@ -120,7 +133,10 @@ export const events = (
   };
 
 export default connect(state => ({
+  event: state.events.event,
   search: state.events.search,
+  result: state.events.result,
+  eventsDataSource: state.events.eventsDataSource,
   routeStack: state.events.routeStack,
   lang: state.language.lang,
 }), (dispatch) => ({
