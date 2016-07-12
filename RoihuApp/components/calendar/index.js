@@ -19,6 +19,7 @@ import { renderRefreshButton, last } from '../../utils';
 import { calendarStyles, infoStyles, categoryStyles } from '../../styles';
 import { t } from '../../translations.js';
 const Icon = require('react-native-vector-icons/MaterialIcons');
+const R = require('ramda');
 
 class Calendar extends Component {
 
@@ -166,6 +167,29 @@ class Calendar extends Component {
     );
   }
 
+  renderContent() {
+    if (R.isEmpty(this.props.eventsByDay)) {
+      return (
+        <View style={{flex: 1, alignItems: 'center'}}>
+          <Text>Ei kalenteritapahtumia</Text>
+        </View>
+      );
+    } else {
+      return (
+        <View>
+          {last(this.props.routeStack).name === "calendar-root" ? this.renderDateSelection() : null}
+          <Navigator initialRouteStack={this.props.parentNavigator.getCurrentRoutes()}
+                     navigator={this.props.parentNavigator}
+                     renderScene={(route, navigator) => this.renderScene(route, navigator)}
+            configureScene={() => ({
+                ...Navigator.SceneConfigs.FloatFromRight,
+              gestures: {},
+            })}/>
+        </View>
+      );
+    }
+  }
+
   render() {
     const { calendar, error, lang, selectedDay, routeStack } = this.props;
     if (calendar) {
@@ -174,14 +198,7 @@ class Calendar extends Component {
           <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10, marginTop: 0}]}>
             {t("Tilanne", lang)} {moment(calendar.timestamp).format(t("Timestamp", lang))}
           </Text>
-          {last(routeStack).name === "calendar-root" ? this.renderDateSelection() : null}
-          <Navigator initialRouteStack={this.props.parentNavigator.getCurrentRoutes()}
-                     navigator={this.props.parentNavigator}
-                     renderScene={(route, navigator) => this.renderScene(route, navigator)}
-                     configureScene={() => ({
-                     ...Navigator.SceneConfigs.FloatFromRight,
-                     gestures: {},
-          })}/>
+          {this.renderContent()}
         </View>
       );
     } else if (error !== null) {
@@ -245,7 +262,7 @@ const selectDate = (dateType) => ({
 export default connect(state => ({
   credentials: state.credentials,
   event: state.calendar.event,
-  eventsByDay: state.calendar.eventByDay,
+  eventsByDay: state.calendar.eventsByDay,
   selectedDay: state.calendar.selectedDay,
   calendar: state.calendar.calendar,
   calendarDataSource: state.calendar.calendarDataSource,
