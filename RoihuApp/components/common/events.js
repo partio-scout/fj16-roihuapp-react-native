@@ -11,7 +11,6 @@ import { t } from '../../translations';
 import { config } from '../../config';
 import { calendarStyles, categoryStyles, styles } from '../../styles';
 
-
 function renderAudience(event, lang) {
   if (event.subcamp !== '') {
     return t("Vain alaleirille", lang);
@@ -69,7 +68,7 @@ export function renderEvent(navigator, event, lang) {
   );
 }
 
-export function renderEvents(event, navigator, selectEvent, lang, rowID) {
+export function renderEventRow(event, navigator, selectEvent, lang, rowID) {
   return (
     <View key={"event-" + rowID} style={[categoryStyles.listItem]}>
       <TouchableOpacity style={categoryStyles.listItemTouchArea} onPress={() => {
@@ -105,10 +104,6 @@ function getQueryString(data, lang) {
     let day = "2016-07-" + data.date + startTime;
     let nextDay = "2016-07-" + tomorrow + "T00:00:00.000Z";
     Object.assign(queryFields, { "startTime": { "between": [day, nextDay] }});
-  }
-
-  if (data.startTime !== null) {
-
   }
 
   if (data.ageGroup !== null) {

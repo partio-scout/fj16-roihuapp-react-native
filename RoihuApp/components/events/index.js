@@ -54,7 +54,7 @@ class Events extends Component {
           <ScrollView style={categoryStyles.list}>
             <ListView dataSource={eventsDataSource}
                       enableEmptySections={true}
-                      renderRow={(event, sectionID, rowID) => renderEvents(event, navigator, this.props.actions.selectEvent, lang, rowID) }
+                      renderRow={(event, sectionID, rowID) => renderEventRow(event, navigator, this.props.actions.selectEvent, lang, rowID) }
               style={{width: Dimensions.get("window").width}}/>
           </ScrollView>
           ): (
