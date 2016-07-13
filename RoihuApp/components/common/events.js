@@ -78,7 +78,7 @@ export function renderEventRow(event, navigator, selectEvent, lang, rowID) {
         }}>
         <Text style={[categoryStyles.textColor, {flex: 1.5}]}>
           <Text>
-            {moment(event.startTime).format(t("Date", lang))}{"\n"}
+            {moment(event.startTime).locale(lang).format("MMM DD.M.")}{"\n"}
           </Text>
           <Text>
             {moment(event.startTime).format(t("Time", lang))}
@@ -143,7 +143,7 @@ export function fetchEvents(apiPath, queryData, setData, lang) {
     .catch((error) => {
       console.log(error);
       Alert.alert(t("Virhe nettiyhteydessä", lang),
-                  'Tapahtumien haku epäonnistui',
+                  t("Tapahtumien haku epäonnistui", lang),
                   [{text: "Ok", onPress: () => {}}]);
     });
 }

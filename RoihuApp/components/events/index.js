@@ -115,7 +115,7 @@ const actions = {
     result: result 
   }),
   selectEvent: (event, route) => ({
-    type: "SELECT_EVENT",
+    type: "SELECT_EVENTS_EVENT",
     event: event,
     route: route
   })
@@ -138,7 +138,7 @@ export const events = (
           eventsDataSource: state.eventsDataSource.cloneWithRows(action.result.events.sort((a, b) => sortByDate(a.startTime, b.startTime)))
         }
       );
-    case "SELECT_EVENT":
+    case "SELECT_EVENTS_EVENT":
       return Object.assign({}, state, {event: action.event, routeStack: state.routeStack.concat(action.route)});            
     case "POP_EVENTS_ROUTE":
       const newStack = Object.assign([], state.routeStack);
