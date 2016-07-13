@@ -93,16 +93,7 @@
     "EVT": "School kids",    
     "Kirjaudu nähdäksesi kalenterisi": "Login to see your calendar",
     "Ei kalenteritapahtumia": "No events in calendar",
-    "TÄNÄÄN": "TODAY",
-    "Pvm": "Date",
-    "Heinäkuuta": "July",
-    "Alkaa aikaisintaan": "Starts earliers",
-    "Tarpojat": "Trackers",
-    "Samoajat": "Explorers",
-    "Vaeltajat": "Rovers",
-    "Aikuiset": "Adults",
-    "Päiväkotilapset": "Day care kids",
-    "EVT": "School kids"    
+    "TÄNÄÄN": "TODAY"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -198,16 +189,7 @@
     "EVT": "EVT",  
     "Kirjaudu nähdäksesi kalenterisi": "Kirjaudu nähdäksesi kalenterisi",
     "Ei kalenteritapahtumia": "Ei kalenteritapahtumia",
-    "TÄNÄÄN": "TÄNÄÄN",
-    "Pvm": "Pvm",
-    "Heinäkuuta": "heinäkuuta",
-    "Alkaa aikaisintaan": "Alkaa aikaisintaan",
-    "Tarpojat": "Tarpojat",
-    "Samoajat": "Samoajat",
-    "Vaeltajat": "Vaeltajat",
-    "Aikuiset": "Aikuiset",
-    "Päiväkotilapset": "Päiväkotilapset",
-    "EVT": "EVT"    
+    "TÄNÄÄN": "TÄNÄÄN"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -305,15 +287,6 @@
     "EVT": "SV EVT",         
     "Kirjaudu nähdäksesi kalenterisi": "SV: Kirjaudu nähdäksesi kalenterisi",
     "Ei kalenteritapahtumia": "SV: Ei kalenteritapahtumia",
-    "TÄNÄÄN": "I DAG",
-    "Pvm": "SV Pvm",
-    "Heinäkuuta": "SV heinäkuuta",
-    "Alkaa aikaisintaan": "SV Alkaa aikaisintaan",
-    "Tarpojat": "Spejarscouterna",
-    "Samoajat": "Explorerscouterna",
-    "Vaeltajat": "Roverscouterna",
-    "Aikuiset": "Vuxna",
-    "Päiväkotilapset": "SV Päiväkotilapset",
-    "EVT": "SV EVT"          
+    "TÄNÄÄN": "I DAG"
   }
 }
