@@ -10,18 +10,20 @@ import React, {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Instructions from '../instructions/index.js';
-import Locations from '../locations/index.js';
-import { infoStyles, categoryStyles, navigationStyles } from '../../styles.js';
-import { renderRefreshButton, renderBackButton } from '../../utils.js';
-import { t } from '../../translations.js';
+import Events from '../events/index';
+import Instructions from '../instructions/index';
+import Locations from '../locations/index';
+import { infoStyles, categoryStyles, navigationStyles } from '../../styles';
+import { renderRefreshButton, renderBackButton } from '../../utils';
+import { t } from '../../translations';
 const EventEmitter = require('EventEmitter');
-const Icon = require('react-native-vector-icons/MaterialIcons');
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 class Info extends Component {
 
   constructor(props) {
     super(props);
+    this.eventsEventEmitter = new EventEmitter();
     this.instructionsEventEmitter = new EventEmitter();
     this.locationsEventEmitter = new EventEmitter();
   }
@@ -68,6 +70,8 @@ class Info extends Component {
 
   renderTab(tab) {
     switch(tab) {
+    case "events":
+      return (<Events emitter={this.getEventEmitter()}/>);
     case "locations":
       return (<Locations emitter={this.getEventEmitter()}/>);
     case "instructions":
@@ -77,33 +81,54 @@ class Info extends Component {
   }
 
   getRouteStack() {
-    return this.props.tab === "instructions" ? this.props.instructionsRouteStack : this.props.locationsRouteStack;
+    switch (this.props.tab) {
+      case "events":
+        return this.props.eventsRouteStack;
+      case "locations":
+        return this.props.locationsRouteStack;
+      case "instructions":
+      default:
+        return this.props.instructionsRouteStack;
+    }
   }
 
   getCurrentTitle() {
-    return this.props.tab === "instructions" ? this.props.instructionsTitle : this.props.locationsTitle;
+    switch (this.props.tab) {
+      case "events":
+        return '';
+      case "locations":
+        return this.props.locationsTitle;
+      case "instructions":
+      default:
+        return this.props.instructionsTitle;
+    }    
   }  
 
   getEventEmitter() {
     switch(this.props.tab) {
-    case "locations":
-      return this.locationsEventEmitter;
-    case "instructions":
-    default:
-      return this.instructionsEventEmitter;
+      case "events":
+        return this.eventsEventEmitter;
+      case "locations":
+        return this.locationsEventEmitter;
+      case "instructions":
+      default:
+        return this.instructionsEventEmitter;
     }
   }
 
   render() {
     const { view, actions: {setView}, lang } = this.props;
+    const renderRefresh = (this.props.tab != 'events') ? renderRefreshButton(() => this.getEventEmitter().emit("refresh")) : null;
+
     return (
       <View style={[infoStyles.container, {width: Dimensions.get("window").width}]}>
         <View style={infoStyles.topNavigationBar}>
           {renderBackButton(this.getRouteStack(), () => this.onBack())}
           {this.renderInfoTitle(this.getCurrentTitle(), this.getRouteStack())}
-          {renderRefreshButton(() => this.getEventEmitter().emit("refresh"))}
+          {renderRefresh}
         </View>
         <View style={infoStyles.tabs}>
+          {this.renderTabButton("events", "Tapahtumat")}
           {this.renderTabButton("instructions", t("Ohjeet", lang))}
           {this.renderTabButton("locations", t("Paikat", lang))}
         </View>
@@ -156,6 +181,7 @@ export const info = (
 
 export default connect(state => ({
   tab: state.info.tab,
+  eventsRouteStack: state.events.routeStack,
   instructionsRouteStack: state.instructions.routeStack,
   locationsRouteStack: state.locations.routeStack,
   instructionsTitle: state.instructions.currentTitle,
