@@ -91,12 +91,45 @@ export function renderEvents(event, navigator, selectEvent, lang, rowID) {
   )
 }
 
+function getStartHour(hour) {
+  return (hour <= 10) ? '0' + (hour - 1) : hour - 1;
+}
+
+function getQueryString(data, lang) {
+  let queryFields = {};
+  let filterString = {};
+
+  if (data.date !== null) {
+    let tomorrow = parseInt(data.date) + 1;
+    let startTime = (data.startTime !== null || parseInt(data.startTime) > 0) ? "T" + getStartHour(parseInt(data.startTime)) + ":59:59.000Z" : "T00:00:00.000Z";
+    let day = "2016-07-" + data.date + startTime;
+    let nextDay = "2016-07-" + tomorrow + "T00:00:00.000Z";
+    Object.assign(queryFields, { "startTime": { "between": [day, nextDay] }});
+  }
+
+  if (data.startTime !== null) {
+
+  }
+
+  if (data.ageGroup !== null) {
+    Object.assign(queryFields, { "ageGroups": { "like": '%' + t(data.ageGroup, lang) + '%' }});
+  }
+
+  if (Object.keys(queryFields).length === 1) {
+    filterString = { "where" : queryFields };
+  } else if (Object.keys(queryFields).length > 1) {
+    filterString = { "where" : { "and" : [queryFields] }};
+  }
+
+  return encodeURI(JSON.stringify(filterString));
+}
+
 export function fetchEvents(apiPath, queryData, setData, lang) {
   const fetchParams = Object.assign({method: "GET"});
-  fetch(config.apiUrl + apiPath + "?lang=" + lang.toUpperCase(), fetchParams)
+  const filterString = getQueryString(queryData, lang);
+
+  fetch(config.apiUrl + apiPath + "?lang=" + lang.toUpperCase() + "&filter=" + filterString, fetchParams)
     .then((response) => {
-      console.log('RESPONSE STATUS');
-      console.log(response.status);
       switch (response.status) {
       case 304:
         console.log("cache valid");

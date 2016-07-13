@@ -37,7 +37,8 @@ class Events extends Component {
 
   renderEventsSearch(navigator) {
     const Form = f.form.Form;
-    const { search, eventsDataSource, lang } = this.props;    
+    const { search, result, eventsDataSource, lang } = this.props;  
+    console.log('RESULT', result);  
     return (
       <View style={categoryStyles.article}>
         <View style={[categoryStyles.articleContentContainer, {flexDirection: 'row'}]}>
@@ -50,13 +51,18 @@ class Events extends Component {
             </TouchableHighlight>
           </View>
         </View>
-        {eventsDataSource ? (
+        {result.events.length > 0 ? (
           <ScrollView style={categoryStyles.list}>
             <ListView dataSource={eventsDataSource}
+                      enableEmptySections={true}
                       renderRow={(event, sectionID, rowID) => renderEvents(event, navigator, this.props.actions.selectEvent, lang, rowID) }
               style={{width: Dimensions.get("window").width}}/>
           </ScrollView>
-          ): (<View><Text>Ei löydy</Text></View>)
+          ): (
+          <View>
+            <Text style={[categoryStyles.textColor, categoryStyles.articleTitle]}>{t("Ei tapahtumia", lang)}</Text>
+          </View>
+          )
         }
       </View>
     );

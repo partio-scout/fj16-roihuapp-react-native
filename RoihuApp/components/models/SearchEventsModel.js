@@ -44,12 +44,12 @@ const Days = (lang) => f.enums({
 });
 
 const Groups = (lang) => f.enums({
-  trackers: t('Tarpojat', lang),
-  explorers: t('Samoajat', lang),
-  rovers: t('Vaeltajat', lang),
-  adults: t('Aikuiset', lang),
-  dayCareKids: t('Päiväkotilapset', lang),
-  schoolKids: t('EVT', lang)
+  Tarpojat: t('Tarpojat', lang),
+  Samoajat: t('Samoajat', lang),
+  Vaeltajat: t('Vaeltajat', lang),
+  Aikuiset: t('Aikuiset', lang),
+  Päiväkotilapset: t('Päiväkotilapset', lang),
+  EVT: t('EVT', lang)
 });
 
 export const fields = (lang) => f.struct({
