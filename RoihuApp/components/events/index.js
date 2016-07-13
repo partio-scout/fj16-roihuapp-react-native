@@ -36,7 +36,7 @@ class Events extends Component {
     }
   }
 
-  renderEventsSearch() {
+  renderEventsSearch(navigator) {
     const { search, result, eventsDataSource, lang } = this.props;  
     return (
       <View style={categoryStyles.article}>
