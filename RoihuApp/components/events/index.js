@@ -17,7 +17,7 @@ import { bindActionCreators } from 'redux';
 import f from 'tcomb-form-native';
 import { t } from '../../translations';
 import { fields, options } from '../models/SearchEventsModel';
-import { fetchEvents, renderEvents, renderEvent } from '../common/events';
+import { fetchEvents, renderEventRow, renderEvent } from '../common/events';
 import { categoryStyles, styles } from '../../styles';
 import { popWhenRouteNotLastInStack, sortByDate } from '../../utils';
 
