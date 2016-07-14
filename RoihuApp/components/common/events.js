@@ -119,10 +119,11 @@ function getQueryString(data, lang) {
   return encodeURI(JSON.stringify(filterString));
 }
 
-export function fetchEvents(apiPath, queryData, setData, lang) {
+export function fetchEvents(logStart, setFetchStatus, apiPath, queryData, setData, lang, failedToFetchMessage) {
+  console.log(logStart);
   const fetchParams = Object.assign({method: "GET"});
   const filterString = getQueryString(queryData, lang);
-
+  setFetchStatus("STARTED");
   fetch(config.apiUrl + apiPath + "?lang=" + lang.toUpperCase() + "&filter=" + filterString, fetchParams)
     .then((response) => {
       switch (response.status) {
@@ -139,11 +140,13 @@ export function fetchEvents(apiPath, queryData, setData, lang) {
       if (!data.cached) {
         setData(queryData, data);
       }
+      setFetchStatus("COMPLETED");
     })
     .catch((error) => {
+      setFetchStatus("ERROR");
       console.log(error);
       Alert.alert(t("Virhe nettiyhteydessä", lang),
-                  t("Tapahtumien haku epäonnistui", lang),
+                  failedToFetchMessage,
                   [{text: "Ok", onPress: () => {}}]);
     });
 }

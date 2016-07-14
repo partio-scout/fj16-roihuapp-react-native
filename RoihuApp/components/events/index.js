@@ -32,7 +32,15 @@ class Events extends Component {
   searchEvent() {
     let data = this.refs.getValue();
     if (data) {
-      fetchEvents("/CalendarEvents/Translations", data, this.props.actions.setLatestSearch, this.props.lang);
+      fetchEvents(
+        "Fetching events",
+        this.props.actions.setFetchStatus,
+        "/CalendarEvents/Translations", 
+        data, 
+        this.props.actions.setLatestSearch, 
+        this.props.lang,
+        t("Tapahtumien haku epäonnistui", this.props.lang)
+      );
     }
   }
 
@@ -50,7 +58,7 @@ class Events extends Component {
             </TouchableHighlight>
           </View>
         </View>
-        {result.events.length > 0 ? (
+        {eventsDataSource ? (
           <ScrollView style={categoryStyles.list}>
             <ListView dataSource={eventsDataSource}
                       enableEmptySections={true}
@@ -109,6 +117,10 @@ const actions = {
   popNavigationRoute: () => ({
     type: "POP_EVENTS_ROUTE"
   }),
+  setFetchStatus: (state) => ({
+    type: "EVENTS_FETCH_STATE",
+    state: state
+  }),  
   setLatestSearch: (search, result) => ({
     type: "SET_SEARCH_RESULT",
     search: search,
@@ -145,7 +157,15 @@ export const events = (
       newStack.pop();
       return Object.assign({},
                            state, {routeStack: newStack});
-    }
+    case "EVENTS_FETCH_STATE":
+      const now = moment().unix();
+      return Object.assign({},
+                           state,
+                           {fetch: Object.assign({},
+                                                 state.fetch,
+                                                 {state: action.state, lastTs: now},
+                                                 action.state == "COMPLETED" ? {lastSuccesfullTs: now} : {})});
+    }    
     return state;
   };
 
@@ -156,6 +176,7 @@ export default connect(state => ({
   eventsDataSource: state.events.eventsDataSource,
   routeStack: state.events.routeStack,
   lang: state.language.lang,
+  fetch: state.events.fetch
 }), (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 }))(Events);
