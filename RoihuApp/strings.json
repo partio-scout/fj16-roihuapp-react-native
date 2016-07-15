@@ -94,7 +94,8 @@
     "Kirjaudu nähdäksesi kalenterisi": "Login to see your calendar",
     "Ei kalenteritapahtumia": "No events in calendar",
     "TÄNÄÄN": "TODAY",
-    "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "Check your email for the login link!"
+    "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "Check your email for the login link!",
+    "Ei voitu hakea kalenteria": "Could not fetch calendar"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -191,7 +192,8 @@
     "Kirjaudu nähdäksesi kalenterisi": "Kirjaudu nähdäksesi kalenterisi",
     "Ei kalenteritapahtumia": "Ei kalenteritapahtumia",
     "TÄNÄÄN": "TÄNÄÄN",
-    "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!"
+    "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!",
+    "Ei voitu hakea kalenteria": "Ei voitu hakea kalenteria"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -290,6 +292,7 @@
     "Kirjaudu nähdäksesi kalenterisi": "SV: Kirjaudu nähdäksesi kalenterisi",
     "Ei kalenteritapahtumia": "SV: Ei kalenteritapahtumia",
     "TÄNÄÄN": "I DAG",
-    "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "SV: Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!"
+    "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "SV: Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!",
+    "Ei voitu hakea kalenteria": "SV: Ei voitu hakea kalenteria"
   }
 }
