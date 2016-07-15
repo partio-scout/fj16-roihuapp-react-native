@@ -6,7 +6,12 @@ class ScrollViewController : NSObject, UIScrollViewDelegate {
   var mapImageView: UIImageView!
   
   func start() {
-    let mapImage = UIImage(named: "map.png")!
+    let mapImage:UIImage
+    if(UIScreen.mainScreen().bounds.size.height >= 568.0) {
+      mapImage = UIImage(named: "map")!
+    } else {
+      mapImage = UIImage(named: "map-small")!
+    }
     mapImageView = UIImageView(image: mapImage)
     mapImageView.frame = CGRect(origin: CGPoint(x: 0, y: 0), size:mapImage.size)
     
