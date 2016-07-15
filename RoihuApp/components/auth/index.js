@@ -2,7 +2,6 @@
 import React, {
   Component,
   View,
-  Linking,
   Text,
   Image,
   TouchableOpacity,
@@ -236,17 +235,6 @@ class Auth extends Component {
     default:
       return this.renderRootScene();
     }
-  }
-
-  componentDidMount() {
-    Linking.getInitialURL().then((url) => {
-      if (url) {
-        const [userId, token] = parseCredentials(url);
-        if (userId && token) {
-          this.props.actions.setCredentials({token: token, userId: userId});
-        }
-      }
-    });
   }
 }
 

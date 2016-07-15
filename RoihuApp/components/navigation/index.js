@@ -4,7 +4,8 @@ import React, {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  Linking
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,6 +19,8 @@ import SettingsWrapper from '../settings/wrapper';
 import Achievements from '../achievements/index';
 import CalendarWrapper from '../calendar/wrapper';
 import Calendar from '../calendar/index';
+import { setCredentials } from '../login/actions';
+import { parseCredentials } from '../auth/utils';
 import * as actions from './actions';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
@@ -88,11 +91,35 @@ class Navigation extends Component {
     }
   }
 
+  login(url) {
+    console.log("login url", url);
+    if (url) {
+      const [userId, token] = parseCredentials(url);
+      if (userId && token) {
+        this.props.actions.setCredentials({token: token, userId: userId});
+      }
+    }
+  }
+
+  componentDidMount() {
+    Linking.getInitialURL().then((url) => {
+      this.login(url);
+    });
+    this.urlListener = (event) => {
+      this.login(event.url);
+    };
+    Linking.addEventListener('url', this.urlListener);
+  }
+
+  componentWillUnmount() {
+    Linking.removeEventListener('url', this.urlListener);
+  }
+
 }
 
 export default connect(state => ({
   view: state.view,
   lang: state.language.lang
 }), (dispatch) => ({
-  actions: bindActionCreators(actions, dispatch)
+  actions: bindActionCreators(Object.assign({}, actions, {setCredentials}), dispatch)
 }))(Navigation);
