@@ -157,7 +157,7 @@ class Auth extends Component {
     return (
       <View>
         {this.renderPartioIdLogin()}
-        {Platform.OS === "android" ? this.renderEmailLogin() : null}
+        {this.renderEmailLogin()}
       </View>
     );
   }
