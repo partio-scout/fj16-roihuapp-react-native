@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:roihu2016.fi</string>
+		<string>applinks:*.roihu2016.fi</string>
 	</array>
 </dict>
 </plist>
