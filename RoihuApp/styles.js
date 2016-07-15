@@ -327,7 +327,7 @@ export const modalStyles = StyleSheet.create({
   },
   innerContainer: {
     backgroundColor: '#dedede',
-    margin: 20,
+    margin: 10,
     padding: 20,
     flex: 1,
     justifyContent: 'center',
