@@ -39,6 +39,7 @@
 		A06F380FF2334A33AFD6D2EE /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D46764E6D2F14C30B56772B9 /* libRNVectorIcons.a */; };
 		A5F6E895BBDD4FEE9B5AA6B4 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B96B2F779F924FF5AF0B3402 /* Zocial.ttf */; };
 		AE1B0CAA2A1049D8B18E9B8D /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FF54074A3F404A9991C6EA35 /* Entypo.ttf */; };
+		E4AAA4851D393D0E00DF91A3 /* map-small.png in Resources */ = {isa = PBXBuildFile; fileRef = E4AAA4841D393D0E00DF91A3 /* map-small.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -206,6 +207,7 @@
 		D3355AB7C1724C3C8495D463 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		D46764E6D2F14C30B56772B9 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		DA1B4AC1C44B4C3DB3AC6DAB /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		E4AAA4841D393D0E00DF91A3 /* map-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-small.png"; sourceTree = "<group>"; };
 		ECBEFBDB78BB4639A2861D38 /* React-Native-Webview-Bridge.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = "React-Native-Webview-Bridge.xcodeproj"; path = "../node_modules/react-native-webview-bridge/ios/React-Native-Webview-Bridge.xcodeproj"; sourceTree = "<group>"; };
 		FF54074A3F404A9991C6EA35 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -327,6 +329,7 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				4A2E361D1CF2256400EFD0DE /* map.png */,
+				E4AAA4841D393D0E00DF91A3 /* map-small.png */,
 				4A2E36151CF1FADF00EFD0DE /* RCTZoomableMapView.h */,
 				4A2E36161CF1FADF00EFD0DE /* RCTZoomableMapView.m */,
 				4A2E36191CF1FB3A00EFD0DE /* RCTZoomableMapViewManager.swift */,
@@ -732,6 +735,7 @@
 				4A2E361E1CF2256400EFD0DE /* map.png in Resources */,
 				9D613E34D572449DB8F10E5F /* Foundation.ttf in Resources */,
 				83AD48DC169F4E5094BBBBE3 /* Ionicons.ttf in Resources */,
+				E4AAA4851D393D0E00DF91A3 /* map-small.png in Resources */,
 				672D15BD639F4BEBB3FF16F4 /* MaterialIcons.ttf in Resources */,
 				70F4CE5FCD8B44259ABA232D /* Octicons.ttf in Resources */,
 				A5F6E895BBDD4FEE9B5AA6B4 /* Zocial.ttf in Resources */,
