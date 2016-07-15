@@ -97,6 +97,7 @@ class Navigation extends Component {
       const [userId, token] = parseCredentials(url);
       if (userId && token) {
         this.props.actions.setCredentials({token: token, userId: userId});
+        this.props.actions.setView("user");
       }
     }
   }
