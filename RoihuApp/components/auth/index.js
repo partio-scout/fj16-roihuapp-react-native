@@ -157,7 +157,7 @@ class Auth extends Component {
     return (
       <View>
         {this.renderPartioIdLogin()}
-        {/*this.renderEmailLogin()*/}
+        {this.renderEmailLogin()}
       </View>
     );
   }
@@ -195,7 +195,7 @@ class Auth extends Component {
                 marginTop: 50,
                 textAlign: 'center'
               }}>
-          Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!
+          {t("Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!", this.props.lang)}
         </Text>
       </View>
     );

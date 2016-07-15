@@ -93,7 +93,8 @@
     "EVT": "School kids",    
     "Kirjaudu nähdäksesi kalenterisi": "Login to see your calendar",
     "Ei kalenteritapahtumia": "No events in calendar",
-    "TÄNÄÄN": "TODAY"
+    "TÄNÄÄN": "TODAY",
+    "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "Check your email for the login link!"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -189,7 +190,8 @@
     "EVT": "EVT",  
     "Kirjaudu nähdäksesi kalenterisi": "Kirjaudu nähdäksesi kalenterisi",
     "Ei kalenteritapahtumia": "Ei kalenteritapahtumia",
-    "TÄNÄÄN": "TÄNÄÄN"
+    "TÄNÄÄN": "TÄNÄÄN",
+    "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -287,6 +289,7 @@
     "EVT": "SV EVT",         
     "Kirjaudu nähdäksesi kalenterisi": "SV: Kirjaudu nähdäksesi kalenterisi",
     "Ei kalenteritapahtumia": "SV: Ei kalenteritapahtumia",
-    "TÄNÄÄN": "I DAG"
+    "TÄNÄÄN": "I DAG",
+    "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "SV: Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!"
   }
 }
