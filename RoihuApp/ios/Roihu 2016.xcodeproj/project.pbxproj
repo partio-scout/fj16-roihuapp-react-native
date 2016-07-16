@@ -809,7 +809,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"$CONFIGURATION\" != \"Debug\" ]; then\n  echo \"Building for production\"\n  sed -i \"\" -e s/app-dev\\.roihu2016\\.fi/app\\.roihu2016\\.fi/ ../config.js;\n  sed -i \"\" -e 's/^\\/\\/\\([[:space:]]*\\)jsCodeLocation/\\1jsCodeLocation/' RoihuApp/AppDelegate.m\nfi";
+			shellScript = "if [ \"$CONFIGURATION\" == \"Release\" ]; then\n  echo \"Building for production\"\n  sed -i \"\" -e s/app-dev\\.roihu2016\\.fi/app\\.roihu2016\\.fi/ ../config.js;\n  sed -i \"\" -e 's/^\\/\\/\\([[:space:]]*\\)jsCodeLocation/\\1jsCodeLocation/' RoihuApp/AppDelegate.m\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
