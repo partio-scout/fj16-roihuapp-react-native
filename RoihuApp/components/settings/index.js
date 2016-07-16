@@ -96,6 +96,12 @@ class Settings extends Component {
               {"\n"}Jaakko Honkala
             </Text>
             {"\n"}{"\n"}
+            <Text style={categoryStyles.bold}>{t("Kartta", this.props.lang)}</Text>
+            <Text>
+              {"\n"}Putte Huima
+              {"\n"}Mia Peltoniemi
+            </Text>
+            {"\n"}{"\n"}
             <Text style={categoryStyles.bold}>{t("Lisäksi apuna", this.props.lang)}</Text>
             <Text>
               {"\n"}Antti Auranen
