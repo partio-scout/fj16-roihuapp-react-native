@@ -12,6 +12,8 @@ dependencies:
           RoihuApp
     - npm install -g react-native-cli
     - if [ "$CIRCLE_BRANCH" == 'beta' ]; then sed -i -e s/app-dev\.roihu2016\.fi/app\.roihu2016\.fi/ RoihuApp/config.js; fi
+    - if [ "$CIRCLE_BRANCH" == 'prod' ]; then sed -i -e s/app-dev\.roihu2016\.fi/app\.roihu2016\.fi/ RoihuApp/config.js; fi
+    - if [ "$CIRCLE_BRANCH" == 'staging' ]; then sed -i -e s/app-dev\.roihu2016\.fi/app-staging\.roihu2016\.fi/ RoihuApp/config.js; fi
 
 test:
   pre:
