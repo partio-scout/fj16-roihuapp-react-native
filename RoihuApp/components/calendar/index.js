@@ -15,9 +15,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { config } from '../../config';
 import { removeCredentials } from '../login/actions';
-import { isEmpty, renderRefreshButton } from '../../utils';
+import { renderRefreshButton, last, renderProgressBar } from '../../utils';
 import { calendarStyles, infoStyles, categoryStyles } from '../../styles';
 import { t } from '../../translations.js';
+import { fetchData, shouldFetch } from '../common/categories';
+const Icon = require('react-native-vector-icons/MaterialIcons');
+const R = require('ramda');
 
 class Calendar extends Component {
 
@@ -52,7 +55,7 @@ class Calendar extends Component {
   }
 
   renderCalendarEvent(navigator, event) {
-    const { view, actions: {setView}, lang } = this.props;
+    const { lang } = this.props;
     return (
       <View style={categoryStyles.article}>
         <View style={categoryStyles.articleTitleContainer}>
@@ -99,15 +102,15 @@ class Calendar extends Component {
     );
   }
 
-  renderCalendarEvents(event, navigator, rowID) {
-    const { view, actions: {setView}, lang } = this.props;
+  renderEventRow(event, navigator, rowID) {
+    const { lang } = this.props;
     const background = this.getBackgroundColor(event.type);
     return (
       <View key={"calendar-" + rowID} style={[categoryStyles.listItem, {backgroundColor: background}]}>
         <TouchableOpacity style={categoryStyles.listItemTouchArea} onPress={() => {
             const route = {name: "event"};
             this.props.actions.selectEvent(event, route);
-            navigator.push(route);
+            this.props.pushRoute(route);
           }}>
           <Text style={[categoryStyles.textColor, {flex: 1}]}>
             <Text>
@@ -127,7 +130,7 @@ class Calendar extends Component {
     return (
       <View style={categoryStyles.list}>
         <ListView dataSource={calendarDataSource}
-                  renderRow={(event, sectionID, rowID) => this.renderCalendarEvents(event, navigator, rowID) }
+                  renderRow={(event, sectionID, rowID) => this.renderEventRow(event, navigator, rowID) }
           style={{width: Dimensions.get("window").width}}/>
       </View>
     );
@@ -138,60 +141,103 @@ class Calendar extends Component {
     switch(route.name) {
       case "event":
         return this.renderCalendarEvent(navigator, this.props.event);
-      case "user-root":
+      case "calendar-root":
       default:
         return this.renderCalendar(navigator, this.props.calendarDataSource);
     }
   }
 
-  render() {
-    const { calendar, error, lang } = this.props;
-    if (!isEmpty(calendar)) {
-      return (
-        <View style={{flex: 1, width: Dimensions.get("window").width}}>
-          <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10}]}>
-            {t("Tilanne", lang)} {moment(calendar.timestamp).format(t("Timestamp", lang))}
-          </Text>
-          <Navigator initialRouteStack={this.props.parentNavigator.getCurrentRoutes()}
-                     navigator={this.props.parentNavigator}
-                     renderScene={(route, navigator) => this.renderScene(route, navigator)}
-                     configureScene={() => ({
-                     ...Navigator.SceneConfigs.FloatFromRight,
-                     gestures: {},
-          })}/>
+  renderDateSelection() {
+    const { selectedDay, lang } = this.props;
+    return (
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{flex: 1, alignItems: 'center'}}>
+          <TouchableOpacity onPress={() => this.props.actions.selectDate("today")}>
+            <Text style={calendarStyles.todayButton}>{t("TÄNÄÄN", lang).toUpperCase()}</Text>
+          </TouchableOpacity>
         </View>
-      );
-    } else if (error !== null) {
+        <TouchableOpacity onPress={() => this.props.actions.selectDate("prev")}>
+          <View style={calendarStyles.dateSelectionIconContainer}>
+            <Icon style={calendarStyles.dateSelectionIcon} name="keyboard-arrow-left" />
+          </View>
+        </TouchableOpacity>
+        <Text style={{width: 80, textAlign: 'center'}}>{moment(selectedDay, "YYYY.MM.DD").locale(lang).format("dddd[\n]DD.MM.YYYY")}</Text>
+        <TouchableOpacity onPress={() => this.props.actions.selectDate("next")}>
+          <View style={calendarStyles.dateSelectionIconContainer}>
+            <Icon style={calendarStyles.dateSelectionIcon} name="keyboard-arrow-right" />
+          </View>
+        </TouchableOpacity>
+        <View style={{flex: 1}}/>
+      </View>
+    );
+  }
+
+  renderContent() {
+    if (R.isEmpty(this.props.eventsByDay)) {
       return (
-        <Text>error</Text>
+        <View style={{flex: 1, alignItems: 'center'}}>
+          <Text>{t("Ei kalenteritapahtumia", this.props.lang)}</Text>
+        </View>
       );
     } else {
       return (
-        <Text>No calendar</Text>
+        <View style={{flex: 1}}>
+          {last(this.props.routeStack).name === "calendar-root" ? this.renderDateSelection() : null}
+          <Navigator initialRouteStack={this.props.parentNavigator.getCurrentRoutes()}
+                     navigator={this.props.parentNavigator}
+                     renderScene={(route, navigator) => this.renderScene(route, navigator)}
+            configureScene={() => ({
+                ...Navigator.SceneConfigs.FloatFromRight,
+              gestures: {},
+            })}/>
+        </View>
       );
     }
   }
 
-  fetchUserCalendar(credentials, setCalendar, setError) {
-    console.log("Fetching user calendar");
-    fetch(config.apiUrl + "/RoihuUsers/" + credentials.userId + "/calendar?access_token=" + credentials.token + "&lang=" + this.props.lang.toUpperCase())
-      .then((response) => response.json())
-      .then((calendar) => {
-        setCalendar(calendar);
-      })
-      .catch((error) => {
-        setError(error);
-      });
+  renderContentWithTimestamp() {
+    const { fetch: { lastSuccesfullTs }, lang } = this.props;
+    return (
+      <View style={{flex: 1, width: Dimensions.get("window").width}}>
+        <Text style={[categoryStyles.smallText, categoryStyles.textColor, {marginRight: 10, marginTop: 0}]}>
+          {t("Tilanne", lang)} {moment(lastSuccesfullTs * 1000).format(t("Timestamp", lang))}
+        </Text>
+        {this.renderContent()}
+      </View>
+    );
+  }
+
+  render() {
+    const { calendar, error, lang, selectedDay, routeStack } = this.props;
+    switch (this.props.fetch.state) {
+    case "STARTED":
+      return renderProgressBar();
+    case "ERROR":
+      if (calendar === null) {
+        return (<Text>t("Ei voitu hakea kalenteria", lang)</Text>);
+      }
+    case "COMPLETED":
+    default:
+      return this.renderContentWithTimestamp();
+    }
   }
 
   componentWillMount() {
-    if (this.props.calendar === null || this.props.calendar.language.toUpperCase() !== this.props.lang.toUpperCase()) {
-      this.fetchUserCalendar(this.props.credentials, this.props.actions.setCalendar, this.props.actions.setError);
+    const doFetch = R.partial(fetchData,
+                             ["Fetching user calendar",
+                              this.props.actions.setFetchStatus,
+                              `/RoihuUsers/${this.props.credentials.userId}/calendar`,
+                              {access_token: this.props.credentials.token},
+                              (data) => this.props.actions.setCalendar(data.calendar),
+                              this.props.lang,
+                              t("Kalenterin haku epäonnistui", this.props.lang),
+                              this.props.fetch.etag,
+                              this.props.actions.setEtag]);
+    if (shouldFetch(this.props.calendar, this.props.lang, this.props.fetch.lastTs)) {
+      doFetch();
     }
 
-    this.refreshListener = this.props.refreshEventEmitter.addListener(
-      "refresh", () => this.fetchUserCalendar(this.props.credentials, this.props.actions.setCalendar, this.props.actions.setError)
-    );
+    this.refreshListener = this.props.refreshEventEmitter.addListener("refresh", () => doFetch());
   }
 
   componentWillUnmount() {
@@ -204,10 +250,9 @@ const setCalendar = (calendar) => ({
   calendar: calendar
 });
 
-const selectEvent = (event, route) => ({
+const selectEvent = (event) => ({
   type: "SELECT_CALENDAR_EVENT",
-  event: event,
-  route: route
+  event: event
 });
 
 const setError = (error) => ({
@@ -215,13 +260,38 @@ const setError = (error) => ({
   error: error
 });
 
+const selectDate = (selection) => ({
+  type: "SELECT_CALENDAR_DATE",
+  selection: selection
+});
+
+const setFetchStatus = (state) => ({
+  type: "CALENDAR_FETCH_STATE",
+  state: state
+});
+
+const setEtag = (etag) => ({
+  type: "SET_CALENDAR_ETAG",
+  etag: etag
+});
+
 export default connect(state => ({
   credentials: state.credentials,
   event: state.calendar.event,
+  eventsByDay: state.calendar.eventsByDay,
+  selectedDay: state.calendar.selectedDay,
   calendar: state.calendar.calendar,
   calendarDataSource: state.calendar.calendarDataSource,
   error: state.calendar.error,
-  lang: state.language.lang
+  lang: state.language.lang,
+  routeStack: state.calendar.routeStack,
+  fetch: state.calendar.fetch
 }), (dispatch) => ({
-  actions: bindActionCreators({setCalendar, selectEvent, setError, removeCredentials}, dispatch)
+  actions: bindActionCreators({setCalendar,
+                               selectEvent,
+                               setError,
+                               removeCredentials,
+                               selectDate,
+                               setFetchStatus,
+                               setEtag}, dispatch)
 }))(Calendar);

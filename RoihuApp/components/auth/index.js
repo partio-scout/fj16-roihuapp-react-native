@@ -2,7 +2,6 @@
 import React, {
   Component,
   View,
-  Linking,
   Text,
   Image,
   TouchableOpacity,
@@ -104,10 +103,10 @@ class Auth extends Component {
                 fontWeight: 'bold',
                 fontSize: 20
               }}>
-          {t("login title", this.props.lang)}
+          {this.props.loginPrompt}
         </Text>
         <View style={authStyles.bigButton}>
-          <TouchableOpacity style={{alignSelf: 'stretch',}} onPress={() => this.props.pushRoute({name: "partioid"}) }>
+          <TouchableOpacity style={{alignSelf: 'stretch'}} onPress={() => this.props.pushRoute({name: "partioid"}) }>
             <Text style={{
                     margin: 15,
                     textAlign: 'center',
@@ -157,7 +156,7 @@ class Auth extends Component {
     return (
       <View>
         {this.renderPartioIdLogin()}
-        {/*this.renderEmailLogin()*/}
+        {this.renderEmailLogin()}
       </View>
     );
   }
@@ -191,16 +190,11 @@ class Auth extends Component {
   renderEmailSendSuccess() {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
-        <TouchableOpacity onPress={() => this.props.resetTo({name: "auth-root"})}>
-          <Text style={{marginLeft: 10, marginTop: 10}}>
-            Palaa kirjautumisruutuun
-          </Text>
-        </TouchableOpacity>
         <Text style={{
                 marginTop: 50,
                 textAlign: 'center'
               }}>
-          Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!
+          {t("Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!", this.props.lang)}
         </Text>
       </View>
     );
@@ -223,7 +217,7 @@ class Auth extends Component {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
         <Login uri={config.loginUrl}
-               resetRoutes={() => this.props.resetTo({name: "user-root"})}/>
+               onLogin={() => this.props.onLogin()}/>
       </View>
     );
   }
@@ -238,21 +232,9 @@ class Auth extends Component {
       return this.renderEmailSendError();
     case "partioid":
       return this.renderPartioIDLogin();
-    case "auth-root":
     default:
       return this.renderRootScene();
     }
-  }
-
-  componentDidMount() {
-    Linking.getInitialURL().then((url) => {
-      if (url) {
-        const [userId, token] = parseCredentials(url);
-        if (userId && token) {
-          this.props.actions.setCredentials({token: token, userId: userId});
-        }
-      }
-    });
   }
 }
 

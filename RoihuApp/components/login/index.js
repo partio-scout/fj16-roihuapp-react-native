@@ -44,7 +44,7 @@ class Login extends Component {
     const [userId, token] = parseCredentials(navState.url);
     if (userId && token) {
       this.props.actions.setCredentials({token: token, userId: userId});
-      this.props.resetRoutes();
+      this.props.onLogin();
     }
   }
 }

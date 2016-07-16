@@ -2,7 +2,6 @@
 import React, {
   Component,
   Navigator,
-  Dimensions,
   View,
   Text,
   StyleSheet,

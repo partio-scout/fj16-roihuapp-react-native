@@ -5,8 +5,10 @@ import React, {
   Platform
 } from 'react-native';
 
-export const MAIN_COLOR = '#FFFFFF';
-export const BAR_BACKGROUND_COLOR = '#18A771';
+const WHITE = '#FFFFFF';
+export const MAIN_COLOR = WHITE;
+const GREEN = '#18A771';
+export const BAR_BACKGROUND_COLOR = GREEN;
 const BORDER_COLOR = '#3EAADF';
 const TEXT_COLOR = '#000000';
 
@@ -288,12 +290,28 @@ export const calendarStyles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   eventDetailTitle: {
-    flex:1.5, 
+    flex:1.5,
     textAlign: 'right'
   },
   eventDetailContent: {
     flex:2.5,
     marginLeft: 5
+  },
+  dateSelectionIcon: {
+    color: WHITE,
+    backgroundColor: '#FFFFFF00',
+    fontSize: 30
+  },
+  dateSelectionIconContainer: {
+    width: 45,
+    height: 45,
+    borderRadius: 50,
+    backgroundColor: GREEN,
+    padding: 8,
+    margin: 5
+  },
+  todayButton: {
+    color: GREEN
   }
 });
 
@@ -309,7 +327,7 @@ export const modalStyles = StyleSheet.create({
   },
   innerContainer: {
     backgroundColor: '#dedede',
-    margin: 20,
+    margin: 10,
     padding: 20,
     flex: 1,
     justifyContent: 'center',

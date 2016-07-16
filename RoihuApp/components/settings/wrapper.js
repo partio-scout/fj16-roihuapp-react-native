@@ -40,7 +40,7 @@ class SettingsWrapper extends Component {
     return React.cloneElement(this.props.children,
                               {parentNavigator: navigator,
                                pushRoute: (route) => this.pushRoute(route),
-                               resetTo: (route) => this.resetTo(route),
+                               onLogin: () => this.resetTo({name: "user-root"}),
                                refreshEventEmitter: this.refreshEventEmitter,
                                popRoute: () => this.popRoute()});
   }

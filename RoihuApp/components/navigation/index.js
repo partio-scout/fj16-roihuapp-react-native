@@ -4,7 +4,8 @@ import React, {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  Linking
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,6 +19,8 @@ import SettingsWrapper from '../settings/wrapper';
 import Achievements from '../achievements/index';
 import CalendarWrapper from '../calendar/wrapper';
 import Calendar from '../calendar/index';
+import { setCredentials } from '../login/actions';
+import { parseCredentials } from '../auth/utils';
 import * as actions from './actions';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 
@@ -47,10 +50,10 @@ class Navigation extends Component {
     return (
       <View style={styles.main}>
         <View style={styles.content}>
-          {this.renderView(view)}
+          {this.renderView(view, lang)}
         </View>
         <View style={styles.buttonBar}>
-          {/*this.renderTabButton("calendar", t("Kalenteri", lang), "insert-invitation")*/}
+          {this.renderTabButton("calendar", t("Kalenteri", lang), "insert-invitation")}
           {this.renderTabButton("map", t("Kartta", lang), "map")}
           {this.renderTabButton("info", t("Info", lang), "info-outline")}
           {this.renderTabButton("achievements", t("Aktiviteetit", lang), "stars")}
@@ -60,12 +63,12 @@ class Navigation extends Component {
     );
   }
 
-  renderView(view) {
+  renderView(view, lang) {
     switch (view) {
     case "calendar":
       return (
         <CalendarWrapper>
-          <Auth>
+          <Auth loginPrompt={t("Kirjaudu nähdäksesi kalenterisi", lang)}>
             <Calendar/>
           </Auth>
         </CalendarWrapper>
@@ -77,7 +80,7 @@ class Navigation extends Component {
     case "user":
       return (
         <SettingsWrapper>
-          <Auth>
+          <Auth loginPrompt={t("login title", lang)}>
             <User/>
           </Auth>
         </SettingsWrapper>
@@ -88,11 +91,36 @@ class Navigation extends Component {
     }
   }
 
+  login(url) {
+    console.log("login url", url);
+    if (url) {
+      const [userId, token] = parseCredentials(url);
+      if (userId && token) {
+        this.props.actions.setCredentials({token: token, userId: userId});
+        this.props.actions.setView("user");
+      }
+    }
+  }
+
+  componentDidMount() {
+    Linking.getInitialURL().then((url) => {
+      this.login(url);
+    });
+    this.urlListener = (event) => {
+      this.login(event.url);
+    };
+    Linking.addEventListener('url', this.urlListener);
+  }
+
+  componentWillUnmount() {
+    Linking.removeEventListener('url', this.urlListener);
+  }
+
 }
 
 export default connect(state => ({
   view: state.view,
   lang: state.language.lang
 }), (dispatch) => ({
-  actions: bindActionCreators(actions, dispatch)
+  actions: bindActionCreators(Object.assign({}, actions, {setCredentials}), dispatch)
 }))(Navigation);
