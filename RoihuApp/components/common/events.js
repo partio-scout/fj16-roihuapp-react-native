@@ -38,12 +38,12 @@ export function renderEvent(event, lang) {
           </Text>
         </View>
         <View style={calendarStyles.eventDetailContainer}>
-          <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Päivämäärä", lang)}</Text>
+          <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Alkaa", lang)}</Text>
           <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{moment(event.startTime).format(t("Timestamp", lang))}</Text>
         </View>
         <View style={calendarStyles.eventDetailContainer}>
-          <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Kellonaika", lang)}</Text>
-          <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{moment(event.startTime).format(t("Time", lang))}{moment(event.endTime).format(t("Time", lang))}</Text>
+          <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Päättyy", lang)}</Text>
+          <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{moment(event.endTime).format(t("Timestamp", lang))}</Text>
         </View>
         <View style={calendarStyles.eventDetailContainer}>
           <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Sijainti", lang)}</Text>

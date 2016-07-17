@@ -95,7 +95,9 @@
     "Ei kalenteritapahtumia": "No events in calendar",
     "TÄNÄÄN": "TODAY",
     "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "Check your email for the login link!",
-    "Ei voitu hakea kalenteria": "Could not fetch calendar"
+    "Ei voitu hakea kalenteria": "Could not fetch calendar",
+    "Alkaa": "Starts",
+    "Päättyy": "Ends"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -114,7 +116,7 @@
     "Hae": "Hae",
     "Hakuteksti": "Hakuteksti",
     "Ei tapahtumia": "Ei tapahtumia",
-    "Sijainti": "sijainti:",
+    "Sijainti": "Sijainti:",
     "Telephone": "Puh",
     "Email": "S-posti",
     "Public Accounts": "Some-tilit",
@@ -193,7 +195,9 @@
     "Ei kalenteritapahtumia": "Ei kalenteritapahtumia",
     "TÄNÄÄN": "TÄNÄÄN",
     "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!",
-    "Ei voitu hakea kalenteria": "Ei voitu hakea kalenteria"
+    "Ei voitu hakea kalenteria": "Ei voitu hakea kalenteria",
+    "Alkaa": "Starts",
+    "Päättyy": "Ends"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -291,6 +295,8 @@
     "Ei kalenteritapahtumia": "Inga kalenderhändelser",
     "TÄNÄÄN": "I DAG",
     "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "Kolla din epost. Där finns din inloggningslänk!",
-    "Ei voitu hakea kalenteria": "Kalendern kunde inte hämtas"
+    "Ei voitu hakea kalenteria": "Kalendern kunde inte hämtas",
+    "Alkaa": "Börjar",
+    "Päättyy": "Ändar"
   }
 }
