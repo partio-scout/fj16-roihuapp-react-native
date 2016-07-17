@@ -21,7 +21,7 @@ function renderAudience(event, lang) {
   }
 }
 
-export function renderEvent(navigator, event, lang) {
+export function renderEvent(event, lang) {
   return (
     <View style={categoryStyles.article}>
       <View style={categoryStyles.articleTitleContainer}>
@@ -87,7 +87,7 @@ export function renderEventRow(event, navigator, selectEvent, lang, rowID) {
         <Text style={[categoryStyles.textColor, {flex: 4.5}]}>{event.name.slice(0,35).toUpperCase()}{event.name.length > 35 ? '...' : ''}</Text>
       </TouchableOpacity>
     </View>
-  )
+  );
 }
 
 function getStartHour(hour) {
