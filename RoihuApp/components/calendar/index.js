@@ -19,6 +19,7 @@ import { renderRefreshButton, last, renderProgressBar } from '../../utils';
 import { calendarStyles, infoStyles, categoryStyles } from '../../styles';
 import { t } from '../../translations.js';
 import { fetchData, shouldFetch } from '../common/categories';
+import { renderEvent } from '../common/events';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 const R = require('ramda');
 
@@ -52,54 +53,6 @@ class Calendar extends Component {
     } else {
       return t("Kaikille", lang);
     }
-  }
-
-  renderCalendarEvent(navigator, event) {
-    const { lang } = this.props;
-    return (
-      <View style={categoryStyles.article}>
-        <View style={categoryStyles.articleTitleContainer}>
-          <Text style={[categoryStyles.articleTitle, categoryStyles.textColor]}>
-            {event.name}
-          </Text>
-        </View>
-        <View style={categoryStyles.articleContentContainer}>
-          <View style={calendarStyles.eventDetailContainer}>
-            <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Kenelle", lang)}</Text>
-            <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>
-              {this.renderAudience(event, lang)}
-              {"\n"}{event.ageGroups}
-            </Text>
-          </View>
-          <View style={calendarStyles.eventDetailContainer}>
-            <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Päivämäärä", lang)}</Text>
-            <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{moment(event.startTime).format(t("Timestamp", lang))}</Text>
-          </View>
-          <View style={calendarStyles.eventDetailContainer}>
-            <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Kellonaika", lang)}</Text>
-            <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{moment(event.startTime).format(t("Time", lang))}-{moment(event.endTime).format(t("Time", lang))}</Text>
-          </View>
-          <View style={calendarStyles.eventDetailContainer}>
-            <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Sijainti", lang)}</Text>
-            <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{event.grid_latitude}{event.grid_longitude}</Text>
-          </View>
-          <View style={calendarStyles.eventDetailContainer}>
-            <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Paikka", lang)}</Text>
-            <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{event.locationName}</Text>
-          </View>
-          <View style={calendarStyles.eventDetailContainer}>
-            <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Osallistumassa", lang)}</Text>
-            <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{event.participantCount}</Text>
-          </View>
-          <ScrollView style={{flex: 1}}>
-            <Text style={categoryStyles.textColor}>{event.description}</Text>
-          </ScrollView>
-          <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
-            {t("Viimeksi muokattu", lang)} {moment(event.lastModified).format(t("Timestamp", lang))}
-          </Text>
-        </View>
-      </View>
-    );
   }
 
   renderEventRow(event, navigator, rowID) {
@@ -140,7 +93,7 @@ class Calendar extends Component {
     this._navigator = navigator;
     switch(route.name) {
       case "event":
-        return this.renderCalendarEvent(navigator, this.props.event);
+      return renderEvent(this.props.event, this.props.lang);
       case "calendar-root":
       default:
         return this.renderCalendar(navigator, this.props.calendarDataSource);
