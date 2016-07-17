@@ -21,6 +21,14 @@ function renderAudience(event, lang) {
   }
 }
 
+function renderParticipantCount(event, lang) {
+  return (
+    <View style={calendarStyles.eventDetailContainer}>
+      <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Osallistumassa", lang)}</Text>
+      <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{event.participantCount}</Text>
+    </View>
+  );
+}
 export function renderEvent(event, lang) {
   return (
     <View style={categoryStyles.article}>
@@ -53,10 +61,7 @@ export function renderEvent(event, lang) {
           <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Paikka", lang)}</Text>
           <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{event.locationName}</Text>
         </View>
-        <View style={calendarStyles.eventDetailContainer}>
-          <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Osallistumassa", lang)}</Text>
-          <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{event.participantCount}</Text>
-        </View>
+        {/*renderParticipantCount(event, lang)*/}
         <ScrollView style={{flex: 1}}>
           <Text style={categoryStyles.textColor}>{event.description}</Text>
         </ScrollView>
