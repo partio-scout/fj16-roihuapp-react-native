@@ -25,8 +25,7 @@ const sortDays = (days) => R.sort(R.partial(sortByDateWithFormat, [PARTITION_FOR
 function findClosestDay(sortedDays) {
   const now = moment();
   const today = partitionKey(now);
-  return R.find((date) => date === today, sortedDays) ||
-    now.isBefore(moment(sortedDays[0], PARTITION_FORMAT)) ? sortedDays[0] : sortedDays[sortedDays.length -1];
+  return R.find((date) => date === today, sortedDays) || (now.isBefore(moment(sortedDays[0], PARTITION_FORMAT)) ? sortedDays[0] : sortedDays[sortedDays.length -1]);
 }
 
 export const calendar = (
