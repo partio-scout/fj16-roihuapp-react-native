@@ -79,7 +79,7 @@ class Events extends Component {
     this._navigator = navigator;
     switch(route.name) {
       case "event":
-        return renderEvent(navigator, this.props.event, this.props.lang);
+        return renderEvent(this.props.event, this.props.lang);
       case "search":
       default:
         return this.renderEventsSearch(navigator);

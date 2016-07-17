@@ -21,7 +21,7 @@ function renderAudience(event, lang) {
   }
 }
 
-export function renderEvent(navigator, event, lang) {
+export function renderEvent(event, lang) {
   return (
     <View style={categoryStyles.article}>
       <View style={categoryStyles.articleTitleContainer}>
