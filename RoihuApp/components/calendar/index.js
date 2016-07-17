@@ -32,16 +32,16 @@ class Calendar extends Component {
   getBackgroundColor(type) {
     switch(type) {
       case 'Ruokailu':
-        return 'rgb(121, 207, 173)';
+        return 'rgb(188, 231, 214)';
       case 'Tapaaminen':
-        return 'rgb(146, 208, 240)';
-      case 'Aamuohjelma':
-        return 'rgb(255, 243, 99)';
+        return 'rgb(201, 232, 248)';
+      case 'Päiväohjelma':
+        return 'rgb(255, 249, 177)';
       case 'Iltaohjelma':
-        return 'rgb(236, 142, 117)';
+        return 'rgb(246, 199, 186)';
       case 'Valinnainen ohjelma':
       default:
-        return 'rgb(208, 119, 174)';
+        return 'rgb(232, 187, 215)';
     }
   }
 
