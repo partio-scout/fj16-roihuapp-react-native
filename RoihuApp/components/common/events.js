@@ -37,7 +37,7 @@ export function renderEvent(event, lang) {
           {event.name}
         </Text>
       </View>
-      <View style={categoryStyles.articleContentContainer}>
+      <ScrollView style={categoryStyles.articleContentContainer}>
         <View style={calendarStyles.eventDetailContainer}>
           <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Kenelle", lang)}</Text>
           <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>
@@ -61,14 +61,11 @@ export function renderEvent(event, lang) {
           <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Paikka", lang)}</Text>
           <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{event.locationName}</Text>
         </View>
-        {/*renderParticipantCount(event, lang)*/}
-        <ScrollView style={{flex: 1}}>
           <Text style={categoryStyles.textColor}>{event.description}</Text>
-        </ScrollView>
         <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
           {t("Viimeksi muokattu", lang)} {moment(event.lastModified).format(t("Timestamp", lang))}
         </Text>
-      </View>
+      </ScrollView>
     </View>
   );
 }
