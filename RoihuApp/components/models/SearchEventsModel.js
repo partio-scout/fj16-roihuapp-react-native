@@ -53,7 +53,7 @@ const Groups = (lang) => f.enums({
 });
 
 export const fields = (lang) => f.struct({
-  //searchString: f.maybe(f.String),
+  searchString: f.maybe(f.String),
   date: f.maybe(Days(lang)),
   startTime: f.maybe(Hours),
   ageGroup: f.maybe(Groups(lang))
@@ -63,9 +63,9 @@ export const options = (lang) => ({
   stylesheet: stylesheet,
   auto: 'placeholders',
   fields: {
-    /*searchString: {
+    searchString: {
       placeholder: t("Hakuteksti", lang)
-    },*/
+    },
     date: {
       label: t("Pvm", lang)
     },

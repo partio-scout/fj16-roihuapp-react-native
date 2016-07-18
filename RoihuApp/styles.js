@@ -287,14 +287,18 @@ export const calendarStyles = StyleSheet.create({
   eventDetailContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    padding: 0,
+    marginBottom: 5
   },
   eventDetailTitle: {
     flex:1.5,
-    textAlign: 'right'
+    textAlign: 'right',
+    padding: 0
   },
   eventDetailContent: {
     flex:2.5,
+    padding: 0,
     marginLeft: 5
   },
   dateSelectionIcon: {

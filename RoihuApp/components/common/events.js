@@ -12,15 +12,31 @@ import { config } from '../../config';
 import { calendarStyles, categoryStyles, styles } from '../../styles';
 
 function renderAudience(event, lang) {
-  if (event.subcamp !== '') {
-    return t("Vain alaleirille", lang);
-  } else if (event.camptroop !== '') {
-    return t("Vain leirilippukunnalle", lang);
+  if (event.subcamp != '') {
+    return t("Vain alaleirille", lang) + ' ' + event.subcamp + '\n';
+  } else if (event.camptroop != '') {
+    return t("Vain leirilippukunnalle", lang) + ' ' + event.camptroop + '\n';
   } else {
-    return t("Kaikille", lang);
+    return '';
   }
 }
 
+function renderAgeGroups(event, lang) {
+  if (event.ageGroups != '') {
+    return event.ageGroups.replace('|', ', ');
+  } else {
+    return t("Kaikille ikäkausille", lang);
+  }
+}
+
+function renderParticipantCount(event, lang) {
+  return (
+    <View style={calendarStyles.eventDetailContainer}>
+      <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Osallistumassa", lang)}</Text>
+      <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{event.participantCount}</Text>
+    </View>
+  );
+}
 export function renderEvent(event, lang) {
   return (
     <View style={categoryStyles.article}>
@@ -29,21 +45,21 @@ export function renderEvent(event, lang) {
           {event.name}
         </Text>
       </View>
-      <View style={categoryStyles.articleContentContainer}>
+      <ScrollView style={categoryStyles.articleContentContainer}>
         <View style={calendarStyles.eventDetailContainer}>
           <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Kenelle", lang)}</Text>
           <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>
             {renderAudience(event, lang)}
-            {"\n"}{event.ageGroups}
+            {renderAgeGroups(event, lang)}
           </Text>
         </View>
         <View style={calendarStyles.eventDetailContainer}>
-          <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Päivämäärä", lang)}</Text>
+          <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Alkaa", lang)}</Text>
           <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{moment(event.startTime).format(t("Timestamp", lang))}</Text>
         </View>
         <View style={calendarStyles.eventDetailContainer}>
-          <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Kellonaika", lang)}</Text>
-          <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{moment(event.startTime).format(t("Time", lang))}{moment(event.endTime).format(t("Time", lang))}</Text>
+          <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Päättyy", lang)}</Text>
+          <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{moment(event.endTime).format(t("Timestamp", lang))}</Text>
         </View>
         <View style={calendarStyles.eventDetailContainer}>
           <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Sijainti", lang)}</Text>
@@ -53,17 +69,11 @@ export function renderEvent(event, lang) {
           <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Paikka", lang)}</Text>
           <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{event.locationName}</Text>
         </View>
-        <View style={calendarStyles.eventDetailContainer}>
-          <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Osallistumassa", lang)}</Text>
-          <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>{event.participantCount}</Text>
-        </View>
-        <ScrollView style={{flex: 1}}>
           <Text style={categoryStyles.textColor}>{event.description}</Text>
-        </ScrollView>
         <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
           {t("Viimeksi muokattu", lang)} {moment(event.lastModified).format(t("Timestamp", lang))}
         </Text>
-      </View>
+      </ScrollView>
     </View>
   );
 }
@@ -123,8 +133,9 @@ export function fetchEvents(logStart, setFetchStatus, apiPath, queryData, setDat
   console.log(logStart);
   const fetchParams = Object.assign({method: "GET"});
   const filterString = getQueryString(queryData, lang);
+  const textSearch = (queryData.searchString != '') ? "&textfilter=" + queryData.searchString : '';
   setFetchStatus("STARTED");
-  fetch(config.apiUrl + apiPath + "?lang=" + lang.toUpperCase() + "&filter=" + filterString, fetchParams)
+  fetch(config.apiUrl + apiPath + "?lang=" + lang.toUpperCase() + "&filter=" + filterString + textSearch, fetchParams)
     .then((response) => {
       switch (response.status) {
       case 304:

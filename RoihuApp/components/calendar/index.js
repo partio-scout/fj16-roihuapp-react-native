@@ -20,6 +20,7 @@ import { calendarStyles, infoStyles, categoryStyles } from '../../styles';
 import { t } from '../../translations.js';
 import { fetchData, shouldFetch } from '../common/categories';
 import { renderEvent } from '../common/events';
+import { setView } from '../navigation/actions';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 const R = require('ramda');
 
@@ -32,26 +33,16 @@ class Calendar extends Component {
   getBackgroundColor(type) {
     switch(type) {
       case 'Ruokailu':
-        return 'rgb(121, 207, 173)';
+        return 'rgb(188, 231, 214)';
       case 'Tapaaminen':
-        return 'rgb(146, 208, 240)';
-      case 'Aamuohjelma':
-        return 'rgb(255, 243, 99)';
+        return 'rgb(201, 232, 248)';
+      case 'Päiväohjelma':
+        return 'rgb(255, 249, 177)';
       case 'Iltaohjelma':
-        return 'rgb(236, 142, 117)';
+        return 'rgb(246, 199, 186)';
       case 'Valinnainen ohjelma':
       default:
-        return 'rgb(208, 119, 174)';
-    }
-  }
-
-  renderAudience(event, lang) {
-    if (event.subcamp !== '') {
-      return t("Vain alaleirille", lang);
-    } else if (event.camptroop !== '') {
-      return t("Vain leirilippukunnalle", lang);
-    } else {
-      return t("Kaikille", lang);
+        return 'rgb(232, 187, 215)';
     }
   }
 
@@ -175,7 +166,11 @@ class Calendar extends Component {
     }
   }
 
-  componentWillMount() {
+  reLogin() {
+    this.props.actions.removeCredentials();
+  }
+
+  componentDidMount() {
     const doFetch = R.partial(fetchData,
                              ["Fetching user calendar",
                               this.props.actions.setFetchStatus,
@@ -185,7 +180,8 @@ class Calendar extends Component {
                               this.props.lang,
                               t("Kalenterin haku epäonnistui", this.props.lang),
                               this.props.fetch.etag,
-                              this.props.actions.setEtag]);
+                              this.props.actions.setEtag,
+                              () => this.reLogin()]);
     if (shouldFetch(this.props.calendar, this.props.lang, this.props.fetch.lastTs)) {
       doFetch();
     }
@@ -246,5 +242,6 @@ export default connect(state => ({
                                removeCredentials,
                                selectDate,
                                setFetchStatus,
-                               setEtag}, dispatch)
+                               setEtag,
+                               setView}, dispatch)
 }))(Calendar);

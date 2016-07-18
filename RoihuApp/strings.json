@@ -81,7 +81,7 @@
     "Osallistumassa": "Attending:",
     "Kaikille": "For anyone",
     "Vain leirilippukunnalle": "Only for my camp unit",
-    "Vain alaleirille": "Only for my subcamp",
+    "Vain alaleirille": "Only for subcamp",
     "Pvm": "Date",
     "Heinäkuuta": "July",
     "Alkaa aikaisintaan": "Starts earliers",
@@ -95,7 +95,11 @@
     "Ei kalenteritapahtumia": "No events in calendar",
     "TÄNÄÄN": "TODAY",
     "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "Check your email for the login link!",
-    "Ei voitu hakea kalenteria": "Could not fetch calendar"
+    "Ei voitu hakea kalenteria": "Could not fetch calendar",
+    "Alkaa": "Starts",
+    "Päättyy": "Ends",
+    "Kaikille ikäkausille": "For all age groups",
+    "Kalenterin haku epäonnistui": "Failed to fetch calendar"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -114,7 +118,7 @@
     "Hae": "Hae",
     "Hakuteksti": "Hakuteksti",
     "Ei tapahtumia": "Ei tapahtumia",
-    "Sijainti": "sijainti:",
+    "Sijainti": "Sijainti:",
     "Telephone": "Puh",
     "Email": "S-posti",
     "Public Accounts": "Some-tilit",
@@ -179,7 +183,7 @@
     "Osallistumassa": "Osallistumassa:",
     "Kaikille": "kaikille",
     "Vain leirilippukunnalle": "vain leirilippukunnalle",
-    "Vain alaleirille": "vain alaleirille",
+    "Vain alaleirille": "Vain alaleirille",
     "Pvm": "Pvm",
     "Heinäkuuta": "heinäkuuta",
     "Alkaa aikaisintaan": "Alkaa aikaisintaan",
@@ -193,7 +197,11 @@
     "Ei kalenteritapahtumia": "Ei kalenteritapahtumia",
     "TÄNÄÄN": "TÄNÄÄN",
     "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!",
-    "Ei voitu hakea kalenteria": "Ei voitu hakea kalenteria"
+    "Ei voitu hakea kalenteria": "Ei voitu hakea kalenteria",
+    "Alkaa": "Alkaa",
+    "Päättyy": "Päättyy",
+    "Kaikille ikäkausille": "Kaikille ikäkausille",
+    "Kalenterin haku epäonnistui": "Kalenterin haku epäonnistui"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -277,7 +285,7 @@
     "Osallistumassa": "Deltar:",
     "Kaikille": "För alla",
     "Vain leirilippukunnalle": "bara för lägerkåren",
-    "Vain alaleirille": "bara för underlägret",
+    "Vain alaleirille": "Bara för underlägret",
     "Pvm": "Datum",
     "Heinäkuuta": "Juli",
     "Alkaa aikaisintaan": "Börjar tidigast",
@@ -291,6 +299,10 @@
     "Ei kalenteritapahtumia": "Inga kalenderhändelser",
     "TÄNÄÄN": "I DAG",
     "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "Kolla din epost. Där finns din inloggningslänk!",
-    "Ei voitu hakea kalenteria": "Kalendern kunde inte hämtas"
+    "Ei voitu hakea kalenteria": "Kalendern kunde inte hämtas",
+    "Alkaa": "Börjar",
+    "Kaikille ikäkausille": "För alla äldersgruppen",
+    "Päättyy": "Slutar",
+    "Kalenterin haku epäonnistui": "Hämtning av kalendern misslyckades"
   }
 }
