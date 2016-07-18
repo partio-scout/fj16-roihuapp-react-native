@@ -196,8 +196,8 @@
     "TÄNÄÄN": "TÄNÄÄN",
     "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!",
     "Ei voitu hakea kalenteria": "Ei voitu hakea kalenteria",
-    "Alkaa": "Starts",
-    "Päättyy": "Ends"
+    "Alkaa": "Alkaa",
+    "Päättyy": "Päättyy"
   },
   "sv": {
     "Kalenteri": "Kalendar",
