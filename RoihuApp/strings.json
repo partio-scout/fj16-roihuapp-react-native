@@ -97,7 +97,8 @@
     "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "Check your email for the login link!",
     "Ei voitu hakea kalenteria": "Could not fetch calendar",
     "Alkaa": "Starts",
-    "Päättyy": "Ends"
+    "Päättyy": "Ends",
+    "Kalenterin haku epäonnistui": "Failed to fetch calendar"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -197,7 +198,8 @@
     "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!",
     "Ei voitu hakea kalenteria": "Ei voitu hakea kalenteria",
     "Alkaa": "Starts",
-    "Päättyy": "Ends"
+    "Päättyy": "Ends",
+    "Kalenterin haku epäonnistui": "Kalenterin haku epäonnistui"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -297,6 +299,7 @@
     "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "Kolla din epost. Där finns din inloggningslänk!",
     "Ei voitu hakea kalenteria": "Kalendern kunde inte hämtas",
     "Alkaa": "Börjar",
-    "Päättyy": "Ändar"
+    "Päättyy": "Ändar",
+    "Kalenterin haku epäonnistui": "Sökningen av kalenderhändelserna misslyckades"
   }
 }
