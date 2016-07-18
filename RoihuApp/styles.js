@@ -289,6 +289,7 @@ export const calendarStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 0,
+    marginBottom: 5
   },
   eventDetailTitle: {
     flex:1.5,
