@@ -197,8 +197,8 @@
     "TÄNÄÄN": "TÄNÄÄN",
     "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!",
     "Ei voitu hakea kalenteria": "Ei voitu hakea kalenteria",
-    "Alkaa": "Starts",
-    "Päättyy": "Ends",
+    "Alkaa": "Alkaa",
+    "Päättyy": "Päättyy",
     "Kalenterin haku epäonnistui": "Kalenterin haku epäonnistui"
   },
   "sv": {
@@ -299,7 +299,7 @@
     "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "Kolla din epost. Där finns din inloggningslänk!",
     "Ei voitu hakea kalenteria": "Kalendern kunde inte hämtas",
     "Alkaa": "Börjar",
-    "Päättyy": "Ändar",
+    "Päättyy": "Slutar",
     "Kalenterin haku epäonnistui": "Hämtning av kalendern misslyckades"
   }
 }
