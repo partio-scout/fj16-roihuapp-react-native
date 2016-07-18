@@ -44,6 +44,11 @@ const middleware = storage.createMiddleware(engine);
 const createStoreWithMiddleware = applyMiddleware(middleware)(createStore);
 const store = createStoreWithMiddleware(storage.reducer(reducer));
 const load = storage.createLoader(engine);
+if (__DEV__) {
+  store.subscribe(() => {
+    console.log("state", store.getState());
+  });
+}
 load(store)
   .then((newState) => console.log('Loaded state:', newState))
   .catch(() => console.log('Failed to load previous state'));
