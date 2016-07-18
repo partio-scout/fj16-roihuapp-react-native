@@ -13,9 +13,9 @@ import { calendarStyles, categoryStyles, styles } from '../../styles';
 
 function renderAudience(event, lang) {
   if (event.subcamp != '') {
-    return t("Vain alaleirille", lang) + event.subcamp;
+    return t("Vain alaleirille", lang) + ' ' + event.subcamp;
   } else if (event.camptroop != '') {
-    return t("Vain leirilippukunnalle", lang) + event.camptroop;
+    return t("Vain leirilippukunnalle", lang) + ' ' + event.camptroop;
   } else {
     return '';
   }
@@ -49,7 +49,7 @@ export function renderEvent(event, lang) {
         <View style={calendarStyles.eventDetailContainer}>
           <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Kenelle", lang)}</Text>
           <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>
-            {renderAudience(event, lang)}
+            {renderAudience(event, lang)}{"\n"}
             {renderAgeGroups(event, lang)}
           </Text>
         </View>
