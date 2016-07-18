@@ -46,16 +46,6 @@ class Calendar extends Component {
     }
   }
 
-  renderAudience(event, lang) {
-    if (event.subcamp !== '') {
-      return t("Vain alaleirille", lang);
-    } else if (event.camptroop !== '') {
-      return t("Vain leirilippukunnalle", lang);
-    } else {
-      return t("Kaikille", lang);
-    }
-  }
-
   renderEventRow(event, navigator, rowID) {
     const { lang } = this.props;
     const background = this.getBackgroundColor(event.type);
