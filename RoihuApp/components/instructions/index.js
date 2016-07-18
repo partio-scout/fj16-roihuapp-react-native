@@ -146,7 +146,8 @@ class Instructions extends Component {
         this.props.lang,
         t("Ohjeiden haku epäonnistui", this.props.lang),
         this.props.fetch.etag,
-        this.props.actions.setEtag
+        this.props.actions.setEtag,
+        () => {}
       );
     }
 
@@ -158,7 +159,8 @@ class Instructions extends Component {
                                                                                      this.props.lang,
                                                                                      t("Ohjeiden haku epäonnistui", this.props.lang),
                                                                                      this.props.fetch.etag,
-                                                                                     this.props.actions.setEtag));
+                                                                                     this.props.actions.setEtag,
+                                                                                     () => {}));
     this.backListener = this.props.emitter.addListener("back", () => this.onBack());
   }
 

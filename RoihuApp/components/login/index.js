@@ -4,9 +4,7 @@ import React, {
   View,
   Dimensions,
   WebView,
-  Text,
-  requireNativeComponent,
-  PropTypes
+  Text
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
