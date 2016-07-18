@@ -156,7 +156,7 @@ export function shouldFetch(data, lang, lastTs) {
   return false;
 }
 
-export function fetchData(logStart, setFetchStatus, apiPath, queryParams, setData, lang, failedToFetchMessage, etag, setEtag) {
+export function fetchData(logStart, setFetchStatus, apiPath, queryParams, setData, lang, failedToFetchMessage, etag, setEtag, reLogin) {
   console.log(logStart);
   const fetchParams = Object.assign({method: "GET"}, {headers: etag ? {'If-None-Match': etag} : {}});
   const params = Object.assign({lang: lang.toUpperCase()}, queryParams);
@@ -166,6 +166,12 @@ export function fetchData(logStart, setFetchStatus, apiPath, queryParams, setDat
     .then((response) => {
       setEtag(response.headers.get("Etag"));
       switch (response.status) {
+      case 401:
+        Alert.alert(t("Kirjautuminen vanhentunut", lang),
+                    t("Kirjaudu nähdäksesi päivitetyt tiedot", lang),
+                    [{text: t("Ok", lang),
+                      onPress: () => reLogin()}]);
+        return Promise.reject("Unauthorized");
       case 304:
         console.log("cache valid");
         return Promise.resolve({cached: true});
@@ -184,9 +190,11 @@ export function fetchData(logStart, setFetchStatus, apiPath, queryParams, setDat
     .catch((error) => {
       setFetchStatus("ERROR");
       console.log(error);
-      Alert.alert(t("Virhe nettiyhteydessä", lang),
-                  failedToFetchMessage,
-                  [{text: "Ok", onPress: () => {}}]);
+      if (error !== "Unauthorized") {
+        Alert.alert(t("Virhe nettiyhteydessä", lang),
+                    failedToFetchMessage,
+                    [{text: "Ok", onPress: () => {}}]);
+      }
     });
 }
 

@@ -20,6 +20,7 @@ import { calendarStyles, infoStyles, categoryStyles } from '../../styles';
 import { t } from '../../translations.js';
 import { fetchData, shouldFetch } from '../common/categories';
 import { renderEvent } from '../common/events';
+import { setView } from '../navigation/actions';
 const Icon = require('react-native-vector-icons/MaterialIcons');
 const R = require('ramda');
 
@@ -175,7 +176,11 @@ class Calendar extends Component {
     }
   }
 
-  componentWillMount() {
+  reLogin() {
+    this.props.actions.removeCredentials();
+  }
+
+  componentDidMount() {
     const doFetch = R.partial(fetchData,
                              ["Fetching user calendar",
                               this.props.actions.setFetchStatus,
@@ -185,7 +190,8 @@ class Calendar extends Component {
                               this.props.lang,
                               t("Kalenterin haku epäonnistui", this.props.lang),
                               this.props.fetch.etag,
-                              this.props.actions.setEtag]);
+                              this.props.actions.setEtag,
+                              () => this.reLogin()]);
     if (shouldFetch(this.props.calendar, this.props.lang, this.props.fetch.lastTs)) {
       doFetch();
     }
@@ -246,5 +252,6 @@ export default connect(state => ({
                                removeCredentials,
                                selectDate,
                                setFetchStatus,
-                               setEtag}, dispatch)
+                               setEtag,
+                               setView}, dispatch)
 }))(Calendar);

@@ -100,7 +100,8 @@ class Locations extends Component {
         this.props.lang,
         t("Paikkojen haku epäonnistui", this.props.lang),
         this.props.fetch.etag,
-        this.props.actions.setEtag
+        this.props.actions.setEtag,
+        () => {}
       );
     }
 
@@ -112,7 +113,8 @@ class Locations extends Component {
                                                                                      this.props.lang,
                                                                                      t("Paikkojen haku epäonnistui", this.props.lang),
                                                                                      this.props.fetch.etag,
-                                                                                     this.props.actions.setEtag));
+                                                                                     this.props.actions.setEtag,
+                                                                                     () => {}));
     this.backListener = this.props.emitter.addListener("back", () => this.onBack());
   }
 
