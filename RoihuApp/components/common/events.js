@@ -12,12 +12,20 @@ import { config } from '../../config';
 import { calendarStyles, categoryStyles, styles } from '../../styles';
 
 function renderAudience(event, lang) {
-  if (event.subcamp !== '') {
-    return t("Vain alaleirille", lang);
-  } else if (event.camptroop !== '') {
-    return t("Vain leirilippukunnalle", lang);
+  if (event.subcamp != '') {
+    return t("Vain alaleirille", lang) + event.subcamp;
+  } else if (event.camptroop != '') {
+    return t("Vain leirilippukunnalle", lang) + event.camptroop;
   } else {
-    return t("Kaikille", lang);
+    return '';
+  }
+}
+
+function renderAgeGroups(event, lang) {
+  if (event.ageGroups != '') {
+    return event.ageGroups.replace('|', ', ');
+  } else {
+    return t("Kaikille ikäkausille", lang);
   }
 }
 
@@ -42,7 +50,7 @@ export function renderEvent(event, lang) {
           <Text style={[calendarStyles.eventDetailTitle, categoryStyles.textColor]}>{t("Kenelle", lang)}</Text>
           <Text style={[calendarStyles.eventDetailContent, categoryStyles.textColor]}>
             {renderAudience(event, lang)}
-            {"\n"}{event.ageGroups}
+            {renderAgeGroups(event, lang)}
           </Text>
         </View>
         <View style={calendarStyles.eventDetailContainer}>
