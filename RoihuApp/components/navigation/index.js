@@ -5,7 +5,8 @@ import React, {
   Text,
   View,
   TouchableOpacity,
-  Linking
+  Linking,
+  Platform
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -109,11 +110,15 @@ class Navigation extends Component {
     this.urlListener = (event) => {
       this.login(event.url);
     };
-    Linking.addEventListener('url', this.urlListener);
+    if (Platform.OS === "android") {
+      Linking.addEventListener('url', this.urlListener);
+    }
   }
 
   componentWillUnmount() {
-    Linking.removeEventListener('url', this.urlListener);
+    if (Platform.OS === "android") {
+      Linking.removeEventListener('url', this.urlListener);
+    }
   }
 
 }
