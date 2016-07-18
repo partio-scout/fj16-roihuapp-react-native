@@ -128,8 +128,9 @@ export function fetchEvents(logStart, setFetchStatus, apiPath, queryData, setDat
   console.log(logStart);
   const fetchParams = Object.assign({method: "GET"});
   const filterString = getQueryString(queryData, lang);
+  const textSearch = (queryData.searchString != '') ? "&textfilter=" + queryData.searchString : '';
   setFetchStatus("STARTED");
-  fetch(config.apiUrl + apiPath + "?lang=" + lang.toUpperCase() + "&filter=" + filterString, fetchParams)
+  fetch(config.apiUrl + apiPath + "?lang=" + lang.toUpperCase() + "&filter=" + filterString + textSearch, fetchParams)
     .then((response) => {
       switch (response.status) {
       case 304:
