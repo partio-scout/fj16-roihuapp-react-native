@@ -99,7 +99,8 @@
     "Alkaa": "Starts",
     "Päättyy": "Ends",
     "Kaikille ikäkausille": "For all age groups",
-    "Kalenterin haku epäonnistui": "Failed to fetch calendar"
+    "Kalenterin haku epäonnistui": "Failed to fetch calendar",
+    "Tekninen arkkitehti": "Technical architect"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -201,7 +202,8 @@
     "Alkaa": "Alkaa",
     "Päättyy": "Päättyy",
     "Kaikille ikäkausille": "Kaikille ikäkausille",
-    "Kalenterin haku epäonnistui": "Kalenterin haku epäonnistui"
+    "Kalenterin haku epäonnistui": "Kalenterin haku epäonnistui",
+    "Tekninen arkkitehti": "Tekninen arkkitehti"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -303,6 +305,7 @@
     "Alkaa": "Börjar",
     "Kaikille ikäkausille": "För alla äldersgruppen",
     "Päättyy": "Slutar",
-    "Kalenterin haku epäonnistui": "Hämtning av kalendern misslyckades"
+    "Kalenterin haku epäonnistui": "Hämtning av kalendern misslyckades",
+    "Tekninen arkkitehti": "Tekniska arkitekt"
   }
 }

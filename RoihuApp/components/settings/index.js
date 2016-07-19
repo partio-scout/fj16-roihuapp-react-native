@@ -69,6 +69,11 @@ class Settings extends Component {
               {"\n"}Kimmo Koskinen
             </Text>
             {"\n"}{"\n"}
+            <Text style={categoryStyles.bold}>{t("Tekninen arkkitehti", this.props.lang)}</Text>
+            <Text>
+              {"\n"}Kimmo Koskinen
+            </Text>
+            {"\n"}{"\n"}
             <Text style={categoryStyles.bold}>{t("Ohjelmointi", this.props.lang)}</Text>
             <Text>
               {"\n"}Kimmo Koskinen
@@ -89,6 +94,7 @@ class Settings extends Component {
             <Text style={categoryStyles.bold}>{t("Backend-ohjelmointi", this.props.lang)}</Text>
             <Text>
               {"\n"}Matias Turunen
+              {"\n"}Antti Pohja
             </Text>
             {"\n"}{"\n"}
             <Text style={categoryStyles.bold}>{t("Paikka- ja kalenteri-data", this.props.lang)}</Text>
