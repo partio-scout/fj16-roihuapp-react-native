@@ -35,9 +35,9 @@ class Events extends Component {
       fetchEvents(
         "Fetching events",
         this.props.actions.setFetchStatus,
-        "/CalendarEvents/Translations", 
-        data, 
-        this.props.actions.setLatestSearch, 
+        "/CalendarEvents/Translations",
+        data,
+        this.props.actions.setLatestSearch,
         this.props.lang,
         t("Tapahtumien haku epäonnistui", this.props.lang)
       );
@@ -45,7 +45,7 @@ class Events extends Component {
   }
 
   renderEventsSearch(navigator) {
-    const { search, result, eventsDataSource, lang } = this.props;  
+    const { search, result, eventsDataSource, lang } = this.props;
     return (
       <View style={categoryStyles.article}>
         <View style={[categoryStyles.articleContentContainer, {flexDirection: 'row'}]}>
@@ -120,11 +120,11 @@ const actions = {
   setFetchStatus: (state) => ({
     type: "EVENTS_FETCH_STATE",
     state: state
-  }),  
+  }),
   setLatestSearch: (search, result) => ({
     type: "SET_SEARCH_RESULT",
     search: search,
-    result: result 
+    result: result
   }),
   selectEvent: (event, route) => ({
     type: "SELECT_EVENTS_EVENT",
@@ -135,9 +135,9 @@ const actions = {
 
 export const events = (
   state = {
-    event: {}, 
-    search: {}, 
-    result: {}, 
+    event: {},
+    search: {},
+    result: {},
     eventsDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.eventId !== r2.eventId}), routeStack: [{name: "search"}]
   },
   action) => {
@@ -145,13 +145,13 @@ export const events = (
     case "SET_SEARCH_RESULT":
       return Object.assign(
         {}, state, {
-          search: action.search, 
-          result: action.result, 
+          search: action.search,
+          result: action.result,
           eventsDataSource: state.eventsDataSource.cloneWithRows(action.result.events.sort((a, b) => sortByDate(a.startTime, b.startTime)))
         }
       );
     case "SELECT_EVENTS_EVENT":
-      return Object.assign({}, state, {event: action.event, routeStack: state.routeStack.concat(action.route)});            
+      return Object.assign({}, state, {event: action.event, routeStack: state.routeStack.concat(action.route)});
     case "POP_EVENTS_ROUTE":
       const newStack = Object.assign([], state.routeStack);
       newStack.pop();
@@ -165,7 +165,7 @@ export const events = (
                                                  state.fetch,
                                                  {state: action.state, lastTs: now},
                                                  action.state == "COMPLETED" ? {lastSuccesfullTs: now} : {})});
-    }    
+    }
     return state;
   };
 
