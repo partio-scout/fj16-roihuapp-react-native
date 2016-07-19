@@ -277,7 +277,8 @@ class Achievements extends Component {
               this.props.lang,
               t("Aktiviteettien haku epäonnistui", this.props.lang),
               null,
-              (etag) => {});
+              (etag) => {},
+              () => this.reLogin());
   }
 
   popRoute() {
