@@ -38,6 +38,25 @@ class Events extends Component {
     );
   }
 
+  renderResults(eventsDataSource, lang) {
+    return (
+      <View style={[categoryStyles.list, {flex: 5}]}>
+        <ListView dataSource={eventsDataSource}
+                  enableEmptySections={true}
+                  renderRow={(event, sectionID, rowID) => renderEventRow(event, navigator, this.props.actions.selectEvent, lang, rowID) }
+          style={{width: Dimensions.get("window").width}}/>
+      </View>
+    );
+  }
+
+  renderNoResults(lang) {
+    return (
+      <View style={{flex: 5}}>
+        <Text style={[categoryStyles.textColor, categoryStyles.articleTitle]}>{t("Ei tapahtumia", lang)}</Text>
+      </View>
+    );
+  }
+
   renderEventsSearch(navigator) {
     const { search, result, eventsDataSource, lang } = this.props;
     return (
@@ -65,19 +84,7 @@ class Events extends Component {
             </TouchableHighlight>
           </View>
         </View>
-        {eventsDataSource ? (
-          <View style={[categoryStyles.list, {flex: 5}]}>
-            <ListView dataSource={eventsDataSource}
-                      enableEmptySections={true}
-                      renderRow={(event, sectionID, rowID) => renderEventRow(event, navigator, this.props.actions.selectEvent, lang, rowID) }
-              style={{width: Dimensions.get("window").width}}/>
-          </View>
-        ) : (
-          <View styles={{flex: 1}}>
-            <Text style={[categoryStyles.textColor, categoryStyles.articleTitle]}>{t("Ei tapahtumia", lang)}</Text>
-          </View>
-        )
-        }
+        {result.events.length !== 0 ? this.renderResults(eventsDataSource, lang) : this.renderNoResults(lang)}
       </View>
     );
   }
@@ -171,7 +178,7 @@ export const events = (
   state = {
     event: {},
     search: {},
-    result: {},
+    result: {events: []},
     eventsDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.eventId !== r2.eventId}),
     routeStack: [{name: "search"}]
   },
