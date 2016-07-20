@@ -128,7 +128,7 @@ class Info extends Component {
           {renderRefresh}
         </View>
         <View style={infoStyles.tabs}>
-          {this.renderTabButton("events", "Tapahtumat")}
+          {this.renderTabButton("events", t("Tapahtumat", lang))}
           {this.renderTabButton("instructions", t("Ohjeet", lang))}
           {this.renderTabButton("locations", t("Paikat", lang))}
         </View>
