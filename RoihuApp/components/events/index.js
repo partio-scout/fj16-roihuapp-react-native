@@ -18,7 +18,7 @@ import { t } from '../../translations';
 import { fields, options, detailFields, detailOptions } from '../models/SearchEventsModel';
 import { fetchEvents, renderEventRow, renderEvent } from '../common/events';
 import { categoryStyles, styles } from '../../styles';
-import { popWhenRouteNotLastInStack, sortByDate, last } from '../../utils';
+import { popWhenRouteNotLastInStack, sortByDate, last, renderProgressBar } from '../../utils';
 
 const Form = f.form.Form;
 const R = require('ramda');
@@ -38,7 +38,7 @@ class Events extends Component {
     );
   }
 
-  renderResults(eventsDataSource, lang) {
+  renderResultList(eventsDataSource, lang) {
     return (
       <View style={[categoryStyles.list, {flex: 5}]}>
         <ListView dataSource={eventsDataSource}
@@ -57,8 +57,22 @@ class Events extends Component {
     );
   }
 
+  renderResult(result, eventsDataSource, lang, fetchState) {
+    switch (fetchState) {
+    case "STARTED":
+      return (
+        <View style={{flex: 5}}>
+          {renderProgressBar()}
+        </View>
+      );
+    case "COMPLETED":
+    default:
+      return result.events.length !== 0 ? this.renderResultList(eventsDataSource, lang) : this.renderNoResults(lang);
+    }
+  }
+
   renderEventsSearch(navigator) {
-    const { search, result, eventsDataSource, lang } = this.props;
+    const { search, result, eventsDataSource, lang, fetch: {state} } = this.props;
     return (
       <View style={{flex: 1}}>
         <View style={[categoryStyles.articleContentContainer, {flexDirection: 'row'}]}>
@@ -84,7 +98,7 @@ class Events extends Component {
             </TouchableHighlight>
           </View>
         </View>
-        {result.events.length !== 0 ? this.renderResults(eventsDataSource, lang) : this.renderNoResults(lang)}
+        {this.renderResult(result, eventsDataSource, lang, state)}
       </View>
     );
   }
@@ -180,7 +194,11 @@ export const events = (
     search: {},
     result: {events: []},
     eventsDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.eventId !== r2.eventId}),
-    routeStack: [{name: "search"}]
+    routeStack: [{name: "search"}],
+    fetch: {state: "COMPLETED",
+            etag: null,
+            lastTs: moment().unix(),
+            lastSuccesfullTs: moment().unix()}
   },
   action) => {
     switch (action.type) {
