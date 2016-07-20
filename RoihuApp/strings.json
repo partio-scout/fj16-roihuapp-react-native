@@ -100,7 +100,9 @@
     "Päättyy": "Ends",
     "Kaikille ikäkausille": "For all age groups",
     "Kalenterin haku epäonnistui": "Failed to fetch calendar",
-    "Tekninen arkkitehti": "Technical architect"
+    "Tekninen arkkitehti": "Technical architect",
+    "Tapahtumat": "Events",
+    "Haun tarkennukset": "Search details"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -203,7 +205,9 @@
     "Päättyy": "Päättyy",
     "Kaikille ikäkausille": "Kaikille ikäkausille",
     "Kalenterin haku epäonnistui": "Kalenterin haku epäonnistui",
-    "Tekninen arkkitehti": "Tekninen arkkitehti"
+    "Tekninen arkkitehti": "Tekninen arkkitehti",
+    "Tapahtumat": "Tapahtumat",
+    "Haun tarkennukset": "Haun tarkennukset"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -229,10 +233,10 @@
     "Primary Troop": "Kår",
     "Disctrict": "Distrikt",
     "Country": "Land",
-    "Age level": "Åldersgrupp",
+    "Age level": "Åldersgr.",
     "Camp Troop": "Lägerkår",
-    "Subcamp": "Subkår",
-    "Description": "Beskrivning",
+    "Subcamp": "Underläger",
+    "Description": "Beskr.",
     "Muokkaa tietoja": "Redigera",
     "Tallenna": "Spara",
     "Versiotieto": "Version",
@@ -296,16 +300,18 @@
     "Vaeltajat": "Roverscouterna",
     "Aikuiset": "Vuxna",
     "Päiväkotilapset": "Daghemsbarn",
-    "EVT": "SV EVT",
+    "EVT": "Skolbarn",
     "Kirjaudu nähdäksesi kalenterisi": "Logga in för att se din kalender",
     "Ei kalenteritapahtumia": "Inga kalenderhändelser",
     "TÄNÄÄN": "I DAG",
     "Tarkista sähköpostisi, löydät sieltä kirjautumislinkin!": "Kolla din epost. Där finns din inloggningslänk!",
     "Ei voitu hakea kalenteria": "Kalendern kunde inte hämtas",
     "Alkaa": "Börjar",
-    "Kaikille ikäkausille": "För alla äldersgruppen",
+    "Kaikille ikäkausille": "För alla åldersgruppen",
     "Päättyy": "Slutar",
     "Kalenterin haku epäonnistui": "Hämtning av kalendern misslyckades",
-    "Tekninen arkkitehti": "Tekniska arkitekt"
+    "Tekninen arkkitehti": "Tekniska arkitekt",
+    "Tapahtumat": "Händelser",
+    "Haun tarkennukset": "Sökjusteringar"
   }
 }

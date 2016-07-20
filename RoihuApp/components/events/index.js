@@ -8,7 +8,6 @@ import React, {
   ListView,
   StyleSheet,
   Navigator,
-  TextInput,
   ScrollView
 } from 'react-native';
 import moment from 'moment';
@@ -16,61 +15,104 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import f from 'tcomb-form-native';
 import { t } from '../../translations';
-import { fields, options } from '../models/SearchEventsModel';
+import { fields, options, detailFields, detailOptions } from '../models/SearchEventsModel';
 import { fetchEvents, renderEventRow, renderEvent } from '../common/events';
 import { categoryStyles, styles } from '../../styles';
-import { popWhenRouteNotLastInStack, sortByDate } from '../../utils';
+import { popWhenRouteNotLastInStack, sortByDate, last, renderProgressBar } from '../../utils';
 
 const Form = f.form.Form;
+const R = require('ramda');
 
 class Events extends Component {
 
-  constructor(props) {
-    super(props);
+  searchEvent() {
+    this.props.actions.setSearch(this.textForm.getValue());
+    fetchEvents(
+      "Fetching events",
+      this.props.actions.setFetchStatus,
+      "/CalendarEvents/Translations",
+      this.props.search,
+      this.props.actions.setLatestSearch,
+      this.props.lang,
+      t("Tapahtumien haku epäonnistui", this.props.lang)
+    );
   }
 
-  searchEvent() {
-    let data = this.refs.getValue();
-    if (data) {
-      fetchEvents(
-        "Fetching events",
-        this.props.actions.setFetchStatus,
-        "/CalendarEvents/Translations",
-        data,
-        this.props.actions.setLatestSearch,
-        this.props.lang,
-        t("Tapahtumien haku epäonnistui", this.props.lang)
+  renderResultList(eventsDataSource, lang) {
+    return (
+      <View style={[categoryStyles.list, {flex: 5}]}>
+        <ListView dataSource={eventsDataSource}
+                  enableEmptySections={true}
+                  renderRow={(event, sectionID, rowID) => renderEventRow(event, navigator, this.props.actions.selectEvent, lang, rowID) }
+          style={{width: Dimensions.get("window").width}}/>
+      </View>
+    );
+  }
+
+  renderNoResults(lang) {
+    return (
+      <View style={{flex: 5}}>
+        <Text style={[categoryStyles.textColor, categoryStyles.articleTitle]}>{t("Ei tapahtumia", lang)}</Text>
+      </View>
+    );
+  }
+
+  renderResult(result, eventsDataSource, lang, fetchState) {
+    switch (fetchState) {
+    case "STARTED":
+      return (
+        <View style={{flex: 5}}>
+          {renderProgressBar()}
+        </View>
       );
+    case "COMPLETED":
+    default:
+      return result.events.length !== 0 ? this.renderResultList(eventsDataSource, lang) : this.renderNoResults(lang);
     }
   }
 
   renderEventsSearch(navigator) {
-    const { search, result, eventsDataSource, lang } = this.props;
+    const { search, result, eventsDataSource, lang, fetch: {state} } = this.props;
     return (
-      <View style={categoryStyles.article}>
+      <View style={{flex: 1}}>
         <View style={[categoryStyles.articleContentContainer, {flexDirection: 'row'}]}>
-          <View style={{height: 40, flex: 4}}>
-            <Form ref={(form) => this.refs = form} value={search} type={fields(lang)} options={options(lang)} />
+          <View style={{flex: 4, marginTop: 10}}>
+            <Form ref={(form) => this.textForm = form}
+              value = {R.dissoc("startTime", R.dissoc("date", R.dissoc("ageGroup", search)))}
+              type={fields(lang)}
+              options={options(lang)}>
+            </Form>
           </View>
           <View style={{flex: 1}}>
             <TouchableHighlight style={[styles.basicButton]} onPress={() => this.searchEvent()}>
               <Text style={styles.buttonBarColor}>{t("Hae", lang)}</Text>
             </TouchableHighlight>
           </View>
-        </View>
-        {eventsDataSource ? (
-          <ScrollView style={categoryStyles.list}>
-            <ListView dataSource={eventsDataSource}
-                      enableEmptySections={true}
-                      renderRow={(event, sectionID, rowID) => renderEventRow(event, navigator, this.props.actions.selectEvent, lang, rowID) }
-              style={{width: Dimensions.get("window").width}}/>
-          </ScrollView>
-          ): (
-          <View>
-            <Text style={[categoryStyles.textColor, categoryStyles.articleTitle]}>{t("Ei tapahtumia", lang)}</Text>
+          <View style={{flex: 1, marginLeft: 5}}>
+            <TouchableHighlight style={[styles.basicButton]} onPress={() => {
+                const route = {name: "search-details"};
+                this.props.actions.pushRoute(route);
+                navigator.push(route);
+              }}>
+              <Text style={styles.buttonBarColor}>{"..."}</Text>
+            </TouchableHighlight>
           </View>
-          )
-        }
+        </View>
+        {this.renderResult(result, eventsDataSource, lang, state)}
+      </View>
+    );
+  }
+
+  renderSearchDetails(lang, search) {
+    return (
+      <View style={{flex: 1, flexDirection: 'column'}}>
+        <Text>{t("Haun tarkennukset", lang)}</Text>
+        <ScrollView>
+          <Form ref={(form) => this.detailsForm = form}
+            value={R.dissoc("searchString", search)}
+            type={detailFields(lang)}
+            options={detailOptions(lang)} />
+        </ScrollView>
       </View>
     );
   }
@@ -79,7 +121,9 @@ class Events extends Component {
     this._navigator = navigator;
     switch(route.name) {
       case "event":
-        return renderEvent(this.props.event, this.props.lang);
+      return renderEvent(this.props.event, this.props.lang);
+    case "search-details":
+      return this.renderSearchDetails(this.props.lang, this.props.search, this);
       case "search":
       default:
         return this.renderEventsSearch(navigator);
@@ -94,11 +138,14 @@ class Events extends Component {
                    onWillFocus={onWillFocus}
                    renderScene={(route, navigator) => this.renderScene(route, navigator)}/>
       </View>
-    )
+    );
   }
 
   onBack() {
     if (this._navigator) {
+      if (last(this.props.routeStack).name === "search-details") {
+        this.props.actions.setSearch(this.detailsForm.getValue());
+      }
       this.props.actions.popNavigationRoute();
       this._navigator.pop();
     }
@@ -130,6 +177,14 @@ const actions = {
     type: "SELECT_EVENTS_EVENT",
     event: event,
     route: route
+  }),
+  pushRoute: (route) => ({
+    type: "PUSH_EVENTS_ROUTE",
+    route: route
+  }),
+  setSearch: (search) => ({
+    type: "SET_EVENTS_SEARCH",
+    search: search
   })
 };
 
@@ -137,8 +192,13 @@ export const events = (
   state = {
     event: {},
     search: {},
-    result: {},
-    eventsDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.eventId !== r2.eventId}), routeStack: [{name: "search"}]
+    result: {events: []},
+    eventsDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.eventId !== r2.eventId}),
+    routeStack: [{name: "search"}],
+    fetch: {state: "COMPLETED",
+            etag: null,
+            lastTs: moment().unix(),
+            lastSuccesfullTs: moment().unix()}
   },
   action) => {
     switch (action.type) {
@@ -152,6 +212,10 @@ export const events = (
       );
     case "SELECT_EVENTS_EVENT":
       return Object.assign({}, state, {event: action.event, routeStack: state.routeStack.concat(action.route)});
+    case "SET_EVENTS_SEARCH":
+      return Object.assign({}, state, {search: R.merge(state.search, action.search)});
+    case "PUSH_EVENTS_ROUTE":
+      return Object.assign({}, state, {routeStack: state.routeStack.concat(action.route)});
     case "POP_EVENTS_ROUTE":
       const newStack = Object.assign([], state.routeStack);
       newStack.pop();

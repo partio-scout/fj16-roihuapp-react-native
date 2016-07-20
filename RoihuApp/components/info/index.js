@@ -44,13 +44,13 @@ class Info extends Component {
         return(
           <View style={{flex: 1}}>
             <Text
-              numberOfLines={1}  
-              style={navigationStyles.backTitle} 
+              numberOfLines={1}
+              style={navigationStyles.backTitle}
               onPress={() => this.onBack()}>
               {title}
             </Text>
           </View>
-        );        
+        );
       default:
          return(<View style={{flex: 1}}></View>);
     }
@@ -101,8 +101,8 @@ class Info extends Component {
       case "instructions":
       default:
         return this.props.instructionsTitle;
-    }    
-  }  
+    }
+  }
 
   getEventEmitter() {
     switch(this.props.tab) {
@@ -128,7 +128,7 @@ class Info extends Component {
           {renderRefresh}
         </View>
         <View style={infoStyles.tabs}>
-          {/*this.renderTabButton("events", "Tapahtumat")*/}
+          {this.renderTabButton("events", t("Tapahtumat", lang))}
           {this.renderTabButton("instructions", t("Ohjeet", lang))}
           {this.renderTabButton("locations", t("Paikat", lang))}
         </View>
