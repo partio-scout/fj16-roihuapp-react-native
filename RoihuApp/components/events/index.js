@@ -8,7 +8,6 @@ import React, {
   ListView,
   StyleSheet,
   Navigator,
-  TextInput,
   ScrollView
 } from 'react-native';
 import moment from 'moment';
@@ -42,9 +41,9 @@ class Events extends Component {
   renderEventsSearch(navigator) {
     const { search, result, eventsDataSource, lang } = this.props;
     return (
-      <View style={categoryStyles.article}>
+      <View style={{flex: 1}}>
         <View style={[categoryStyles.articleContentContainer, {flexDirection: 'row'}]}>
-          <View style={{flex: 4}}>
+          <View style={{flex: 4, marginTop: 10}}>
             <Form ref={(form) => this.textForm = form}
               value = {R.dissoc("startTime", R.dissoc("date", R.dissoc("ageGroup", search)))}
               type={fields(lang)}
@@ -67,14 +66,14 @@ class Events extends Component {
           </View>
         </View>
         {eventsDataSource ? (
-          <ScrollView style={categoryStyles.list}>
+          <View style={[categoryStyles.list, {flex: 5}]}>
             <ListView dataSource={eventsDataSource}
                       enableEmptySections={true}
                       renderRow={(event, sectionID, rowID) => renderEventRow(event, navigator, this.props.actions.selectEvent, lang, rowID) }
               style={{width: Dimensions.get("window").width}}/>
-          </ScrollView>
-        ): (
-          <View>
+          </View>
+        ) : (
+          <View styles={{flex: 1}}>
             <Text style={[categoryStyles.textColor, categoryStyles.articleTitle]}>{t("Ei tapahtumia", lang)}</Text>
           </View>
         )
