@@ -30,7 +30,6 @@ class User extends Component {
                   {name: t("Email", this.props.lang), key: 'email'},
                   {name: t("Public Accounts", this.props.lang), key: 'publicAccounts'},
                   {name: t("Primary Troop", this.props.lang), key: 'primaryTroopAndCity'},
-                  {name: t("Disctrict", this.props.lang), key: 'scoutDistrict'},
                   {name: t("Country", this.props.lang), key: 'country'},
                   {name: t("Age level", this.props.lang), key: 'ageGroup'},
                   {name: t("Subcamp", this.props.lang), key: 'subcamp'},
