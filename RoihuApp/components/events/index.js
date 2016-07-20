@@ -106,7 +106,7 @@ class Events extends Component {
   renderSearchDetails(lang, search) {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
-        <Text>Haun tarkennukset</Text>
+        <Text>{t("Haun tarkennukset", lang)}</Text>
         <ScrollView>
           <Form ref={(form) => this.detailsForm = form}
             value={R.dissoc("searchString", search)}

@@ -101,7 +101,8 @@
     "Kaikille ikäkausille": "For all age groups",
     "Kalenterin haku epäonnistui": "Failed to fetch calendar",
     "Tekninen arkkitehti": "Technical architect",
-    "Tapahtumat": "Events"
+    "Tapahtumat": "Events",
+    "Haun tarkennukset": "Search details"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -205,7 +206,8 @@
     "Kaikille ikäkausille": "Kaikille ikäkausille",
     "Kalenterin haku epäonnistui": "Kalenterin haku epäonnistui",
     "Tekninen arkkitehti": "Tekninen arkkitehti",
-    "Tapahtumat": "Tapahtumat"
+    "Tapahtumat": "Tapahtumat",
+    "Haun tarkennukset": "Haun tarkennukset"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -309,6 +311,7 @@
     "Päättyy": "Slutar",
     "Kalenterin haku epäonnistui": "Hämtning av kalendern misslyckades",
     "Tekninen arkkitehti": "Tekniska arkitekt",
-    "Tapahtumat": "Händelser"
+    "Tapahtumat": "Händelser",
+    "Haun tarkennukset": "Sökjusteringar"
   }
 }
