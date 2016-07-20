@@ -8,7 +8,8 @@ import React, {
   ListView,
   StyleSheet,
   WebView,
-  Linking
+  Linking,
+  Platform
 } from 'react-native';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -61,14 +62,20 @@ class Instructions extends Component {
   <body>${this.converter.makeHtml(body.replace(/([#]+)([^#]*)[#]+/g, (match, headerMarks, header) => headerMarks + header))}</body>
 </html>
 `;
-    return (
-      <WebViewBridge
-         source={{html: html}}
-         ref="webviewbridge"
-         onBridgeMessage={(message) => this.onBridgeMessage(message)}
-        injectedJavaScript={injectScript}
-        javaScriptEnabled={true}/>
-    );
+    if (Platform.OS === "android" && Platform.Version < 19) {
+      return (
+        <WebView source={{html: html}}/>
+      );
+    } else {
+      return (
+        <WebViewBridge
+           source={{html: html}}
+           ref="webviewbridge"
+           onBridgeMessage={(message) => this.onBridgeMessage(message)}
+          injectedJavaScript={injectScript}
+          javaScriptEnabled={true}/>
+      );
+    }
   }
 
   renderSelectedArticle(article) {
