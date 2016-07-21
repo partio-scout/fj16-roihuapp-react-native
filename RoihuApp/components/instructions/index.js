@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { sortNumber } from '../../utils.js';
 import { t } from '../../translations.js';
-import { categoryStyles } from '../../styles.js';
+import { TEXT_COLOR, categoryStyles } from '../../styles.js';
 import { renderCategories, renderArticles, renderRoot, shouldFetch, fetchData, findById } from '../common/categories.js';
 import { popWhenRouteNotLastInStack, last } from '../../utils.js';
 import showdown from 'showdown';
@@ -51,15 +51,27 @@ class Instructions extends Component {
     });
   }
 
-  renderBody(body) {
+  renderBody(article) {
     const html = `
 <html>
   <style>
   body {
     font-family: Roboto, '-apple-system', Helvetica Neue, Arial;
   }
+  footer {
+    font-size: 10px;
+    text-align: right;
+    margin-top: 10,
+    margin-bottom: 10,
+    color: ${TEXT_COLOR}
+  }
   </style>
-  <body>${this.converter.makeHtml(body.replace(/([#]+)([^#]*)[#]+/g, (match, headerMarks, header) => headerMarks + header))}</body>
+  <body>
+  ${this.converter.makeHtml(article.bodytext.replace(/([#]+)([^#]*)[#]+/g, (match, headerMarks, header) => headerMarks + header))}
+    <footer>
+      ${this.converter.makeHtml(t("Viimeksi muokattu", this.props.lang) + ' ' + moment(article.last_modified).format(t("Timestamp", this.props.lang)))}
+    </footer>
+  </body>
 </html>
 `;
     if (Platform.OS === "android" && Platform.Version < 19) {
@@ -87,10 +99,7 @@ class Instructions extends Component {
           </Text>
         </View>
         <View style={categoryStyles.articleContentContainer}>
-          {this.renderBody(article.bodytext)}
-          <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
-            {t("Viimeksi muokattu", this.props.lang)} {moment(article.last_modified).format(t("Timestamp", this.props.lang))}
-          </Text>
+          {this.renderBody(article)}
         </View>
       </View>
     );

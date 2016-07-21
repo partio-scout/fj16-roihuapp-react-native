@@ -10,7 +10,7 @@ export const MAIN_COLOR = WHITE;
 const GREEN = '#18A771';
 export const BAR_BACKGROUND_COLOR = GREEN;
 const BORDER_COLOR = '#3EAADF';
-const TEXT_COLOR = '#000000';
+export const TEXT_COLOR = '#000000';
 
 const baseTextInputContainer =  {
     borderColor: TEXT_COLOR,

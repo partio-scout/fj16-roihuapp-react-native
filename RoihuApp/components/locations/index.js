@@ -34,10 +34,10 @@ class Locations extends Component {
           </Text>
           <ScrollView style={{flex: 1}}>
             <Text style={categoryStyles.textColor}>{article.bodytext}</Text>
+            <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
+              {t("Viimeksi muokattu", this.props.lang)} {moment(article.last_modified).format(t("Timestamp", this.props.lang))}
+            </Text>
           </ScrollView>
-          <Text style={[categoryStyles.smallText, categoryStyles.textColor]}>
-            {t("Viimeksi muokattu", this.props.lang)} {moment(article.last_modified).format(t("Timestamp", this.props.lang))}
-          </Text>
         </View>
       </View>
     );
