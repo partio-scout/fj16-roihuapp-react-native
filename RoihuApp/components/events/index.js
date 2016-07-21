@@ -191,7 +191,10 @@ const actions = {
 export const events = (
   state = {
     event: {},
-    search: {},
+    search: {searchString: null,
+             ageGroup: null,
+             startTime: null,
+             date: null},
     result: {events: []},
     eventsDataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1.eventId !== r2.eventId}),
     routeStack: [{name: "search"}],
