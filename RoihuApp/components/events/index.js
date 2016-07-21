@@ -38,7 +38,7 @@ class Events extends Component {
     );
   }
 
-  renderResultList(eventsDataSource, lang) {
+  renderResultList(eventsDataSource, lang, navigator) {
     return (
       <View style={[categoryStyles.list, {flex: 5}]}>
         <ListView dataSource={eventsDataSource}
@@ -57,7 +57,7 @@ class Events extends Component {
     );
   }
 
-  renderResult(result, eventsDataSource, lang, fetchState) {
+  renderResult(result, eventsDataSource, lang, fetchState, navigator) {
     switch (fetchState) {
     case "STARTED":
       return (
@@ -67,7 +67,7 @@ class Events extends Component {
       );
     case "COMPLETED":
     default:
-      return result.events.length !== 0 ? this.renderResultList(eventsDataSource, lang) : this.renderNoResults(lang);
+      return result.events.length !== 0 ? this.renderResultList(eventsDataSource, lang, navigator) : this.renderNoResults(lang);
     }
   }
 
@@ -98,7 +98,7 @@ class Events extends Component {
             </TouchableHighlight>
           </View>
         </View>
-        {this.renderResult(result, eventsDataSource, lang, state)}
+        {this.renderResult(result, eventsDataSource, lang, state, navigator)}
       </View>
     );
   }
