@@ -216,7 +216,7 @@ class Achievements extends Component {
         <Text style={[categoryStyles.textColor, {marginLeft: 5, marginTop: 0, fontStyle: 'italic'}]}>
           {this.averageScoreText(this.props.agelevel.title, this.props.agelevel.average_score, this.props.lang)}
         </Text>
-        <Text style={{fontWeight: 'bold', marginLeft: 5}}>{this.progressText(this.props.agelevel, this.props.lang)}</Text>
+        <Text style={[categoryStyles.textColor, {fontWeight: 'bold', marginLeft: 5}]}>{this.progressText(this.props.agelevel, this.props.lang)}</Text>
         <ListView key={"achievements"}
                   enableEmptySections={true}
                   dataSource={this.props.achievementsDataSource}
