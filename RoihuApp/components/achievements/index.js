@@ -27,6 +27,15 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 class Achievements extends Component {
 
+  renderAgelevelStatistics(agelevel) {
+    return (
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <Text style={[categoryStyles.textColor, {fontSize: 11}]}>{"leirissä\ntehty"}</Text>
+        <Text style={[categoryStyles.textColor, {marginLeft: 10, width: 50}]}>{agelevel.achievement_count}</Text>
+      </View>
+    );
+  }
+
   renderAgelevel(agelevel, navigator, rowID) {
     return (
       <View key={"agelevel-" + rowID} style={categoryStyles.listItem}>
@@ -37,7 +46,7 @@ class Achievements extends Component {
                             navigator.push(route);
           }}>
           <Text style={categoryStyles.textColor}>{agelevel.title.toUpperCase()}</Text>
-          {renderRightArrow()}
+          {renderRightArrow(this.renderAgelevelStatistics(agelevel))}
         </TouchableOpacity>
       </View>
     );

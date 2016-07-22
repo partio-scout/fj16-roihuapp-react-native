@@ -18,10 +18,11 @@ const Icon = require('react-native-vector-icons/MaterialIcons');
 
 const DEFAULT_TTL = 60 * 60 * 24;
 
-export function renderRightArrow() {
+export function renderRightArrow(itemBeforeArrow) {
   return (
     <View style={{flexDirection: 'row', flex: 1, alignItems: 'flex-end'}}>
       <View style={{flex: 1, flexDirection: 'row'}}></View>
+      {itemBeforeArrow ? itemBeforeArrow : null}
       <Icon style={categoryStyles.listItemIcon} name="keyboard-arrow-right" />
     </View>
   );
