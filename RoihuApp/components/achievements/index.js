@@ -27,10 +27,10 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 class Achievements extends Component {
 
-  renderAchievementCount(achievement_count) {
+  renderAchievementCount(achievement_count, lang) {
     return (
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Text style={[categoryStyles.textColor, {fontSize: 11}]}>{"leirissä\ntehty"}</Text>
+        <Text style={[categoryStyles.textColor, {fontSize: 11}]}>{t("leirissä\ntehty", lang)}</Text>
         <Text style={[categoryStyles.textColor, {marginLeft: 10, width: 50}]}>{achievement_count}</Text>
       </View>
     );
@@ -46,7 +46,7 @@ class Achievements extends Component {
                             navigator.push(route);
           }}>
           <Text style={categoryStyles.textColor}>{agelevel.title.toUpperCase()}</Text>
-          {renderRightArrow(this.renderAchievementCount(agelevel.achievement_count))}
+          {renderRightArrow(this.renderAchievementCount(agelevel.achievement_count, this.props.lang))}
         </TouchableOpacity>
       </View>
     );
@@ -77,8 +77,8 @@ class Achievements extends Component {
 
   renderAchievement(achievement, navigator, rowID) {
     return (
-      <View key={"achievement-" + rowID} style={categoryStyles.listItem}>
-        <TouchableOpacity style={categoryStyles.listItemTouchArea}
+      <View key={"achievement-" + rowID} style={[categoryStyles.listItem, {flex: 1, flexDirection: 'row'}]}>
+        <TouchableOpacity style={[categoryStyles.listItemTouchArea, {flex: 1, flexDirection: 'row'}]}
                           onPress={() => {
                             const route = {name: "achievement"};
                             this.props.actions.selectAchievement(achievement, route);
@@ -86,8 +86,8 @@ class Achievements extends Component {
           }}>
           <View style={{flexDirection: 'row', flex: 1}}>
             {this.renderDoneMark(achievement)}
-            <Text style={[{textAlign: 'left'}, categoryStyles.textColor, categoryStyles.listItemTitle]}>{achievement.title}</Text>
-            {renderRightArrow(this.renderAchievementCount(achievement.achievement_count))}
+            <Text style={[{textAlign: 'left'}, categoryStyles.textColor]}>{achievement.title}</Text>
+            {renderRightArrow(this.renderAchievementCount(achievement.achievement_count, this.props.lang))}
           </View>
         </TouchableOpacity>
       </View>
@@ -189,9 +189,25 @@ class Achievements extends Component {
       });
   }
 
+  leadingScoreText(score, lang) {
+    return t("Kärjessä: ${score} tehtyä tehtävää", lang).replace("${score}", score);
+  }
+
+  averageScoreText(groupTitle, average, lang) {
+    return t("${groupTitle} tehneet keskimäärin ${average} tehtävää", lang)
+      .replace("${groupTitle}", groupTitle)
+      .replace("${average}", average);
+  }
+
   renderAchievements(navigator) {
     return (
       <View style={{flex: 1}}>
+        <Text style={[categoryStyles.textColor, {marginLeft: 5, marginTop: 0, fontWeight: 'bold'}]}>
+          {this.leadingScoreText(this.props.agelevel.leading_score, this.props.lang)}
+        </Text>
+        <Text style={[categoryStyles.textColor, {marginLeft: 5, marginTop: 0, fontStyle: 'italic'}]}>
+          {this.averageScoreText(this.props.agelevel.title, this.props.agelevel.average_score, this.props.lang)}
+        </Text>
         <ListView key={"achievements"}
                   enableEmptySections={true}
                   dataSource={this.props.achievementsDataSource}
