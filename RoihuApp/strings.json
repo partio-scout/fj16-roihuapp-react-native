@@ -105,7 +105,8 @@
     "Haun tarkennukset": "Search details",
     "Kärjessä: ${score} tehtyä tehtävää": "Top: ${score} completed activities",
     "${groupTitle} tehneet keskimäärin ${average} tehtävää": "${groupTitle} average: ${average} activities",
-    "leirissä\ntehty": "camp\ntotal"
+    "leirissä\ntehty": "camp\ntotal",
+    "Edistymisesi: ${done}/${total}": "Your progress: ${done}/${total}"
   },
   "fi": {
     "Kalenteri": "Kalenteri",
@@ -213,7 +214,8 @@
     "Haun tarkennukset": "Haun tarkennukset",
     "Kärjessä: ${score} tehtyä tehtävää": "Kärjessä: ${score} tehtyä aktiviteettiä",
     "${groupTitle} tehneet keskimäärin ${average} tehtävää": "${groupTitle} tehneet keskimäärin ${average} aktiviteettiä",
-    "leirissä\ntehty": "leirissä\ntehty"
+    "leirissä\ntehty": "leirissä\ntehty",
+    "Edistymisesi: ${done}/${total}": "Edistymisesi: ${done}/${total}"
   },
   "sv": {
     "Kalenteri": "Kalendar",
@@ -321,6 +323,7 @@
     "Haun tarkennukset": "Sökjusteringar",
     "Kärjessä: ${score} tehtyä tehtävää": "I ledningen: ${score} utförda aktiviteter",
     "${groupTitle} tehneet keskimäärin ${average} tehtävää": "${groupTitle} medeltal: ${average} utförda aktiviteter",
-    "leirissä\ntehty": "utförd\npå lägret"
+    "leirissä\ntehty": "utförd\npå lägret",
+    "Edistymisesi: ${done}/${total}": "Du har utfört: ${done}/${total} aktiviteter"
   }
 }

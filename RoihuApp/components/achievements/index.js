@@ -199,6 +199,14 @@ class Achievements extends Component {
       .replace("${average}", average);
   }
 
+  progressText(agelevel, lang) {
+    const done = agelevel.achievements.filter((a) => a.userAchieved).length;
+    const total = agelevel.achievements.length;
+    return t("Edistymisesi: ${done}/${total}", lang)
+      .replace("${done}", done)
+      .replace("${total}", total);
+  }
+
   renderAchievements(navigator) {
     return (
       <View style={{flex: 1}}>
@@ -208,6 +216,7 @@ class Achievements extends Component {
         <Text style={[categoryStyles.textColor, {marginLeft: 5, marginTop: 0, fontStyle: 'italic'}]}>
           {this.averageScoreText(this.props.agelevel.title, this.props.agelevel.average_score, this.props.lang)}
         </Text>
+        <Text style={{fontWeight: 'bold', marginLeft: 5}}>{this.progressText(this.props.agelevel, this.props.lang)}</Text>
         <ListView key={"achievements"}
                   enableEmptySections={true}
                   dataSource={this.props.achievementsDataSource}
