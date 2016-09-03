@@ -1,10 +1,6 @@
 # RoihuApp - React Native
 
-Mobile application for Roihu Finnjamboree 2016. Targets firstly Android, but may work on iOS too.
-
-## Progress Status
-
-The link https://partio.sharepoint.com/sites/roihu/tiimit/elamys/_layouts/15/guestaccess.aspx?guestaccesstoken=FTGwIxZVpCYVa2RGi8XYNNkVK5PJZj0Q7OLCfMAAWBY%3d&docid=0637c55097a274bf0a1c851c414f0efb3 contains the progress status for this React Native project, as well as the sibling Cordova project, and the backend project.
+Mobile application for Roihu Finnjamboree 2016. Targets both Android and iOS.
 
 ## Development
 
