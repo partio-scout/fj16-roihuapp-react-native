@@ -174,7 +174,7 @@ class Calendar extends Component {
     const doFetch = R.partial(fetchData,
                              ["Fetching user calendar",
                               this.props.actions.setFetchStatus,
-                              `/RoihuUsers/${this.props.credentials.userId}/calendar`,
+                              `/ApiUsers/${this.props.credentials.userId}/calendar`,
                               {access_token: this.props.credentials.token},
                               (data) => this.props.actions.setCalendar(data.calendar),
                               this.props.lang,

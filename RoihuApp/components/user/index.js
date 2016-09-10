@@ -162,7 +162,7 @@ class User extends Component {
 
   fetchUserInfo(credentials) {
     console.log("Fetching user info");
-    fetch(config.apiUrl + "/RoihuUsers/" + credentials.userId + "?access_token=" + credentials.token)
+    fetch(config.apiUrl + "/ApiUsers/" + credentials.userId + "?access_token=" + credentials.token)
       .then((response) => {
         switch (response.status) {
         case 200:

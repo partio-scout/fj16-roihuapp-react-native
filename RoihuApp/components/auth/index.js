@@ -168,7 +168,7 @@ class Auth extends Component {
                     lang={this.props.lang}
                     send={(text) => {
                       this.props.actions.setEmail(text);
-                      fetch(config.apiUrl + "/RoihuUsers/emailLogin", {
+                      fetch(config.apiUrl + "/ApiUsers/emailLogin", {
                         method: "POST",
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify({email: text})

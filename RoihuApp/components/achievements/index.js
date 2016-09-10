@@ -155,7 +155,7 @@ class Achievements extends Component {
   markAchievement(achievementid, done) {
     console.log(`Marking achievement ${achievementid} ${(done ? "done" : "not done")}`);
     const { credentials, lang } = this.props;
-    fetch(config.apiUrl + "/RoihuUsers/" + credentials.userId + "/achievements/rel/" + achievementid + "?access_token=" + credentials.token, {
+    fetch(config.apiUrl + "/ApiUsers/" + credentials.userId + "/achievements/rel/" + achievementid + "?access_token=" + credentials.token, {
       method: done ? "PUT" : "DELETE",
       headers: {'Content-Type': 'application/json'},
       body: ""}).
