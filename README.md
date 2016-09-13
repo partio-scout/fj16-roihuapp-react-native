@@ -25,7 +25,7 @@ Alternatively, if the Android application is already installed, start it on the 
 
     npm start
 
-, which starts React Native Packager, after which changes are visible in the app (enable ```Live Reload``` for fast feedback).
+which starts React Native Packager, after which changes are visible in the app (enable ```Live Reload``` for fast feedback).
 
 For starting the app in iOS simulator use
 
